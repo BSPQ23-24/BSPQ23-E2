@@ -1,4 +1,4 @@
-package com.deusto.app.server;
+package domain;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
