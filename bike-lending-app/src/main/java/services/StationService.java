@@ -39,4 +39,38 @@ public class StationService {
         }
         return bikes;
     }
+    
+    
+ // Devuelve todas las bicis de la estacion especifica que quieras
+    public List<Bicycle> getAvailableBikesAtStation(int stationId) {
+        PersistenceManager pm = PMF.get().getPersistenceManager();
+        List<Bicycle> availableBikes = null;
+        try {
+            Query query = pm.newQuery(Bicycle.class);
+            query.setFilter("stationID == " + stationId + " && isAvailable == true");
+            availableBikes = (List<Bicycle>) query.execute();
+        } finally {
+            pm.close();
+        }
+        return availableBikes;
+    }
+
+    //Para seleccionar una bici especifica de las disponibles en una estacion
+    public Bicycle selectBike(int stationId, int bikeId) {
+        PersistenceManager pm = PMF.get().getPersistenceManager();
+        Bicycle selectedBike = null;
+        try {
+            Query query = pm.newQuery(Bicycle.class);
+            query.setFilter("stationID == " + stationId + " && ID == " + bikeId + " && isAvailable == true");
+            List<Bicycle> bikes = (List<Bicycle>) query.execute();
+            if (!bikes.isEmpty()) {
+                selectedBike = bikes.get(0);
+                selectedBike.setAvailable(false);
+                pm.makePersistent(selectedBike);
+            }
+        } finally {
+            pm.close();
+        }
+        return selectedBike;
+    }
 }
