@@ -1,11 +1,12 @@
-package com.deusto.app.server;
+package com.deusto.app.client.main;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class BikeServerManager implements ActionListener, Runnable {
+public class BikeClient implements ActionListener, Runnable {
+	
 
-	public BikeServerManager(String hostname, String port) {
+	public BikeClient(String hostname, String port) {
 		// TODO Auto-generated constructor stub
 	}
 
@@ -13,7 +14,7 @@ public class BikeServerManager implements ActionListener, Runnable {
 		String hostname = args[0];
 		String port = args[1];
 
-		new BikeServerManager(hostname, port);
+		new BikeClient(hostname, port);
 	}
 
 	@Override

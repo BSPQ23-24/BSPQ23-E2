@@ -1,4 +1,4 @@
-package services;
+package com.deusto.app.server.services;
 
 import domain.Bicycle;
 import domain.Station;

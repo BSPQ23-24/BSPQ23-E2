@@ -209,7 +209,7 @@
 						<artifactId>exec-maven-plugin</artifactId>
 						<version>1.2.1</version>
 						<configuration>
-							<mainClass>com.deusto.app.server.BikeServerManager</mainClass>
+							<mainClass>com.deusto.app.server.main.BikeServerManager</mainClass>
 							<arguments>
 								<argument>${server.hostname}</argument>
 								<argument>${server.port}</argument>
@@ -230,7 +230,7 @@
 						<artifactId>exec-maven-plugin</artifactId>
 						<version>1.2.1</version>
 						<configuration>
-							<mainClass>com.deusto.app.client.BikeClient</mainClass>
+							<mainClass>com.deusto.app.client.main.BikeClient</mainClass>
 							<arguments>
 								<argument>${server.hostname}</argument>
 								<argument>${server.port}</argument>
