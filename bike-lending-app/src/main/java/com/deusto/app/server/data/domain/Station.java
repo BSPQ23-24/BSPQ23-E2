@@ -1,4 +1,4 @@
-package com.deusto.app.domain;
+package com.deusto.app.server.data.domain;
 
 import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.PrimaryKey;

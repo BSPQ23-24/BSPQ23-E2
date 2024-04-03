@@ -1,6 +1,7 @@
 package com.deusto.app.server.services;
 
 import javax.jdo.PersistenceManager;
+import com.deusto.app.server.data.domain.*;
 
 public class UserService {
 

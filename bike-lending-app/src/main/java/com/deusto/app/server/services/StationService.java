@@ -1,7 +1,6 @@
 package com.deusto.app.server.services;
 
-import domain.Bicycle;
-import domain.Station;
+import com.deusto.app.server.data.domain.*;
 
 import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
