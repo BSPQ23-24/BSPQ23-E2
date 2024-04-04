@@ -15,7 +15,7 @@ public class StationService {
     	PersistenceManagerFactory pm = JDOHelper.getPersistenceManagerFactory("datanucleus.properties");
         List<Station> stations = null;
         try {
-            Query query = pm.newQuery(Station.class);
+            Query query = ((PersistenceManager) pm).newQuery(Station.class);
             query.setFilter("isAvailable == true");
             stations = (List<Station>) query.execute();
             for (Station station : stations) {
@@ -29,7 +29,7 @@ public class StationService {
 
     // Devuelve las bicis de cada estacion
     private List<Bicycle> getAvailableBikesForStation(int stationId) {
-        PersistenceManager pm = PMF.get().getPersistenceManager();
+    	PersistenceManagerFactory pm = JDOHelper.getPersistenceManagerFactory("datanucleus.properties");
         List<Bicycle> bikes = null;
         try {
             Query query = pm.newQuery(Bicycle.class);
@@ -44,7 +44,7 @@ public class StationService {
     
  // Devuelve todas las bicis de la estacion especifica que quieras
     public List<Bicycle> getAvailableBikesAtStation(int stationId) {
-        PersistenceManager pm = PMF.get().getPersistenceManager();
+    	PersistenceManagerFactory pm = JDOHelper.getPersistenceManagerFactory("datanucleus.properties");
         List<Bicycle> availableBikes = null;
         try {
             Query query = pm.newQuery(Bicycle.class);
@@ -58,7 +58,7 @@ public class StationService {
 
     //Para seleccionar una bici especifica de las disponibles en una estacion
     public Bicycle selectBike(int stationId, int bikeId) {
-        PersistenceManager pm = PMF.get().getPersistenceManager();
+    	PersistenceManagerFactory pm = JDOHelper.getPersistenceManagerFactory("datanucleus.properties");
         Bicycle selectedBike = null;
         try {
             Query query = pm.newQuery(Bicycle.class);

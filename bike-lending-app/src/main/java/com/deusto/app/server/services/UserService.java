@@ -1,12 +1,15 @@
 package com.deusto.app.server.services;
 
+import javax.jdo.JDOHelper;
 import javax.jdo.PersistenceManager;
+import javax.jdo.PersistenceManagerFactory;
+
 import com.deusto.app.server.data.domain.*;
 
 public class UserService {
 
     public void registerUser(String DNI, String name, String surname, Date dateOfBirth, String phone, String mail) {
-        PersistenceManager pm = PMF.get().getPersistenceManager();
+    	PersistenceManagerFactory pm = JDOHelper.getPersistenceManagerFactory("datanucleus.properties");
         try {
             User user = new User();
             user.setDNI(DNI);
