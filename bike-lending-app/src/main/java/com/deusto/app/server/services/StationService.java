@@ -12,14 +12,15 @@ public class StationService {
 
     // Devuleve todas las estaciones con caada una def las bicis que tenga
     public List<Station> getAllAvailableStationsWithBikes() {
-    	PersistenceManagerFactory pm = JDOHelper.getPersistenceManagerFactory("datanucleus.properties");
+        PersistenceManagerFactory pmf = JDOHelper.getPersistenceManagerFactory("datanucleus.properties");
+        PersistenceManager pm = pmf.getPersistenceManager();
         List<Station> stations = null;
         try {
-            Query query = ((PersistenceManager) pm).newQuery(Station.class);
+            Query query = pmf.newQuery(Station.class);
             query.setFilter("isAvailable == true");
             stations = (List<Station>) query.execute();
             for (Station station : stations) {
-                station.setBikes(getAvailableBikesForStation(station.getID()));
+                station.setBicycles(getAvailableBikesForStation(station.getID()));
             }
         } finally {
             pm.close();

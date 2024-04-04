@@ -4,6 +4,8 @@ import javax.jdo.JDOHelper;
 import javax.jdo.PersistenceManager;
 import javax.jdo.PersistenceManagerFactory;
 
+import org.datanucleus.store.types.wrappers.Date;
+
 import com.deusto.app.server.data.domain.*;
 
 public class UserService {

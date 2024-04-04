@@ -1,14 +1,16 @@
 package com.deusto.app.server.data.domain;
 
+import java.util.List;
+
 import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.PrimaryKey;
 
 @PersistenceCapable(detachable="true")
 public class Station {
     @PrimaryKey
-  //@Persistent(valueStrategy = IdGeneratorStrategy.INCREMENT)  // Tampoco se si es necesario o hace la incrementacion sola
     private int ID;
     private String location;
+    private List<Bicycle> bicycles;
 
     public int getID() {
         return ID;
@@ -24,6 +26,14 @@ public class Station {
 
     public void setLocation(String location) {
         this.location = location;
+    }
+
+    public List<Bicycle> getBicycles() {
+        return bicycles;
+    }
+
+    public void setBicycles(List<Bicycle> bicycles) {
+        this.bicycles = bicycles;
     }
 
     public String toString() {
