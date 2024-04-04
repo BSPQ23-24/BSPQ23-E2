@@ -2,7 +2,9 @@ package com.deusto.app.server.services;
 
 import com.deusto.app.server.data.domain.*;
 
+import javax.jdo.JDOHelper;
 import javax.jdo.PersistenceManager;
+import javax.jdo.PersistenceManagerFactory;
 import javax.jdo.Query;
 import java.util.List;
 
@@ -10,7 +12,7 @@ public class StationService {
 
     // Devuleve todas las estaciones con caada una def las bicis que tenga
     public List<Station> getAllAvailableStationsWithBikes() {
-        PersistenceManager pm = PMF.get().getPersistenceManager();
+    	PersistenceManagerFactory pm = JDOHelper.getPersistenceManagerFactory("datanucleus.properties");
         List<Station> stations = null;
         try {
             Query query = pm.newQuery(Station.class);
