@@ -33,7 +33,7 @@ public class BikeClient {
 	public BikeClient(String hostname, String port) {
 		// TODO Auto-generated constructor stub
 		client = ClientBuilder.newClient();
-		webTarget = client.target(String.format("http://%s:%s/rest/user", hostname, port)); // Pongo user por poner algo, habría que cambiarlo
+		webTarget = client.target(String.format("http://%s:%s/rest", hostname, port)); // Pongo user por poner algo, habría que cambiarlo
 	}
 
 	public static void main(String[] args) {
@@ -48,9 +48,7 @@ public class BikeClient {
 	
 	public void registerUser(String dni, String password, String name, String surname, String dateOfBirth, String phone, String mail) {
 		
-		SimpleDateFormat dateFormatter = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
-		
-		WebTarget registerUserWebTarget = webTarget.path("register");
+		WebTarget registerUserWebTarget = webTarget.path("user/register");
 		Invocation.Builder invocationBuilder = registerUserWebTarget.request(MediaType.APPLICATION_JSON);
 		
 		UserData userData = new UserData();
@@ -58,11 +56,7 @@ public class BikeClient {
 		userData.setPassword(password);
 		userData.setName(name);
 		userData.setSurname(surname);
-		try {
-			userData.setDateOfBirth(dateFormatter.parse(dateOfBirth));
-		} catch (ParseException e) {
-			logger.info("Exception launched: {}", e.getMessage());
-		}
+		userData.setDateOfBirth(dateOfBirth);
 		userData.setPhone(phone);
 		userData.setMail(mail);
 		

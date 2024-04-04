@@ -1,24 +1,20 @@
 package com.deusto.app.server.data.domain;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
-
 import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.PrimaryKey;
 
-@PersistenceCapable(detachable = "true")
+@PersistenceCapable
 public class User {
 	@PrimaryKey
 	private String dni;
 	private String name;
 	private String password;
 	private String surname;
-	private Date dateOfBirth;
+	private String dateOfBirth;
 	private String phone;
 	private String mail;
 	
-	public User(String dni, String password, String name, String surname, Date dateOfBirth, String phone, String mail) {
+	public User(String dni, String password, String name, String surname, String dateOfBirth, String phone, String mail) {
 		super();
 		this.dni = dni;
 		this.name = name;
@@ -53,11 +49,11 @@ public class User {
 		this.surname = surname;
 	}
 
-	public Date getDateOfBirth() {
+	public String getDateOfBirth() {
 		return dateOfBirth;
 	}
 
-	public void setDateOfBirth(Date dateOfBirth) {
+	public void setDateOfBirth(String dateOfBirth) {
 		this.dateOfBirth = dateOfBirth;
 	}
 
@@ -86,8 +82,6 @@ public class User {
 	}
 
 	public String toString() {
-		SimpleDateFormat dateFormatter = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
-
 		StringBuilder result = new StringBuilder();
 
 		result.append("DNI: ");
@@ -99,7 +93,7 @@ public class User {
 		result.append(" / Surname: ");
 		result.append(this.surname);
 		result.append(" / Date of Birth: ");
-		result.append(dateFormatter.format(this.dateOfBirth));
+		result.append(this.dateOfBirth);
 		result.append(" / Phone: ");
 		result.append(this.phone);
 		result.append(" / Email: ");

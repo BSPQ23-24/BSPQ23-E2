@@ -8,7 +8,7 @@ public class UserData {
 	private String password;
 	private String name;
 	private String surname;
-	private Date dateOfBirth;
+	private String dateOfBirth;
 	private String phone;
 	private String mail;
 
@@ -48,11 +48,11 @@ public class UserData {
 		this.surname = surname;
 	}
 
-	public Date getDateOfBirth() {
+	public String getDateOfBirth() {
 		return dateOfBirth;
 	}
 
-	public void setDateOfBirth(Date dateOfBirth) {
+	public void setDateOfBirth(String dateOfBirth) {
 		this.dateOfBirth = dateOfBirth;
 	}
 

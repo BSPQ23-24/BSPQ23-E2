@@ -4,6 +4,7 @@ import javax.jdo.JDOHelper;
 import javax.jdo.PersistenceManager;
 import javax.jdo.PersistenceManagerFactory;
 import javax.jdo.Transaction;
+import jakarta.ws.rs.GET;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -21,14 +22,14 @@ import com.deusto.app.server.pojo.UserData;
 
 @Path("/user")
 @Produces(MediaType.APPLICATION_JSON)
-public class UserService {
+public class UserResource {
 	
 	protected static final Logger logger = LogManager.getLogger();
 	
 	private PersistenceManager pm=null;
 	private Transaction tx=null;
 	
-	public UserService() {
+	public UserResource() {
 		PersistenceManagerFactory pmf = JDOHelper.getPersistenceManagerFactory("datanucleus.properties");
 		this.pm = pmf.getPersistenceManager();
 		this.tx = pm.currentTransaction();
@@ -70,4 +71,11 @@ public class UserService {
       
 		}
     }
+	
+	@GET
+	@Path("/hello")
+	@Produces(MediaType.TEXT_PLAIN)
+	public Response sayHello() {
+		return Response.ok("Hello world!").build();
+	}
 }

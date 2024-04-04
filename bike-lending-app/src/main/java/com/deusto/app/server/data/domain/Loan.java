@@ -88,7 +88,7 @@ public class Loan {
         result.append(" / Bicycle ID: ");
         result.append(this.bicycle.getID());
         result.append(" / User DNI: ");
-        result.append(this.user.getDNI());
+        result.append(this.user.getDni());
 
         return result.toString();
     }
