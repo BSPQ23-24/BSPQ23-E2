@@ -18,7 +18,7 @@ public class User {
 	private String phone;
 	private String mail;
 	
-	public User(String dni, String name, String password, String surname, Date dateOfBirth, String phone, String mail) {
+	public User(String dni, String password, String name, String surname, Date dateOfBirth, String phone, String mail) {
 		super();
 		this.dni = dni;
 		this.name = name;
@@ -86,7 +86,7 @@ public class User {
 	}
 
 	public String toString() {
-		SimpleDateFormat dateFormatter = new SimpleDateFormat("dd-MMM-yyyy", Locale.getDefault());
+		SimpleDateFormat dateFormatter = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
 
 		StringBuilder result = new StringBuilder();
 

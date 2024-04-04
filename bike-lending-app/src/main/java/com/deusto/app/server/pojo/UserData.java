@@ -20,7 +20,7 @@ public class UserData {
 		return dni;
 	}
 
-	public void setD(String dni) {
+	public void setDni(String dni) {
 		this.dni = dni;
 	}
 
