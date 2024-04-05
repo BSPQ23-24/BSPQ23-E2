@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-public class LoginUI extends JFrame {
+public class RegisterUI extends JFrame {
     /**
 	 * 
 	 */
@@ -12,7 +12,7 @@ public class LoginUI extends JFrame {
 	private JTextField usernameField;
     private JPasswordField passwordField;
 
-    public LoginUI() {
+    public RegisterUI() {
         setTitle("Login");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(300, 150);
@@ -52,7 +52,7 @@ public class LoginUI extends JFrame {
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
-                new LoginUI();
+                new RegisterUI();
             }
         });
     }
