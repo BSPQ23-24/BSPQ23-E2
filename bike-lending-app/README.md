@@ -9,6 +9,10 @@ Make sure that the database was correctly configured. Use the contents of the fi
 
       mysql -u root -p < create-bikes.sql
 
+Make sure the classes are enhanced
+
+      mvn datanucleus:enhance
+
 Run the following command to create database schema for this sample.
 
       mvn datanucleus:schema-create

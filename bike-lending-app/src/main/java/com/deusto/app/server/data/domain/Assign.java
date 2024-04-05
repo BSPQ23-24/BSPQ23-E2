@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
+import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
@@ -11,8 +12,8 @@ import javax.jdo.annotations.PrimaryKey;
 @PersistenceCapable(detachable="true")
 public class Assign {
     @PrimaryKey
-    //@Persistent(valueStrategy = IdGeneratorStrategy.INCREMENT)  // Nose si es necesario o hace la incrementacion sola
-    private int ID;
+    @Persistent(valueStrategy = IdGeneratorStrategy.INCREMENT)  // Nose si es necesario o hace la incrementacion sola
+    private int id;
     private Date assignDate;
 
     @Persistent(defaultFetchGroup="true")
@@ -22,12 +23,12 @@ public class Assign {
     private Station station;
 
 
-    public int getID() {
-        return ID;
+    public int getId() {
+        return id;
     }
 
-    public void setID(int ID) {
-        this.ID = ID;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public Date getAssignDate() {
@@ -60,11 +61,11 @@ public class Assign {
         StringBuilder result = new StringBuilder();
 
         result.append("Assignment ID: ");
-        result.append(this.ID);
+        result.append(this.id);
         result.append(" / Assigned Bicycle: ");
-        result.append(this.bicycle.getID());
+        result.append(this.bicycle.getId());
         result.append(" / Assigned Station: ");
-        result.append(this.station.getID());
+        result.append(this.station.getId());
         result.append(" / Assignment Date: ");
         result.append(dateFormatter.format(this.assignDate));
 
@@ -75,7 +76,7 @@ public class Assign {
     @Override
     public boolean equals(Object obj) {
         if (this.getClass().getName().equals(obj.getClass().getName())) {
-            return this.ID == ((Assign)obj).ID;
+            return this.id == ((Assign)obj).id;
         }
 
         return false;

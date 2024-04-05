@@ -1,7 +1,5 @@
 package com.deusto.app.server.pojo;
 
-import java.util.Date;
-
 public class UserData {
 
 	private String dni;
