@@ -1,5 +1,7 @@
 package com.deusto.app.server.data.domain;
 
+import java.util.List;
+
 import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
@@ -7,45 +9,55 @@ import javax.jdo.annotations.PrimaryKey;
 
 @PersistenceCapable(detachable = "true")
 public class Station {
-	@PrimaryKey
-	@Persistent(valueStrategy = IdGeneratorStrategy.INCREMENT) // Tampoco se si es necesario o hace la incrementacion
-																// sola
-	private int id;
-	private String location;
+    @PrimaryKey
+    @Persistent(valueStrategy = IdGeneratorStrategy.INCREMENT)
+    private int id;
+    private String location;
+    
+    @Persistent(mappedBy = "station")
+    private List<Bicycle> bikes;
 
-	public int getId() {
-		return id;
-	}
+    public int getId() {
+        return id;
+    }
 
-	public void setId(int id) {
-		this.id = id;
-	}
+    public void setId(int id) {
+        this.id = id;
+    }
 
-	public String getLocation() {
-		return location;
-	}
+    public String getLocation() {
+        return location;
+    }
 
-	public void setLocation(String location) {
-		this.location = location;
-	}
+    public void setLocation(String location) {
+        this.location = location;
+    }
 
-	public String toString() {
-		StringBuilder result = new StringBuilder();
+    public List<Bicycle> getBikes() {
+        return bikes;
+    }
 
-		result.append("Station ID: ");
-		result.append(this.id);
-		result.append(" / Location: ");
-		result.append(this.location);
+    public void setBikes(List<Bicycle> bikes) {
+        this.bikes = bikes;
+    }
 
-		return result.toString();
-	}
+    public String toString() {
+        StringBuilder result = new StringBuilder();
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this.getClass().getName().equals(obj.getClass().getName())) {
-			return this.id == ((Station) obj).id;
-		}
+        result.append("Station ID: ");
+        result.append(this.id);
+        result.append(" / Location: ");
+        result.append(this.location);
 
-		return false;
-	}
+        return result.toString();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this.getClass().getName().equals(obj.getClass().getName())) {
+            return this.id == ((Station) obj).id;
+        }
+
+        return false;
+    }
 }

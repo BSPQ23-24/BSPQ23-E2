@@ -17,6 +17,17 @@ public class Bicycle {
     private Date acquisitionDate;
     private String type;
     private boolean isAvailable;
+    @Persistent(defaultFetchGroup="true")
+    private Station station; // Relación con la estación
+
+
+    public Station getStation() {
+        return station;
+    }
+
+    public void setStation(Station station) {
+        this.station = station;
+    }
 
 
     public int getId() {
