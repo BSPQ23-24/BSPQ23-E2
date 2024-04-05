@@ -13,26 +13,26 @@ public class RegisterUI extends JFrame {
     private JPasswordField passwordField;
 
     public RegisterUI() {
-        setTitle("Login");
+        setTitle("Register");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(300, 150);
         setLocationRelativeTo(null);
 
         JPanel panel = new JPanel();
-        panel.setLayout(new GridLayout(3, 2));
+        panel.setLayout(new GridLayout(4, 2));
 
         JLabel usernameLabel = new JLabel("Username:");
         JLabel passwordLabel = new JLabel("Password:");
         usernameField = new JTextField();
         passwordField = new JPasswordField();
-        JButton loginButton = new JButton("Login");
+        JButton registerButton = new JButton("Register");
 
-        loginButton.addActionListener(new ActionListener() {
+        registerButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String username = usernameField.getText();
                 String password = new String(passwordField.getPassword());
-                // Add login logic here
+                // Add register logic here
                 System.out.println("Username: " + username);
                 System.out.println("Password: " + password);
             }
@@ -42,7 +42,10 @@ public class RegisterUI extends JFrame {
         panel.add(usernameField);
         panel.add(passwordLabel);
         panel.add(passwordField);
-        panel.add(loginButton);
+        panel.add(new JLabel()); // Empty label to occupy space
+        panel.add(new JLabel()); // Empty label to occupy space
+        panel.add(new JLabel()); // Empty label to occupy space
+        panel.add(registerButton);
 
         add(panel);
         setVisible(true);
