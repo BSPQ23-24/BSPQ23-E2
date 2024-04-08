@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
+import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
@@ -11,7 +12,8 @@ import javax.jdo.annotations.PrimaryKey;
 @PersistenceCapable(detachable="true")
 public class Loan {
     @PrimaryKey
-    private int ID;
+    @Persistent(valueStrategy = IdGeneratorStrategy.INCREMENT)
+    private int id;
     private Date loanDate;
     private String startHour;
     private String endHour;
@@ -23,12 +25,12 @@ public class Loan {
     private User user;
 
 
-    public int getID() {
-        return ID;
+    public int getId() {
+        return id;
     }
 
-    public void setID(int ID) {
-        this.ID = ID;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public Date getLoanDate() {
@@ -78,7 +80,7 @@ public class Loan {
         StringBuilder result = new StringBuilder();
 
         result.append("Loan ID: ");
-        result.append(this.ID);
+        result.append(this.id);
         result.append(" / Loan Date: ");
         result.append(dateFormatter.format(this.loanDate));
         result.append(" / Start Hour: ");
@@ -86,7 +88,7 @@ public class Loan {
         result.append(" / End Hour: ");
         result.append(this.endHour);
         result.append(" / Bicycle ID: ");
-        result.append(this.bicycle.getID());
+        result.append(this.bicycle.getId());
         result.append(" / User DNI: ");
         result.append(this.user.getDni());
 
@@ -97,7 +99,7 @@ public class Loan {
     @Override
     public boolean equals(Object obj) {
         if (this.getClass().getName().equals(obj.getClass().getName())) {
-            return this.ID == ((Loan)obj).ID;
+            return this.id == ((Loan)obj).id;
         }
 
         return false;

@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
+import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
@@ -11,19 +12,30 @@ import javax.jdo.annotations.PrimaryKey;
 @PersistenceCapable(detachable="true")
 public class Bicycle {
     @PrimaryKey
-  //@Persistent(valueStrategy = IdGeneratorStrategy.INCREMENT)  // Tampoco se si es necesario o hace la incrementacion sola
-    private int ID;
+    @Persistent(valueStrategy = IdGeneratorStrategy.INCREMENT)  // Tampoco se si es necesario o hace la incrementacion sola
+    private int id;
     private Date acquisitionDate;
     private String type;
     private boolean isAvailable;
+    @Persistent(defaultFetchGroup="true")
+    private Station station; // Relación con la estación
 
 
-    public int getID() {
-        return ID;
+    public Station getStation() {
+        return station;
     }
 
-    public void setID(int ID) {
-        this.ID = ID;
+    public void setStation(Station station) {
+        this.station = station;
+    }
+
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public Date getAcquisitionDate() {
@@ -57,7 +69,7 @@ public class Bicycle {
         StringBuilder result = new StringBuilder();
 
         result.append("ID: ");
-        result.append(this.ID);
+        result.append(this.id);
         result.append(" / Type: ");
         result.append(this.type);
         result.append(" / Acquisition Date: ");
@@ -72,7 +84,7 @@ public class Bicycle {
     @Override
     public boolean equals(Object obj) {
         if (this.getClass().getName().equals(obj.getClass().getName())) {
-            return this.ID == ((Bicycle)obj).ID;
+            return this.id == ((Bicycle)obj).id;
         }
 
         return false;

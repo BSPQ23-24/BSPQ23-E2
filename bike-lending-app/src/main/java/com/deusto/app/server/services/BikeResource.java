@@ -1,30 +1,24 @@
 package com.deusto.app.server.services;
+import java.util.Date;
 
 import javax.jdo.JDOHelper;
 import javax.jdo.PersistenceManager;
 import javax.jdo.PersistenceManagerFactory;
-import javax.jdo.Query;
 import javax.jdo.Transaction;
+
 import jakarta.ws.rs.GET;
-
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
+import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
-
-import com.deusto.app.server.data.domain.*;
-
 import java.util.List;
+import com.deusto.app.server.data.domain.Bicycle;
+import com.deusto.app.server.data.domain.Station;
 
 @Path("/bike")
 @Produces(MediaType.APPLICATION_JSON)
 public class BikeResource {
-
-    protected static final Logger logger = LogManager.getLogger();
-
     private PersistenceManager pm = null;
     private Transaction tx = null;
 
@@ -34,34 +28,40 @@ public class BikeResource {
         this.tx = pm.currentTransaction();
     }
 
-    @GET
-    @Path("/select")
-    public Response selectBike() {
+    @POST
+    @Path("/create")
+    public Response createBike(int stationId, Bicycle bikeData) {
         try {
             tx.begin();
 
-            Query query = pm.newQuery(Bicycle.class);
-            query.setFilter("isAvailable == true");
-            List<Bicycle> availableBikes = (List<Bicycle>) query.execute();
+         // creation of new station
+            Station station = new Station();
+            station.setLocation("Central Park");
 
-            if (!availableBikes.isEmpty()) {
-                Bicycle selectedBike = availableBikes.get(0);
-                selectedBike.setAvailable(false); 
-                pm.makePersistent(selectedBike); 
-                tx.commit();
-                return Response.ok("Bike with ID: " + selectedBike.getID() + " selected!").build();
-            } else {
-                tx.rollback();
-                return Response.status(Response.Status.NOT_FOUND).entity("No available bikes found").build();
-            }
+            pm.makePersistent(station);
+
+            // creation of new bicycle
+            Bicycle bike = new Bicycle();
+            bike.setAcquisitionDate(new Date());
+            bike.setType("Mountain Bike");
+
+            bike.setStation(station);
+
+            pm.makePersistent(bike);
+
+            tx.commit();
+
+            return Response.ok(bike).build();
         } catch (Exception e) {
-            logger.error("Error selecting bike: {}", e.getMessage());
             if (tx.isActive()) {
                 tx.rollback();
             }
-            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("Error selecting bike").build();
+            e.printStackTrace();
+            return Response.serverError().build();
         } finally {
-            pm.close();
+            if (pm != null && !pm.isClosed()) {
+                pm.close();
+            }
         }
     }
 
@@ -105,6 +105,41 @@ public class BikeResource {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("Error displaying stations and bikes").build();
         } finally {
             pm.close();
+
+    @Path("/select")
+    public Response selectBike(int stationId) {
+        try {
+            tx.begin();
+
+            Station station = pm.getObjectById(Station.class, stationId);
+
+         // Get the first bike available at the station
+            Bicycle selectedBike = null;
+            for (Bicycle bike : station.getBikes()) {
+                if (bike.isAvailable()) {
+                    selectedBike = bike;
+                    break;
+                }
+            }
+
+            if (selectedBike != null) {
+                selectedBike.setAvailable(false);
+                tx.commit();
+                return Response.ok(selectedBike).build();
+            } else {
+                tx.rollback();
+                return Response.status(Response.Status.NOT_FOUND).entity("No available bikes at this station").build();
+            }
+        } catch (Exception e) {
+            if (tx.isActive()) {
+                tx.rollback();
+            }
+            e.printStackTrace();
+            return Response.serverError().build();
+        } finally {
+            if (pm != null && !pm.isClosed()) {
+                pm.close();
+            }
         }
     }
 }
