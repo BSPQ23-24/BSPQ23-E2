@@ -1,5 +1,4 @@
 package com.deusto.app.server.services;
-
 import java.util.Date;
 
 import javax.jdo.JDOHelper;
@@ -13,14 +12,13 @@ import jakarta.ws.rs.Path;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
-
+import java.util.List;
 import com.deusto.app.server.data.domain.Bicycle;
 import com.deusto.app.server.data.domain.Station;
 
 @Path("/bike")
 @Produces(MediaType.APPLICATION_JSON)
 public class BikeResource {
-    
     private PersistenceManager pm = null;
     private Transaction tx = null;
 
@@ -68,6 +66,46 @@ public class BikeResource {
     }
 
     @GET
+    @Path("/stations")
+    public Response displayStationsAndBikes() {
+        try {
+            tx.begin();
+
+            Query stationQuery = pm.newQuery(Station.class);
+            List<Station> stations = (List<Station>) stationQuery.execute();
+
+            StringBuilder result = new StringBuilder();
+            for (Station station : stations) {
+                result.append("Station ID: ").append(station.getID()).append(" / Location: ").append(station.getLocation()).append("\n");
+
+                Query bikeQuery = pm.newQuery(Bicycle.class);
+                bikeQuery.setFilter("station == stationParam");
+                bikeQuery.declareParameters("com.deusto.app.server.data.domain.Station stationParam");
+                List<Bicycle> bikesAtStation = (List<Bicycle>) bikeQuery.execute(station);
+
+                if (!bikesAtStation.isEmpty()) {
+                    result.append("Bikes at this station: ");
+                    for (Bicycle bike : bikesAtStation) {
+                        result.append(bike.getID()).append(", ");
+                    }
+                    result.setLength(result.length() - 2);
+                    result.append("\n");
+                } else {
+                    result.append("No bikes at this station\n");
+                }
+            }
+
+            tx.commit();
+            return Response.ok(result.toString()).build();
+        } catch (Exception e) {
+            logger.error("Error displaying stations and bikes: {}", e.getMessage());
+            if (tx.isActive()) {
+                tx.rollback();
+            }
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("Error displaying stations and bikes").build();
+        } finally {
+            pm.close();
+
     @Path("/select")
     public Response selectBike(int stationId) {
         try {
