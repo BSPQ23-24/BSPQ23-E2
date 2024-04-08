@@ -4,7 +4,11 @@ import java.util.Date;
 import javax.jdo.JDOHelper;
 import javax.jdo.PersistenceManager;
 import javax.jdo.PersistenceManagerFactory;
+import javax.jdo.Query;
 import javax.jdo.Transaction;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
@@ -21,13 +25,15 @@ import com.deusto.app.server.data.domain.Station;
 public class BikeResource {
     private PersistenceManager pm = null;
     private Transaction tx = null;
+    protected static final Logger logger = LogManager.getLogger();
 
     public BikeResource() {
         PersistenceManagerFactory pmf = JDOHelper.getPersistenceManagerFactory("datanucleus.properties");
         this.pm = pmf.getPersistenceManager();
         this.tx = pm.currentTransaction();
     }
-
+    
+    /*
     @POST
     @Path("/create")
     public Response createBike(int stationId, Bicycle bikeData) {
@@ -64,6 +70,7 @@ public class BikeResource {
             }
         }
     }
+    */
 
     @GET
     @Path("/stations")
@@ -71,12 +78,12 @@ public class BikeResource {
         try {
             tx.begin();
 
-            Query stationQuery = pm.newQuery(Station.class);
+            Query<Station> stationQuery = pm.newQuery(Station.class);
             List<Station> stations = (List<Station>) stationQuery.execute();
 
             StringBuilder result = new StringBuilder();
             for (Station station : stations) {
-                result.append("Station ID: ").append(station.getID()).append(" / Location: ").append(station.getLocation()).append("\n");
+                result.append("Station ID: ").append(station.getId()).append(" / Location: ").append(station.getLocation()).append("\n");
 
                 Query bikeQuery = pm.newQuery(Bicycle.class);
                 bikeQuery.setFilter("station == stationParam");
@@ -86,7 +93,7 @@ public class BikeResource {
                 if (!bikesAtStation.isEmpty()) {
                     result.append("Bikes at this station: ");
                     for (Bicycle bike : bikesAtStation) {
-                        result.append(bike.getID()).append(", ");
+                        result.append(bike.getId()).append(", ");
                     }
                     result.setLength(result.length() - 2);
                     result.append("\n");
@@ -105,7 +112,10 @@ public class BikeResource {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("Error displaying stations and bikes").build();
         } finally {
             pm.close();
+        }
+    }
 
+    @GET
     @Path("/select")
     public Response selectBike(int stationId) {
         try {
