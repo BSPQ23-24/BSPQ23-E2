@@ -1,5 +1,3 @@
-Certainly! I'll add a section to the README on how to run tests for the project, specifically after the server has been started. This information is crucial for ensuring that developers understand how to verify the functionality of the application through automated tests.
-
 # Bike Lending App
 
 ## Introduction
