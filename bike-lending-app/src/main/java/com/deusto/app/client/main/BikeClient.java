@@ -1,70 +1,25 @@
 package com.deusto.app.client.main;
 
-import jakarta.ws.rs.client.Client;
-import jakarta.ws.rs.client.WebTarget;
-
-import jakarta.ws.rs.client.ClientBuilder;
-
-import jakarta.ws.rs.client.Entity;
-import jakarta.ws.rs.client.Invocation;
-import jakarta.ws.rs.core.MediaType;
-import jakarta.ws.rs.core.Response;
-import jakarta.ws.rs.core.Response.Status;
-
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Locale;
-
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
+import com.deusto.app.client.controller.UserController;
 import com.deusto.app.server.pojo.UserData;
 
 public class BikeClient {
 
-	protected static final Logger logger = LogManager.getLogger();
-	
-	private Client client;
-	private WebTarget webTarget;
-	
-	public BikeClient(String hostname, String port) {
-		// TODO Auto-generated constructor stub
-		client = ClientBuilder.newClient();
-		webTarget = client.target(String.format("http://%s:%s/rest", hostname, port)); // Pongo user por poner algo, habría que cambiarlo
-	}
-
 	public static void main(String[] args) {
-		String hostname = args[0];
-		String port = args[1];
-
-		new BikeClient(hostname, port);
-		BikeClient exampleClient = new BikeClient(hostname, port);
-		
-		exampleClient.registerUser("12345678A", "root", "UsuarioTest", "ApellidoTest", "01-01-2000", "123456789", "test@mail.es");
-	}
-	
-	public void registerUser(String dni, String password, String name, String surname, String dateOfBirth, String phone, String mail) {
-		
-		WebTarget registerUserWebTarget = webTarget.path("user/register");
-		Invocation.Builder invocationBuilder = registerUserWebTarget.request(MediaType.APPLICATION_JSON);
-		
+		System.setProperty("bikeapp.hostname", args[0]);
+        System.setProperty("bikeapp.port", args[1]);
+        
+        // Example of user registration
+        /*
 		UserData userData = new UserData();
-		userData.setDni(dni);
-		userData.setPassword(password);
-		userData.setName(name);
-		userData.setSurname(surname);
-		userData.setDateOfBirth(dateOfBirth);
-		userData.setPhone(phone);
-		userData.setMail(mail);
-		
-		Response response = invocationBuilder.post(Entity.entity(userData, MediaType.APPLICATION_JSON));
-		if (response.getStatus() != Status.OK.getStatusCode()) {
-			logger.error("Error connecting with the server. Code: {}", response.getStatus());
-		} else {
-			logger.info("User correctly registered");
-		}
-	}
+		userData.setDni("12345678A");
+		userData.setPassword("root");
+		userData.setName("UsuarioTest");
+		userData.setSurname("ApellidoTest");
+		userData.setDateOfBirth("01-01-2000");
+		userData.setPhone("123456789");
+		userData.setMail("test@mail.es");
+        UserController.getInstance().registerUser(userData);
+        */
+    }
 }

@@ -1,4 +1,7 @@
+
 package com.deusto.app.server.services;
+
+/*
 import java.util.Date;
 
 import javax.jdo.JDOHelper;
@@ -33,7 +36,7 @@ public class BikeResource {
         this.tx = pm.currentTransaction();
     }
     
-    /*
+    
     @POST
     @Path("/create")
     public Response createBike(int stationId, Bicycle bikeData) {
@@ -70,7 +73,7 @@ public class BikeResource {
             }
         }
     }
-    */
+    
 
     @GET
     @Path("/stations")
@@ -153,3 +156,4 @@ public class BikeResource {
         }
     }
 }
+*/

@@ -1,3 +1,5 @@
+Certainly! I'll add a section to the README on how to run tests for the project, specifically after the server has been started. This information is crucial for ensuring that developers understand how to verify the functionality of the application through automated tests.
+
 # Bike Lending App
 
 ## Introduction
@@ -26,14 +28,7 @@ To get started with the Bike Lending App, ensure you have Maven and MySQL instal
    mvn clean compile
    ```
 
-3. **Enhance Classes**  
-   Make sure the classes are enhanced for persistence:
-
-   ```shell
-   mvn datanucleus:enhance
-   ```
-
-4. **Create Database Schema**  
+3. **Create Database Schema**  
    To create the database schema for the sample, execute:
 
    ```shell
@@ -42,21 +37,34 @@ To get started with the Bike Lending App, ensure you have Maven and MySQL instal
 
 ### Running the Application
 
-5. **Launch the Server**  
+4. **Launch the Server**  
    Start the server using the Jetty plugin with:
 
    ```shell
    mvn jetty:run
    ```
 
-6. **Run the Client**  
+5. **Run the Client**  
    In a new command window, execute the client sample code with:
 
    ```shell
    mvn exec:java -Pclient
    ```
 
-After these steps, the Bike Lending App server should be running, and the client application will be ready to use.
+### Testing the Application
+
+6. **Running Tests**  
+   Once the server is up and running, you can run the unit tests to verify the application's functionality. Open another command window and execute the following command:
+
+   ```shell
+   mvn test
+   ```
+
+   This will trigger the execution of the test suite defined in the project. Ensure that the server is running, as the tests may interact with it to validate the end-to-end functionalities.
+
+   Note: The tests are designed to run independently of the client application. They directly test the server's REST API endpoints, simulating the actions a client would perform.
+
+After these steps, the Bike Lending App server should be running, and the client application will be ready to use. You can also verify the functionality and correctness of the application by running the automated tests.
 
 ## Contributing
 
