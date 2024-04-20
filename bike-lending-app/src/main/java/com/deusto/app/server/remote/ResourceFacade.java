@@ -25,7 +25,14 @@ public class ResourceFacade {
 	@POST
 	@Path("/user/register")
 	public Response registerUser(UserData userData) {
-		return UserService.getInstance().registerUser(userData);
+		boolean register_success = UserService.getInstance().registerUser(userData);
+
+		if (register_success) {
+			return Response.ok().build();
+		} else {
+			return Response.status(Response.Status.UNAUTHORIZED).entity("User is already registered").build();
+		}
+
 	}
 
 	@POST
@@ -57,15 +64,19 @@ public class ResourceFacade {
 	}
 
 	/*
-	@POST
-	@Path("/bike/create") public Response createBike(int stationId, Bicycle
-	bikeData) { // Bike creation logic goes here... }
-
-	@GET
-	@Path("/bike/stations") public Response displayStationsAndBikes() { // Logic to display stations and bikes goes
-																		// here... }
-
-	@GET
-	@Path("/bike/select") public Response selectBike(int stationId) { // Logic to select a bike goes here... }
-	*/
+	 * @POST
+	 * 
+	 * @Path("/bike/create") public Response createBike(int stationId, Bicycle
+	 * bikeData) { // Bike creation logic goes here... }
+	 * 
+	 * @GET
+	 * 
+	 * @Path("/bike/stations") public Response displayStationsAndBikes() { // Logic
+	 * to display stations and bikes goes // here... }
+	 * 
+	 * @GET
+	 * 
+	 * @Path("/bike/select") public Response selectBike(int stationId) { // Logic to
+	 * select a bike goes here... }
+	 */
 }

@@ -30,7 +30,7 @@ public class UserService {
 		return instance;
 	}
 
-	public Response registerUser(UserData userData) {
+	public boolean registerUser(UserData userData) {
 
 		LogManager.getLogger(UserService.class).info("Register User: '{}'", userData.getDni());
 
@@ -43,7 +43,7 @@ public class UserService {
 				// If the user is found, return an unauthorized response
 				if (user != null) {
 					LogManager.getLogger(UserService.class).info("User is already registered: '{}'", userData.getDni());
-					return Response.status(Response.Status.UNAUTHORIZED).entity("User is already registered").build();
+					return false;
 				}
 			} catch (javax.jdo.JDOObjectNotFoundException jonfe) {
 				// User not found, proceed to registration
@@ -54,7 +54,7 @@ public class UserService {
 				LogManager.getLogger(UserService.class).info("User registered succesfully: '{}'", userData.getDni());
 			}
 			tx.commit();
-			return Response.ok().build();
+			return true;
 		} finally {
 			if (tx.isActive()) {
 				tx.rollback();
