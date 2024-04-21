@@ -155,5 +155,35 @@ public class BikeResource {
             }
         }
     }
+    
+    @GET
+    @Path("/available")
+    public Response getAvailableBikesInStation(int stationId) {
+        try {
+            tx.begin();
+
+            Station station = pm.getObjectById(Station.class, stationId);
+
+            Query<Bicycle> query = pm.newQuery(Bicycle.class);
+            query.setFilter("station == stationParam && isAvailable == true");
+            query.declareParameters("com.deusto.app.server.data.domain.Station stationParam");
+            List<Bicycle> availableBikes = (List<Bicycle>) query.execute(station);
+
+            tx.commit();
+
+            return Response.ok(availableBikes).build();
+        } catch (Exception e) {
+            e.printStackTrace();
+            if (tx.isActive()) {
+                tx.rollback();
+            }
+            return Response.serverError().build();
+        } finally {
+            // Close PersistenceManager
+            if (!pm.isClosed()) {
+                pm.close();
+            }
+        }
+    }
 }
 */
