@@ -1,7 +1,7 @@
 
 package com.deusto.app.server.services;
 
-/*
+
 import java.util.Date;
 
 import javax.jdo.JDOHelper;
@@ -51,7 +51,7 @@ public class BikeResource {
 
             // creation of new bicycle
             Bicycle bike = new Bicycle();
-            bike.setAcquisitionDate(new Date());
+            bike.setAcquisitionDate(new String());
             bike.setType("Mountain Bike");
 
             bike.setStation(station);
@@ -179,11 +179,10 @@ public class BikeResource {
             }
             return Response.serverError().build();
         } finally {
-            // Close PersistenceManager
             if (!pm.isClosed()) {
                 pm.close();
             }
         }
     }
 }
-*/
+
