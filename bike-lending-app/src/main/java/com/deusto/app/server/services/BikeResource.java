@@ -1,7 +1,7 @@
 
 package com.deusto.app.server.services;
 
-/*
+
 import java.util.Date;
 
 import javax.jdo.JDOHelper;
@@ -51,7 +51,7 @@ public class BikeResource {
 
             // creation of new bicycle
             Bicycle bike = new Bicycle();
-            bike.setAcquisitionDate(new Date());
+            bike.setAcquisitionDate(new String());
             bike.setType("Mountain Bike");
 
             bike.setStation(station);
@@ -155,5 +155,34 @@ public class BikeResource {
             }
         }
     }
+    
+    @GET
+    @Path("/available")
+    public Response getAvailableBikesInStation(int stationId) {
+        try {
+            tx.begin();
+
+            Station station = pm.getObjectById(Station.class, stationId);
+
+            Query<Bicycle> query = pm.newQuery(Bicycle.class);
+            query.setFilter("station == stationParam && isAvailable == true");
+            query.declareParameters("com.deusto.app.server.data.domain.Station stationParam");
+            List<Bicycle> availableBikes = (List<Bicycle>) query.execute(station);
+
+            tx.commit();
+
+            return Response.ok(availableBikes).build();
+        } catch (Exception e) {
+            e.printStackTrace();
+            if (tx.isActive()) {
+                tx.rollback();
+            }
+            return Response.serverError().build();
+        } finally {
+            if (!pm.isClosed()) {
+                pm.close();
+            }
+        }
+    }
 }
-*/
+
