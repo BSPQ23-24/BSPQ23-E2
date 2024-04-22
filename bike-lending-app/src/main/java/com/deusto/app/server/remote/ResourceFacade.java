@@ -2,6 +2,7 @@ package com.deusto.app.server.remote;
 
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import com.deusto.app.server.data.domain.Bicycle;
@@ -71,7 +72,13 @@ public class ResourceFacade {
 	    if (!serverState.containsKey(token)) {
 	        return Response.status(Response.Status.UNAUTHORIZED).entity("User is not logged in").build();
 	    }
-	    return BikeService.getInstance().createBike(stationId, bikeData);
+	    
+	    int newBikeId = BikeService.getInstance().createBike(stationId, bikeData);
+	    if (newBikeId != -1) {
+	        return Response.ok("Bike created with ID: " + newBikeId).build();
+	    } else {
+	        return Response.serverError().entity("Error creating bike").build();
+	    }
 	}
 
 	@GET
@@ -80,7 +87,9 @@ public class ResourceFacade {
 	    if (!serverState.containsKey(token)) {
 	        return Response.status(Response.Status.UNAUTHORIZED).entity("User is not logged in").build();
 	    }
-	    return BikeService.getInstance().displayStationsAndBikes();
+	    
+	    String stationsAndBikes = BikeService.getInstance().displayStationsAndBikes();
+	    return Response.ok(stationsAndBikes).build();
 	}
 
 	@GET
@@ -89,7 +98,13 @@ public class ResourceFacade {
 	    if (!serverState.containsKey(token)) {
 	        return Response.status(Response.Status.UNAUTHORIZED).entity("User is not logged in").build();
 	    }
-	    return BikeService.getInstance().selectBike(stationId);
+	    
+	    Bicycle selectedBike = BikeService.getInstance().selectBike(stationId);
+	    if (selectedBike != null) {
+	        return Response.ok(selectedBike).build();
+	    } else {
+	        return Response.status(Response.Status.NOT_FOUND).entity("No available bikes at this station").build();
+	    }
 	}
 
 	@GET
@@ -98,6 +113,13 @@ public class ResourceFacade {
 	    if (!serverState.containsKey(token)) {
 	        return Response.status(Response.Status.UNAUTHORIZED).entity("User is not logged in").build();
 	    }
-	    return BikeService.getInstance().getAvailableBikesInStation(stationId);
+	    
+	    List<Bicycle> availableBikes = BikeService.getInstance().getAvailableBikesInStation(stationId);
+	    if (availableBikes != null) {
+	        return Response.ok(availableBikes).build();
+	    } else {
+	        return Response.serverError().entity("Error getting available bikes").build();
+	    }
 	}
+
 }

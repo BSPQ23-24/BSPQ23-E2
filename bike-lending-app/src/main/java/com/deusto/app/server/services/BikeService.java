@@ -43,7 +43,7 @@ public class BikeService {
     }
     
     
-    public Response createBike(int stationId, Bicycle bikeData) {
+    public int createBike(int stationId, Bicycle bikeData) {
         try {
             tx.begin();
 
@@ -62,14 +62,15 @@ public class BikeService {
             pm.makePersistent(bike);
 
             tx.commit();
+            return bike.getId();
 
-            return Response.ok(bike).build();
         } catch (Exception e) {
             if (tx.isActive()) {
                 tx.rollback();
             }
             e.printStackTrace();
-            return Response.serverError().build();
+            
+            return -1;
         } finally {
             if (pm != null && !pm.isClosed()) {
                 pm.close();
@@ -77,7 +78,7 @@ public class BikeService {
         }
     }
     
-    public Response displayStationsAndBikes() {
+    public String  displayStationsAndBikes() {
         try {
             tx.begin();
 
@@ -106,13 +107,13 @@ public class BikeService {
             }
 
             tx.commit();
-            return Response.ok(result.toString()).build();
+            return result.toString();
         } catch (Exception e) {
             e.printStackTrace();
             if (tx.isActive()) {
                 tx.rollback();
             }
-            return Response.serverError().build();
+            return "Error displaying stations and bikes";
         } finally {
             if (pm != null && !pm.isClosed()) {
                 pm.close();
@@ -120,7 +121,7 @@ public class BikeService {
         }
     }
 
-    public Response selectBike(int stationId) {
+    public Bicycle selectBike(int stationId) {
         try {
             tx.begin();
 
@@ -137,17 +138,17 @@ public class BikeService {
             if (selectedBike != null) {
                 selectedBike.setAvailable(false);
                 tx.commit();
-                return Response.ok(selectedBike).build();
+                return selectedBike;
             } else {
                 tx.rollback();
-                return Response.status(Response.Status.NOT_FOUND).entity("No available bikes at this station").build();
+                return null;
             }
         } catch (Exception e) {
             if (tx.isActive()) {
                 tx.rollback();
             }
             e.printStackTrace();
-            return Response.serverError().build();
+            return null;
         } finally {
             if (pm != null && !pm.isClosed()) {
                 pm.close();
@@ -155,7 +156,7 @@ public class BikeService {
         }
     }
 
-    public Response getAvailableBikesInStation(int stationId) {
+    public List<Bicycle> getAvailableBikesInStation(int stationId) {
         try {
             tx.begin();
 
@@ -164,13 +165,13 @@ public class BikeService {
 
             tx.commit();
 
-            return Response.ok(availableBikes).build();
+            return availableBikes;
         } catch (Exception e) {
             e.printStackTrace();
             if (tx.isActive()) {
                 tx.rollback();
             }
-            return Response.serverError().build();
+            return null;
         } finally {
             if (!pm.isClosed()) {
                 pm.close();
