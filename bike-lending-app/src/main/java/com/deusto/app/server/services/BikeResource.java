@@ -23,8 +23,7 @@ import java.util.List;
 import com.deusto.app.server.data.domain.Bicycle;
 import com.deusto.app.server.data.domain.Station;
 
-@Path("/bike")
-@Produces(MediaType.APPLICATION_JSON)
+
 public class BikeResource {
     private PersistenceManager pm = null;
     private Transaction tx = null;
@@ -37,16 +36,13 @@ public class BikeResource {
     }
     
     
-    @POST
-    @Path("/create")
     public Response createBike(int stationId, Bicycle bikeData) {
         try {
             tx.begin();
 
-         // creation of new station
+            //creation of new station
             Station station = new Station();
             station.setLocation("Central Park");
-
             pm.makePersistent(station);
 
             // creation of new bicycle
@@ -118,16 +114,13 @@ public class BikeResource {
         }
     }
 
-    @GET
-    @Path("/select")
     public Response selectBike(int stationId) {
         try {
             tx.begin();
 
             Station station = pm.getObjectById(Station.class, stationId);
-
-         // Get the first bike available at the station
             Bicycle selectedBike = null;
+            	
             for (Bicycle bike : station.getBikes()) {
                 if (bike.isAvailable()) {
                     selectedBike = bike;
@@ -155,19 +148,13 @@ public class BikeResource {
             }
         }
     }
-    
-    @GET
-    @Path("/available")
+
     public Response getAvailableBikesInStation(int stationId) {
         try {
             tx.begin();
 
             Station station = pm.getObjectById(Station.class, stationId);
-
-            Query<Bicycle> query = pm.newQuery(Bicycle.class);
-            query.setFilter("station == stationParam && isAvailable == true");
-            query.declareParameters("com.deusto.app.server.data.domain.Station stationParam");
-            List<Bicycle> availableBikes = (List<Bicycle>) query.execute(station);
+            List<Bicycle> availableBikes = station.getBikes();
 
             tx.commit();
 

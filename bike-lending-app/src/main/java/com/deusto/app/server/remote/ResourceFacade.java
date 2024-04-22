@@ -11,8 +11,10 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.deusto.app.server.data.domain.Bicycle;
 import com.deusto.app.server.data.domain.User;
 import com.deusto.app.server.pojo.UserData;
+import com.deusto.app.server.services.BikeResource;
 import com.deusto.app.server.services.UserService;
 
 @Path("/bikeapp")
@@ -62,6 +64,30 @@ public class ResourceFacade {
 	public Response sayHello() {
 		return Response.ok("Hello world!").build();
 	}
+	
+    @POST
+    @Path("/bike/create")
+    public Response createBike(int stationId, Bicycle bikeData) {
+        return BikeResource.getInstance().createBike(stationId, bikeData);
+    }
+
+    @GET
+    @Path("/bike/stations")
+    public Response displayStationsAndBikes() {
+        return BikeResource.getInstance().displayStationsAndBikes();
+    }
+
+    @GET
+    @Path("/bike/select")
+    public Response selectBike(int stationId) {
+        return BikeResource.getInstance().selectBike(stationId);
+    }
+
+    @GET
+    @Path("/bike/available")
+    public Response getAvailableBikesInStation(int stationId) {
+        return BikeResource.getInstance().getAvailableBikesInStation(stationId);
+    }
 
 	/*
 	 * @POST
