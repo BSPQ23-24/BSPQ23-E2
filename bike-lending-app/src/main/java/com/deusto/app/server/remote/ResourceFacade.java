@@ -89,20 +89,4 @@ public class ResourceFacade {
         return BikeResource.getInstance().getAvailableBikesInStation(stationId);
     }
 
-	/*
-	 * @POST
-	 * 
-	 * @Path("/bike/create") public Response createBike(int stationId, Bicycle
-	 * bikeData) { // Bike creation logic goes here... }
-	 * 
-	 * @GET
-	 * 
-	 * @Path("/bike/stations") public Response displayStationsAndBikes() { // Logic
-	 * to display stations and bikes goes // here... }
-	 * 
-	 * @GET
-	 * 
-	 * @Path("/bike/select") public Response selectBike(int stationId) { // Logic to
-	 * select a bike goes here... }
-	 */
 }

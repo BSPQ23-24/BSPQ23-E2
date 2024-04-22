@@ -25,6 +25,7 @@ import com.deusto.app.server.data.domain.Station;
 
 
 public class BikeResource {
+	private static BikeResource instance;
     private PersistenceManager pm = null;
     private Transaction tx = null;
     protected static final Logger logger = LogManager.getLogger();
@@ -33,6 +34,12 @@ public class BikeResource {
         PersistenceManagerFactory pmf = JDOHelper.getPersistenceManagerFactory("datanucleus.properties");
         this.pm = pmf.getPersistenceManager();
         this.tx = pm.currentTransaction();
+    }
+    public static BikeResource getInstance() {
+        if (instance == null) {
+            instance = new BikeResource();
+        }
+        return instance;
     }
     
     
@@ -70,9 +77,6 @@ public class BikeResource {
         }
     }
     
-
-    @GET
-    @Path("/stations")
     public Response displayStationsAndBikes() {
         try {
             tx.begin();
@@ -104,13 +108,15 @@ public class BikeResource {
             tx.commit();
             return Response.ok(result.toString()).build();
         } catch (Exception e) {
-            logger.error("Error displaying stations and bikes: {}", e.getMessage());
+            e.printStackTrace();
             if (tx.isActive()) {
                 tx.rollback();
             }
-            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("Error displaying stations and bikes").build();
+            return Response.serverError().build();
         } finally {
-            pm.close();
+            if (pm != null && !pm.isClosed()) {
+                pm.close();
+            }
         }
     }
 
