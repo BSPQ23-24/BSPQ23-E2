@@ -23,9 +23,9 @@ import java.util.List;
 import com.deusto.app.server.data.domain.Bicycle;
 import com.deusto.app.server.data.domain.Station;
 
-@Path("/bike")
-@Produces(MediaType.APPLICATION_JSON)
+
 public class BikeResource {
+	private static BikeResource instance;
     private PersistenceManager pm = null;
     private Transaction tx = null;
     protected static final Logger logger = LogManager.getLogger();
@@ -35,18 +35,21 @@ public class BikeResource {
         this.pm = pmf.getPersistenceManager();
         this.tx = pm.currentTransaction();
     }
+    public static BikeResource getInstance() {
+        if (instance == null) {
+            instance = new BikeResource();
+        }
+        return instance;
+    }
     
     
-    @POST
-    @Path("/create")
     public Response createBike(int stationId, Bicycle bikeData) {
         try {
             tx.begin();
 
-         // creation of new station
+            //creation of new station
             Station station = new Station();
             station.setLocation("Central Park");
-
             pm.makePersistent(station);
 
             // creation of new bicycle
@@ -74,9 +77,6 @@ public class BikeResource {
         }
     }
     
-
-    @GET
-    @Path("/stations")
     public Response displayStationsAndBikes() {
         try {
             tx.begin();
@@ -108,26 +108,25 @@ public class BikeResource {
             tx.commit();
             return Response.ok(result.toString()).build();
         } catch (Exception e) {
-            logger.error("Error displaying stations and bikes: {}", e.getMessage());
+            e.printStackTrace();
             if (tx.isActive()) {
                 tx.rollback();
             }
-            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("Error displaying stations and bikes").build();
+            return Response.serverError().build();
         } finally {
-            pm.close();
+            if (pm != null && !pm.isClosed()) {
+                pm.close();
+            }
         }
     }
 
-    @GET
-    @Path("/select")
     public Response selectBike(int stationId) {
         try {
             tx.begin();
 
             Station station = pm.getObjectById(Station.class, stationId);
-
-         // Get the first bike available at the station
             Bicycle selectedBike = null;
+            	
             for (Bicycle bike : station.getBikes()) {
                 if (bike.isAvailable()) {
                     selectedBike = bike;
@@ -155,19 +154,13 @@ public class BikeResource {
             }
         }
     }
-    
-    @GET
-    @Path("/available")
+
     public Response getAvailableBikesInStation(int stationId) {
         try {
             tx.begin();
 
             Station station = pm.getObjectById(Station.class, stationId);
-
-            Query<Bicycle> query = pm.newQuery(Bicycle.class);
-            query.setFilter("station == stationParam && isAvailable == true");
-            query.declareParameters("com.deusto.app.server.data.domain.Station stationParam");
-            List<Bicycle> availableBikes = (List<Bicycle>) query.execute(station);
+            List<Bicycle> availableBikes = station.getBikes();
 
             tx.commit();
 
