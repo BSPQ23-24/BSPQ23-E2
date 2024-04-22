@@ -24,20 +24,20 @@ import com.deusto.app.server.data.domain.Bicycle;
 import com.deusto.app.server.data.domain.Station;
 
 
-public class BikeResource {
-	private static BikeResource instance;
+public class BikeService {
+	private static BikeService instance;
     private PersistenceManager pm = null;
     private Transaction tx = null;
     protected static final Logger logger = LogManager.getLogger();
 
-    public BikeResource() {
+    public BikeService() {
         PersistenceManagerFactory pmf = JDOHelper.getPersistenceManagerFactory("datanucleus.properties");
         this.pm = pmf.getPersistenceManager();
         this.tx = pm.currentTransaction();
     }
-    public static BikeResource getInstance() {
+    public static BikeService getInstance() {
         if (instance == null) {
-            instance = new BikeResource();
+            instance = new BikeService();
         }
         return instance;
     }
