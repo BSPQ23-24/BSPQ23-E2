@@ -1,21 +1,22 @@
 package com.deusto.app.server.remote;
 
+import java.util.Calendar;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import com.deusto.app.server.data.domain.Bicycle;
+import com.deusto.app.server.data.domain.User;
+import com.deusto.app.server.pojo.UserData;
+import com.deusto.app.server.services.BikeService;
+import com.deusto.app.server.services.UserService;
+
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
-
-import java.util.Calendar;
-import java.util.HashMap;
-import java.util.Map;
-
-import com.deusto.app.server.data.domain.Bicycle;
-import com.deusto.app.server.data.domain.User;
-import com.deusto.app.server.pojo.UserData;
-import com.deusto.app.server.services.BikeResource;
-import com.deusto.app.server.services.UserService;
 
 @Path("/bikeapp")
 @Produces(MediaType.APPLICATION_JSON)
@@ -65,28 +66,60 @@ public class ResourceFacade {
 		return Response.ok("Hello world!").build();
 	}
 	
-    @POST
-    @Path("/bike/create")
-    public Response createBike(int stationId, Bicycle bikeData) {
-        return BikeResource.getInstance().createBike(stationId, bikeData);
-    }
+	@POST
+	@Path("/bike/create")
+	public Response createBike(int stationId, Bicycle bikeData, long token) {
+	    if (!serverState.containsKey(token)) {
+	        return Response.status(Response.Status.UNAUTHORIZED).entity("User is not logged in").build();
+	    }
+	    
+	    int newBikeId = BikeService.getInstance().createBike(stationId, bikeData);
+	    if (newBikeId != -1) {
+	        return Response.ok("Bike created with ID: " + newBikeId).build();
+	    } else {
+	        return Response.serverError().entity("Error creating bike").build();
+	    }
+	}
 
-    @GET
-    @Path("/bike/stations")
-    public Response displayStationsAndBikes() {
-        return BikeResource.getInstance().displayStationsAndBikes();
-    }
+	@GET
+	@Path("/bike/stations")
+	public Response displayStationsAndBikes(long token) {
+	    if (!serverState.containsKey(token)) {
+	        return Response.status(Response.Status.UNAUTHORIZED).entity("User is not logged in").build();
+	    }
+	    
+	    String stationsAndBikes = BikeService.getInstance().displayStationsAndBikes();
+	    return Response.ok(stationsAndBikes).build();
+	}
 
-    @GET
-    @Path("/bike/select")
-    public Response selectBike(int stationId) {
-        return BikeResource.getInstance().selectBike(stationId);
-    }
+	@GET
+	@Path("/bike/select")
+	public Response selectBike(int stationId, long token) {
+	    if (!serverState.containsKey(token)) {
+	        return Response.status(Response.Status.UNAUTHORIZED).entity("User is not logged in").build();
+	    }
+	    
+	    Bicycle selectedBike = BikeService.getInstance().selectBike(stationId);
+	    if (selectedBike != null) {
+	        return Response.ok(selectedBike).build();
+	    } else {
+	        return Response.status(Response.Status.NOT_FOUND).entity("No available bikes at this station").build();
+	    }
+	}
 
-    @GET
-    @Path("/bike/available")
-    public Response getAvailableBikesInStation(int stationId) {
-        return BikeResource.getInstance().getAvailableBikesInStation(stationId);
-    }
+	@GET
+	@Path("/bike/available")
+	public Response getAvailableBikesInStation(int stationId, long token) {
+	    if (!serverState.containsKey(token)) {
+	        return Response.status(Response.Status.UNAUTHORIZED).entity("User is not logged in").build();
+	    }
+	    
+	    List<Bicycle> availableBikes = BikeService.getInstance().getAvailableBikesInStation(stationId);
+	    if (availableBikes != null) {
+	        return Response.ok(availableBikes).build();
+	    } else {
+	        return Response.serverError().entity("Error getting available bikes").build();
+	    }
+	}
 
 }

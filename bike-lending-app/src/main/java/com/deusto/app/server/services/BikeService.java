@@ -24,26 +24,26 @@ import com.deusto.app.server.data.domain.Bicycle;
 import com.deusto.app.server.data.domain.Station;
 
 
-public class BikeResource {
-	private static BikeResource instance;
+public class BikeService {
+	private static BikeService instance;
     private PersistenceManager pm = null;
     private Transaction tx = null;
     protected static final Logger logger = LogManager.getLogger();
 
-    public BikeResource() {
+    public BikeService() {
         PersistenceManagerFactory pmf = JDOHelper.getPersistenceManagerFactory("datanucleus.properties");
         this.pm = pmf.getPersistenceManager();
         this.tx = pm.currentTransaction();
     }
-    public static BikeResource getInstance() {
+    public static BikeService getInstance() {
         if (instance == null) {
-            instance = new BikeResource();
+            instance = new BikeService();
         }
         return instance;
     }
     
     
-    public Response createBike(int stationId, Bicycle bikeData) {
+    public int createBike(int stationId, Bicycle bikeData) {
         try {
             tx.begin();
 
@@ -62,14 +62,15 @@ public class BikeResource {
             pm.makePersistent(bike);
 
             tx.commit();
+            return bike.getId();
 
-            return Response.ok(bike).build();
         } catch (Exception e) {
             if (tx.isActive()) {
                 tx.rollback();
             }
             e.printStackTrace();
-            return Response.serverError().build();
+            
+            return -1;
         } finally {
             if (pm != null && !pm.isClosed()) {
                 pm.close();
@@ -77,7 +78,7 @@ public class BikeResource {
         }
     }
     
-    public Response displayStationsAndBikes() {
+    public String  displayStationsAndBikes() {
         try {
             tx.begin();
 
@@ -106,13 +107,13 @@ public class BikeResource {
             }
 
             tx.commit();
-            return Response.ok(result.toString()).build();
+            return result.toString();
         } catch (Exception e) {
             e.printStackTrace();
             if (tx.isActive()) {
                 tx.rollback();
             }
-            return Response.serverError().build();
+            return "Error displaying stations and bikes";
         } finally {
             if (pm != null && !pm.isClosed()) {
                 pm.close();
@@ -120,7 +121,7 @@ public class BikeResource {
         }
     }
 
-    public Response selectBike(int stationId) {
+    public Bicycle selectBike(int stationId) {
         try {
             tx.begin();
 
@@ -137,17 +138,17 @@ public class BikeResource {
             if (selectedBike != null) {
                 selectedBike.setAvailable(false);
                 tx.commit();
-                return Response.ok(selectedBike).build();
+                return selectedBike;
             } else {
                 tx.rollback();
-                return Response.status(Response.Status.NOT_FOUND).entity("No available bikes at this station").build();
+                return null;
             }
         } catch (Exception e) {
             if (tx.isActive()) {
                 tx.rollback();
             }
             e.printStackTrace();
-            return Response.serverError().build();
+            return null;
         } finally {
             if (pm != null && !pm.isClosed()) {
                 pm.close();
@@ -155,7 +156,7 @@ public class BikeResource {
         }
     }
 
-    public Response getAvailableBikesInStation(int stationId) {
+    public List<Bicycle> getAvailableBikesInStation(int stationId) {
         try {
             tx.begin();
 
@@ -164,13 +165,13 @@ public class BikeResource {
 
             tx.commit();
 
-            return Response.ok(availableBikes).build();
+            return availableBikes;
         } catch (Exception e) {
             e.printStackTrace();
             if (tx.isActive()) {
                 tx.rollback();
             }
-            return Response.serverError().build();
+            return null;
         } finally {
             if (!pm.isClosed()) {
                 pm.close();
