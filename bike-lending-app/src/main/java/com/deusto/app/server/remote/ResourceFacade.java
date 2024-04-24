@@ -11,10 +11,12 @@ import com.deusto.app.server.pojo.UserData;
 import com.deusto.app.server.services.BikeService;
 import com.deusto.app.server.services.UserService;
 
+import jakarta.ws.rs.FormParam;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.QueryParam;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
@@ -68,7 +70,7 @@ public class ResourceFacade {
 	
 	@POST
 	@Path("/bike/create")
-	public Response createBike(int stationId, Bicycle bikeData, long token) {
+	public Response createBike(@QueryParam("stationId") int stationId, Bicycle bikeData, @QueryParam("token") long token) {
 	    if (!serverState.containsKey(token)) {
 	        return Response.status(Response.Status.UNAUTHORIZED).entity("User is not logged in").build();
 	    }
@@ -83,7 +85,7 @@ public class ResourceFacade {
 
 	@GET
 	@Path("/bike/stations")
-	public Response displayStationsAndBikes(long token) {
+	public Response displayStationsAndBikes(@QueryParam("token") long token) {
 	    if (!serverState.containsKey(token)) {
 	        return Response.status(Response.Status.UNAUTHORIZED).entity("User is not logged in").build();
 	    }
@@ -94,7 +96,7 @@ public class ResourceFacade {
 
 	@GET
 	@Path("/bike/select")
-	public Response selectBike(int stationId, long token) {
+	public Response selectBike(@QueryParam("stationId") int stationId, @QueryParam("token") long token) {
 	    if (!serverState.containsKey(token)) {
 	        return Response.status(Response.Status.UNAUTHORIZED).entity("User is not logged in").build();
 	    }
@@ -109,7 +111,7 @@ public class ResourceFacade {
 
 	@GET
 	@Path("/bike/available")
-	public Response getAvailableBikesInStation(int stationId, long token) {
+	public Response getAvailableBikesInStation( @QueryParam("stationId") int stationId,  @QueryParam("token") long token) {
 	    if (!serverState.containsKey(token)) {
 	        return Response.status(Response.Status.UNAUTHORIZED).entity("User is not logged in").build();
 	    }
