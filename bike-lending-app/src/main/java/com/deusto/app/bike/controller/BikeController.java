@@ -2,9 +2,10 @@ package com.deusto.app.bike.controller;
 
 import org.apache.logging.log4j.LogManager;
 
-import com.deusto.app.client.controller.UserController;
+
 import com.deusto.app.client.remote.ServiceLocator;
-import com.deusto.app.server.pojo.UserData;
+
+
 
 import jakarta.ws.rs.QueryParam;
 import jakarta.ws.rs.client.Entity;
@@ -27,18 +28,20 @@ public class BikeController {
     
     //Display Stations & Bikes
     public Response displayStationsAndBikes(@QueryParam("token") long token) {
-    	WebTarget registerUserWebTarget = ServiceLocator.getInstance().getWebTarget().path("bikeapp/user/register");
-        Invocation.Builder invocationBuilder = registerUserWebTarget.request(MediaType.APPLICATION_JSON);
-
-        Response response = invocationBuilder.post(Entity.entity(userData, MediaType.APPLICATION_JSON));
+    	WebTarget displaySBWebTarget = ServiceLocator.getInstance().getWebTarget().path("bikeapp/bike/stations");
+        Invocation.Builder invocationBuilder = displaySBWebTarget.request(MediaType.APPLICATION_JSON);
+        
+        Response response = invocationBuilder.post(Entity.entity(token, MediaType.APPLICATION_JSON));
         if (response.getStatus() == Response.Status.OK.getStatusCode()) {
-        	LogManager.getLogger(UserController.class).info("User correctly registered");
-            return true;
+        	Response answer  = response.readEntity(Response.class);
+        	LogManager.getLogger(BikeController.class).info("All the Stations and Bikes are displayed!");
+            return answer;
             
         } else {
-        	LogManager.getLogger(UserController.class).error("Registration failed. Code: {}, Reason: {}", response.getStatus(), response.readEntity(String.class));
-            return false;
+        	LogManager.getLogger(BikeController.class).error("Display failed. Code: {}, Reason: {}", response.getStatus(), response.readEntity(String.class));
+            return null;
         }
+        
     }
     
     
