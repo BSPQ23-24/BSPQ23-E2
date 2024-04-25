@@ -51,6 +51,27 @@ public class UserController {
             return null;
         }
     }
+    
+    public boolean changePassword(String dni, String oldPassword, String newPassword) {
+        UserData userData = new UserData();
+        userData.setDni(dni);
+        userData.setPassword(oldPassword); // Set the current password for authentication
+
+        WebTarget changePasswordWebTarget = ServiceLocator.getInstance().getWebTarget().path("bikeapp/user/changePassword");
+        Invocation.Builder invocationBuilder = changePasswordWebTarget.request(MediaType.APPLICATION_JSON);
+
+        userData.setPassword(newPassword);
+
+        Response response = invocationBuilder.post(Entity.entity(userData, MediaType.APPLICATION_JSON));
+        if (response.getStatus() == Response.Status.OK.getStatusCode()) {
+            LogManager.getLogger(UserController.class).info("Password changed successfully for user with DNI: {}", dni);
+            return true;
+        } else {
+            LogManager.getLogger(UserController.class).error("Password change failed for user with DNI: {}. Code: {}, Reason: {}", dni, response.getStatus(), response.readEntity(String.class));
+            return false;
+        }
+    }
+
 
     // Add more methods to handle other user actions like loginUser, sayHello, etc.
 }
