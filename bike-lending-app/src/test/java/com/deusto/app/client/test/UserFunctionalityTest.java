@@ -40,12 +40,7 @@ public class UserFunctionalityTest {
         // Prepare user data
         UserData userData = new UserData();
         userData.setDni("12345678A");
-        userData.setPassword("root");
-        userData.setName("UsuarioTest");
-        userData.setSurname("ApellidoTest");
-        userData.setDateOfBirth("01-01-2000");
-        userData.setPhone("123456789");
-        userData.setMail("test@mail.es");
+        userData.setPassword("password123");
 
 
         // Attempt to log in the newly registered user
@@ -59,8 +54,8 @@ public class UserFunctionalityTest {
         userData.setDni("12345678A");
         
         // Attempt to change password
-        String oldPassword = "root";
-        String newPassword = "newPassword";
+        String oldPassword = "password123";
+        String newPassword = "newPassword456";
         boolean changePasswordResult = userController.changePassword(userData.getDni(), oldPassword, newPassword);
         Assertions.assertTrue(changePasswordResult, "Changing password should return true on success.");
     }
