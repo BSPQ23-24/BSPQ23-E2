@@ -86,4 +86,37 @@ public class UserService {
 		}
 		return user;
 	}
+	
+	public boolean changePassword(String dni, String oldPassword, String newPassword) {
+	    LogManager.getLogger(UserService.class).info("Changing password for user: '{}'", dni);
+
+	    try {
+	        tx.begin();
+
+	        User user = pm.getObjectById(User.class, dni);
+
+	        if (!user.getPassword().equals(oldPassword)) {
+	            LogManager.getLogger(UserService.class).info("Old password does not match for user: '{}'", dni);
+	            return false;
+	        }
+
+	        // Update the password with the new one
+	        user.setPassword(newPassword);
+	        LogManager.getLogger(UserService.class).info("Password changed successfully for user: '{}'", dni);
+
+	        tx.commit();
+	        return true;
+	    } catch (Exception e) {
+	        if (tx.isActive()) {
+	            tx.rollback();
+	        }
+	        LogManager.getLogger(UserService.class).error("Error changing password for user: '{}'", dni, e);
+	        return false;
+	    } finally {
+	        if (pm != null && !pm.isClosed()) {
+	            pm.close();
+	        }
+	    }
+	}
+
 }
