@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.logging.log4j.LogManager;
+
 import com.deusto.app.server.data.domain.Bicycle;
 import com.deusto.app.server.data.domain.User;
 import com.deusto.app.server.pojo.UserData;
@@ -74,6 +76,18 @@ public class ResourceFacade {
 			return Response.status(Response.Status.UNAUTHORIZED).entity("Invalid credentials").build();
 		}
 	}
+	
+	@POST
+    @Path("/user/logout")
+    public Response logoutUser(@QueryParam("token") long token) {
+		LogManager.getLogger(ResourceFacade.class).info("User logging out.");
+        if (serverState.containsKey(token)) {
+            serverState.remove(token);  // Remove the user from the server state
+            return Response.ok().entity("User logged out successfully").build();
+        } else {
+            return Response.status(Response.Status.UNAUTHORIZED).entity("Invalid token or user not logged in").build();
+        }
+    }
 
 	@GET
 	@Path("/user/hello")

@@ -1,10 +1,16 @@
 package com.deusto.app.server.services;
 
+import java.text.SimpleDateFormat;
+
 import javax.jdo.JDOHelper;
 import javax.jdo.PersistenceManager;
 import javax.jdo.PersistenceManagerFactory;
 import javax.jdo.Transaction;
 import org.apache.logging.log4j.LogManager;
+
+import com.deusto.app.server.data.domain.Bicycle;
+import com.deusto.app.server.data.domain.Loan;
+import com.deusto.app.server.data.domain.Station;
 import com.deusto.app.server.data.domain.User;
 import com.deusto.app.server.pojo.UserData;
 import jakarta.ws.rs.core.Response;
@@ -21,6 +27,7 @@ public class UserService {
 		pmf = JDOHelper.getPersistenceManagerFactory("datanucleus.properties");
 		pm = pmf.getPersistenceManager();
 		tx = pm.currentTransaction();
+		initializeData();
 	}
 
 	public static UserService getInstance() {
@@ -86,37 +93,129 @@ public class UserService {
 		}
 		return user;
 	}
-	
+
 	public boolean changePassword(String dni, String oldPassword, String newPassword) {
-	    LogManager.getLogger(UserService.class).info("Changing password for user: '{}'", dni);
+		LogManager.getLogger(UserService.class).info("Changing password for user: '{}'", dni);
 
-	    try {
-	        tx.begin();
+		try {
+			tx.begin();
 
-	        User user = pm.getObjectById(User.class, dni);
+			User user = pm.getObjectById(User.class, dni);
 
-	        if (!user.getPassword().equals(oldPassword)) {
-	            LogManager.getLogger(UserService.class).info("Old password does not match for user: '{}'", dni);
-	            return false;
-	        }
+			if (!user.getPassword().equals(oldPassword)) {
+				LogManager.getLogger(UserService.class).info("Old password does not match for user: '{}'", dni);
+				return false;
+			}
 
-	        // Update the password with the new one
-	        user.setPassword(newPassword);
-	        LogManager.getLogger(UserService.class).info("Password changed successfully for user: '{}'", dni);
+			// Update the password with the new one
+			user.setPassword(newPassword);
+			LogManager.getLogger(UserService.class).info("Password changed successfully for user: '{}'", dni);
 
-	        tx.commit();
-	        return true;
-	    } catch (Exception e) {
-	        if (tx.isActive()) {
-	            tx.rollback();
-	        }
-	        LogManager.getLogger(UserService.class).error("Error changing password for user: '{}'", dni, e);
-	        return false;
-	    } finally {
-	        if (pm != null && !pm.isClosed()) {
-	            pm.close();
-	        }
-	    }
+			tx.commit();
+			return true;
+		} catch (Exception e) {
+			if (tx.isActive()) {
+				tx.rollback();
+			}
+			LogManager.getLogger(UserService.class).error("Error changing password for user: '{}'", dni, e);
+			return false;
+		} finally {
+			if (pm != null && !pm.isClosed()) {
+				pm.close();
+			}
+		}
+	}
+
+	private void initializeData() {
+		LogManager.getLogger(UserService.class).info("Initializing database with test data.");
+
+		try {
+			tx.begin();
+
+			// Check if there are any existing data entries
+			if (pm.getExtent(User.class).iterator().hasNext()) {
+				LogManager.getLogger(UserService.class).info("Test data already present.");
+			} else {
+				// Create and persist example Users
+				User user1 = new User("12345678A", "password123", "John", "Doe", "01-01-1980", "555123456",
+						"john@example.com");
+				User user2 = new User("87654321B", "password456", "Jane", "Smith", "02-02-1990", "555654321",
+						"jane@example.com");
+				pm.makePersistent(user1);
+				pm.makePersistent(user2);
+
+				// Create and persist example Bicycles
+				Bicycle bike1 = new Bicycle();
+				bike1.setType("Mountain");
+				bike1.setAcquisitionDate("2023-01-01"); // Use consistent format if required
+				bike1.setAvailable(true);
+
+				Bicycle bike2 = new Bicycle();
+				bike2.setType("Road");
+				bike2.setAcquisitionDate("2023-02-01"); // Use consistent format if required
+				bike2.setAvailable(true);
+				
+				Bicycle bike3 = new Bicycle();
+	            bike3.setType("Hybrid");
+	            bike3.setAcquisitionDate("2023-03-01");
+	            bike3.setAvailable(true);
+
+	            Bicycle bike4 = new Bicycle();
+	            bike4.setType("Electric");
+	            bike4.setAcquisitionDate("2023-03-15");
+	            bike4.setAvailable(true);
+
+				pm.makePersistent(bike1);
+				pm.makePersistent(bike2);
+				pm.makePersistent(bike3);
+	            pm.makePersistent(bike4);
+
+				// Create and persist example Station
+				Station station1 = new Station();
+				station1.setLocation("Central Park");
+				Station station2 = new Station();
+	            station2.setLocation("Riverside Park");
+	            
+	            // Assign bicycles to station
+				station1.setBikes(java.util.Arrays.asList(bike1, bike2));
+	            station2.setBikes(java.util.Arrays.asList(bike3, bike4));
+	            
+	            pm.makePersistent(station1);
+				pm.makePersistent(station2);
+
+				
+
+				// Create and persist example Loans
+				Loan loan1 = new Loan();
+				loan1.setLoanDate("15-04-2023");
+				loan1.setStartHour("10:00");
+				loan1.setEndHour("12:00");
+				loan1.setUser(user1);
+				loan1.setBicycle(bike1);
+				pm.makePersistent(loan1);
+				
+				Loan loan2 = new Loan();
+	            loan2.setLoanDate("16-04-2023");
+	            loan2.setStartHour("13:00");
+	            loan2.setEndHour("15:00");
+	            loan2.setUser(user2);
+	            loan2.setBicycle(bike3);
+	            pm.makePersistent(loan2);
+
+				LogManager.getLogger(UserService.class).info("Test data created successfully.");
+			}
+
+			tx.commit();
+		} catch (Exception e) {
+			LogManager.getLogger(UserService.class).error("Error initializing test data.", e);
+			if (tx.isActive()) {
+				tx.rollback();
+			}
+		} finally {
+			if (pm != null && !pm.isClosed()) {
+				pm.close();
+			}
+		}
 	}
 
 }
