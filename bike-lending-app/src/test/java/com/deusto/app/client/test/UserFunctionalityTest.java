@@ -22,7 +22,7 @@ public class UserFunctionalityTest {
     public void testUserRegistration() {
         // Prepare user data
         UserData userData = new UserData();
-        userData.setDni("12345678A");
+        userData.setDni("11111111A");
         userData.setPassword("root");
         userData.setName("UsuarioTest");
         userData.setSurname("ApellidoTest");
