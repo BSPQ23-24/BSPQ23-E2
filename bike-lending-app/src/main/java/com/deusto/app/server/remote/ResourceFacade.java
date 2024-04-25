@@ -17,6 +17,7 @@ import jakarta.ws.rs.FormParam;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
+import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.QueryParam;
 import jakarta.ws.rs.core.MediaType;
@@ -149,6 +150,21 @@ public class ResourceFacade {
 	        return Response.ok(availableBikes).build();
 	    } else {
 	        return Response.serverError().entity("Error getting available bikes").build();
+	    }
+	}
+	
+	@GET
+	@Path("/bike/{bikeId}")
+	public Response getBikeDetails(@PathParam("bikeId") int bikeId, @QueryParam("token") long token) {
+	    if (!serverState.containsKey(token)) {
+	        return Response.status(Response.Status.UNAUTHORIZED).entity("User is not logged in").build();
+	    }
+	    
+	    Bicycle bike = BikeService.getInstance().getBikeById(bikeId);
+	    if (bike != null) {
+	        return Response.ok(bike).build();
+	    } else {
+	        return Response.status(Response.Status.NOT_FOUND).entity("Bike not found").build();
 	    }
 	}
 

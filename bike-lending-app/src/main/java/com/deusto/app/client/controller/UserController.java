@@ -12,6 +12,9 @@ import org.apache.logging.log4j.LogManager;
 
 public class UserController {
     private static UserController instance;
+    private static long token = -1;
+    
+    
 
     private UserController() {}
 
@@ -43,7 +46,7 @@ public class UserController {
 
         Response response = invocationBuilder.post(Entity.entity(userData, MediaType.APPLICATION_JSON));
         if (response.getStatus() == Response.Status.OK.getStatusCode()) {
-            long token = response.readEntity(Long.class);
+            token = response.readEntity(Long.class);
             LogManager.getLogger(UserController.class).info("User login successful, token received: {}", token);
             return token;
         } else {
@@ -72,6 +75,11 @@ public class UserController {
             LogManager.getLogger(UserController.class).error("Password change failed for user with DNI: {}. Code: {}, Reason: {}", dni, response.getStatus(), response.readEntity(String.class));
             return false;
         }
+    }
+    
+    public long getToken() {
+    	
+    	return token;
     }
 
 
