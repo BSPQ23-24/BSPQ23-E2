@@ -11,6 +11,7 @@ import javax.jdo.annotations.PrimaryKey;
 
 @PersistenceCapable(detachable="true")
 public class Bicycle {
+<<<<<<< Updated upstream
     @PrimaryKey
     @Persistent(valueStrategy = IdGeneratorStrategy.INCREMENT)  // Tampoco se si es necesario o hace la incrementacion sola
     private int id;
@@ -19,6 +20,16 @@ public class Bicycle {
     private boolean isAvailable;
     @Persistent(defaultFetchGroup="true")
     private Station station; // Relación con la estación
+=======
+	@PrimaryKey
+	@Persistent(valueStrategy = IdGeneratorStrategy.INCREMENT) // Tampoco se si es necesario o hace la incrementacion															// sola
+	private int id;
+	private String acquisitionDate;
+	private String type;
+	private boolean isAvailable;
+	@Persistent(defaultFetchGroup = "true")
+	private Station station; // Relación con la estación
+>>>>>>> Stashed changes
 
 
     public Station getStation() {
