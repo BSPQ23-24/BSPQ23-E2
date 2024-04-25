@@ -52,6 +52,8 @@ public class UserController {
         }
     }
     
+    
+    
     public boolean changePassword(String dni, String oldPassword, String newPassword) {
         UserData userData = new UserData();
         userData.setDni(dni);
