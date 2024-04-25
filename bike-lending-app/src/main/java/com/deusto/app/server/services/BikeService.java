@@ -71,11 +71,7 @@ public class BikeService {
             e.printStackTrace();
             
             return -1;
-        } finally {
-            if (pm != null && !pm.isClosed()) {
-                pm.close();
-            }
-        }
+        } 
     }
     
     public String  displayStationsAndBikes() {
@@ -114,11 +110,7 @@ public class BikeService {
                 tx.rollback();
             }
             return "Error displaying stations and bikes";
-        } finally {
-            if (pm != null && !pm.isClosed()) {
-                pm.close();
-            }
-        }
+        } 
     }
 
     public Bicycle selectBike(int stationId) {
@@ -149,11 +141,7 @@ public class BikeService {
             }
             e.printStackTrace();
             return null;
-        } finally {
-            if (pm != null && !pm.isClosed()) {
-                pm.close();
-            }
-        }
+        } 
     }
 
     public List<Bicycle> getAvailableBikesInStation(int stationId) {
@@ -172,10 +160,6 @@ public class BikeService {
                 tx.rollback();
             }
             return null;
-        } finally {
-            if (!pm.isClosed()) {
-                pm.close();
-            }
         }
     }
 }
