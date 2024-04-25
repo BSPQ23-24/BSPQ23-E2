@@ -26,6 +26,20 @@ public class ResourceFacade {
 
 	// Data structure for manage Server State
 	public Map<Long, User> serverState = new HashMap<>();
+	
+	@POST
+	@Path("/user/changePassword")
+	public Response changePassword(@FormParam("dni") String dni, @FormParam("oldPassword") String oldPassword, @FormParam("newPassword") String newPassword) {
+	    
+	    boolean change_success = UserService.getInstance().changePassword(dni, oldPassword, newPassword);
+
+	    if (change_success) {
+	        return Response.ok().build();
+	    } else {
+	        return Response.status(Response.Status.UNAUTHORIZED).entity("Failed to change password").build();
+	    }
+	}
+
 
 	@POST
 	@Path("/user/register")
