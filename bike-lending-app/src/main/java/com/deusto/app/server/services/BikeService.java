@@ -162,5 +162,23 @@ public class BikeService {
             return null;
         }
     }
+    
+    public Bicycle getBikeById(int bikeId) {
+        try {
+            tx.begin();
+
+            Bicycle bike = pm.getObjectById(Bicycle.class, bikeId);
+
+            tx.commit();
+
+            return bike;
+        } catch (Exception e) {
+            e.printStackTrace();
+            if (tx.isActive()) {
+                tx.rollback();
+            }
+            return null;
+        }
+    }
 }
 
