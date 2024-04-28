@@ -90,7 +90,7 @@ public class BikeController {
 			
 		Response response = invocationBuilder.get();
 		if (response.getStatus() == Response.Status.OK.getStatusCode()) {
-		LogManager.getLogger(BikeController.class).info("The bikes of the station {} are displayed!", stationId);
+		LogManager.getLogger(BikeController.class).info("Bike selected!");
 		return Response.ok(response.getEntity()).build();
 			
 		} else {
@@ -102,7 +102,7 @@ public class BikeController {
 	
 	//Bike Creation
 	
-	public Response createtBike( @QueryParam("stationId") int stationId, BicycleData bikeData, @QueryParam("token") long token) {
+	public Response createBike( @QueryParam("stationId") int stationId, BicycleData bikeData, @QueryParam("token") long token) {
 	    WebTarget createBikeWebTarget = ServiceLocator.getInstance().getWebTarget().path("bikeapp/bike/create")
 	    																		  .queryParam("stationId", stationId)
 					  															  .queryParam("token", token);
@@ -112,7 +112,7 @@ public class BikeController {
 		Response response = invocationBuilder.post(Entity.entity(bikeData, MediaType.APPLICATION_JSON));
 		
 		if (response.getStatus() == Response.Status.OK.getStatusCode()) {
-		LogManager.getLogger(BikeController.class).info("The bikes of the station {} are displayed!", stationId);
+		LogManager.getLogger(BikeController.class).info("Bike Created!");
 		return Response.ok(response.getEntity()).build();
 			
 		} else {

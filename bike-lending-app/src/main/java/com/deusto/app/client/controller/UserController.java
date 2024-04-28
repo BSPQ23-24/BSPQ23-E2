@@ -1,8 +1,10 @@
 package com.deusto.app.client.controller;
 
+import com.deusto.app.bike.controller.BikeController;
 import com.deusto.app.client.remote.ServiceLocator;
 import com.deusto.app.server.pojo.UserData;
 
+import jakarta.ws.rs.QueryParam;
 import jakarta.ws.rs.client.Entity;
 import jakarta.ws.rs.client.Invocation;
 import jakarta.ws.rs.client.WebTarget;
@@ -76,6 +78,26 @@ public class UserController {
             return false;
         }
     }
+    
+    //LogOut
+
+    public Response logoutUser(@QueryParam("token") long token) {
+    	
+    	WebTarget loginUserWebTarget = ServiceLocator.getInstance().getWebTarget().path("bikeapp/user/logout");
+        Invocation.Builder invocationBuilder = loginUserWebTarget.request(MediaType.APPLICATION_JSON);
+
+        Response response = invocationBuilder.post(Entity.entity(token, MediaType.APPLICATION_JSON));
+        if (response.getStatus() == Response.Status.OK.getStatusCode()) {
+        	UserController.token=-1;
+        	LogManager.getLogger(BikeController.class).info("Logged out!");
+    		return Response.ok(response.getEntity()).build();
+        } else {
+        	LogManager.getLogger(BikeController.class).error("Display failed. Code: {}, Reason: {}", response.getStatus(), response.readEntity(String.class));
+    		return Response.ok(response.getEntity()).build();
+        }
+    	
+    }
+
     
     public long getToken() {
     	
