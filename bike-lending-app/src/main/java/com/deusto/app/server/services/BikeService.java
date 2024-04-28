@@ -22,6 +22,7 @@ import jakarta.ws.rs.core.Response;
 import java.util.List;
 import com.deusto.app.server.data.domain.Bicycle;
 import com.deusto.app.server.data.domain.Station;
+import com.deusto.app.server.pojo.BicycleData;
 
 
 public class BikeService {
@@ -43,7 +44,7 @@ public class BikeService {
     }
     
     
-    public int createBike(int stationId, Bicycle bikeData) {
+    public int createBike(int stationId, BicycleData bikeData) {
         try {
             tx.begin();
 

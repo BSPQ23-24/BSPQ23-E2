@@ -9,6 +9,7 @@ import org.apache.logging.log4j.LogManager;
 
 import com.deusto.app.server.data.domain.Bicycle;
 import com.deusto.app.server.data.domain.User;
+import com.deusto.app.server.pojo.BicycleData;
 import com.deusto.app.server.pojo.UserData;
 import com.deusto.app.server.services.BikeService;
 import com.deusto.app.server.services.UserService;
@@ -99,7 +100,7 @@ public class ResourceFacade {
 	
 	@POST
 	@Path("/bike/create")
-	public Response createBike(@QueryParam("stationId") int stationId, Bicycle bikeData, @QueryParam("token") long token) {
+	public Response createBike(@QueryParam("stationId") int stationId, BicycleData bikeData, @QueryParam("token") long token) {
 	    if (!serverState.containsKey(token)) {
 	        return Response.status(Response.Status.UNAUTHORIZED).entity("User is not logged in").build();
 	    }
