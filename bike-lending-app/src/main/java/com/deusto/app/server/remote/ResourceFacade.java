@@ -82,7 +82,7 @@ public class ResourceFacade {
 	@POST
     @Path("/user/logout")
     public Response logoutUser(@QueryParam("token") long token) {
-		LogManager.getLogger(ResourceFacade.class).info("User logging out.");
+		LogManager.getLogger(ResourceFacade.class).info("Logout User: Token '{}'", token);
         if (serverState.containsKey(token)) {
             serverState.remove(token);  // Remove the user from the server state
             return Response.ok().entity("User logged out successfully").build();

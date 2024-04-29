@@ -50,6 +50,7 @@ public class UserFunctionalityTest {
         
         // Attempt to log out
         boolean logoutSuccess = userController.logoutUser(userController.getToken());
+        // When running the test the controller sends the actual real token, but server receives a 0
         Assertions.assertTrue(logoutSuccess, "Logout should return true on success.");
         Assertions.assertEquals(userController.getToken(), -1, "Logout should set the token to -1.");
     }
