@@ -33,40 +33,19 @@ public class BicycleDetailUI extends JFrame {
         stationField = new JLabel();
         stationField.setText("Station Name");
 
-        JPanel panel = new JPanel(new GridBagLayout());
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.gridx = 0;
-        gbc.gridy = 0;
-        gbc.anchor = GridBagConstraints.WEST;
-        gbc.insets = new Insets(5, 10, 5, 10); // Add padding
-
-        panel.add(idLabel, gbc);
-        gbc.gridx = 1;
-        panel.add(idField, gbc);
-
-        gbc.gridy++;
-        gbc.gridx = 0;
-        panel.add(acquisitionDateLabel, gbc);
-        gbc.gridx = 1;
-        panel.add(acquisitionDateField, gbc);
-
-        gbc.gridy++;
-        gbc.gridx = 0;
-        panel.add(typeLabel, gbc);
-        gbc.gridx = 1;
-        panel.add(typeField, gbc);
-
-        gbc.gridy++;
-        gbc.gridx = 0;
-        panel.add(isAvailableLabel, gbc);
-        gbc.gridx = 1;
-        panel.add(isAvailableField, gbc);
-
-        gbc.gridy++;
-        gbc.gridx = 0;
-        panel.add(stationLabel, gbc);
-        gbc.gridx = 1;
-        panel.add(stationField, gbc);
+        JPanel panel = new JPanel(new GridLayout(5, 2));
+        
+        
+        panel.add(idLabel);
+        panel.add(idField);
+        panel.add(acquisitionDateLabel);
+        panel.add(acquisitionDateField);
+        panel.add(typeLabel);
+        panel.add(typeField);
+        panel.add(isAvailableLabel);
+        panel.add(isAvailableField);
+        panel.add(stationLabel);
+        panel.add(stationField);
 
         getContentPane().add(panel);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
