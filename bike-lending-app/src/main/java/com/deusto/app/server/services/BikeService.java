@@ -2,6 +2,7 @@
 package com.deusto.app.server.services;
 
 
+import java.util.ArrayList;
 import java.util.Date;
 
 import javax.jdo.JDOHelper;
@@ -23,6 +24,7 @@ import java.util.List;
 import com.deusto.app.server.data.domain.Bicycle;
 import com.deusto.app.server.data.domain.Station;
 import com.deusto.app.server.pojo.BicycleData;
+import com.deusto.app.server.pojo.StationData;
 
 
 public class BikeService {
@@ -75,46 +77,34 @@ public class BikeService {
         } 
     }
     
-    public String  displayStationsAndBikes() {
+    public List<StationData> displayStations() {
         try {
             tx.begin();
 
             Query<Station> stationQuery = pm.newQuery(Station.class);
             List<Station> stations = (List<Station>) stationQuery.execute();
 
-            StringBuilder result = new StringBuilder();
+            List<StationData> stationInfos = new ArrayList<>();
             for (Station station : stations) {
-                result.append("Station ID: ").append(station.getId()).append(" / Location: ").append(station.getLocation()).append("\n");
-
-                Query bikeQuery = pm.newQuery(Bicycle.class);
-                bikeQuery.setFilter("station == stationParam");
-                bikeQuery.declareParameters("com.deusto.app.server.data.domain.Station stationParam");
-                List<Bicycle> bikesAtStation = (List<Bicycle>) bikeQuery.execute(station);
-
-                if (!bikesAtStation.isEmpty()) {
-                    result.append("Bikes at this station: ");
-                    for (Bicycle bike : bikesAtStation) {
-                        result.append(bike.getId()).append(", ");
-                    }
-                    result.setLength(result.length() - 2);
-                    result.append("\n");
-                } else {
-                    result.append("No bikes at this station\n");
-                }
+                StationData stationInfo = new StationData();
+                stationInfo.setId(station.getId());
+                stationInfo.setLocation(station.getLocation());
+                stationInfos.add(stationInfo);
             }
 
             tx.commit();
-            return result.toString();
+            return stationInfos;
         } catch (Exception e) {
-            e.printStackTrace();
             if (tx.isActive()) {
                 tx.rollback();
             }
-            return "Error displaying stations and bikes";
-        } 
+            e.printStackTrace();
+            return null;
+        }
     }
+        
 
-    public Bicycle selectBike(int stationId) {
+    public BicycleData selectBike(int stationId) {
         try {
             tx.begin();
 
@@ -130,8 +120,16 @@ public class BikeService {
 
             if (selectedBike != null) {
                 selectedBike.setAvailable(false);
+
+                BicycleData selectedBikeInfo = new BicycleData();
+                selectedBikeInfo.setId(selectedBike.getId());
+                selectedBikeInfo.setAcquisitionDate(selectedBike.getAcquisitionDate());
+                selectedBikeInfo.setType(selectedBike.getType());
+                selectedBikeInfo.setAvailable(selectedBike.isAvailable());
+                selectedBikeInfo.setStationId(stationId);
+
                 tx.commit();
-                return selectedBike;
+                return selectedBikeInfo;
             } else {
                 tx.rollback();
                 return null;
@@ -145,16 +143,28 @@ public class BikeService {
         } 
     }
 
-    public List<Bicycle> getAvailableBikesInStation(int stationId) {
+
+    public List<BicycleData> getAvailableBikesInStation(int stationId) {
         try {
             tx.begin();
 
             Station station = pm.getObjectById(Station.class, stationId);
             List<Bicycle> availableBikes = station.getBikes();
 
+            List<BicycleData> bicycleInfos = new ArrayList<>();
+            for (Bicycle bike : availableBikes) {
+            	BicycleData bicycleInfo = new BicycleData();
+                bicycleInfo.setId(bike.getId());
+                bicycleInfo.setAcquisitionDate(bike.getAcquisitionDate());
+                bicycleInfo.setType(bike.getType());
+                bicycleInfo.setAvailable(bike.isAvailable());
+                bicycleInfo.setStationId(stationId);
+                bicycleInfos.add(bicycleInfo);
+            }
+
             tx.commit();
 
-            return availableBikes;
+            return bicycleInfos;
         } catch (Exception e) {
             e.printStackTrace();
             if (tx.isActive()) {
@@ -164,15 +174,21 @@ public class BikeService {
         }
     }
     
-    public Bicycle getBikeById(int bikeId) {
+    public BicycleData getBikeById(int bikeId) {
         try {
             tx.begin();
 
             Bicycle bike = pm.getObjectById(Bicycle.class, bikeId);
+            BicycleData bikeInfo = new BicycleData();
+            bikeInfo.setId(bike.getId());
+            bikeInfo.setAcquisitionDate(bike.getAcquisitionDate());
+            bikeInfo.setType(bike.getType());
+            bikeInfo.setAvailable(bike.isAvailable());
+            bikeInfo.setStationId(bike.getStation().getId());
 
             tx.commit();
 
-            return bike;
+            return bikeInfo;
         } catch (Exception e) {
             e.printStackTrace();
             if (tx.isActive()) {
