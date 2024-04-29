@@ -1,6 +1,13 @@
 package com.deusto.app.client.UI;
 
 import javax.swing.*;
+
+import com.deusto.app.client.controller.BikeController;
+import com.deusto.app.server.pojo.BicycleData;
+
+import jakarta.ws.rs.PathParam;
+import jakarta.ws.rs.QueryParam;
+
 import java.awt.*;
 
 public class BicycleDetailUI extends JFrame {
@@ -11,27 +18,30 @@ public class BicycleDetailUI extends JFrame {
 	private JLabel idLabel, acquisitionDateLabel, typeLabel, isAvailableLabel, stationLabel;
     private JLabel idField, acquisitionDateField, typeField, isAvailableField, stationField;
 
-    public BicycleDetailUI() {
+    public BicycleDetailUI(@PathParam("bikeId") int bikeId, @QueryParam("token") long token) {
         super("Bicycle Details");
+        
+        BicycleData bike = BikeController.getInstance().getBikeDetails(bikeId, token);
+        
         idLabel = new JLabel("ID:");
         idField = new JLabel();
-        idField.setText(String.valueOf(0));
+        idField.setText(String.valueOf(bike.getId()));
 
         acquisitionDateLabel = new JLabel("Acquisition Date:");
         acquisitionDateField = new JLabel();
-        acquisitionDateField.setText("Aquisition Date");
+        acquisitionDateField.setText(bike.getAcquisitionDate());
 
         typeLabel = new JLabel("Type:");
         typeField = new JLabel();
-        typeField.setText("Type");
+        typeField.setText(bike.getType());
 
         isAvailableLabel = new JLabel("Is Available:");
         isAvailableField = new JLabel();
-        isAvailableField.setText(String.valueOf(0));
+        isAvailableField.setText(String.valueOf(bike.isAvailable()));
 
         stationLabel = new JLabel("Station:");
         stationField = new JLabel();
-        stationField.setText("Station Name");
+        stationField.setText(String.valueOf(bike.getStationId()));
 
         JPanel panel = new JPanel(new GridLayout(5, 2));
         
