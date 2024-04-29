@@ -1,5 +1,9 @@
 package com.deusto.app.server.services;
 
+import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.jdo.JDOHelper;
 import javax.jdo.PersistenceManager;
 import javax.jdo.PersistenceManagerFactory;
@@ -19,11 +23,13 @@ public class UserService {
 	private PersistenceManagerFactory pmf;
 	private PersistenceManager pm;
 	private Transaction tx;
+	private Map<Long, User> serverState;
 
 	private UserService() {
 		pmf = JDOHelper.getPersistenceManagerFactory("datanucleus.properties");
 		pm = pmf.getPersistenceManager();
 		tx = pm.currentTransaction();
+		serverState = new HashMap<>();
 		initializeData();
 	}
 
@@ -66,7 +72,7 @@ public class UserService {
 		}
 	}
 
-	public User loginUser(String dni, String password) {
+	public long loginUser(String dni, String password) {
 		LogManager.getLogger(UserService.class).info("Login User: '{}' | Password: '{}'", dni, password);
 
 		User user = null;
@@ -88,7 +94,40 @@ public class UserService {
 				tx.rollback();
 			}
 		}
-		return user;
+
+		if (user != null) {
+			// If user is not logged in
+			if (!this.serverState.values().contains(user)) {
+				long token = Calendar.getInstance().getTimeInMillis();
+				this.serverState.put(token, user);
+				LogManager.getLogger(UserService.class).info("Login Succesful | User: '{}'", dni);
+				return token;
+			} else {
+				return -1;
+			}
+
+		}
+		return -1;
+	}
+
+	public boolean isLoggedIn(long token) {
+		if (serverState.containsKey(token)) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	public boolean logoutUser(long token) {
+		LogManager.getLogger(UserService.class).info("Logout User: Token '{}'", token);
+		if (UserService.getInstance().isLoggedIn(token)) {
+			serverState.remove(token); // Remove the user from the server state
+			LogManager.getLogger(UserService.class).info("Logout Succesful | Token '{}'", token);
+			return true;
+		} else {
+			LogManager.getLogger(UserService.class).info("Logout | Token '{}' | User isn't logged in", token);
+			return false;
+		}
 	}
 
 	public boolean changePassword(String dni, String oldPassword, String newPassword) {
