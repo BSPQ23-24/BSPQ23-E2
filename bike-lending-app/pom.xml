@@ -123,6 +123,7 @@
 				<configuration>
 					<api>JDO</api>
 					<verbose>true</verbose>
+					<fork>false</fork>
 					<props>${config.files.dir}/datanucleus.properties</props>
 				</configuration>
 				<executions>
