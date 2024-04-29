@@ -22,7 +22,7 @@ public class UserFunctionalityTest {
     public void testUserRegistration() {
         // Prepare user data
         UserData userData = new UserData();
-        userData.setDni("12345678A");
+        userData.setDni("11111111A");
         userData.setPassword("root");
         userData.setName("UsuarioTest");
         userData.setSurname("ApellidoTest");
@@ -36,7 +36,7 @@ public class UserFunctionalityTest {
     }
     
     @Test
-    public void testUserLogin() {
+    public void testUserLoginLogout() {
         // Prepare user data
         UserData userData = new UserData();
         userData.setDni("12345678A");
@@ -44,8 +44,15 @@ public class UserFunctionalityTest {
 
 
         // Attempt to log in the newly registered user
-        Long token = userController.loginUser(userData);
-        Assertions.assertNotNull(token, "Login should return a non-null token on success.");
+        boolean loginSuccess = userController.loginUser(userData);
+        Assertions.assertTrue(loginSuccess, "Login should return true on success.");
+        Assertions.assertNotNull(userController.getToken(), "Login should set a non-null token.");
+        
+        // Attempt to log out
+        boolean logoutSuccess = userController.logoutUser(userController.getToken());
+        // When running the test the controller sends the actual real token, but server receives a 0
+        Assertions.assertTrue(logoutSuccess, "Logout should return true on success.");
+        Assertions.assertEquals(userController.getToken(), -1, "Logout should set the token to -1.");
     }
     
     @Test
