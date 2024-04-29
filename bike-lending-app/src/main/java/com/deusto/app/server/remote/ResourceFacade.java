@@ -3,6 +3,7 @@ package com.deusto.app.server.remote;
 import java.util.List;
 import com.deusto.app.server.data.domain.Bicycle;
 import com.deusto.app.server.pojo.BicycleData;
+import com.deusto.app.server.pojo.StationData;
 import com.deusto.app.server.pojo.UserData;
 import com.deusto.app.server.services.BikeService;
 import com.deusto.app.server.services.UserService;
@@ -96,61 +97,66 @@ public class ResourceFacade {
 		}
 	}
 
-	@GET
-	@Path("/bike/stations")
-	public Response displayStationsAndBikes(@QueryParam("token") long token) {
-		if (UserService.getInstance().isLoggedIn(token)) {
-			return Response.status(Response.Status.UNAUTHORIZED).entity("User is not logged in").build();
-		}
-
-		String stationsAndBikes = BikeService.getInstance().displayStationsAndBikes();
-		return Response.ok(stationsAndBikes).build();
-	}
+    @GET
+    @Path("/bike/stations")
+    public Response displayStations(@QueryParam("token") long token) {
+        if (UserService.getInstance().isLoggedIn(token)) {
+            List<StationData> stations = BikeService.getInstance().displayStations();
+            if (stations != null) {
+                return Response.ok(stations).build();
+            } else {
+                return Response.serverError().entity("Error displaying stations").build();
+            }
+        } else {
+            return Response.status(Response.Status.UNAUTHORIZED).entity("User is not logged in").build();
+        }
+    }
 
 	@GET
 	@Path("/bike/select")
 	public Response selectBike(@QueryParam("stationId") int stationId, @QueryParam("token") long token) {
-		if (UserService.getInstance().isLoggedIn(token)) {
-			return Response.status(Response.Status.UNAUTHORIZED).entity("User is not logged in").build();
-		}
+	    if (UserService.getInstance().isLoggedIn(token)) {
+	        return Response.status(Response.Status.UNAUTHORIZED).entity("User is not logged in").build();
+	    }
 
-		Bicycle selectedBike = BikeService.getInstance().selectBike(stationId);
-		if (selectedBike != null) {
-			return Response.ok(selectedBike).build();
-		} else {
-			return Response.status(Response.Status.NOT_FOUND).entity("No available bikes at this station").build();
-		}
+	    BicycleData selectedBike = BikeService.getInstance().selectBike(stationId);
+	    if (selectedBike != null) {
+	        return Response.ok(selectedBike).build();
+	    } else {
+	        return Response.status(Response.Status.NOT_FOUND).entity("No available bikes at this station").build();
+	    }
 	}
 
 	@GET
 	@Path("/bike/available")
 	public Response getAvailableBikesInStation(@QueryParam("stationId") int stationId,
-			@QueryParam("token") long token) {
-		if (UserService.getInstance().isLoggedIn(token)) {
-			return Response.status(Response.Status.UNAUTHORIZED).entity("User is not logged in").build();
-		}
+	        @QueryParam("token") long token) {
+	    if (UserService.getInstance().isLoggedIn(token)) {
+	        return Response.status(Response.Status.UNAUTHORIZED).entity("User is not logged in").build();
+	    }
 
-		List<Bicycle> availableBikes = BikeService.getInstance().getAvailableBikesInStation(stationId);
-		if (availableBikes != null) {
-			return Response.ok(availableBikes).build();
-		} else {
-			return Response.serverError().entity("Error getting available bikes").build();
-		}
+	    List<BicycleData> availableBikes = BikeService.getInstance().getAvailableBikesInStation(stationId);
+	    if (availableBikes != null) {
+	        return Response.ok(availableBikes).build();
+	    } else {
+	        return Response.serverError().entity("Error getting available bikes").build();
+	    }
 	}
 
 	@GET
 	@Path("/bike/{bikeId}")
 	public Response getBikeDetails(@PathParam("bikeId") int bikeId, @QueryParam("token") long token) {
-		if (UserService.getInstance().isLoggedIn(token)) {
-			return Response.status(Response.Status.UNAUTHORIZED).entity("User is not logged in").build();
-		}
+	    if (UserService.getInstance().isLoggedIn(token)) {
+	        return Response.status(Response.Status.UNAUTHORIZED).entity("User is not logged in").build();
+	    }
 
-		Bicycle bike = BikeService.getInstance().getBikeById(bikeId);
-		if (bike != null) {
-			return Response.ok(bike).build();
-		} else {
-			return Response.status(Response.Status.NOT_FOUND).entity("Bike not found").build();
-		}
+	    BicycleData bike = BikeService.getInstance().getBikeById(bikeId);
+	    if (bike != null) {
+	        return Response.ok(bike).build();
+	    } else {
+	        return Response.status(Response.Status.NOT_FOUND).entity("Bike not found").build();
+	    }
 	}
+
 
 }

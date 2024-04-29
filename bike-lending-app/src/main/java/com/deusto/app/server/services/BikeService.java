@@ -77,7 +77,7 @@ public class BikeService {
         } 
     }
     
-    public List<StationData> displayStationsAndBikes() {
+    public List<StationData> displayStations() {
         try {
             tx.begin();
 
@@ -86,29 +86,23 @@ public class BikeService {
 
             List<StationData> stationInfos = new ArrayList<>();
             for (Station station : stations) {
-            	StationData stationInfo = new StationData();
+                StationData stationInfo = new StationData();
                 stationInfo.setId(station.getId());
                 stationInfo.setLocation(station.getLocation());
-
-                List<Integer> bikeIds = new ArrayList<>();
-                for (Bicycle bike : station.getBikes()) {
-                    bikeIds.add(bike.getId());
-                }
-                stationInfo.setBikeIds(bikeIds);
-
                 stationInfos.add(stationInfo);
             }
 
             tx.commit();
             return stationInfos;
         } catch (Exception e) {
-            e.printStackTrace();
             if (tx.isActive()) {
                 tx.rollback();
             }
+            e.printStackTrace();
             return null;
-        } 
+        }
     }
+        
 
     public BicycleData selectBike(int stationId) {
         try {
