@@ -23,8 +23,8 @@ public class ResourceFacade {
 
 	@POST
 	@Path("/user/changePassword")
-	public Response changePassword(@FormParam("dni") String dni, @FormParam("oldPassword") String oldPassword,
-			@FormParam("newPassword") String newPassword) {
+	public Response changePassword(@QueryParam("dni") String dni, @QueryParam("oldPassword") String oldPassword,
+			@QueryParam("newPassword") String newPassword) {
 
 		boolean change_success = UserService.getInstance().changePassword(dni, oldPassword, newPassword);
 

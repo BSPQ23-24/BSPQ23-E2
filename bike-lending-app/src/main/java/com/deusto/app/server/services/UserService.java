@@ -145,7 +145,6 @@ public class UserService {
 
 			// Update the password with the new one
 			user.setPassword(newPassword);
-			pm.makePersistent(user);
 			LogManager.getLogger(UserService.class).info("Password changed successfully for user: '{}'", dni);
 
 			tx.commit();
