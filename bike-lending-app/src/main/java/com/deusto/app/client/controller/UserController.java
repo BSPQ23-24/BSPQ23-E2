@@ -1,6 +1,5 @@
 package com.deusto.app.client.controller;
 
-import com.deusto.app.bike.controller.BikeController;
 import com.deusto.app.client.remote.ServiceLocator;
 import com.deusto.app.server.pojo.UserData;
 
@@ -42,18 +41,18 @@ public class UserController {
         }
     }
     
-    public Long loginUser(UserData userData) {
+    public boolean loginUser(UserData userData) {
         WebTarget loginUserWebTarget = ServiceLocator.getInstance().getWebTarget().path("bikeapp/user/login");
         Invocation.Builder invocationBuilder = loginUserWebTarget.request(MediaType.APPLICATION_JSON);
 
         Response response = invocationBuilder.post(Entity.entity(userData, MediaType.APPLICATION_JSON));
         if (response.getStatus() == Response.Status.OK.getStatusCode()) {
-            token = response.readEntity(Long.class);
+            UserController.token = response.readEntity(Long.class);
             LogManager.getLogger(UserController.class).info("User login successful, token received: {}", token);
-            return token;
+            return true;
         } else {
             LogManager.getLogger(UserController.class).error("Login failed. Code: {}, Reason: {}", response.getStatus(), response.readEntity(String.class));
-            return null;
+            return false;
         }
     }
     
@@ -81,7 +80,7 @@ public class UserController {
     
     //LogOut
 
-    public Response logoutUser(@QueryParam("token") long token) {
+    public boolean logoutUser(@QueryParam("token") long token) {
     	
     	WebTarget loginUserWebTarget = ServiceLocator.getInstance().getWebTarget().path("bikeapp/user/logout");
         Invocation.Builder invocationBuilder = loginUserWebTarget.request(MediaType.APPLICATION_JSON);
@@ -90,10 +89,10 @@ public class UserController {
         if (response.getStatus() == Response.Status.OK.getStatusCode()) {
         	UserController.token=-1;
         	LogManager.getLogger(BikeController.class).info("Logged out!");
-    		return Response.ok(response.getEntity()).build();
+    		return true;
         } else {
-        	LogManager.getLogger(BikeController.class).error("Display failed. Code: {}, Reason: {}", response.getStatus(), response.readEntity(String.class));
-    		return Response.ok(response.getEntity()).build();
+        	LogManager.getLogger(BikeController.class).error("Logout failed. Code: {}, Reason: {}", response.getStatus(), response.readEntity(String.class));
+    		return false;
         }
     	
     }
@@ -103,6 +102,8 @@ public class UserController {
     	
     	return token;
     }
+    
+    
 
 
     // Add more methods to handle other user actions like loginUser, sayHello, etc.

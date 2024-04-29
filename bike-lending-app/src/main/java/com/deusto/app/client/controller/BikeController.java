@@ -1,4 +1,4 @@
-package com.deusto.app.bike.controller;
+package com.deusto.app.client.controller;
 
 import org.apache.logging.log4j.LogManager;
 
