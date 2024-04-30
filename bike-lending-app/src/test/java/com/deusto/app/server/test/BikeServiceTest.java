@@ -1,33 +1,30 @@
 package com.deusto.app.server.test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.*;
 
-import javax.jdo.PersistenceManager;
-import javax.jdo.Transaction;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
-import org.mockito.MockedStatic;
-import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import com.deusto.app.client.controller.BikeController;
-import com.deusto.app.client.remote.ServiceLocator;
-import com.deusto.app.server.data.domain.Bicycle;
-import com.deusto.app.server.data.domain.Station;
 import com.deusto.app.server.pojo.BicycleData;
-import com.deusto.app.server.services.BikeService;
+import com.deusto.app.server.pojo.StationData;
+
 import com.deusto.app.server.services.UserService;
 
 import jakarta.ws.rs.client.Entity;
 import jakarta.ws.rs.client.Invocation;
-import jakarta.ws.rs.client.WebTarget;
-import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -54,105 +51,174 @@ public class BikeServiceTest {
     }
     
     @Test
-    public void testDisplayStationsAndBikes() {
+    public void testDisplayStations_Success() {
         // Arrange
         long token = 12345L;
-        String expectedResponse = "Station ID: 1 / Location: Central Park\nBikes at this station: 1, 2\n";
+        List<StationData> expectedStations = new ArrayList<>();
+        StationData station1 = new StationData();
+        station1.setId(1);
+        station1.setLocation("Central Park");
+        expectedStations.add(station1);
+        String expectedResponse = "[{\"id\":1,\"location\":\"Central Park\"}]";
         Response mockResponse = Response.ok(expectedResponse).build();
 
         // Mocking the behavior of Invocation.Builder to return a mocked response
         when(invocationBuilder.get()).thenReturn(mockResponse);
 
         // Act
-        Response response = bikeController.displayStationsAndBikes(token);
+        BikeController bikeController = BikeController.getInstance();
+        List<StationData> response = bikeController.displayStations(token);
 
         // Assert
         assertNotNull(response, "Response should not be null");
-        assertEquals(Response.Status.OK.getStatusCode(), response.getStatus(), "Response status should be OK");
-        assertEquals(expectedResponse, response.getEntity(), "Response entity should match expected value");
+        assertFalse(response.isEmpty(), "List of stations should not be empty");
+        assertEquals(expectedStations.size(), response.size(), "Number of stations should match");
+        assertTrue(response.contains(station1), "List of stations should contain station1");
     }
+
     
     @Test
-    public void testCreateBike() {
+    public void testCreateBike_Success() {
         // Arrange
         int stationId = 1;
         long token = 12345L;
         BicycleData bikeData = new BicycleData();
-        bikeData.setAcquisitionDate("2024-04-26");
         bikeData.setType("Mountain Bike");
-        String expectedResponse = "Bike created with ID: 1";
+        bikeData.setAcquisitionDate("2024-04-26");
+        String expectedResponse = "Bike Created!";
         Response mockResponse = Response.ok(expectedResponse).build();
 
         // Mocking the behavior of Invocation.Builder to return a mocked response
         when(invocationBuilder.post(any(Entity.class))).thenReturn(mockResponse);
 
         // Act
-        Response response = bikeController.createBike(stationId, bikeData, token);
+        BikeController bikeController = BikeController.getInstance();
+        boolean result = bikeController.createBike(stationId, bikeData, token);
 
         // Assert
-        assertNotNull(response, "Response should not be null");
-        assertEquals(Response.Status.OK.getStatusCode(), response.getStatus(), "Response status should be OK");
-        assertEquals(expectedResponse, response.getEntity(), "Response entity should match expected value");
+        assertTrue(result, "Bike creation should return true on success");
     }
-    
+
     @Test
-    public void testSelectBike() {
+    public void testCreateBike_Failure() {
         // Arrange
         int stationId = 1;
         long token = 12345L;
-        String expectedResponse = "Bike selected!";
+        BicycleData bikeData = new BicycleData();
+        bikeData.setType("Mountain Bike");
+        bikeData.setAcquisitionDate("2024-04-26");
+        String expectedErrorMessage = "Failed to create bike";
+        Response mockResponse = Response.serverError().entity(expectedErrorMessage).build();
+
+        // Mocking the behavior of Invocation.Builder to return a mocked response
+        when(invocationBuilder.post(any(Entity.class))).thenReturn(mockResponse);
+
+        // Act
+        BikeController bikeController = BikeController.getInstance();
+        boolean result = bikeController.createBike(stationId, bikeData, token);
+
+        // Assert
+        assertFalse(result, "Bike creation should return false on failure");
+    }
+
+    
+    @Test
+    public void testSelectBike_Success() {
+        // Arrange
+        int stationId = 1;
+        long token = 12345L;
+        BicycleData expectedBike = new BicycleData();
+        expectedBike.setId(1);
+        expectedBike.setType("Mountain Bike");
+        String expectedResponse = "{\"id\":1,\"type\":\"Mountain Bike\"}";
         Response mockResponse = Response.ok(expectedResponse).build();
 
         // Mocking the behavior of Invocation.Builder to return a mocked response
         when(invocationBuilder.get()).thenReturn(mockResponse);
 
         // Act
-        Response response = bikeController.selectBike(stationId, token);
+        BikeController bikeController = BikeController.getInstance();
+        BicycleData response = bikeController.selectBike(stationId, token);
 
         // Assert
         assertNotNull(response, "Response should not be null");
-        assertEquals(Response.Status.OK.getStatusCode(), response.getStatus(), "Response status should be OK");
-        assertEquals(expectedResponse, response.getEntity(), "Response entity should match expected value");
+        assertEquals(expectedBike.getId(), response.getId(), "Bike ID should match");
+        assertEquals(expectedBike.getType(), response.getType(), "Bike type should match");
     }
+
     
     @Test
-    public void testGetAvailableBikesInStation() {
+    public void testGetAvailableBikesInStation_Success() {
         // Arrange
         int stationId = 1;
         long token = 12345L;
-        String expectedResponse = "Bikes of the station " + stationId;
+        List<BicycleData> expectedBikes = new ArrayList<>();
+        BicycleData bike1 = new BicycleData();
+        bike1.setId(1);
+        bike1.setType("Mountain Bike");
+        expectedBikes.add(bike1);
+        String expectedResponse = "[{\"id\":1,\"type\":\"Mountain Bike\"}]";
         Response mockResponse = Response.ok(expectedResponse).build();
 
         // Mocking the behavior of Invocation.Builder to return a mocked response
         when(invocationBuilder.get()).thenReturn(mockResponse);
 
         // Act
-        Response response = bikeController.getAvailableBikesInStation(stationId, token);
+        BikeController bikeController = BikeController.getInstance();
+        List<BicycleData> response = bikeController.getAvailableBikesInStation(stationId, token);
 
         // Assert
         assertNotNull(response, "Response should not be null");
-        assertEquals(Response.Status.OK.getStatusCode(), response.getStatus(), "Response status should be OK");
-        assertEquals(expectedResponse, response.getEntity(), "Response entity should match expected value");
+        assertFalse(response.isEmpty(), "List of bikes should not be empty");
+        assertEquals(expectedBikes.size(), response.size(), "Number of bikes should match");
+        assertTrue(response.contains(bike1), "List of bikes should contain bike1");
     }
+
     
     @Test
-    public void testGetBikeDetails() {
+    public void testGetBikeDetails_Success() {
         // Arrange
         int bikeId = 1;
         long token = 12345L;
-        String expectedResponse = "Bike details for bike " + bikeId;
+        BicycleData expectedBikeData = new BicycleData();
+        expectedBikeData.setId(bikeId);
+        expectedBikeData.setType("Mountain Bike");
+        expectedBikeData.setAcquisitionDate("2024-04-26");
+        String expectedResponse = "{\"bikeId\":1,\"type\":\"Mountain Bike\",\"acquisitionDate\":\"2024-04-26\"}";
         Response mockResponse = Response.ok(expectedResponse).build();
 
         // Mocking the behavior of Invocation.Builder to return a mocked response
         when(invocationBuilder.get()).thenReturn(mockResponse);
 
         // Act
-        Response response = bikeController.getBikeDetails(bikeId, token);
+        BikeController bikeController = BikeController.getInstance();
+        BicycleData response = bikeController.getBikeDetails(bikeId, token);
 
         // Assert
         assertNotNull(response, "Response should not be null");
-        assertEquals(Response.Status.OK.getStatusCode(), response.getStatus(), "Response status should be OK");
-        assertEquals(expectedResponse, response.getEntity(), "Response entity should match expected value");
+        assertEquals(expectedBikeData.getId(), response.getId(), "BikeId should match");
+        assertEquals(expectedBikeData.getType(), response.getType(), "Type should match");
+        assertEquals(expectedBikeData.getAcquisitionDate(), response.getAcquisitionDate(), "Acquisition date should match");
+        assertTrue(response.getId() > 0, "BikeId should be greater than 0");
+        assertTrue(response.getType().equals("Mountain Bike"), "Type should be 'Mountain Bike'");
+    }
+    
+    @Test
+    public void testGetBikeDetails_Failure() {
+        // Arrange
+        int bikeId = 1;
+        long token = 12345L;
+        Response mockResponse = Response.status(Response.Status.NOT_FOUND).build();
+
+        // Mocking the behavior of Invocation.Builder to return a mocked response
+        when(invocationBuilder.get()).thenReturn(mockResponse);
+
+        // Act
+        BikeController bikeController = BikeController.getInstance();
+        BicycleData response = bikeController.getBikeDetails(bikeId, token);
+
+        // Assert
+        assertNull(response, "Response should be null when status is not OK");
     }
     
     
