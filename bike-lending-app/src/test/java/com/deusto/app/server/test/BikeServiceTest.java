@@ -17,6 +17,7 @@ import org.mockito.MockitoAnnotations;
 
 import com.deusto.app.client.controller.BikeController;
 import com.deusto.app.client.controller.UserController;
+import com.deusto.app.client.remote.ServiceLocator;
 import com.deusto.app.server.pojo.BicycleData;
 import com.deusto.app.server.pojo.StationData;
 
@@ -24,6 +25,8 @@ import com.deusto.app.server.services.UserService;
 
 import jakarta.ws.rs.client.Entity;
 import jakarta.ws.rs.client.Invocation;
+import jakarta.ws.rs.client.WebTarget;
+import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
 public class BikeServiceTest {
@@ -48,8 +51,15 @@ public class BikeServiceTest {
         // To ensure that the user service is initialized before executing any test.
         UserService.getInstance();
         bikeController = BikeController.getInstance();
-        invocationBuilder = mock(Invocation.Builder.class);
         userController = UserController.getInstance();
+        invocationBuilder = mock(Invocation.Builder.class);
+        // Mock ServiceLocator to return mocked invocationBuilder
+        ServiceLocator serviceLocator = mock(ServiceLocator.class);
+        WebTarget webTarget = mock(WebTarget.class);
+        when(serviceLocator.getWebTarget()).thenReturn(webTarget);
+        when(webTarget.path(anyString())).thenReturn(webTarget);
+        when(webTarget.queryParam(anyString(), any())).thenReturn(webTarget);
+        when(webTarget.request(any(MediaType.class))).thenReturn(invocationBuilder);
     }
     
     @Test
