@@ -18,6 +18,7 @@ import org.mockito.MockitoAnnotations;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import com.deusto.app.client.controller.BikeController;
+import com.deusto.app.client.controller.UserController;
 import com.deusto.app.server.pojo.BicycleData;
 import com.deusto.app.server.pojo.StationData;
 
@@ -32,6 +33,9 @@ public class BikeServiceTest {
 	
 	@Mock
 	private static BikeController bikeController;
+	
+	@Mock
+	private static UserController userController;
     
     @Mock
     private static Invocation.Builder invocationBuilder;
@@ -48,12 +52,12 @@ public class BikeServiceTest {
         UserService.getInstance();
         bikeController = BikeController.getInstance();
         invocationBuilder = mock(Invocation.Builder.class);
+        userController = UserController.getInstance();
     }
     
     @Test
     public void testDisplayStations_Success() {
         // Arrange
-        long token = 12345L;
         List<StationData> expectedStations = new ArrayList<>();
         StationData station1 = new StationData();
         station1.setId(1);
@@ -66,8 +70,7 @@ public class BikeServiceTest {
         when(invocationBuilder.get()).thenReturn(mockResponse);
 
         // Act
-        BikeController bikeController = BikeController.getInstance();
-        List<StationData> response = bikeController.displayStations(token);
+        List<StationData> response = bikeController.displayStations(userController.getToken());
 
         // Assert
         assertNotNull(response, "Response should not be null");
@@ -92,8 +95,7 @@ public class BikeServiceTest {
         when(invocationBuilder.post(any(Entity.class))).thenReturn(mockResponse);
 
         // Act
-        BikeController bikeController = BikeController.getInstance();
-        boolean result = bikeController.createBike(stationId, bikeData, token);
+        boolean result = bikeController.createBike(stationId, bikeData, userController.getToken());
 
         // Assert
         assertTrue(result, "Bike creation should return true on success");
@@ -114,8 +116,7 @@ public class BikeServiceTest {
         when(invocationBuilder.post(any(Entity.class))).thenReturn(mockResponse);
 
         // Act
-        BikeController bikeController = BikeController.getInstance();
-        boolean result = bikeController.createBike(stationId, bikeData, token);
+        boolean result = bikeController.createBike(stationId, bikeData, userController.getToken());
 
         // Assert
         assertFalse(result, "Bike creation should return false on failure");
@@ -126,7 +127,6 @@ public class BikeServiceTest {
     public void testSelectBike_Success() {
         // Arrange
         int stationId = 1;
-        long token = 12345L;
         BicycleData expectedBike = new BicycleData();
         expectedBike.setId(1);
         expectedBike.setType("Mountain Bike");
@@ -137,8 +137,7 @@ public class BikeServiceTest {
         when(invocationBuilder.get()).thenReturn(mockResponse);
 
         // Act
-        BikeController bikeController = BikeController.getInstance();
-        BicycleData response = bikeController.selectBike(stationId, token);
+        BicycleData response = bikeController.selectBike(stationId, userController.getToken());
 
         // Assert
         assertNotNull(response, "Response should not be null");
@@ -151,7 +150,6 @@ public class BikeServiceTest {
     public void testGetAvailableBikesInStation_Success() {
         // Arrange
         int stationId = 1;
-        long token = 12345L;
         List<BicycleData> expectedBikes = new ArrayList<>();
         BicycleData bike1 = new BicycleData();
         bike1.setId(1);
@@ -164,8 +162,7 @@ public class BikeServiceTest {
         when(invocationBuilder.get()).thenReturn(mockResponse);
 
         // Act
-        BikeController bikeController = BikeController.getInstance();
-        List<BicycleData> response = bikeController.getAvailableBikesInStation(stationId, token);
+        List<BicycleData> response = bikeController.getAvailableBikesInStation(stationId, userController.getToken());
 
         // Assert
         assertNotNull(response, "Response should not be null");
@@ -179,7 +176,6 @@ public class BikeServiceTest {
     public void testGetBikeDetails_Success() {
         // Arrange
         int bikeId = 1;
-        long token = 12345L;
         BicycleData expectedBikeData = new BicycleData();
         expectedBikeData.setId(bikeId);
         expectedBikeData.setType("Mountain Bike");
@@ -192,7 +188,7 @@ public class BikeServiceTest {
 
         // Act
         BikeController bikeController = BikeController.getInstance();
-        BicycleData response = bikeController.getBikeDetails(bikeId, token);
+        BicycleData response = bikeController.getBikeDetails(bikeId, userController.getToken());
 
         // Assert
         assertNotNull(response, "Response should not be null");
@@ -207,15 +203,13 @@ public class BikeServiceTest {
     public void testGetBikeDetails_Failure() {
         // Arrange
         int bikeId = 1;
-        long token = 12345L;
         Response mockResponse = Response.status(Response.Status.NOT_FOUND).build();
 
         // Mocking the behavior of Invocation.Builder to return a mocked response
         when(invocationBuilder.get()).thenReturn(mockResponse);
 
         // Act
-        BikeController bikeController = BikeController.getInstance();
-        BicycleData response = bikeController.getBikeDetails(bikeId, token);
+        BicycleData response = bikeController.getBikeDetails(bikeId, userController.getToken());
 
         // Assert
         assertNull(response, "Response should be null when status is not OK");
