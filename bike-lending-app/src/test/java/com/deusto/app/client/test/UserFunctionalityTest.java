@@ -58,10 +58,10 @@ public class UserFunctionalityTest {
     @Test
     public void testChangePassword() {
         UserData userData = new UserData();
-        userData.setDni("12345678A");
+        userData.setDni("87654321B");
         
         // Attempt to change password
-        String oldPassword = "password123";
+        String oldPassword = "password456";
         String newPassword = "newPassword456";
         boolean changePasswordResult = userController.changePassword(userData.getDni(), oldPassword, newPassword);
         Assertions.assertTrue(changePasswordResult, "Changing password should return true on success.");
