@@ -81,6 +81,7 @@ public class ResourceFacade {
 		return Response.ok("Hello world!").build();
 	}
 
+	/*
 	@POST
 	@Path("/bike/create")
 	public Response createBike(@QueryParam("stationId") int stationId, BicycleData bikeData,
@@ -96,6 +97,7 @@ public class ResourceFacade {
 			return Response.serverError().entity("Error creating bike").build();
 		}
 	}
+	*/
 
     @GET
     @Path("/bike/stations")

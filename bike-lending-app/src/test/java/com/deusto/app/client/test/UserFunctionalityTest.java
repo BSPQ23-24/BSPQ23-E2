@@ -4,6 +4,7 @@ import com.deusto.app.client.controller.UserController;
 import com.deusto.app.server.pojo.UserData;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Assertions;
 
 public class UserFunctionalityTest {

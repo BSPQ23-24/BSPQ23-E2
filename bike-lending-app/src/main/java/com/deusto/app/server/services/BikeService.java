@@ -31,7 +31,6 @@ public class BikeService {
 	private static BikeService instance;
     private PersistenceManager pm = null;
     private Transaction tx = null;
-    protected static final Logger logger = LogManager.getLogger();
 
     public BikeService() {
         PersistenceManagerFactory pmf = JDOHelper.getPersistenceManagerFactory("datanucleus.properties");
@@ -45,8 +44,7 @@ public class BikeService {
         return instance;
     }
     
-    
-    public int createBike(int stationId, BicycleData bikeData) {
+    /*public int createBike(int stationId, BicycleData bikeData) {
         try {
             tx.begin();
 
@@ -75,9 +73,12 @@ public class BikeService {
             
             return -1;
         } 
-    }
+    }*/
     
     public List<StationData> displayStations() {
+    	
+    	LogManager.getLogger(BikeService.class).info("Displaying stations");
+    	
         try {
             tx.begin();
 
@@ -93,6 +94,9 @@ public class BikeService {
             }
 
             tx.commit();
+            
+            LogManager.getLogger(BikeService.class).info("Stations displayed");
+            
             return stationInfos;
         } catch (Exception e) {
             if (tx.isActive()) {
@@ -105,6 +109,9 @@ public class BikeService {
         
 
     public BicycleData selectBike(int stationId) {
+    	
+    	LogManager.getLogger(BikeService.class).info("Selecting first available bike in station | ID : '{}'", stationId);
+    	
         try {
             tx.begin();
 
@@ -129,6 +136,9 @@ public class BikeService {
                 selectedBikeInfo.setStationId(stationId);
 
                 tx.commit();
+                
+                LogManager.getLogger(BikeService.class).info("Bike Selected | ID : '{}'", selectedBikeInfo.getId());
+                
                 return selectedBikeInfo;
             } else {
                 tx.rollback();
@@ -145,6 +155,9 @@ public class BikeService {
 
 
     public List<BicycleData> getAvailableBikesInStation(int stationId) {
+    	
+    	LogManager.getLogger(BikeService.class).info("Getting available bikes in station | ID : '{}'", stationId);
+    	
         try {
             tx.begin();
 
@@ -163,6 +176,8 @@ public class BikeService {
             }
 
             tx.commit();
+            
+            LogManager.getLogger(BikeService.class).info("Available bikes in station retrieved | ID : '{}'", stationId);
 
             return bicycleInfos;
         } catch (Exception e) {
@@ -175,6 +190,9 @@ public class BikeService {
     }
     
     public BicycleData getBikeById(int bikeId) {
+    	
+    	LogManager.getLogger(BikeService.class).info("Getting bike | ID : '{}'", bikeId);
+    	
         try {
             tx.begin();
 
@@ -188,6 +206,8 @@ public class BikeService {
 
             tx.commit();
 
+            LogManager.getLogger(BikeService.class).info("Bike retrieved | ID : '{}'", bikeId);
+            
             return bikeInfo;
         } catch (Exception e) {
             e.printStackTrace();
