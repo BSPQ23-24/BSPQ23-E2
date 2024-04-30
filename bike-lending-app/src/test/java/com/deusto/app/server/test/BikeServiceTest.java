@@ -10,12 +10,10 @@ import static org.mockito.Mockito.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.mockito.junit.MockitoJUnitRunner;
 
 import com.deusto.app.client.controller.BikeController;
 import com.deusto.app.client.controller.UserController;
@@ -28,20 +26,19 @@ import jakarta.ws.rs.client.Entity;
 import jakarta.ws.rs.client.Invocation;
 import jakarta.ws.rs.core.Response;
 
-@RunWith(MockitoJUnitRunner.class)
 public class BikeServiceTest {
 	
 	@Mock
-	private static BikeController bikeController;
+	private BikeController bikeController;
 	
 	@Mock
-	private static UserController userController;
+	private UserController userController;
     
     @Mock
-    private static Invocation.Builder invocationBuilder;
+    private Invocation.Builder invocationBuilder;
 
 
-    @BeforeAll
+    @BeforeEach
     public void setUp() {
         // Set the properties as needed for the test environment
         System.setProperty("bikeapp.hostname", "localhost");
