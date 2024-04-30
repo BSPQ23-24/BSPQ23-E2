@@ -136,6 +136,7 @@
 				<configuration>
 					<api>JDO</api>
 					<verbose>true</verbose>
+					<fork>false</fork>
 					<props>${config.files.dir}/datanucleus.properties</props>
 				</configuration>
 				<executions>
@@ -212,7 +213,7 @@
 				</plugin>
 				<plugin>
 					<artifactId>maven-site-plugin</artifactId>
-					<version>3.7.1</version>
+					<version>3.12.1</version>
 					<dependencies>
 						<dependency>
 							<groupId>org.jacoco</groupId>
