@@ -16,6 +16,7 @@ import jakarta.ws.rs.core.Response;
 
 public class BikeController {
 	private static BikeController instance;
+	private static long token = -1;
 	
     private BikeController() {}
 
@@ -120,6 +121,11 @@ public class BikeController {
 		return Response.ok(response.getEntity()).build();
 		}
 
+	}
+	
+	public long getToken() {
+
+		return token;
 	}
 	
    

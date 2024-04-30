@@ -75,7 +75,7 @@ public class BikeService {
         } 
     }
     
-    public String  displayStationsAndBikes() {
+    public String displayStationsAndBikes() {
         try {
             tx.begin();
 
