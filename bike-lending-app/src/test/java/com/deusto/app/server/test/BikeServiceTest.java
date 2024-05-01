@@ -11,6 +11,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import com.deusto.app.client.controller.BikeController;
 import com.deusto.app.client.controller.UserController;
+import com.deusto.app.client.remote.ServiceLocator;
 import com.deusto.app.server.pojo.BicycleData;
 import com.deusto.app.server.pojo.StationData;
 import com.deusto.app.server.pojo.UserData;
@@ -19,9 +20,7 @@ public class BikeServiceTest {
 
 	@BeforeAll
 	public static void setUp() {
-		// Set the properties as needed for the test environment
-		System.setProperty("bikeapp.hostname", "localhost");
-		System.setProperty("bikeapp.port", "8080");
+		ServiceLocator.getInstance().setService("127.0.0.1", "8080");
 
 		UserData userTestData = new UserData();
 		userTestData.setDni("12345678A");
