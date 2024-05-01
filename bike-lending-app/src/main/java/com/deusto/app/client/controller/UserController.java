@@ -2,9 +2,6 @@ package com.deusto.app.client.controller;
 
 import com.deusto.app.client.remote.ServiceLocator;
 import com.deusto.app.server.pojo.UserData;
-import com.deusto.app.server.services.UserService;
-
-import jakarta.ws.rs.QueryParam;
 import jakarta.ws.rs.client.Entity;
 import jakarta.ws.rs.client.Invocation;
 import jakarta.ws.rs.client.WebTarget;
@@ -27,7 +24,7 @@ public class UserController {
 	}
 
 	public boolean registerUser(UserData userData) {
-		LogManager.getLogger(UserService.class).info("Register Start");
+		LogManager.getLogger(UserController.class).info("Register Start");
 		WebTarget registerUserWebTarget = ServiceLocator.getInstance().getWebTarget().path("bikeapp/user/register");
 		Invocation.Builder invocationBuilder = registerUserWebTarget.request(MediaType.APPLICATION_JSON);
 
@@ -44,7 +41,7 @@ public class UserController {
 	}
 
 	public boolean loginUser(UserData userData) {
-		LogManager.getLogger(UserService.class).info("Login Start");
+		LogManager.getLogger(UserController.class).info("Login Start");
 		WebTarget loginUserWebTarget = ServiceLocator.getInstance().getWebTarget().path("bikeapp/user/login");
 		Invocation.Builder invocationBuilder = loginUserWebTarget.request(MediaType.APPLICATION_JSON);
 
@@ -61,7 +58,7 @@ public class UserController {
 	}
 
 	public boolean changePassword(String dni, String oldPassword, String newPassword) {
-		LogManager.getLogger(UserService.class).info("Change Password Start");
+		LogManager.getLogger(UserController.class).info("Change Password Start");
 		WebTarget changePasswordWebTarget = ServiceLocator.getInstance().getWebTarget()
 				.path("bikeapp/user/changePassword").queryParam("dni", dni).queryParam("oldPassword", oldPassword)
 				  .queryParam("newPassword", newPassword);
@@ -80,7 +77,7 @@ public class UserController {
 	}
 
 	public boolean logoutUser(long token) {
-		LogManager.getLogger(UserService.class).info("Change Password Start");
+		LogManager.getLogger(UserController.class).info("Change Password Start");
 		WebTarget logoutUserWebTarget = ServiceLocator.getInstance().getWebTarget().path("bikeapp/user/logout")
 				.queryParam("token", token);
 		Invocation.Builder invocationBuilder = logoutUserWebTarget.request(MediaType.APPLICATION_JSON);
