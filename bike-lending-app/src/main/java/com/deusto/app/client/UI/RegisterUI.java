@@ -1,6 +1,10 @@
 package com.deusto.app.client.UI;
 
 import javax.swing.*;
+
+import com.deusto.app.client.controller.UserController;
+import com.deusto.app.server.pojo.UserData;
+
 import java.awt.*;
 import java.awt.event.*;
 
@@ -32,9 +36,26 @@ public class RegisterUI extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 String username = usernameField.getText();
                 String password = new String(passwordField.getPassword());
-                // Add register logic here
-                System.out.println("Username: " + username);
-                System.out.println("Password: " + password);
+                // register logic
+                UserData userData = new UserData();
+                userData.setDni(username);
+                userData.setPassword(password);
+
+                boolean register = UserController.getInstance().registerUser(userData);
+                                
+                if (register) {
+                    JOptionPane.showMessageDialog(RegisterUI.this, "Usuario registrado");
+                   
+                    new LoginUI();
+                    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                    setVisible(false);
+                    dispose();
+                                       
+                    // ABRIR DISPLAY STATIONS con el token que se acaba de meter al usercontroller
+                   
+                } else {
+                    JOptionPane.showMessageDialog(RegisterUI.this, "Error en el registro");
+                }
             }
         });
 
