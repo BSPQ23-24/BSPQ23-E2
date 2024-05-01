@@ -51,8 +51,8 @@ public class UserController {
 			LogManager.getLogger(UserController.class).info("Login Success | Token: {}", token);
 			return true;
 		} else {
-			LogManager.getLogger(UserController.class).error("Login Failed | Code: {} | Reason: {}", response.getStatus(),
-					response.readEntity(String.class));
+			LogManager.getLogger(UserController.class).error("Login Failed | Code: {} | Reason: {}",
+					response.getStatus(), response.readEntity(String.class));
 			return false;
 		}
 	}
@@ -61,7 +61,7 @@ public class UserController {
 		LogManager.getLogger(UserController.class).info("Change Password Start");
 		WebTarget changePasswordWebTarget = ServiceLocator.getInstance().getWebTarget()
 				.path("bikeapp/user/changePassword").queryParam("dni", dni).queryParam("oldPassword", oldPassword)
-				  .queryParam("newPassword", newPassword);
+				.queryParam("newPassword", newPassword);
 		Invocation.Builder invocationBuilder = changePasswordWebTarget.request(MediaType.APPLICATION_JSON);
 
 		Response response = invocationBuilder.post(Entity.json(""));
@@ -69,9 +69,8 @@ public class UserController {
 			LogManager.getLogger(UserController.class).info("Change Password Success");
 			return true;
 		} else {
-			LogManager.getLogger(UserController.class).error(
-					"Change Password Failed | Code: {} | Reason: {}", response.getStatus(),
-					response.readEntity(String.class));
+			LogManager.getLogger(UserController.class).error("Change Password Failed | Code: {} | Reason: {}",
+					response.getStatus(), response.readEntity(String.class));
 			return false;
 		}
 	}

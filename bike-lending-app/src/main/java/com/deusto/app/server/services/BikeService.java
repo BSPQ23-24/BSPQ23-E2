@@ -100,8 +100,7 @@ public class BikeService {
 
 	public BicycleData selectBike(int stationId) {
 
-		LogManager.getLogger(BikeService.class).info("Select Bike Start | StationID : '{}'",
-				stationId);
+		LogManager.getLogger(BikeService.class).info("Select Bike Start | StationID : '{}'", stationId);
 
 		try {
 			tx.begin();
@@ -128,11 +127,13 @@ public class BikeService {
 
 				tx.commit();
 
-				LogManager.getLogger(BikeService.class).info("Select Bike Success | BikeID : '{}'", selectedBikeInfo.getId());
+				LogManager.getLogger(BikeService.class).info("Select Bike Success | BikeID : '{}'",
+						selectedBikeInfo.getId());
 
 				return selectedBikeInfo;
 			} else {
-				LogManager.getLogger(BikeService.class).error("Select Bike Failed | No available bikes in station | StationID: '{}'", stationId);
+				LogManager.getLogger(BikeService.class)
+						.error("Select Bike Failed | No available bikes in station | StationID: '{}'", stationId);
 				tx.rollback();
 				return null;
 			}
@@ -172,7 +173,8 @@ public class BikeService {
 
 			return bicycleInfos;
 		} catch (Exception e) {
-			LogManager.getLogger(BikeService.class).error("Get Available Bikes Failed | '{}' | StationID: '{}'", e, stationId);
+			LogManager.getLogger(BikeService.class).error("Get Available Bikes Failed | '{}' | StationID: '{}'", e,
+					stationId);
 			if (tx.isActive()) {
 				tx.rollback();
 			}
