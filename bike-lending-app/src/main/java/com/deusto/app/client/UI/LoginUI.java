@@ -17,6 +17,8 @@ public class LoginUI extends JFrame {
 	private JTextField usernameField;
     private JPasswordField passwordField;
     private JButton loginButton;
+    private JButton changePasswordButton;
+
     
     public LoginUI() {
 
@@ -38,12 +40,13 @@ public class LoginUI extends JFrame {
         usernameField = new JTextField();
         passwordField = new JPasswordField();
         loginButton = new JButton("Login");
+        changePasswordButton = new JButton("Change Password");
 
         panel.add(usernameLabel);
         panel.add(usernameField);
         panel.add(passwordLabel);
         panel.add(passwordField);
-        panel.add(new JLabel()); // Espacio en blanco para mantener el diseño
+        panel.add(changePasswordButton); // Espacio en blanco para mantener el diseño
         panel.add(loginButton);
         
         add(panel);
@@ -79,6 +82,27 @@ public class LoginUI extends JFrame {
             }
         });
     	
+    	// Setup listener for the change password button
+        changePasswordButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Prompt user for old and new password
+                String oldPassword = JOptionPane.showInputDialog(LoginUI.this, "Enter old password:");
+                String newPassword = JOptionPane.showInputDialog(LoginUI.this, "Enter new password:");
+
+                // Change password
+                String username = usernameField.getText();
+                boolean passwordChanged = UserController.getInstance().changePassword(username, oldPassword, newPassword);
+
+                // Display message to user based on password change result
+                if (passwordChanged) {
+                    JOptionPane.showMessageDialog(LoginUI.this, "Password changed successfully.");
+                } else {
+                    JOptionPane.showMessageDialog(LoginUI.this, "Failed to change password. Please try again.");
+                }
+            }
+        });
+    	
     }
 
     public void showLogin() {
@@ -98,6 +122,6 @@ public class LoginUI extends JFrame {
     }
 
     public static void main(String[] args) {
-
+    	new LoginUI();
     }
 }
