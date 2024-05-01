@@ -67,6 +67,9 @@ public class LoginUI extends JFrame {
                     JOptionPane.showMessageDialog(LoginUI.this, "Usuario aceptado");
                    
                     new DisplayStationsUI();
+                    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                    setVisible(false);
+                    dispose();
                                        
                     // ABRIR DISPLAY STATIONS con el token que se acaba de meter al usercontroller
                    

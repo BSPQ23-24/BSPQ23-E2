@@ -75,10 +75,15 @@ public class DisplayStationsUI extends JFrame {
             BicycleData bike = BikeController.getInstance().getBikeDetails(bikeId, UserController.getInstance().getToken());
             
             JLabel idLabel = new JLabel("ID: " + bike.getId());
+            idLabel.setVerticalAlignment(SwingConstants.TOP); // Align text to the top
             JLabel acquisitionDateLabel = new JLabel("Acquisition Date: " + bike.getAcquisitionDate());
+            acquisitionDateLabel.setVerticalAlignment(SwingConstants.TOP); // Align text to the top
             JLabel typeLabel = new JLabel("Type: " + bike.getType());
+            typeLabel.setVerticalAlignment(SwingConstants.TOP); // Align text to the top
             JLabel isAvailableLabel = new JLabel("Is Available: " + bike.isAvailable());
+            isAvailableLabel.setVerticalAlignment(SwingConstants.TOP); // Align text to the top
             JLabel stationLabel = new JLabel("Station: " + bike.getStationId());
+            stationLabel.setVerticalAlignment(SwingConstants.TOP); // Align text to the top
 
             JPanel bikePanel = new JPanel(new GridLayout(5, 1));
             bikePanel.add(idLabel);
@@ -95,6 +100,8 @@ public class DisplayStationsUI extends JFrame {
         bikeDetailsWindow.add(scrollPane);
         bikeDetailsWindow.setVisible(true);
     }
+
+
 
 
     public static void main(String[] args) {
