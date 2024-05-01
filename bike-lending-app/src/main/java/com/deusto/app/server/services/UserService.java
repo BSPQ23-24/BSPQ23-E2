@@ -42,7 +42,7 @@ public class UserService {
 
 	public boolean registerUser(UserData userData) {
 
-		LogManager.getLogger(UserService.class).info("Register User: '{}'", userData.getDni());
+		LogManager.getLogger(UserService.class).info("Register Start | User: '{}'", userData.getDni());
 
 		try {
 			tx.begin();
@@ -52,7 +52,7 @@ public class UserService {
 				user = pm.getObjectById(User.class, userData.getDni());
 				// If the user is found, return an unauthorized response
 				if (user != null) {
-					LogManager.getLogger(UserService.class).info("User is already registered: '{}'", userData.getDni());
+					LogManager.getLogger(UserService.class).info("Registration Failed | User is already registered | User: '{}'", userData.getDni());
 					return false;
 				}
 			} catch (javax.jdo.JDOObjectNotFoundException jonfe) {
@@ -61,7 +61,7 @@ public class UserService {
 						userData.getDateOfBirth(), userData.getPhone(), userData.getMail());
 
 				pm.makePersistent(user);
-				LogManager.getLogger(UserService.class).info("User registered succesfully: '{}'", userData.getDni());
+				LogManager.getLogger(UserService.class).info("Registration Success | User: '{}'", userData.getDni());
 			}
 			tx.commit();
 			return true;
@@ -73,7 +73,7 @@ public class UserService {
 	}
 
 	public long loginUser(String dni, String password) {
-		LogManager.getLogger(UserService.class).info("Login User: '{}' | Password: '{}'", dni, password);
+		LogManager.getLogger(UserService.class).info("Login Start | User: '{}'", dni);
 
 		User user = null;
 		try {
@@ -82,11 +82,11 @@ public class UserService {
 				user = pm.getObjectById(User.class, dni);
 				if (!user.getPassword().equals(password)) {
 					user = null;
-					LogManager.getLogger(UserService.class).info("Login User: '{}' | Password Mismatch", dni);
+					LogManager.getLogger(UserService.class).info("Login Failed | Password missmatch | User: '{}'", dni);
 				}
 			} catch (javax.jdo.JDOObjectNotFoundException e) {
 				user = null;
-				LogManager.getLogger(UserService.class).info("Login User: '{}' | User not found", dni);
+				LogManager.getLogger(UserService.class).info("Login Failed | User not found | User: '{}'", dni);
 			}
 			tx.commit();
 		} finally {
@@ -100,7 +100,7 @@ public class UserService {
 			if (!this.serverState.values().contains(user)) {
 				long token = Calendar.getInstance().getTimeInMillis();
 				this.serverState.put(token, user);
-				LogManager.getLogger(UserService.class).info("Login Succesful | User: '{}'", dni);
+				LogManager.getLogger(UserService.class).info("Login Success | User: '{}'", dni);
 				return token;
 			} else {
 				return -1;
@@ -119,19 +119,19 @@ public class UserService {
 	}
 
 	public boolean logoutUser(long token) {
-		LogManager.getLogger(UserService.class).info("Logout User: Token '{}'", token);
+		LogManager.getLogger(UserService.class).info("Logout Start | Token: '{}'", token);
 		if (UserService.getInstance().isLoggedIn(token)) {
 			serverState.remove(token); // Remove the user from the server state
-			LogManager.getLogger(UserService.class).info("Logout Succesful | Token '{}'", token);
+			LogManager.getLogger(UserService.class).info("Logout Success | Token '{}'", token);
 			return true;
 		} else {
-			LogManager.getLogger(UserService.class).info("Logout | Token '{}' | User isn't logged in", token);
+			LogManager.getLogger(UserService.class).info("Logout Failed | User isn't logged in | Token '{}' ", token);
 			return false;
 		}
 	}
 
 	public boolean changePassword(String dni, String oldPassword, String newPassword) {
-		LogManager.getLogger(UserService.class).info("Changing password for user: '{}'", dni);
+		LogManager.getLogger(UserService.class).info("Change Password Start | User: '{}'", dni);
 
 		try {
 			tx.begin();
@@ -139,13 +139,13 @@ public class UserService {
 			User user = pm.getObjectById(User.class, dni);
 
 			if (!user.getPassword().equals(oldPassword)) {
-				LogManager.getLogger(UserService.class).info("Old password does not match for user: '{}'", dni);
+				LogManager.getLogger(UserService.class).info("Change Password Failed | Old password missmatch | User: '{}'", dni);
 				return false;
 			}
 
 			// Update the password with the new one
 			user.setPassword(newPassword);
-			LogManager.getLogger(UserService.class).info("Password changed successfully for user: '{}'", dni);
+			LogManager.getLogger(UserService.class).info("Change Password Success | User: '{}'", dni);
 
 			tx.commit();
 			return true;
@@ -153,20 +153,20 @@ public class UserService {
 			if (tx.isActive()) {
 				tx.rollback();
 			}
-			LogManager.getLogger(UserService.class).error("Error changing password for user: '{}'", dni, e);
+			LogManager.getLogger(UserService.class).error("Change Password Failed | User: '{}'", dni, e);
 			return false;
 		}
 	}
 
 	private void initializeData() {
-		LogManager.getLogger(UserService.class).info("Initializing database with test data.");
+		LogManager.getLogger(UserService.class).info("Initialize Data");
 
 		try {
 			tx.begin();
 
 			// Check if there are any existing data entries
 			if (pm.getExtent(User.class).iterator().hasNext()) {
-				LogManager.getLogger(UserService.class).info("Test data already present.");
+				LogManager.getLogger(UserService.class).info("Initialize Data Failed | Data already present");
 			} else {
 				// Create and persist example Users
 				User user1 = new User("12345678A", "password123", "John", "Doe", "01-01-1980", "555123456",
@@ -232,12 +232,12 @@ public class UserService {
 				loan2.setBicycle(bike3);
 				pm.makePersistent(loan2);
 
-				LogManager.getLogger(UserService.class).info("Test data created successfully.");
+				LogManager.getLogger(UserService.class).info("Initialize Data Success");
 			}
 
 			tx.commit();
 		} catch (Exception e) {
-			LogManager.getLogger(UserService.class).error("Error initializing test data.", e);
+			LogManager.getLogger(UserService.class).error("Initialize Data Failed", e);
 			if (tx.isActive()) {
 				tx.rollback();
 			}
