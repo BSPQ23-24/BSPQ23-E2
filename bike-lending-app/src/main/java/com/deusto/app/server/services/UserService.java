@@ -82,11 +82,11 @@ public class UserService {
 				user = pm.getObjectById(User.class, dni);
 				if (!user.getPassword().equals(password)) {
 					user = null;
-					LogManager.getLogger(UserService.class).info("Login Failed | Password missmatch | User: '{}'", dni);
+					LogManager.getLogger(UserService.class).error("Login Failed | Password missmatch | User: '{}'", dni);
 				}
 			} catch (javax.jdo.JDOObjectNotFoundException e) {
 				user = null;
-				LogManager.getLogger(UserService.class).info("Login Failed | User not found | User: '{}'", dni);
+				LogManager.getLogger(UserService.class).error("Login Failed | User not found | User: '{}'", dni);
 			}
 			tx.commit();
 		} finally {
@@ -125,7 +125,7 @@ public class UserService {
 			LogManager.getLogger(UserService.class).info("Logout Success | Token '{}'", token);
 			return true;
 		} else {
-			LogManager.getLogger(UserService.class).info("Logout Failed | User isn't logged in | Token '{}' ", token);
+			LogManager.getLogger(UserService.class).error("Logout Failed | User isn't logged in | Token '{}' ", token);
 			return false;
 		}
 	}
@@ -139,7 +139,7 @@ public class UserService {
 			User user = pm.getObjectById(User.class, dni);
 
 			if (!user.getPassword().equals(oldPassword)) {
-				LogManager.getLogger(UserService.class).info("Change Password Failed | Old password missmatch | User: '{}'", dni);
+				LogManager.getLogger(UserService.class).error("Change Password Failed | Old password missmatch | User: '{}'", dni);
 				return false;
 			}
 
@@ -153,7 +153,7 @@ public class UserService {
 			if (tx.isActive()) {
 				tx.rollback();
 			}
-			LogManager.getLogger(UserService.class).error("Change Password Failed | User: '{}'", dni, e);
+			LogManager.getLogger(UserService.class).error("Change Password Failed | '{}' | User: '{}'", e, dni);
 			return false;
 		}
 	}
@@ -166,7 +166,7 @@ public class UserService {
 
 			// Check if there are any existing data entries
 			if (pm.getExtent(User.class).iterator().hasNext()) {
-				LogManager.getLogger(UserService.class).info("Initialize Data Failed | Data already present");
+				LogManager.getLogger(UserService.class).error("Initialize Data Failed | Data already present");
 			} else {
 				// Create and persist example Users
 				User user1 = new User("12345678A", "password123", "John", "Doe", "01-01-1980", "555123456",
@@ -237,7 +237,7 @@ public class UserService {
 
 			tx.commit();
 		} catch (Exception e) {
-			LogManager.getLogger(UserService.class).error("Initialize Data Failed", e);
+			LogManager.getLogger(UserService.class).error("Initialize Data Failed | Reason: '{}'", e);
 			if (tx.isActive()) {
 				tx.rollback();
 			}
