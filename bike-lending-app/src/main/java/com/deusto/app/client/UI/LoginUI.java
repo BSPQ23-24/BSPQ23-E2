@@ -3,7 +3,6 @@ package com.deusto.app.client.UI;
 import javax.swing.*;
 
 import com.deusto.app.client.controller.UserController;
-import com.deusto.app.server.data.domain.User;
 import com.deusto.app.server.pojo.UserData;
 
 import java.awt.*;
@@ -11,11 +10,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class LoginUI extends JFrame {
-    private JTextField usernameField;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private JTextField usernameField;
     private JPasswordField passwordField;
     private JButton loginButton;
-
-    private User user;
     
     public LoginUI() {
 
@@ -65,7 +66,7 @@ public class LoginUI extends JFrame {
                 if (login) {
                     JOptionPane.showMessageDialog(LoginUI.this, "Usuario aceptado");
                    
-                    // new DisplayStationsUI();
+                    new DisplayStationsUI();
                                        
                     // ABRIR DISPLAY STATIONS con el token que se acaba de meter al usercontroller
                    

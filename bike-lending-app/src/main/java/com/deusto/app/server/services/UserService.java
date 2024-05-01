@@ -1,7 +1,9 @@
 package com.deusto.app.server.services;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.jdo.JDOHelper;
@@ -209,8 +211,25 @@ public class UserService {
 				station2.setLocation("Riverside Park");
 
 				// Assign bicycles to station
-				station1.setBikes(java.util.Arrays.asList(bike1, bike2));
-				station2.setBikes(java.util.Arrays.asList(bike3, bike4));
+				
+				bike1.setStation(station1);
+				bike2.setStation(station1);
+				bike3.setStation(station2);
+				bike4.setStation(station2);
+				
+				List<Bicycle> station1array = new ArrayList<>();
+				station1array.add(bike1);
+				station1array.add(bike2);
+
+				
+				List<Bicycle> station2array = new ArrayList<>();
+				station2array.add(bike3);
+				station2array.add(bike4);
+
+
+				
+				station1.setBikes(station1array);
+				station2.setBikes(station2array);
 
 				pm.makePersistent(station1);
 				pm.makePersistent(station2);
