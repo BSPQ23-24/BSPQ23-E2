@@ -18,6 +18,7 @@ public class LoginUI extends JFrame {
     private JPasswordField passwordField;
     private JButton loginButton;
     private JButton changePasswordButton;
+    private JButton registerButton;
 
     
     public LoginUI() {
@@ -33,21 +34,25 @@ public class LoginUI extends JFrame {
     
     
     private void initComponents() {
-        JPanel panel = new JPanel(new GridLayout(3, 2));
+        JPanel panel = new JPanel(new GridLayout(4, 2));
 
         JLabel usernameLabel = new JLabel("Username:");
         JLabel passwordLabel = new JLabel("Password:");
         usernameField = new JTextField();
         passwordField = new JPasswordField();
+        registerButton = new JButton("Register");
         loginButton = new JButton("Login");
         changePasswordButton = new JButton("Change Password");
+        
+
 
         panel.add(usernameLabel);
         panel.add(usernameField);
         panel.add(passwordLabel);
         panel.add(passwordField);
-        panel.add(changePasswordButton); // Espacio en blanco para mantener el diseño
+        panel.add(registerButton);
         panel.add(loginButton);
+        panel.add(changePasswordButton);
         
         add(panel);
         setVisible(true);
@@ -99,6 +104,18 @@ public class LoginUI extends JFrame {
                 } else {
                     JOptionPane.showMessageDialog(LoginUI.this, "Failed to change password. Please try again.");
                 }
+            }
+        });
+        
+     // Setup listener for the change password button
+        registerButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Open a new window for password change
+                new RegisterUI();
+                setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                setVisible(false);
+                dispose();
             }
         });
     	
