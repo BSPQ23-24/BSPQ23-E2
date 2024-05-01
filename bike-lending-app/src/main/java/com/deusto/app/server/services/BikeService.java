@@ -20,6 +20,8 @@ import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import java.util.List;
+import java.util.stream.Collectors;
+
 import com.deusto.app.server.data.domain.Bicycle;
 import com.deusto.app.server.data.domain.Station;
 import com.deusto.app.server.pojo.BicycleData;
@@ -80,6 +82,12 @@ public class BikeService {
 				StationData stationInfo = new StationData();
 				stationInfo.setId(station.getId());
 				stationInfo.setLocation(station.getLocation());
+				// Extracting bike IDs from each station
+	            List<Integer> bikeIds = station.getBikes().stream()
+	                                             .map(Bicycle::getId)
+	                                             .collect(Collectors.toList());
+	            stationInfo.setBikeIds(bikeIds);
+				
 				stationInfos.add(stationInfo);
 			}
 
