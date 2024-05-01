@@ -97,7 +97,7 @@ public class BikeService {
 			return null;
 		}
 	}
-
+/*
 	public BicycleData selectBike(int stationId) {
 
 		LogManager.getLogger(BikeService.class).info("Select Bike Start | StationID : '{}'", stationId);
@@ -145,7 +145,7 @@ public class BikeService {
 			return null;
 		}
 	}
-
+*/
 	public List<BicycleData> getAvailableBikesInStation(int stationId) {
 
 		LogManager.getLogger(BikeService.class).info("Get Available Bikes Start | StationID : '{}'", stationId);

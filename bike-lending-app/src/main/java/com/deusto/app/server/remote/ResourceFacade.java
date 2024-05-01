@@ -113,7 +113,7 @@ public class ResourceFacade {
             return Response.status(Response.Status.UNAUTHORIZED).entity("User is not logged in").build();
         }
     }
-
+/*
 	@GET
 	@Path("/bike/select")
 	public Response selectBike(@QueryParam("stationId") int stationId, @QueryParam("token") long token) {
@@ -128,7 +128,7 @@ public class ResourceFacade {
 	        return Response.status(Response.Status.NOT_FOUND).entity("No available bikes at this station").build();
 	    }
 	}
-
+*/
 	@GET
 	@Path("/bike/available")
 	public Response getAvailableBikesInStation(@QueryParam("stationId") int stationId,
