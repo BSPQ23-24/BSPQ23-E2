@@ -3,6 +3,7 @@ package com.deusto.app.client.UI;
 import javax.swing.*;
 
 import com.deusto.app.client.controller.BikeController;
+import com.deusto.app.client.controller.UserController;
 import com.deusto.app.server.pojo.BicycleData;
 
 import jakarta.ws.rs.PathParam;
@@ -18,10 +19,11 @@ public class BicycleDetailUI extends JFrame {
 	private JLabel idLabel, acquisitionDateLabel, typeLabel, isAvailableLabel, stationLabel;
     private JLabel idField, acquisitionDateField, typeField, isAvailableField, stationField;
 
-    public BicycleDetailUI(@PathParam("bikeId") int bikeId, @QueryParam("token") long token) {
+    public BicycleDetailUI(int bikeId) {
+    	
         super("Bicycle Details");
         
-        BicycleData bike = BikeController.getInstance().getBikeDetails(bikeId, token);
+        BicycleData bike = BikeController.getInstance().getBikeDetails(bikeId, UserController.getInstance().getToken());
         
         idLabel = new JLabel("ID:");
         idField = new JLabel();
@@ -63,7 +65,4 @@ public class BicycleDetailUI extends JFrame {
         setVisible(true);
     }
 
-    public static void main(String[] args) {
-        new BicycleDetailUI();
-    }
 }

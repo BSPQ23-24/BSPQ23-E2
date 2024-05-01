@@ -2,7 +2,9 @@ package com.deusto.app.client.UI;
 
 import javax.swing.*;
 
+import com.deusto.app.client.controller.UserController;
 import com.deusto.app.server.data.domain.User;
+import com.deusto.app.server.pojo.UserData;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -61,6 +63,17 @@ public class LoginUI extends JFrame {
                 // Verificar si el usuario existe
                 if (user != null && user.getDni().equals(username) && user.getPassword().equals(password)) {
                     JOptionPane.showMessageDialog(LoginUI.this, "Usuario aceptado");
+                    
+                   UserData userData = new UserData();
+                   userData.setDni(username);
+                   userData.setPassword(password);
+                   
+                   UserController.getInstance().loginUser(userData);
+                   
+                   // new DisplayStationsUI();
+                                       
+                    // ABRIR DISPLAY STATIONS con el token que se acaba de meter al usercontroller
+                   
                 } else {
                     JOptionPane.showMessageDialog(LoginUI.this, "Usuario o contraseña incorrectos");
                 }
