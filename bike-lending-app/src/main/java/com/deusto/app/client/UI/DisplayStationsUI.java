@@ -36,7 +36,12 @@ public class DisplayStationsUI extends JFrame {
             data[i][2] = station.getBikeIds().toString(); // Convert list to string
         }
         stationTable = new JTable(data, columnNames) {
-            @Override
+            /**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
+			@Override
             public boolean isCellEditable(int row, int column) {
                 return false;
             }
