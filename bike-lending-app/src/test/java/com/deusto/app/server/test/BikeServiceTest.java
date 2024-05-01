@@ -94,7 +94,7 @@ public class BikeServiceTest {
 
 		BicycleData expectedBikeData = new BicycleData();
 		expectedBikeData.setId(bikeId);
-		expectedBikeData.setType("Mountain Bike");
+		expectedBikeData.setType("Mountain");
 		expectedBikeData.setAcquisitionDate("2024-04-26");
 
 		BicycleData response = BikeController.getInstance().getBikeDetails(bikeId,

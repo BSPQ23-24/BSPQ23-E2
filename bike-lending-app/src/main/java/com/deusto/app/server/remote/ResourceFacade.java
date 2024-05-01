@@ -134,14 +134,14 @@ public class ResourceFacade {
 	public Response getAvailableBikesInStation(@QueryParam("stationId") int stationId,
 	        @QueryParam("token") long token) {
 	    if (UserService.getInstance().isLoggedIn(token)) {
-	        return Response.status(Response.Status.UNAUTHORIZED).entity("User is not logged in").build();
-	    }
-
-	    List<BicycleData> availableBikes = BikeService.getInstance().getAvailableBikesInStation(stationId);
-	    if (availableBikes != null) {
-	        return Response.ok(availableBikes).build();
-	    } else {
-	        return Response.serverError().entity("Error getting available bikes").build();
+		    List<BicycleData> availableBikes = BikeService.getInstance().getAvailableBikesInStation(stationId);
+		    if (availableBikes != null) {
+		        return Response.ok(availableBikes).build();
+		    } else {
+		        return Response.serverError().entity("Error getting available bikes").build();
+		    }
+		}else {
+			return Response.status(Response.Status.UNAUTHORIZED).entity("User is not logged in").build();
 	    }
 	}
 
@@ -149,16 +149,18 @@ public class ResourceFacade {
 	@Path("/bike/{bikeId}")
 	public Response getBikeDetails(@PathParam("bikeId") int bikeId, @QueryParam("token") long token) {
 	    if (UserService.getInstance().isLoggedIn(token)) {
-	        return Response.status(Response.Status.UNAUTHORIZED).entity("User is not logged in").build();
-	    }
-
-	    BicycleData bike = BikeService.getInstance().getBikeById(bikeId);
-	    if (bike != null) {
-	        return Response.ok(bike).build();
+		    BicycleData bike = BikeService.getInstance().getBikeById(bikeId);
+		    if (bike != null) {
+		        return Response.ok(bike).build();
+		    } else {
+		        return Response.status(Response.Status.NOT_FOUND).entity("Bike not found").build();
+		    }
 	    } else {
-	        return Response.status(Response.Status.NOT_FOUND).entity("Bike not found").build();
-	    }
+		    	return Response.status(Response.Status.UNAUTHORIZED).entity("User is not logged in").build();
+		}
 	}
+	    
 
+	
 
 }
