@@ -18,8 +18,6 @@ public class LoginUI extends JFrame {
     private User user;
     
     public LoginUI() {
-    	// Crear un usuario de ejemplo
-        user = new User("12345678A", "root", "UsuarioTest", "ApellidoTest", "01-01-2000", "123456789", "test@mail.es");
 
         setTitle("Login");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -57,20 +55,17 @@ public class LoginUI extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 String username = usernameField.getText();
                 String password = new String(passwordField.getPassword());
-
-                // Aquí llamar a algún método para manejar la lógica de inicio de sesión
                 
-                // Verificar si el usuario existe
-                if (user != null && user.getDni().equals(username) && user.getPassword().equals(password)) {
+                UserData userData = new UserData();
+                userData.setDni(username);
+                userData.setPassword(password);
+
+                boolean login = UserController.getInstance().loginUser(userData);
+                
+                if (login) {
                     JOptionPane.showMessageDialog(LoginUI.this, "Usuario aceptado");
-                    
-                   UserData userData = new UserData();
-                   userData.setDni(username);
-                   userData.setPassword(password);
                    
-                   UserController.getInstance().loginUser(userData);
-                   
-                   // new DisplayStationsUI();
+                    // new DisplayStationsUI();
                                        
                     // ABRIR DISPLAY STATIONS con el token que se acaba de meter al usercontroller
                    
@@ -99,13 +94,6 @@ public class LoginUI extends JFrame {
     }
 
     public static void main(String[] args) {
-        // Ejemplo de uso
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                LoginUI loginUI = new LoginUI();
-                loginUI.showLogin();
-            }
-        });
+
     }
 }
