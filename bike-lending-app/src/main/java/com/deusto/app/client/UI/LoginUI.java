@@ -87,11 +87,10 @@ public class LoginUI extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // Prompt user for old and new password
+            	String username = JOptionPane.showInputDialog(LoginUI.this, "Enter old password:");
                 String oldPassword = JOptionPane.showInputDialog(LoginUI.this, "Enter old password:");
                 String newPassword = JOptionPane.showInputDialog(LoginUI.this, "Enter new password:");
 
-                // Change password
-                String username = usernameField.getText();
                 boolean passwordChanged = UserController.getInstance().changePassword(username, oldPassword, newPassword);
 
                 // Display message to user based on password change result
