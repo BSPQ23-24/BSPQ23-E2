@@ -6,10 +6,10 @@ import javax.swing.event.ListSelectionListener;
 
 import com.deusto.app.client.controller.BikeController;
 import com.deusto.app.client.controller.UserController;
+import com.deusto.app.server.pojo.BicycleData;
 import com.deusto.app.server.pojo.StationData;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.GridLayout;
 import java.util.List;
 
 public class DisplayStationsUI extends JFrame {
@@ -26,9 +26,7 @@ public class DisplayStationsUI extends JFrame {
         
         List<StationData> stations = BikeController.getInstance().displayStations(UserController.getInstance().getToken());
 
-        System.out.println(stations);
         // Create a table to display station data
-                
         String[] columnNames = {"ID", "Location", "Bike IDs"};
         Object[][] data = new Object[stations.size()][3];
         for (int i = 0; i < stations.size(); i++) {
@@ -69,13 +67,41 @@ public class DisplayStationsUI extends JFrame {
         JFrame bikeDetailsWindow = new JFrame("Bike Details for Station " + station.getId());
         bikeDetailsWindow.setSize(400, 300);
 
-        // Add your UI components to display bike details here
-        // For example:
-        JPanel panel = new JPanel();
-        JLabel label = new JLabel("Bike IDs: " + station.getBikeIds().toString());
-        panel.add(label);
+        // Create a panel to hold the bike details
+        JPanel panel = new JPanel(new GridLayout(0, 1));
 
-        bikeDetailsWindow.add(panel);
+        // Iterate through the bike IDs of the selected station and display details for each bike
+        for (Integer bikeId : station.getBikeIds()) {
+            BicycleData bike = BikeController.getInstance().getBikeDetails(bikeId, UserController.getInstance().getToken());
+            
+            JLabel idLabel = new JLabel("ID: " + bike.getId());
+            JLabel acquisitionDateLabel = new JLabel("Acquisition Date: " + bike.getAcquisitionDate());
+            JLabel typeLabel = new JLabel("Type: " + bike.getType());
+            JLabel isAvailableLabel = new JLabel("Is Available: " + bike.isAvailable());
+            JLabel stationLabel = new JLabel("Station: " + bike.getStationId());
+
+            JPanel bikePanel = new JPanel(new GridLayout(5, 1));
+            bikePanel.add(idLabel);
+            bikePanel.add(acquisitionDateLabel);
+            bikePanel.add(typeLabel);
+            bikePanel.add(isAvailableLabel);
+            bikePanel.add(stationLabel);
+
+            panel.add(bikePanel);
+            panel.add(new JSeparator(SwingConstants.HORIZONTAL)); // Add a separator between bikes
+        }
+
+        JScrollPane scrollPane = new JScrollPane(panel);
+        bikeDetailsWindow.add(scrollPane);
         bikeDetailsWindow.setVisible(true);
+    }
+
+
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                new DisplayStationsUI();
+            }
+        });
     }
 }
