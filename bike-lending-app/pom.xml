@@ -101,6 +101,11 @@
 			<version>5.11.0</version>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+      		<groupId>com.github.noconnor</groupId>
+      		<artifactId>junitperf</artifactId>
+      		<version>1.35.0</version>
+    	</dependency>
 	</dependencies>
 
 	<build>
@@ -271,6 +276,58 @@
 								<argument>${server.port}</argument>
 							</arguments>
 						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+		
+		<profile>
+			<id>integration-tests</id>
+			<build>
+				<plugins>
+					<plugin>
+						<artifactId>maven-failsafe-plugin</artifactId>
+						<version>2.22.0</version>
+						<configuration>
+							<includes>
+								<include>**/*</include>
+							</includes>
+							<groups>categories.IntegrationTest</groups>
+						</configuration>
+						<executions>
+							<execution>
+								<goals>
+									<goal>integration-test</goal>
+									<goal>verify</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+		
+		<profile>
+			<id>performance-tests</id>
+			<build>
+				<plugins>
+					<plugin>
+						<artifactId>maven-failsafe-plugin</artifactId>
+						<version>2.22.0</version>
+						<configuration>
+							<includes>
+								<include>**/*</include>
+							</includes>
+							<groups>categories.PerformanceTest</groups>
+						</configuration>
+						<executions>
+							<execution>
+								<goals>
+									<goal>integration-test</goal>
+									<goal>verify</goal>
+								</goals>
+							</execution>
+						</executions>
 					</plugin>
 				</plugins>
 			</build>
