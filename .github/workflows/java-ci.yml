@@ -1,0 +1,26 @@
+name: Java CI
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Set up JDK 21
+        uses: actions/setup-java@v3
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+
+      - name: Prepare database for integration tests
+        run: | 
+          sudo /etc/init.d/mysql start
+          cd bike-lending-app
+          mysql -uroot -proot < sql/create-bikes.sql
+          mvn --batch-mode --update-snapshots datanucleus:enhance datanucleus:schema-create
+      
+      - name: Build with Maven including integration tests
+        run: mvn --batch-mode --update-snapshots package -Pintegration-tests
