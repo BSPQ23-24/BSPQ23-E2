@@ -102,10 +102,10 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-      		<groupId>com.github.noconnor</groupId>
-      		<artifactId>junitperf</artifactId>
-      		<version>1.35.0</version>
-    	</dependency>
+			<groupId>com.github.noconnor</groupId>
+			<artifactId>junitperf</artifactId>
+			<version>1.35.0</version>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -159,6 +159,17 @@
 					</execution>
 				</executions>
 			</plugin>
+			<plugin>
+					<artifactId>maven-surefire-plugin</artifactId>
+					<version>2.22.1</version>
+					<configuration>
+						<!-- Allow JUnitPerf to access the test classes in JDK17 -->
+						<argLine>@{argLine} --add-opens
+							java.base/java.lang=ALL-UNNAMED</argLine>
+						<excludedGroups>categories.IntegrationTest,
+							categories.PerformanceTest</excludedGroups>
+					</configuration>
+				</plugin>
 		</plugins>
 
 		<pluginManagement>
@@ -185,10 +196,6 @@
 				<plugin>
 					<artifactId>maven-compiler-plugin</artifactId>
 					<version>3.13.0</version>
-				</plugin>
-				<plugin>
-					<artifactId>maven-surefire-plugin</artifactId>
-					<version>2.22.1</version>
 				</plugin>
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
@@ -280,7 +287,7 @@
 				</plugins>
 			</build>
 		</profile>
-		
+
 		<profile>
 			<id>integration-tests</id>
 			<build>
@@ -306,7 +313,7 @@
 				</plugins>
 			</build>
 		</profile>
-		
+
 		<profile>
 			<id>performance-tests</id>
 			<build>
