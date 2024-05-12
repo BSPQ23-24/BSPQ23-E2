@@ -101,6 +101,11 @@
 			<version>5.11.0</version>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>com.github.noconnor</groupId>
+			<artifactId>junitperf</artifactId>
+			<version>1.35.0</version>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -154,6 +159,17 @@
 					</execution>
 				</executions>
 			</plugin>
+			<plugin>
+					<artifactId>maven-surefire-plugin</artifactId>
+					<version>2.22.1</version>
+					<configuration>
+						<!-- Allow JUnitPerf to access the test classes in JDK17 -->
+						<argLine>@{argLine} --add-opens
+							java.base/java.lang=ALL-UNNAMED</argLine>
+						<excludedGroups>categories.IntegrationTest,
+							categories.PerformanceTest</excludedGroups>
+					</configuration>
+				</plugin>
 		</plugins>
 
 		<pluginManagement>
@@ -180,10 +196,6 @@
 				<plugin>
 					<artifactId>maven-compiler-plugin</artifactId>
 					<version>3.13.0</version>
-				</plugin>
-				<plugin>
-					<artifactId>maven-surefire-plugin</artifactId>
-					<version>2.22.1</version>
 				</plugin>
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
@@ -271,6 +283,58 @@
 								<argument>${server.port}</argument>
 							</arguments>
 						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+
+		<profile>
+			<id>integration-tests</id>
+			<build>
+				<plugins>
+					<plugin>
+						<artifactId>maven-failsafe-plugin</artifactId>
+						<version>2.22.0</version>
+						<configuration>
+							<includes>
+								<include>**/*</include>
+							</includes>
+							<groups>categories.IntegrationTest</groups>
+						</configuration>
+						<executions>
+							<execution>
+								<goals>
+									<goal>integration-test</goal>
+									<goal>verify</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+
+		<profile>
+			<id>performance-tests</id>
+			<build>
+				<plugins>
+					<plugin>
+						<artifactId>maven-failsafe-plugin</artifactId>
+						<version>2.22.0</version>
+						<configuration>
+							<includes>
+								<include>**/*</include>
+							</includes>
+							<groups>categories.PerformanceTest</groups>
+						</configuration>
+						<executions>
+							<execution>
+								<goals>
+									<goal>integration-test</goal>
+									<goal>verify</goal>
+								</goals>
+							</execution>
+						</executions>
 					</plugin>
 				</plugins>
 			</build>
