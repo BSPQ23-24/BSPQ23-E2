@@ -27,24 +27,54 @@ jobs:
           mysql -uroot -proot < sql/create-bikes.sql
           mvn --batch-mode --update-snapshots datanucleus:enhance datanucleus:schema-create
 
-      - name: Run the server for doing integration and performance tests
-        run: | 
-          cd bike-lending-app
-          mvn --batch-mode jetty:run
+  test:
+    needs: build
+    runs-on: ubuntu-latest
 
-      - name: Run the unitary tests
-        run: | 
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up JDK 21
+        uses: actions/setup-java@v3
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+          
+      - name: Start the server in the background
+        run: |
+          cd bike-lending-app
+          mvn --batch-mode jetty:run &
+          sleep 10
+
+      - name: Run the unit tests
+        run: |
           cd bike-lending-app
           mvn test
 
-      - name: Execute integration tests and package
-        run: | 
+      - name: Execute integration tests
+        run: |
           cd bike-lending-app
-          mvn --batch-mode --update-snapshots package -Pintegration-tests
+          mvn --batch-mode --update-snapshots verify -Pintegration-tests
 
-      - name: Execute performance tests and package
-        run: | 
+      - name: Execute performance tests
+        run: |
           cd bike-lending-app
-          mvn --batch-mode --update-snapshots package -Pperformance-tests
+          mvn --batch-mode --update-snapshots verify -Pperformance-tests
 
+  package:
+    needs: test
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
       
+      - name: Set up JDK 21
+        uses: actions/setup-java@v3
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+
+      - name: Package the application
+        run: |
+          cd bike-lending-app
+          mvn package
