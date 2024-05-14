@@ -54,7 +54,8 @@ public class UserService {
 				user = pm.getObjectById(User.class, userData.getDni());
 				// If the user is found, return an unauthorized response
 				if (user != null) {
-					LogManager.getLogger(UserService.class).info("Registration Failed | User is already registered | User: '{}'", userData.getDni());
+					LogManager.getLogger(UserService.class)
+							.info("Registration Failed | User is already registered | User: '{}'", userData.getDni());
 					return false;
 				}
 			} catch (javax.jdo.JDOObjectNotFoundException jonfe) {
@@ -84,7 +85,8 @@ public class UserService {
 				user = pm.getObjectById(User.class, dni);
 				if (!user.getPassword().equals(password)) {
 					user = null;
-					LogManager.getLogger(UserService.class).error("Login Failed | Password missmatch | User: '{}'", dni);
+					LogManager.getLogger(UserService.class).error("Login Failed | Password missmatch | User: '{}'",
+							dni);
 				}
 			} catch (javax.jdo.JDOObjectNotFoundException e) {
 				user = null;
@@ -141,7 +143,8 @@ public class UserService {
 			User user = pm.getObjectById(User.class, dni);
 
 			if (!user.getPassword().equals(oldPassword)) {
-				LogManager.getLogger(UserService.class).error("Change Password Failed | Old password missmatch | User: '{}'", dni);
+				LogManager.getLogger(UserService.class)
+						.error("Change Password Failed | Old password missmatch | User: '{}'", dni);
 				return false;
 			}
 
@@ -211,23 +214,20 @@ public class UserService {
 				station2.setLocation("Riverside Park");
 
 				// Assign bicycles to station
-				
+
 				bike1.setStation(station1);
 				bike2.setStation(station1);
 				bike3.setStation(station2);
 				bike4.setStation(station2);
-				
+
 				List<Bicycle> station1array = new ArrayList<>();
 				station1array.add(bike1);
 				station1array.add(bike2);
 
-				
 				List<Bicycle> station2array = new ArrayList<>();
 				station2array.add(bike3);
 				station2array.add(bike4);
 
-
-				
 				station1.setBikes(station1array);
 				station2.setBikes(station2array);
 

@@ -83,11 +83,9 @@ public class BikeService {
 				stationInfo.setId(station.getId());
 				stationInfo.setLocation(station.getLocation());
 				// Extracting bike IDs from each station
-	            List<Integer> bikeIds = station.getBikes().stream()
-	                                             .map(Bicycle::getId)
-	                                             .collect(Collectors.toList());
-	            stationInfo.setBikeIds(bikeIds);
-				
+				List<Integer> bikeIds = station.getBikes().stream().map(Bicycle::getId).collect(Collectors.toList());
+				stationInfo.setBikeIds(bikeIds);
+
 				stationInfos.add(stationInfo);
 			}
 
@@ -105,55 +103,42 @@ public class BikeService {
 			return null;
 		}
 	}
-/*
-	public BicycleData selectBike(int stationId) {
 
-		LogManager.getLogger(BikeService.class).info("Select Bike Start | StationID : '{}'", stationId);
-
-		try {
-			tx.begin();
-
-			Station station = pm.getObjectById(Station.class, stationId);
-			Bicycle selectedBike = null;
-
-			for (Bicycle bike : station.getBikes()) {
-				if (bike.isAvailable()) {
-					selectedBike = bike;
-					break;
-				}
-			}
-
-			if (selectedBike != null) {
-				selectedBike.setAvailable(false);
-
-				BicycleData selectedBikeInfo = new BicycleData();
-				selectedBikeInfo.setId(selectedBike.getId());
-				selectedBikeInfo.setAcquisitionDate(selectedBike.getAcquisitionDate());
-				selectedBikeInfo.setType(selectedBike.getType());
-				selectedBikeInfo.setAvailable(selectedBike.isAvailable());
-				selectedBikeInfo.setStationId(stationId);
-
-				tx.commit();
-
-				LogManager.getLogger(BikeService.class).info("Select Bike Success | BikeID : '{}'",
-						selectedBikeInfo.getId());
-
-				return selectedBikeInfo;
-			} else {
-				LogManager.getLogger(BikeService.class)
-						.error("Select Bike Failed | No available bikes in station | StationID: '{}'", stationId);
-				tx.rollback();
-				return null;
-			}
-		} catch (Exception e) {
-			LogManager.getLogger(BikeService.class).error("Select Bike Failed | '{}' | StationID: '{}'", e, stationId);
-			if (tx.isActive()) {
-				tx.rollback();
-			}
-			return null;
-		}
-	}
-*/
+	/*
+	 * public BicycleData selectBike(int stationId) {
+	 * 
+	 * LogManager.getLogger(BikeService.class).
+	 * info("Select Bike Start | StationID : '{}'", stationId);
+	 * 
+	 * try { tx.begin();
+	 * 
+	 * Station station = pm.getObjectById(Station.class, stationId); Bicycle
+	 * selectedBike = null;
+	 * 
+	 * for (Bicycle bike : station.getBikes()) { if (bike.isAvailable()) {
+	 * selectedBike = bike; break; } }
+	 * 
+	 * if (selectedBike != null) { selectedBike.setAvailable(false);
+	 * 
+	 * BicycleData selectedBikeInfo = new BicycleData();
+	 * selectedBikeInfo.setId(selectedBike.getId());
+	 * selectedBikeInfo.setAcquisitionDate(selectedBike.getAcquisitionDate());
+	 * selectedBikeInfo.setType(selectedBike.getType());
+	 * selectedBikeInfo.setAvailable(selectedBike.isAvailable());
+	 * selectedBikeInfo.setStationId(stationId);
+	 * 
+	 * tx.commit();
+	 * 
+	 * LogManager.getLogger(BikeService.class).
+	 * info("Select Bike Success | BikeID : '{}'", selectedBikeInfo.getId());
+	 * 
+	 * return selectedBikeInfo; } else { LogManager.getLogger(BikeService.class)
+	 * .error("Select Bike Failed | No available bikes in station | StationID: '{}'"
+	 * , stationId); tx.rollback(); return null; } } catch (Exception e) {
+	 * LogManager.getLogger(BikeService.class).
+	 * error("Select Bike Failed | '{}' | StationID: '{}'", e, stationId); if
+	 * (tx.isActive()) { tx.rollback(); } return null; } }
+	 */
 	public List<BicycleData> getAvailableBikesInStation(int stationId) {
 
 		LogManager.getLogger(BikeService.class).info("Get Available Bikes Start | StationID : '{}'", stationId);
