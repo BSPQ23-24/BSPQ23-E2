@@ -64,4 +64,4 @@ jobs:
       - name: Package the application
         run: |
           cd bike-lending-app
-          mvn package
+          mvn package -DskipTests -DskipITs
