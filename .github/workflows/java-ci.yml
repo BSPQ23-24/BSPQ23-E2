@@ -15,12 +15,36 @@ jobs:
           java-version: '21'
           distribution: 'temurin'
 
-      - name: Prepare database for integration tests
+      - name: Clean and compile the project
+        run: |
+          cd bike-lending-app
+          mvn --batch-mode clean compile
+
+      - name: Prepare database for testing
         run: | 
           sudo /etc/init.d/mysql start
           cd bike-lending-app
           mysql -uroot -proot < sql/create-bikes.sql
           mvn --batch-mode --update-snapshots datanucleus:enhance datanucleus:schema-create
+
+      - name: Run the server for doing integration and performance tests
+        run: | 
+          cd bike-lending-app
+          mvn --batch-mode jetty:run
+
+      - name: Run the unitary tests
+        run: | 
+          cd bike-lending-app
+          mvn test
+
+      - name: Execute integration tests and package
+        run: | 
+          cd bike-lending-app
+          mvn --batch-mode --update-snapshots package -Pintegration-tests
+
+      - name: Execute performance tests and package
+        run: | 
+          cd bike-lending-app
+          mvn --batch-mode --update-snapshots package -Pperformance-tests
+
       
-      - name: Build with Maven including integration tests
-        run: mvn --batch-mode --update-snapshots package -Pintegration-tests
