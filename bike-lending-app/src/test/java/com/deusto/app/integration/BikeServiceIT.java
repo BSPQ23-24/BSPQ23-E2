@@ -6,9 +6,9 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.util.List;
 
-import org.junit.experimental.categories.Category;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import com.deusto.app.client.controller.BikeController;
 import com.deusto.app.client.controller.UserController;
@@ -17,10 +17,8 @@ import com.deusto.app.server.pojo.BicycleData;
 import com.deusto.app.server.pojo.StationData;
 import com.deusto.app.server.pojo.UserData;
 
-import categories.IntegrationTest;
-
-@Category(IntegrationTest.class)
-public class BikeServiceTest {
+@Tag("IntegrationTest")
+public class BikeServiceIT {
 
 	@BeforeAll
 	public static void setUp() {

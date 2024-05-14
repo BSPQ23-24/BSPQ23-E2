@@ -4,15 +4,13 @@ import com.deusto.app.client.controller.UserController;
 import com.deusto.app.client.remote.ServiceLocator;
 import com.deusto.app.server.pojo.UserData;
 
-import categories.IntegrationTest;
-
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
-import org.junit.experimental.categories.Category;
 import org.junit.jupiter.api.Assertions;
 
-@Category(IntegrationTest.class)
-public class UserFunctionalityTest {
+@Tag("IntegrationTest")
+public class UserFunctionalityIT {
 
 	private static UserController userController;
 
