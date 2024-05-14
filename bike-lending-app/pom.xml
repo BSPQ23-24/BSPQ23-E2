@@ -310,7 +310,7 @@
 							<includes>
 								<include>**/*IT.java</include>
 							</includes>
-							<groups>categories.IntegrationTest</groups>
+							<groups>IntegrationTest</groups>
 						</configuration>
 						<executions>
 							<execution>
@@ -342,7 +342,7 @@
 							<includes>
 								<include>**/*PT.java</include>
 							</includes>
-							<groups>categories.PerformanceTest</groups>
+							<groups>PerformanceTest</groups>
 						</configuration>
 						<executions>
 							<execution>
