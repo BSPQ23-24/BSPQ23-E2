@@ -25,11 +25,14 @@ public class User {
 		this.mail = mail;
 	}
 
+	public User() {
+	}
+
 	public String getDni() {
 		return dni;
 	}
 
-	public void setDNI(String dni) {
+	public void setDni(String dni) {
 		this.dni = dni;
 	}
 
@@ -103,12 +106,15 @@ public class User {
 	}
 
 	@Override
-	public boolean equals(Object obj) {
-		if (this.getClass().getName().equals(obj.getClass().getName())) {
-			return this.dni.equals(((User) obj).dni);
-		}
-
-		return false;
-	}
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+        User user = (User) obj;
+        return dni.equals(user.dni);
+    }
 	
 }
