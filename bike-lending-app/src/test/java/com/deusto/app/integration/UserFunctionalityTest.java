@@ -1,12 +1,17 @@
-package com.deusto.app.client.test;
+package com.deusto.app.integration;
 
 import com.deusto.app.client.controller.UserController;
 import com.deusto.app.client.remote.ServiceLocator;
 import com.deusto.app.server.pojo.UserData;
+
+import categories.IntegrationTest;
+
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.experimental.categories.Category;
 import org.junit.jupiter.api.Assertions;
 
+@Category(IntegrationTest.class)
 public class UserFunctionalityTest {
 
 	private static UserController userController;

@@ -25,11 +25,14 @@ public class User {
 		this.mail = mail;
 	}
 
+	public User() {
+	}
+
 	public String getDni() {
 		return dni;
 	}
 
-	public void setDNI(String dni) {
+	public void setDni(String dni) {
 		this.dni = dni;
 	}
 
