@@ -65,15 +65,3 @@ jobs:
         run: |
           cd bike-lending-app
           mvn package
-
-
-
-
-
-
-
-
-
-
-
-
