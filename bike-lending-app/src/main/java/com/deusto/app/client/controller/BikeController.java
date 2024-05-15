@@ -17,12 +17,24 @@ import jakarta.ws.rs.core.GenericType;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
+/**
+ * BikeController class handles client-side operations related to bicycles and stations.
+ * It interacts with the remote services through RESTful APIs.
+ */
 public class BikeController {
 	private static BikeController instance;
 
+	/**
+     * Private constructor to prevent instantiation.
+     */
 	private BikeController() {
 	}
 
+	/**
+     * Returns the singleton instance of BikeController.
+     *
+     * @return BikeController instance
+     */
 	public static synchronized BikeController getInstance() {
 		if (instance == null) {
 			instance = new BikeController();
@@ -30,7 +42,13 @@ public class BikeController {
 		return instance;
 	}
 
-	// Display Bike Info
+	/**
+     * Retrieves the details of a specific bike.
+     *
+     * @param bikeId the ID of the bike
+     * @param token  the user's authentication token
+     * @return BicycleData containing the bike details, or null if retrieval fails
+     */
 	public BicycleData getBikeDetails(@PathParam("bikeId") int bikeId, @QueryParam("token") long token) {
 		LogManager.getLogger(BikeController.class).info("Get Bike Details Start | BikeID: '{}'", bikeId);
 
@@ -50,7 +68,12 @@ public class BikeController {
 		}
 	}
 
-	// Display Stations
+	/**
+     * Retrieves a list of all bike stations.
+     *
+     * @param token the user's authentication token
+     * @return List of StationData containing the station details, or null if retrieval fails
+     */
 	public List<StationData> displayStations(@QueryParam("token") long token) {
 		LogManager.getLogger(BikeController.class).info("Display Stations Start");
 		WebTarget displaySBWebTarget = ServiceLocator.getInstance().getWebTarget().path("bikeapp/bike/stations")
@@ -72,7 +95,13 @@ public class BikeController {
 
 	}
 
-	// Get all available bikes In Station
+	/**
+     * Retrieves a list of available bikes at a specific station.
+     *
+     * @param stationId the ID of the bike station
+     * @param token     the user's authentication token
+     * @return List of BicycleData containing the available bikes, or null if retrieval fails
+     */
 	public List<BicycleData> getAvailableBikesInStation(@QueryParam("stationId") int stationId,
 			@QueryParam("token") long token) {
 		LogManager.getLogger(BikeController.class).info("Get Available Bikes Start | StationID: '{}'", stationId);
@@ -94,7 +123,13 @@ public class BikeController {
 		}
 	}
 
-	// Bike Selection
+	/**
+     * Selects a bike from a specific station.
+     *
+     * @param stationId the ID of the bike station
+     * @param token     the user's authentication token
+     * @return BicycleData containing the selected bike details, or null if selection fails
+     */
 	public BicycleData selectBike(@QueryParam("stationId") int stationId, @QueryParam("token") long token) {
 		LogManager.getLogger(BikeController.class).info("Select Bike Start | StationID: '{}'", stationId);
 		WebTarget selectBikeWebTarget = ServiceLocator.getInstance().getWebTarget().path("bikeapp/bike/select")
@@ -115,8 +150,14 @@ public class BikeController {
 
 	}
 
-	// Bike Creation
-
+	/**
+     * Creates a new bike at a specific station.
+     *
+     * @param stationId the ID of the bike station
+     * @param bikeData  the bike data to be created
+     * @param token     the user's authentication token
+     * @return true if the bike creation is successful, false otherwise
+     */
 	public boolean createBike(@QueryParam("stationId") int stationId, BicycleData bikeData,
 			@QueryParam("token") long token) {
 		LogManager.getLogger(BikeController.class).info("Create Bike Start | StationID: '{}'", stationId);
