@@ -52,11 +52,11 @@ jobs:
       #     cd bike-lending-app
       #     mvn --batch-mode --update-snapshots verify -Pperformance-tests
 
-  document:
-    needs: test
-    runs-on: ubuntu-latest
+  # document:
+  #   needs: test
+  #   runs-on: ubuntu-latest
 
-    steps:
+  #   steps:
       - uses: actions/checkout@v3
         with:
           token: ${{ secrets.GITHUB_TOKEN }}  # Ensure this line is correctly added
@@ -75,12 +75,21 @@ jobs:
       - name: Some other step
         run: echo "Doing something"
 
-      - name: Publish on Github Pages
-        uses: crazy-max/ghaction-github-pages@v2.3.0
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
         with:
-          build_dir: bike-lending-app/target/doxygen/html
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: bike-lending-app/target/doxygen/html
+          publish_branch: gh-pages  # Branch to deploy to, adjust if you use a different branch
+          keep_files: true  # Set to true to retain files not overwritten by new deployment
+
+      # - name: Publish on Github Pages
+      #   uses: crazy-max/ghaction-github-pages@v2.3.0
+      #   with:
+      #     build_dir: bike-lending-app/target/doxygen/html
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
 
   package:
