@@ -9,13 +9,26 @@ import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import org.apache.logging.log4j.LogManager;
 
+/**
+ * UserController class handles client-side user operations including registration,
+ * login, logout, and password change. It interacts with the remote services through
+ * RESTful APIs.
+ */
 public class UserController {
 	private static UserController instance;
 	private static long token = -1;
 
+	/**
+     * Private constructor to prevent instantiation.
+     */
 	private UserController() {
 	}
 
+	/**
+     * Returns the singleton instance of UserController.
+     *
+     * @return UserController instance
+     */
 	public static synchronized UserController getInstance() {
 		if (instance == null) {
 			instance = new UserController();
@@ -23,6 +36,12 @@ public class UserController {
 		return instance;
 	}
 
+	/**
+     * Registers a new user by sending user data to the server.
+     *
+     * @param userData the user data to be registered
+     * @return true if the registration is successful, false otherwise
+     */
 	public boolean registerUser(UserData userData) {
 		LogManager.getLogger(UserController.class).info("Register Start");
 		WebTarget registerUserWebTarget = ServiceLocator.getInstance().getWebTarget().path("bikeapp/user/register");
@@ -40,6 +59,12 @@ public class UserController {
 		}
 	}
 
+	/**
+     * Logs in a user by sending user data to the server and retrieves a token.
+     *
+     * @param userData the user data containing DNI and password
+     * @return true if the login is successful, false otherwise
+     */
 	public boolean loginUser(UserData userData) {
 		LogManager.getLogger(UserController.class).info("Login Start");
 		WebTarget loginUserWebTarget = ServiceLocator.getInstance().getWebTarget().path("bikeapp/user/login");
@@ -57,6 +82,14 @@ public class UserController {
 		}
 	}
 
+	/**
+     * Changes the password of a user.
+     *
+     * @param dni        the user's DNI
+     * @param oldPassword the user's current password
+     * @param newPassword the new password to set
+     * @return true if the password change is successful, false otherwise
+     */
 	public boolean changePassword(String dni, String oldPassword, String newPassword) {
 		LogManager.getLogger(UserController.class).info("Change Password Start");
 		WebTarget changePasswordWebTarget = ServiceLocator.getInstance().getWebTarget()
@@ -75,6 +108,12 @@ public class UserController {
 		}
 	}
 
+	/**
+     * Logs out a user by invalidating the session token.
+     *
+     * @param token the user's session token
+     * @return true if the logout is successful, false otherwise
+     */
 	public boolean logoutUser(long token) {
 		LogManager.getLogger(UserController.class).info("Change Password Start");
 		WebTarget logoutUserWebTarget = ServiceLocator.getInstance().getWebTarget().path("bikeapp/user/logout")
@@ -93,6 +132,11 @@ public class UserController {
 		}
 	}
 
+	/**
+     * Retrieves the current session token.
+     *
+     * @return the current session token
+     */
 	public long getToken() {
 
 		return token;

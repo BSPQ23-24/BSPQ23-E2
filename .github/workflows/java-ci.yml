@@ -1,6 +1,10 @@
 name: Java CI
 
-on: [push]
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
 
 jobs:
   test:
@@ -48,8 +52,37 @@ jobs:
           cd bike-lending-app
           mvn --batch-mode --update-snapshots verify -Pperformance-tests
 
-  package:
+  document:
     needs: test
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}  # Ensure this line is correctly added
+      - name: Install doxygen
+        run: sudo apt-get install -y doxygen
+
+      - name: Install graphviz
+        run: sudo apt-get install -y graphviz
+
+      - name: Generate documentation
+        run: |
+          cd bike-lending-app
+          mvn doxygen:report
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: bike-lending-app/target/doxygen/html
+          publish_branch: gh-pages  # Branch to deploy to, adjust if you use a different branch
+          keep_files: true  # Set to true to retain files not overwritten by new deployment
+
+      
+
+  package:
+    needs: document
     runs-on: ubuntu-latest
 
     steps:
@@ -65,3 +98,5 @@ jobs:
         run: |
           cd bike-lending-app
           mvn package -DskipTests -DskipITs
+
+  

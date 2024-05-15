@@ -18,10 +18,26 @@ import jakarta.ws.rs.QueryParam;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
+
+/**
+ * ResourceFacade class provides RESTful APIs for bike rental application.
+ * It includes user management (registration, login, logout, password change) 
+ * and bike management (display stations, available bikes, bike details).
+ * 
+ * All endpoints produce responses in JSON format.
+ */
 @Path("/bikeapp")
 @Produces(MediaType.APPLICATION_JSON)
 public class ResourceFacade {
 
+	/**
+     * Changes the password of a user.
+     *
+     * @param dni the user's DNI
+     * @param oldPassword the user's current password
+     * @param newPassword the new password to set
+     * @return Response indicating success or failure of the password change
+     */
 	@POST
 	@Path("/user/changePassword")
 	public Response changePassword(@QueryParam("dni") String dni, @QueryParam("oldPassword") String oldPassword,
@@ -36,6 +52,12 @@ public class ResourceFacade {
 		}
 	}
 
+	/**
+     * Registers a new user.
+     *
+     * @param userData the user's data
+     * @return Response indicating success or failure of the registration
+     */
 	@POST
 	@Path("/user/register")
 	public Response registerUser(UserData userData) {
@@ -49,6 +71,12 @@ public class ResourceFacade {
 
 	}
 
+	/**
+     * Logs in a user.
+     *
+     * @param userData the user's data containing DNI and password
+     * @return Response containing the user's token if login is successful
+     */
 	@POST
 	@Path("/user/login")
 	public Response loginUser(UserData userData) {
@@ -63,6 +91,12 @@ public class ResourceFacade {
 
 	}
 
+	/**
+     * Logs out a user.
+     *
+     * @param token the user's authentication token
+     * @return Response indicating success or failure of the logout
+     */
 	@POST
 	@Path("/user/logout")
 	public Response logoutUser(@QueryParam("token") long token) {
@@ -74,6 +108,11 @@ public class ResourceFacade {
 		}
 	}
 
+	/**
+     * A simple endpoint to test connectivity.
+     *
+     * @return A plain text "Hello world!" response
+     */
 	@GET
 	@Path("/user/hello")
 	@Produces(MediaType.TEXT_PLAIN)
@@ -98,6 +137,12 @@ public class ResourceFacade {
 	 * Response.serverError().entity("Error creating bike").build(); } }
 	 */
 
+	/**
+     * Displays all bike stations.
+     *
+     * @param token the user's authentication token
+     * @return Response containing a list of all bike stations
+     */
 	@GET
 	@Path("/bike/stations")
 	public Response displayStations(@QueryParam("token") long token) {
@@ -127,6 +172,14 @@ public class ResourceFacade {
 	 * { return Response.status(Response.Status.NOT_FOUND).
 	 * entity("No available bikes at this station").build(); } }
 	 */
+	
+	/**
+     * Retrieves available bikes at a specific station.
+     *
+     * @param stationId the ID of the bike station
+     * @param token the user's authentication token
+     * @return Response containing a list of available bikes
+     */
 	@GET
 	@Path("/bike/available")
 	public Response getAvailableBikesInStation(@QueryParam("stationId") int stationId,
@@ -143,6 +196,13 @@ public class ResourceFacade {
 		}
 	}
 
+	/**
+     * Retrieves the details of a specific bike.
+     *
+     * @param bikeId the ID of the bike
+     * @param token the user's authentication token
+     * @return Response containing the bike details
+     */
 	@GET
 	@Path("/bike/{bikeId}")
 	public Response getBikeDetails(@PathParam("bikeId") int bikeId, @QueryParam("token") long token) {

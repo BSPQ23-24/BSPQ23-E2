@@ -2,8 +2,6 @@
 package com.deusto.app.server.services;
 
 import java.util.ArrayList;
-import java.util.Date;
-
 import javax.jdo.JDOHelper;
 import javax.jdo.PersistenceManager;
 import javax.jdo.PersistenceManagerFactory;
@@ -11,14 +9,6 @@ import javax.jdo.Query;
 import javax.jdo.Transaction;
 
 import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
-import jakarta.ws.rs.GET;
-import jakarta.ws.rs.POST;
-import jakarta.ws.rs.Path;
-import jakarta.ws.rs.Produces;
-import jakarta.ws.rs.core.MediaType;
-import jakarta.ws.rs.core.Response;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -27,17 +17,29 @@ import com.deusto.app.server.data.domain.Station;
 import com.deusto.app.server.pojo.BicycleData;
 import com.deusto.app.server.pojo.StationData;
 
+/**
+ * BikeService class provides services related to bike operations such as displaying stations,
+ * getting available bikes, and retrieving bike details. It uses JDO for persistence.
+ */
 public class BikeService {
 	private static BikeService instance;
 	private PersistenceManager pm = null;
 	private Transaction tx = null;
 
-	public BikeService() {
+	/**
+     * Private constructor to initialize PersistenceManager and Transaction.
+     */
+	private BikeService() {
 		PersistenceManagerFactory pmf = JDOHelper.getPersistenceManagerFactory("datanucleus.properties");
 		this.pm = pmf.getPersistenceManager();
 		this.tx = pm.currentTransaction();
 	}
 
+	/**
+     * Returns the singleton instance of BikeService.
+     *
+     * @return BikeService instance
+     */
 	public static BikeService getInstance() {
 		if (instance == null) {
 			instance = new BikeService();
@@ -67,6 +69,11 @@ public class BikeService {
 	 * return -1; } }
 	 */
 
+	/**
+     * Retrieves and displays all bike stations with their respective bike IDs.
+     *
+     * @return List of StationData containing the station details and bike IDs
+     */
 	public List<StationData> displayStations() {
 
 		LogManager.getLogger(BikeService.class).info("Display Stations Start");
@@ -139,6 +146,13 @@ public class BikeService {
 	 * error("Select Bike Failed | '{}' | StationID: '{}'", e, stationId); if
 	 * (tx.isActive()) { tx.rollback(); } return null; } }
 	 */
+	
+	/**
+	 * Retrieves available bikes in a specific station.
+	 *
+	 * @param stationId the ID of the station
+	 * @return List of BicycleData containing the available bike details
+	 */
 	public List<BicycleData> getAvailableBikesInStation(int stationId) {
 
 		LogManager.getLogger(BikeService.class).info("Get Available Bikes Start | StationID : '{}'", stationId);
@@ -175,6 +189,12 @@ public class BikeService {
 		}
 	}
 
+	/**
+	 * Retrieves the details of a bike by its ID.
+	 *
+	 * @param bikeId the ID of the bike
+	 * @return BicycleData containing the bike details, or null if retrieval fails
+	 */
 	public BicycleData getBikeById(int bikeId) {
 
 		LogManager.getLogger(BikeService.class).info("Get Bike By ID Start | BikeID : '{}'", bikeId);
