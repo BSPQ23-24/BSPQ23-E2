@@ -1,6 +1,10 @@
 name: Java CI
 
-on: [push]
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
 
 jobs:
   test:
@@ -48,8 +52,37 @@ jobs:
           cd bike-lending-app
           mvn --batch-mode --update-snapshots verify -Pperformance-tests
 
-  package:
+  document:
     needs: test
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Set up JDK 21
+        uses: actions/setup-java@v3
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+      
+      - name: Install doxygen
+        run: sudo apt-get install -y doxygen
+
+      - name: Install graphviz
+        run: sudo apt-get install -y graphviz
+
+      - name: Generate documentation
+        run: mvn doxygen:report
+
+      - name: Publish on Github Pages
+        uses: crazy-max/ghaction-github-pages@v2.3.0
+        with:
+          build_dir: target/doxygen/html
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  package:
+    needs: document
     runs-on: ubuntu-latest
 
     steps:
@@ -65,3 +98,5 @@ jobs:
         run: |
           cd bike-lending-app
           mvn package -DskipTests -DskipITs
+
+  

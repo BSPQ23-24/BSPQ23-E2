@@ -67,7 +67,7 @@ class UserTest {
         user.setDateOfBirth("1990-01-01");
         user.setPhone("123456789");
         user.setMail("john.doe@example.com");
-        String expected = "DNI: 12345678APassword: password123 / Name: John / Surname: Doe / Date of Birth: 1990-01-01 / Phone: 123456789 / Email: john.doe@example.com";
+        String expected = "DNI: 12345678A / Password: password123 / Name: John / Surname: Doe / Date of Birth: 1990-01-01 / Phone: 123456789 / Email: john.doe@example.com";
         assertEquals(expected, user.toString());
     }
 
