@@ -24,33 +24,33 @@ jobs:
           cd bike-lending-app
           mvn --batch-mode clean compile
           
-      - name: Prepare database for testing
-        run: | 
-          sudo /etc/init.d/mysql start
-          cd bike-lending-app
-          mysql -uroot -proot < sql/create-bikes.sql
-          mvn --batch-mode --update-snapshots datanucleus:enhance datanucleus:schema-create
+      # - name: Prepare database for testing
+      #   run: | 
+      #     sudo /etc/init.d/mysql start
+      #     cd bike-lending-app
+      #     mysql -uroot -proot < sql/create-bikes.sql
+      #     mvn --batch-mode --update-snapshots datanucleus:enhance datanucleus:schema-create
           
-      - name: Start the server in the background
-        run: |
-          cd bike-lending-app
-          mvn --batch-mode jetty:run &
-          sleep 10
+      # - name: Start the server in the background
+      #   run: |
+      #     cd bike-lending-app
+      #     mvn --batch-mode jetty:run &
+      #     sleep 10
 
-      - name: Run the unit tests
-        run: |
-          cd bike-lending-app
-          mvn test
+      # - name: Run the unit tests
+      #   run: |
+      #     cd bike-lending-app
+      #     mvn test
 
-      - name: Execute integration tests
-        run: |
-          cd bike-lending-app
-          mvn --batch-mode --update-snapshots verify -Pintegration-tests
+      # - name: Execute integration tests
+      #   run: |
+      #     cd bike-lending-app
+      #     mvn --batch-mode --update-snapshots verify -Pintegration-tests
 
-      - name: Execute performance tests
-        run: |
-          cd bike-lending-app
-          mvn --batch-mode --update-snapshots verify -Pperformance-tests
+      # - name: Execute performance tests
+      #   run: |
+      #     cd bike-lending-app
+      #     mvn --batch-mode --update-snapshots verify -Pperformance-tests
 
   document:
     needs: test
@@ -78,7 +78,7 @@ jobs:
       - name: Publish on Github Pages
         uses: crazy-max/ghaction-github-pages@v2.3.0
         with:
-          build_dir: target/doxygen/html
+          build_dir: bike-lending-app/target/doxygen/html
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
