@@ -24,39 +24,39 @@ jobs:
           cd bike-lending-app
           mvn --batch-mode clean compile
           
-      # - name: Prepare database for testing
-      #   run: | 
-      #     sudo /etc/init.d/mysql start
-      #     cd bike-lending-app
-      #     mysql -uroot -proot < sql/create-bikes.sql
-      #     mvn --batch-mode --update-snapshots datanucleus:enhance datanucleus:schema-create
+      - name: Prepare database for testing
+        run: | 
+          sudo /etc/init.d/mysql start
+          cd bike-lending-app
+          mysql -uroot -proot < sql/create-bikes.sql
+          mvn --batch-mode --update-snapshots datanucleus:enhance datanucleus:schema-create
           
-      # - name: Start the server in the background
-      #   run: |
-      #     cd bike-lending-app
-      #     mvn --batch-mode jetty:run &
-      #     sleep 10
+      - name: Start the server in the background
+        run: |
+          cd bike-lending-app
+          mvn --batch-mode jetty:run &
+          sleep 10
 
-      # - name: Run the unit tests
-      #   run: |
-      #     cd bike-lending-app
-      #     mvn test
+      - name: Run the unit tests
+        run: |
+          cd bike-lending-app
+          mvn test
 
-      # - name: Execute integration tests
-      #   run: |
-      #     cd bike-lending-app
-      #     mvn --batch-mode --update-snapshots verify -Pintegration-tests
+      - name: Execute integration tests
+        run: |
+          cd bike-lending-app
+          mvn --batch-mode --update-snapshots verify -Pintegration-tests
 
-      # - name: Execute performance tests
-      #   run: |
-      #     cd bike-lending-app
-      #     mvn --batch-mode --update-snapshots verify -Pperformance-tests
+      - name: Execute performance tests
+        run: |
+          cd bike-lending-app
+          mvn --batch-mode --update-snapshots verify -Pperformance-tests
 
-  # document:
-  #   needs: test
-  #   runs-on: ubuntu-latest
+  document:
+    needs: test
+    runs-on: ubuntu-latest
 
-  #   steps:
+    steps:
       - uses: actions/checkout@v3
         with:
           token: ${{ secrets.GITHUB_TOKEN }}  # Ensure this line is correctly added
@@ -71,11 +71,6 @@ jobs:
           cd bike-lending-app
           mvn doxygen:report
 
-     
-      - name: Some other step
-        run: echo "Doing something"
-
-
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
@@ -86,22 +81,22 @@ jobs:
 
       
 
-  # package:
-  #   needs: document
-  #   runs-on: ubuntu-latest
+  package:
+    needs: document
+    runs-on: ubuntu-latest
 
-  #   steps:
-  #     - uses: actions/checkout@v3
+    steps:
+      - uses: actions/checkout@v3
       
-  #     - name: Set up JDK 21
-  #       uses: actions/setup-java@v3
-  #       with:
-  #         java-version: '21'
-  #         distribution: 'temurin'
+      - name: Set up JDK 21
+        uses: actions/setup-java@v3
+        with:
+          java-version: '21'
+          distribution: 'temurin'
 
-  #     - name: Package the application
-  #       run: |
-  #         cd bike-lending-app
-  #         mvn package -DskipTests -DskipITs
+      - name: Package the application
+        run: |
+          cd bike-lending-app
+          mvn package -DskipTests -DskipITs
 
   
