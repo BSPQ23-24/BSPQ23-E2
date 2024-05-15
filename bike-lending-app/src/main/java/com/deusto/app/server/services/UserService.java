@@ -18,6 +18,11 @@ import com.deusto.app.server.data.domain.Station;
 import com.deusto.app.server.data.domain.User;
 import com.deusto.app.server.pojo.UserData;
 
+/**
+ * UserService class handles user-related operations including registration,
+ * login, logout, password changes, and initialization of data. It also manages
+ * the server state for user sessions.
+ */
 public class UserService {
 
 	private static UserService instance;
@@ -27,6 +32,11 @@ public class UserService {
 	private Transaction tx;
 	private Map<Long, User> serverState;
 
+	/**
+     * Private constructor to initialize PersistenceManagerFactory,
+     * PersistenceManager, Transaction, and server state. It also initializes
+     * example data.
+     */
 	private UserService() {
 		pmf = JDOHelper.getPersistenceManagerFactory("datanucleus.properties");
 		pm = pmf.getPersistenceManager();
@@ -35,6 +45,11 @@ public class UserService {
 		initializeData();
 	}
 
+	/**
+     * Returns the singleton instance of UserService.
+     *
+     * @return UserService instance
+     */
 	public static UserService getInstance() {
 		if (instance == null) {
 			instance = new UserService();
@@ -42,6 +57,12 @@ public class UserService {
 		return instance;
 	}
 
+	/**
+     * Registers a new user in the system.
+     *
+     * @param userData the user data to be registered
+     * @return true if the registration is successful, false if the user already exists
+     */
 	public boolean registerUser(UserData userData) {
 
 		LogManager.getLogger(UserService.class).info("Register Start | User: '{}'", userData.getDni());
@@ -75,6 +96,13 @@ public class UserService {
 		}
 	}
 
+	/**
+     * Logs in a user.
+     *
+     * @param dni      the user's DNI
+     * @param password the user's password
+     * @return a token representing the user's session if login is successful, -1 otherwise
+     */
 	public long loginUser(String dni, String password) {
 		LogManager.getLogger(UserService.class).info("Login Start | User: '{}'", dni);
 
@@ -114,6 +142,12 @@ public class UserService {
 		return -1;
 	}
 
+	/**
+     * Checks if a user is logged in.
+     *
+     * @param token the user's session token
+     * @return true if the user is logged in, false otherwise
+     */
 	public boolean isLoggedIn(long token) {
 		if (serverState.containsKey(token)) {
 			return true;
@@ -122,6 +156,12 @@ public class UserService {
 		}
 	}
 
+	/**
+     * Logs out a user.
+     *
+     * @param token the user's session token
+     * @return true if logout is successful, false otherwise
+     */
 	public boolean logoutUser(long token) {
 		LogManager.getLogger(UserService.class).info("Logout Start | Token: '{}'", token);
 		if (UserService.getInstance().isLoggedIn(token)) {
@@ -134,6 +174,14 @@ public class UserService {
 		}
 	}
 
+	/**
+     * Changes the password of a user.
+     *
+     * @param dni        the user's DNI
+     * @param oldPassword the user's current password
+     * @param newPassword the new password to set
+     * @return true if the password change is successful, false otherwise
+     */
 	public boolean changePassword(String dni, String oldPassword, String newPassword) {
 		LogManager.getLogger(UserService.class).info("Change Password Start | User: '{}'", dni);
 
@@ -163,6 +211,9 @@ public class UserService {
 		}
 	}
 
+	/**
+     * Initializes example data for the application.
+     */
 	private void initializeData() {
 		LogManager.getLogger(UserService.class).info("Initialize Data");
 
