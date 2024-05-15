@@ -49,21 +49,35 @@ To get started with the Bike Lending App, ensure you have Maven and MySQL instal
    mvn exec:java -Pclient
    ```
 
+   After these steps, the Bike Lending App server should be running, and the client application will be ready to use. You can also verify the functionality and correctness of the application by running the automated tests.
+
 ### Testing the Application
 
-6. **Running Tests**  
-   Once the server is up and running, you can run the unit tests to verify the application's functionality. Open another command window and execute the following command:
+6. **Running Unitary Tests**  
+   You can run the unit tests to verify the application's functionality. Open another command window and execute the following command:
 
    ```shell
    mvn test
    ```
 
-   This will trigger the execution of the test suite defined in the project. Ensure that the server is running, as the tests may interact with it to validate the end-to-end functionalities.
+7. **Running Integration Tests**  
+   To continue with this verification, you can execute the integrations tests following the next commands. Ensure that the server is running, as the tests may interact with it to validate the end-to-end functionalities.
 
    Note: The tests are designed to run independently of the client application. They directly test the server's REST API endpoints, simulating the actions a client would perform.
 
-After these steps, the Bike Lending App server should be running, and the client application will be ready to use. You can also verify the functionality and correctness of the application by running the automated tests.
+   ```shell
+   mvn verify -Pintegration-tests
+   ```
 
+7. **Running Performance Tests**  
+   Finally, execute the performance tests to see how well the server manages the requests. Ensure that the server is running, as the tests may interact with it to validate the end-to-end functionalities.
+
+   Note: The tests are designed to run independently of the client application. They directly test the server's REST API endpoints, simulating the actions a client would perform.
+
+   ```shell
+   mvn verify -Pperformance-tests
+   ```
+   
 ## Contributing
 
 Contributions are welcome. Please fork the repository and submit pull requests with your enhancements.
