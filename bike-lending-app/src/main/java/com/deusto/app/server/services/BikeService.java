@@ -14,7 +14,9 @@ import java.util.stream.Collectors;
 
 import com.deusto.app.server.data.domain.Bicycle;
 import com.deusto.app.server.data.domain.Station;
+import com.deusto.app.server.pojo.BicycleAssembler;
 import com.deusto.app.server.pojo.BicycleData;
+import com.deusto.app.server.pojo.StationAssembler;
 import com.deusto.app.server.pojo.StationData;
 
 /**
@@ -84,23 +86,12 @@ public class BikeService {
 			Query<Station> stationQuery = pm.newQuery(Station.class);
 			List<Station> stations = (List<Station>) stationQuery.execute();
 
-			List<StationData> stationInfos = new ArrayList<>();
-			for (Station station : stations) {
-				StationData stationInfo = new StationData();
-				stationInfo.setId(station.getId());
-				stationInfo.setLocation(station.getLocation());
-				// Extracting bike IDs from each station
-				List<Integer> bikeIds = station.getBikes().stream().map(Bicycle::getId).collect(Collectors.toList());
-				stationInfo.setBikeIds(bikeIds);
-
-				stationInfos.add(stationInfo);
-			}
-
 			tx.commit();
 
 			LogManager.getLogger(BikeService.class).info("Display Stations Success");
 
-			return stationInfos;
+			return StationAssembler.getInstance().stationsToPOJO(stations);
+			
 		} catch (Exception e) {
 			LogManager.getLogger(BikeService.class).error("Display Stations Failed | '{}'", e);
 			if (tx.isActive()) {
@@ -163,22 +154,13 @@ public class BikeService {
 			Station station = pm.getObjectById(Station.class, stationId);
 			List<Bicycle> availableBikes = station.getBikes();
 
-			List<BicycleData> bicycleInfos = new ArrayList<>();
-			for (Bicycle bike : availableBikes) {
-				BicycleData bicycleInfo = new BicycleData();
-				bicycleInfo.setId(bike.getId());
-				bicycleInfo.setAcquisitionDate(bike.getAcquisitionDate());
-				bicycleInfo.setType(bike.getType());
-				bicycleInfo.setAvailable(bike.isAvailable());
-				bicycleInfo.setStationId(stationId);
-				bicycleInfos.add(bicycleInfo);
-			}
 
 			tx.commit();
 
 			LogManager.getLogger(BikeService.class).info("Get Available Bikes Success | StationID : '{}'", stationId);
 
-			return bicycleInfos;
+			return BicycleAssembler.getInstance().bikesToPOJO(availableBikes);
+			
 		} catch (Exception e) {
 			LogManager.getLogger(BikeService.class).error("Get Available Bikes Failed | '{}' | StationID: '{}'", e,
 					stationId);
@@ -203,18 +185,12 @@ public class BikeService {
 			tx.begin();
 
 			Bicycle bike = pm.getObjectById(Bicycle.class, bikeId);
-			BicycleData bikeInfo = new BicycleData();
-			bikeInfo.setId(bike.getId());
-			bikeInfo.setAcquisitionDate(bike.getAcquisitionDate());
-			bikeInfo.setType(bike.getType());
-			bikeInfo.setAvailable(bike.isAvailable());
-			bikeInfo.setStationId(bike.getStation().getId());
-
+			
 			tx.commit();
 
 			LogManager.getLogger(BikeService.class).info("Get Bike By ID Success | BikeID : '{}'", bikeId);
 
-			return bikeInfo;
+			return BicycleAssembler.getInstance().bikeToPOJO(bike);
 		} catch (Exception e) {
 			LogManager.getLogger(BikeService.class).error("Get Bike By ID Failed | '{}' | BikeID: '{}'", e, bikeId);
 			if (tx.isActive()) {
