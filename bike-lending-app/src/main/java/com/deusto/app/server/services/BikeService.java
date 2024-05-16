@@ -153,7 +153,7 @@ public class BikeService {
 
 			Station station = pm.getObjectById(Station.class, stationId);
 			List<Bicycle> availableBikes = station.getBikes();
-
+			System.out.println(availableBikes);
 
 			tx.commit();
 
