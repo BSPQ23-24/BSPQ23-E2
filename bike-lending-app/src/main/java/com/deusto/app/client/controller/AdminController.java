@@ -52,4 +52,44 @@ public class AdminController {
 			return false;
 		}
 	}
+	
+	public boolean disableBike(@QueryParam("bikeId") int bikeId, @QueryParam("token") long token) {
+			
+			LogManager.getLogger(AdminController.class).info("Register Start");
+			WebTarget registerUserWebTarget = ServiceLocator.getInstance().getWebTarget().path("bikeapp/admin/disable")
+																						 .queryParam("bikeId", bikeId)
+					                                                                     .queryParam("token", token);
+			Invocation.Builder invocationBuilder = registerUserWebTarget.request(MediaType.APPLICATION_JSON);
+	
+			Response response = invocationBuilder.post(Entity.json(""));
+			if (response.getStatus() == Response.Status.OK.getStatusCode()) {
+				LogManager.getLogger(AdminController.class).info("Disabled!");
+				return true;
+	
+			} else {
+				LogManager.getLogger(AdminController.class).error("Disable Failed | Code: {} | Reason: {}",
+						response.getStatus(), response.readEntity(String.class));
+				return false;
+			}
+	}
+	
+	public boolean ableBike(@QueryParam("bikeId") int bikeId, @QueryParam("token") long token) {
+		
+		LogManager.getLogger(AdminController.class).info("Register Start");
+		WebTarget registerUserWebTarget = ServiceLocator.getInstance().getWebTarget().path("bikeapp/admin/able")
+																					 .queryParam("bikeId", bikeId)
+				                                                                     .queryParam("token", token);
+		Invocation.Builder invocationBuilder = registerUserWebTarget.request(MediaType.APPLICATION_JSON);
+
+		Response response = invocationBuilder.post(Entity.json(""));
+		if (response.getStatus() == Response.Status.OK.getStatusCode()) {
+			LogManager.getLogger(AdminController.class).info("It is available again!");
+			return true;
+
+		} else {
+			LogManager.getLogger(AdminController.class).error("Able Failed | Code: {} | Reason: {}",
+					response.getStatus(), response.readEntity(String.class));
+			return false;
+		}
+}
 }

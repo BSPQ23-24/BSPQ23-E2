@@ -19,7 +19,7 @@ public class User {
     private String dateOfBirth;
     private String phone;
     private String mail;
-    private boolean admin;
+    private boolean admin; //true admin, false client
 
     /**
      * Constructs a new User with the specified details.
@@ -41,7 +41,7 @@ public class User {
         this.dateOfBirth = dateOfBirth;
         this.phone = phone;
         this.mail = mail;
-        this.admin= admin;
+        this.admin= admin;  //true admin, false client
     }
 
     /**

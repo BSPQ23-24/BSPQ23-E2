@@ -248,5 +248,39 @@ public class ResourceFacade {
 		}
 
 	}
+	
+	@POST
+	@Path("/admin/disable")
+	public Response disableBike(@QueryParam("bikeId") int bikeId, @QueryParam("token") long token) {
+		
+		if(UserService.getInstance().isLoggedIn(token)) {
+			boolean disable_success= AdminService.getInstance().disableBike(bikeId);
+			if(disable_success) {
+				return Response.ok().build();
+			} else {
+				return Response.status(Response.Status.UNAUTHORIZED).entity("Bike could not be disabled").build();
+			}
+			
+		} else {
+			return Response.status(Response.Status.UNAUTHORIZED).entity("User is not logged in").build();
+		}
+	}
+	
+	@POST
+	@Path("/admin/able")
+	public Response ableBike(@QueryParam("bikeId") int bikeId, @QueryParam("token") long token) {
+		
+		if(UserService.getInstance().isLoggedIn(token)) {
+			boolean able_success= AdminService.getInstance().ableBike(bikeId);
+			if(able_success) {
+				return Response.ok().build();
+			} else {
+				return Response.status(Response.Status.UNAUTHORIZED).entity("Bike could not be able").build();
+			}
+			
+		} else {
+			return Response.status(Response.Status.UNAUTHORIZED).entity("User is not logged in").build();
+		}
+	}
 
 }

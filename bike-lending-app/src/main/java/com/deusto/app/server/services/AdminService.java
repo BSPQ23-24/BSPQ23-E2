@@ -1,5 +1,6 @@
 package com.deusto.app.server.services;
 
+import javax.annotation.Nonnull;
 import javax.jdo.JDOHelper;
 import javax.jdo.PersistenceManager;
 import javax.jdo.PersistenceManagerFactory;
@@ -74,12 +75,13 @@ public class AdminService {
 						if (station == null) {
 							LogManager.getLogger(AdminService.class)
 							.info("This station do not exist | Station: '{}'", bikeData.getStationId());
+							return false;
 						}
 					}catch (javax.jdo.JDOObjectNotFoundException jonfe2) {
 						bike.setStation(station);
 						
 						pm.makePersistent(bike);
-						LogManager.getLogger(UserService.class).info("Addition Success | Bike: '{}'", bikeData.getId());
+						LogManager.getLogger(AdminService.class).info("Addition Success | Bike: '{}'", bikeData.getId());
 					}
 					
 				}
@@ -90,6 +92,95 @@ public class AdminService {
 					tx.rollback();
 				}
 			}
+	 }
+	 
+	 public boolean deleteBike(int bikeId) {
+		 LogManager.getLogger(AdminService.class).info("Delete | Bike: '{}'", bikeId);
+		 
+		 try {
+			 tx.begin();
+			 Bicycle bike=null;
+			 try {
+				 bike=pm.getObjectById(Bicycle.class,bikeId);
+				 if (bike==null) {
+					 LogManager.getLogger(AdminService.class)
+						.info("This bike do not exist | Bike: '{}'", bikeId);
+					 return false;
+				 }
+			 } catch (javax.jdo.JDOObjectNotFoundException jonfe) {
+			 
+			 pm.removeUserObject(bikeId);
+			 
+			 LogManager.getLogger(AdminService.class).info("Deletion Success | Bike: '{}'", bikeId);
+			 
+			 }
+			 
+			 tx.commit();
+			 return true;
+		 
+		 } finally {
+			 if(tx.isActive()) {
+				 tx.rollback();
+			 }
+		 }
+	 }
+	 
+	 public boolean disableBike(int bikeId) {
+		 LogManager.getLogger(AdminService.class).info("Disable | Bike: '{}'", bikeId);
+		 try {
+			 tx.begin();
+			 Bicycle bike=null;
+			 try {
+				 bike=pm.getObjectById(Bicycle.class,bikeId);
+				 if (bike==null) {
+					 LogManager.getLogger(AdminService.class)
+						.info("This bike do not exist | Bike: '{}'", bikeId);
+					 return false;
+				 }
+			  } catch (javax.jdo.JDOObjectNotFoundException jonfe) {
+				 if(deleteBike(bikeId)) {
+					 bike.setAvailable(false);
+					 pm.makePersistent(bike);
+				 }
+			 }
+			 
+			 tx.commit();
+			 return true;
+		 
+		 } finally {
+			 if(tx.isActive()) {
+				 tx.rollback();
+			 }
+		 }
+	 }
+	 
+	 public boolean ableBike(int bikeId) {
+		 LogManager.getLogger(AdminService.class).info("Able | Bike: '{}'", bikeId);
+		 try {
+			 tx.begin();
+			 Bicycle bike=null;
+			 try {
+				 bike=pm.getObjectById(Bicycle.class,bikeId);
+				 if (bike==null) {
+					 LogManager.getLogger(AdminService.class)
+						.info("This bike do not exist | Bike: '{}'", bikeId);
+					 return false;
+				 }
+			  } catch (javax.jdo.JDOObjectNotFoundException jonfe) {
+				 if(deleteBike(bikeId)) {
+					 bike.setAvailable(true);
+					 pm.makePersistent(bike);
+				 }
+			 }
+			 
+			 tx.commit();
+			 return true;
+		 
+		 } finally {
+			 if(tx.isActive()) {
+				 tx.rollback();
+			 }
+		 }
 	 }
 	 
 	 
