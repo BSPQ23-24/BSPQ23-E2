@@ -9,6 +9,7 @@ public class UserData {
 	private String dateOfBirth;
 	private String phone;
 	private String mail;
+	private boolean admin;
 
 	public UserData() {
 		// required by serialization
@@ -68,6 +69,14 @@ public class UserData {
 
 	public void setMail(String mail) {
 		this.mail = mail;
+	}
+	
+	public boolean isAdmin() {
+		return admin;
+	}
+
+	public void setAdmin(boolean admin) {
+		this.admin = admin;
 	}
 
 	@Override

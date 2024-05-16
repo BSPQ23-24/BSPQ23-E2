@@ -19,6 +19,7 @@ public class User {
     private String dateOfBirth;
     private String phone;
     private String mail;
+    private boolean admin;
 
     /**
      * Constructs a new User with the specified details.
@@ -30,8 +31,9 @@ public class User {
      * @param dateOfBirth the user's date of birth
      * @param phone       the user's phone number
      * @param mail        the user's email address
+     * @param admin       if the user is client or admin
      */
-    public User(String dni, String password, String name, String surname, String dateOfBirth, String phone, String mail) {
+    public User(String dni, String password, String name, String surname, String dateOfBirth, String phone, String mail, boolean admin) {
         this.dni = dni;
         this.name = name;
         this.password = password;
@@ -39,6 +41,7 @@ public class User {
         this.dateOfBirth = dateOfBirth;
         this.phone = phone;
         this.mail = mail;
+        this.admin= admin;
     }
 
     /**
@@ -172,8 +175,16 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
+    
+    public boolean isAdmin() {
+		return admin;
+	}
 
-    /**
+	public void setAdmin(boolean admin) {
+		this.admin = admin;
+	}
+
+	/**
      * Returns a string representation of the user.
      *
      * @return a string containing the user details

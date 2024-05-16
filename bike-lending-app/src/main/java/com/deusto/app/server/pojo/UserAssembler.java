@@ -29,8 +29,7 @@ public class UserAssembler {
 		userP.setPassword(user.getPassword());
 		userP.setSurname(user.getSurname());
 		userP.setPhone(user.getPhone());
-		
-		
+		userP.setAdmin(user.isAdmin());
 		
 		
 		return userP;

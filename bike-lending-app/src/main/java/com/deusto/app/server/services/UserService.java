@@ -82,7 +82,7 @@ public class UserService {
 			} catch (javax.jdo.JDOObjectNotFoundException jonfe) {
 				// User not found, proceed to registration
 				user = new User(userData.getDni(), userData.getPassword(), userData.getName(), userData.getSurname(),
-						userData.getDateOfBirth(), userData.getPhone(), userData.getMail());
+						userData.getDateOfBirth(), userData.getPhone(), userData.getMail(), true);
 
 				pm.makePersistent(user);
 				LogManager.getLogger(UserService.class).info("Registration Success | User: '{}'", userData.getDni());
@@ -226,9 +226,9 @@ public class UserService {
 			} else {
 				// Create and persist example Users
 				User user1 = new User("12345678A", "password123", "John", "Doe", "01-01-1980", "555123456",
-						"john@example.com");
+						"john@example.com",true);
 				User user2 = new User("87654321B", "password456", "Jane", "Smith", "02-02-1990", "555654321",
-						"jane@example.com");
+						"jane@example.com",true);
 				pm.makePersistent(user1);
 				pm.makePersistent(user2);
 
