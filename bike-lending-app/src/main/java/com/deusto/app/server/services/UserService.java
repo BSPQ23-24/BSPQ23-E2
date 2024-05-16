@@ -165,9 +165,9 @@ public class UserService {
 	public boolean isAdmin(long token) {
 		User user=serverState.get(token);
 		if(user.isAdmin()) {
-			return false;
-		}else {
 			return true;
+		}else {
+			return false;
 		}
 		
 	}
