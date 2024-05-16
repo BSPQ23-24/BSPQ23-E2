@@ -155,6 +155,22 @@ public class UserService {
 			return false;
 		}
 	}
+	
+	/**
+     * Checks if a user is admin or client.
+     *
+     * @param token the user's session token
+     * @return true if the user is an admin, false otherwise
+     */
+	public boolean isAdmin(long token) {
+		User user=serverState.get(token);
+		if(user.isAdmin()) {
+			return false;
+		}else {
+			return true;
+		}
+		
+	}
 
 	/**
      * Logs out a user.

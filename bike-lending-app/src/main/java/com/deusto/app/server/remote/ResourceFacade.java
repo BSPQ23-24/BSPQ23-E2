@@ -2,9 +2,11 @@ package com.deusto.app.server.remote;
 
 import java.util.List;
 import com.deusto.app.server.data.domain.Bicycle;
+import com.deusto.app.server.data.domain.User;
 import com.deusto.app.server.pojo.BicycleData;
 import com.deusto.app.server.pojo.StationData;
 import com.deusto.app.server.pojo.UserData;
+import com.deusto.app.server.services.AdminService;
 import com.deusto.app.server.services.BikeService;
 import com.deusto.app.server.services.UserService;
 
@@ -216,6 +218,35 @@ public class ResourceFacade {
 		} else {
 			return Response.status(Response.Status.UNAUTHORIZED).entity("User is not logged in").build();
 		}
+	}
+	
+	/**
+     * Adds a new bike.
+     *
+     * @param BicycleData the ID of the bike
+     * @param token the user's authentication token
+     * @return Response containing the bike details
+     */
+	
+	@POST
+	@Path("/admin/add")
+	public Response addBike(BicycleData bikeData, @QueryParam("token") long token) {
+		if(UserService.getInstance().isLoggedIn(token)) {
+			if(UserService.getInstance().isAdmin(token)) {
+				boolean addition_success= AdminService.getInstance().addBike(bikeData);
+				if(addition_success) {
+					return Response.ok().build();
+				} else {
+					return Response.status(Response.Status.UNAUTHORIZED).entity("Bike is already added").build();
+				}
+			} else {
+				return Response.status(Response.Status.UNAUTHORIZED).entity("You are not authorized!").build();
+			}
+			
+		} else {
+			return Response.status(Response.Status.UNAUTHORIZED).entity("User is not logged in").build();
+		}
+
 	}
 
 }
