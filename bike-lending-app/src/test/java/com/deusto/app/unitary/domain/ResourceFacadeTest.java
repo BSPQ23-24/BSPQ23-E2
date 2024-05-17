@@ -1,49 +1,58 @@
 package com.deusto.app.unitary.domain;
 
-import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.when;
-
-import org.junit.Before;
-import org.junit.Test;
+import com.deusto.app.server.remote.ResourceFacade;
+import com.deusto.app.server.services.UserService;
+import jakarta.ws.rs.core.Response;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
+import org.mockito.junit.jupiter.MockitoExtension;
 
-import com.deusto.app.server.remote.ResourceFacade;
-import com.deusto.app.server.services.AdminService;
-import com.deusto.app.server.services.BikeService;
-import com.deusto.app.server.services.UserService;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.*;
 
-import jakarta.ws.rs.core.Response;
-
+@ExtendWith(MockitoExtension.class)
 public class ResourceFacadeTest {
 
     @Mock
     private UserService userService;
 
-    @Mock
-    private BikeService bikeService;
-
-    @Mock
-    private AdminService adminService;
-
     @InjectMocks
     private ResourceFacade resourceFacade;
-    
-    @Before
+
+    @BeforeEach
     public void setUp() {
-     MockitoAnnotations.openMocks(this);
+        // Reset mocks before each test if needed
+        reset(userService);
     }
 
     @Test
     public void testChangePasswordSuccess() {
-        when(userService.changePassword("12345678A", "oldPass", "newPass")).thenReturn(true);
+        String dni = "12345678X";
+        String oldPassword = "oldPass";
+        String newPassword = "newPass";
+        when(userService.changePassword(dni, oldPassword, newPassword)).thenReturn(true);
 
-        Response response = resourceFacade.changePassword("12345678A", "oldPass", "newPass");
+        Response response = resourceFacade.changePassword(dni, oldPassword, newPassword);
 
+        // Assert
         assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());
+        verify(userService, times(1)).changePassword(dni, oldPassword, newPassword);
     }
 
+    @Test
+    public void testChangePasswordFailure() {
+        String dni = "12345678X";
+        String oldPassword = "oldPass";
+        String newPassword = "newPass";
+        when(userService.changePassword(dni, oldPassword, newPassword)).thenReturn(false);
+
+        Response response = resourceFacade.changePassword(dni, oldPassword, newPassword);
+
+        // Assert
+        assertEquals(Response.Status.UNAUTHORIZED.getStatusCode(), response.getStatus());
+        verify(userService, times(1)).changePassword(dni, oldPassword, newPassword);
+    }
 }
