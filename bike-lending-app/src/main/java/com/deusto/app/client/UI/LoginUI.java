@@ -12,6 +12,9 @@ import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 
 
+import java.util.Locale;
+import java.util.ResourceBundle;
+
 public class LoginUI extends JFrame {
     private static final long serialVersionUID = 1L;
     private JTextField usernameField;
@@ -20,8 +23,12 @@ public class LoginUI extends JFrame {
     private JButton registerButton;
     private JButton forgotPasswordButton;
 
+    private ResourceBundle translation;
+    
     public LoginUI() {
-        setTitle("Login");
+        this.translation = ResourceBundle.getBundle("translation", Locale.getDefault());
+
+        setTitle(translation.getString("title_Login"));
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(400, 600);
         setLocationRelativeTo(null); // Centrar la ventana en la pantalla
@@ -40,7 +47,7 @@ public class LoginUI extends JFrame {
         mainPanel.setBackground(new Color(0, 150, 136)); // Background color
 
         // Title label at the top
-        JLabel titleLabel = new JLabel("Bienvenido a DeustoBike!", SwingConstants.CENTER);
+        JLabel titleLabel = new JLabel(translation.getString("welcome_title"), SwingConstants.CENTER);
         titleLabel.setFont(new Font("Arial", Font.BOLD, 48)); // Set the font size and style
         titleLabel.setForeground(Color.WHITE);
         mainPanel.add(titleLabel, BorderLayout.NORTH);
@@ -65,7 +72,7 @@ public class LoginUI extends JFrame {
      // Panel for DNI and its label
         JPanel dniPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 5, 5));
         dniPanel.setOpaque(false);
-        JLabel dniLabel = new JLabel(" DNI:");
+        JLabel dniLabel = new JLabel(translation.getString("Username") + ":");
         dniLabel.setForeground(Color.WHITE);
         dniPanel.add(dniLabel);
 
@@ -77,21 +84,20 @@ public class LoginUI extends JFrame {
         // Panel for Password and its label
         JPanel passwordPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 5, 0));
         passwordPanel.setOpaque(false);
-        JLabel passwordLabel = new JLabel("Pass:");
+        JLabel passwordLabel = new JLabel(translation.getString("Password") + ":");
         passwordLabel.setForeground(Color.WHITE);
         passwordPanel.add(passwordLabel);
 
         passwordField = new JPasswordField();
+
         passwordField.setPreferredSize(new Dimension(200, 30));
         passwordPanel.add(passwordField);
         centerPanel.add(passwordPanel);
-        
-        
 
         // Buttons
-        registerButton = new JButton("Registrarse");
-        loginButton = new JButton("Iniciar Sesión");
-        forgotPasswordButton = new JButton("<html><font color='white'>¿Has olvidado tu contraseña?</font></html>");
+        registerButton = new JButton(translation.getString("Register"));
+        loginButton = new JButton(translation.getString("Login"));
+        forgotPasswordButton = new JButton("<html><font color='white'>" + translation.getString("forgot_password") + "</font></html>");
         loginButton.setBackground(new Color(255, 114, 118)); // New button color
         registerButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         loginButton.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -129,14 +135,14 @@ public class LoginUI extends JFrame {
                 boolean login = UserController.getInstance().loginUser(userData);
 
                 if (login) {
-                    JOptionPane.showMessageDialog(LoginUI.this, "Usuario aceptado");
-
+                    JOptionPane.showMessageDialog(LoginUI.this, translation.getString("msg_usr_accepted"));
+                   
                     new DisplayStationsUI();
                     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                     setVisible(false);
                     dispose();
                 } else {
-                    JOptionPane.showMessageDialog(LoginUI.this, "Usuario o contraseña incorrectos");
+                    JOptionPane.showMessageDialog(LoginUI.this, translation.getString("msg_usr_pwd_incorrect"));
                 }
             }
         });
@@ -144,16 +150,17 @@ public class LoginUI extends JFrame {
         forgotPasswordButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String username = JOptionPane.showInputDialog(LoginUI.this, "Enter username:");
-                String oldPassword = JOptionPane.showInputDialog(LoginUI.this, "Enter old password:");
-                String newPassword = JOptionPane.showInputDialog(LoginUI.this, "Enter new password:");
+                // Prompt user for old and new password
+            	String username = JOptionPane.showInputDialog(LoginUI.this, translation.getString("enter_usr_name") + ":");
+                String oldPassword = JOptionPane.showInputDialog(LoginUI.this, translation.getString("enter_old_pwd") + ":");
+                String newPassword = JOptionPane.showInputDialog(LoginUI.this, translation.getString("enter_new_pwd") + ":");
 
                 boolean passwordChanged = UserController.getInstance().changePassword(username, oldPassword, newPassword);
 
                 if (passwordChanged) {
-                    JOptionPane.showMessageDialog(LoginUI.this, "Password changed successfully.");
+                    JOptionPane.showMessageDialog(LoginUI.this, translation.getString("msg_pwd_change_success"));
                 } else {
-                    JOptionPane.showMessageDialog(LoginUI.this, "Failed to change password. Please try again.");
+                    JOptionPane.showMessageDialog(LoginUI.this, translation.getString("msg_pwd_change_fail"));
                 }
             }
         });
