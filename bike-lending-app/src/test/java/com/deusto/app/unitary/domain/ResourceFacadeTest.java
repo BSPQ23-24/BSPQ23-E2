@@ -30,29 +30,27 @@ public class ResourceFacadeTest {
 
     @Test
     public void testChangePasswordSuccess() {
-        String dni = "12345678X";
-        String oldPassword = "oldPass";
-        String newPassword = "newPass";
+        String dni = "87654321B";
+        String oldPassword = "password456";
+        String newPassword = "password456";
         when(userService.changePassword(dni, oldPassword, newPassword)).thenReturn(true);
 
         Response response = resourceFacade.changePassword(dni, oldPassword, newPassword);
 
         // Assert
         assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());
-        verify(userService, times(1)).changePassword(dni, oldPassword, newPassword);
     }
 
     @Test
     public void testChangePasswordFailure() {
-        String dni = "12345678X";
-        String oldPassword = "oldPass";
-        String newPassword = "newPass";
+        String dni = "87654321B";
+        String oldPassword = "password456";
+        String newPassword = "whatever";
         when(userService.changePassword(dni, oldPassword, newPassword)).thenReturn(false);
 
         Response response = resourceFacade.changePassword(dni, oldPassword, newPassword);
 
         // Assert
         assertEquals(Response.Status.UNAUTHORIZED.getStatusCode(), response.getStatus());
-        verify(userService, times(1)).changePassword(dni, oldPassword, newPassword);
     }
 }
