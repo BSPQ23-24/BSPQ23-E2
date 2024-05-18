@@ -4,7 +4,7 @@ import org.apache.logging.log4j.LogManager;
 
 import com.deusto.app.client.remote.ServiceLocator;
 import com.deusto.app.server.pojo.BicycleData;
-import com.deusto.app.server.pojo.UserData;
+
 
 import jakarta.ws.rs.QueryParam;
 import jakarta.ws.rs.client.Entity;
