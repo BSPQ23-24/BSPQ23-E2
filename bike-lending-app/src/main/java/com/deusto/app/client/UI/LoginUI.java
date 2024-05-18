@@ -62,17 +62,31 @@ public class LoginUI extends JFrame {
         logoPanel.add(logoLabel, BorderLayout.CENTER);
         centerPanel.add(logoPanel, BorderLayout.NORTH);
 
-        // Text fields
+     // Panel for DNI and its label
+        JPanel dniPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 5, 5));
+        dniPanel.setOpaque(false);
+        JLabel dniLabel = new JLabel(" DNI:");
+        dniLabel.setForeground(Color.WHITE);
+        dniPanel.add(dniLabel);
+
         usernameField = new JTextField();
+        usernameField.setPreferredSize(new Dimension(200, 30));
+        dniPanel.add(usernameField);
+        centerPanel.add(dniPanel);
+
+        // Panel for Password and its label
+        JPanel passwordPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 5, 0));
+        passwordPanel.setOpaque(false);
+        JLabel passwordLabel = new JLabel("Pass:");
+        passwordLabel.setForeground(Color.WHITE);
+        passwordPanel.add(passwordLabel);
+
         passwordField = new JPasswordField();
-        usernameField.setMaximumSize(new Dimension(200, 30)); // Adjust size to match buttons
-        passwordField.setMaximumSize(new Dimension(200, 30)); // Adjust size to match buttons
-        usernameField.setAlignmentX(Component.CENTER_ALIGNMENT);
-        passwordField.setAlignmentX(Component.CENTER_ALIGNMENT);
-        centerPanel.add(Box.createVerticalStrut(10)); // Reduced space
-        centerPanel.add(usernameField);
-        centerPanel.add(Box.createVerticalStrut(5)); // Reduced space
-        centerPanel.add(passwordField);
+        passwordField.setPreferredSize(new Dimension(200, 30));
+        passwordPanel.add(passwordField);
+        centerPanel.add(passwordPanel);
+        
+        
 
         // Buttons
         registerButton = new JButton("Registrarse");
