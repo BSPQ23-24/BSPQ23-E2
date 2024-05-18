@@ -9,7 +9,10 @@ import com.deusto.app.server.pojo.UserData;
 import com.deusto.app.server.services.AdminService;
 import com.deusto.app.server.services.BikeService;
 import com.deusto.app.server.services.UserService;
+import com.deusto.app.server.pojo.LoanData;
+import com.deusto.app.server.services.LoanService;
 
+import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.FormParam;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
@@ -281,6 +284,67 @@ public class ResourceFacade {
 		} else {
 			return Response.status(Response.Status.UNAUTHORIZED).entity("User is not logged in").build();
 		}
+	}
+	
+	/**
+	 * Retrieves all loans.
+	 *
+	 * @param token the user's authentication token
+	 * @return Response containing a list of all loans
+	 */
+	@GET
+	@Path("/loan/all")
+	public Response getAllLoans(@QueryParam("token") long token) {
+	    if (UserService.getInstance().isLoggedIn(token)) {
+	        List<LoanData> loans = LoanService.getInstance().getAllLoans();
+	        return Response.ok(loans).build();
+	    } else {
+	        return Response.status(Response.Status.UNAUTHORIZED).entity("User is not logged in").build();
+	    }
+	}
+	
+	/**
+	 * Creates a new loan.
+	 *
+	 * @param loanData the loan data to create
+	 * @param token the user's authentication token
+	 * @return Response indicating success or failure of loan creation
+	 */
+	@POST
+	@Path("/loan/create")
+	public Response createLoan(LoanData loanData, @QueryParam("token") long token) {
+	    if (UserService.getInstance().isLoggedIn(token)) {
+	        boolean create_success = LoanService.getInstance().createLoan(loanData);
+	        if (create_success) {
+	            return Response.ok().build();
+	        } else {
+	            return Response.status(Response.Status.BAD_REQUEST).entity("Failed to create loan").build();
+	        }
+	    } else {
+	        return Response.status(Response.Status.UNAUTHORIZED).entity("User is not logged in").build();
+	    }
+	}
+	
+	/**
+	 * Deletes a loan by ID.
+	 *
+	 * @param loanId the ID of the loan to delete
+	 * @param token the user's authentication token
+	 * @return Response indicating success or failure of loan deletion
+	 */
+	@DELETE
+	@Path("/loan/delete/{loanId}")
+	public Response deleteLoan(@PathParam("loanId") int loanId, @QueryParam("token") long token) {
+	    if (UserService.getInstance().isLoggedIn(token)) {
+	        boolean delete_success = LoanService.getInstance().deleteLoan(loanId);
+	        if (delete_success) {
+	            return Response.ok().build();
+	        } else {
+	            return Response.status(Response.Status.NOT_FOUND).entity("Loan not found").build();
+	        }
+	    } else {
+	        return Response.status(Response.Status.UNAUTHORIZED).entity("User is not logged in").build();
+	    }
 	}
 
 }
