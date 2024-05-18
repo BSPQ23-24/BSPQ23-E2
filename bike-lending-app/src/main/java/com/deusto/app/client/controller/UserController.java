@@ -137,7 +137,7 @@ public class UserController {
      *
      * @return the current session token
      */
-	public long getToken() {
+	public static long getToken() {
 
 		return token;
 	}

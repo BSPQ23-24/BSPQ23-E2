@@ -1,0 +1,79 @@
+package com.deusto.app.client.controller;
+
+import com.deusto.app.client.remote.ServiceLocator;
+import com.deusto.app.server.pojo.LoanData;
+import jakarta.ws.rs.client.Entity;
+import jakarta.ws.rs.client.Invocation;
+import jakarta.ws.rs.client.WebTarget;
+import jakarta.ws.rs.core.GenericType;
+import jakarta.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.Response;
+import org.apache.logging.log4j.LogManager;
+
+import java.util.List;
+
+public class LoanController {
+    private static LoanController instance;
+
+    private LoanController() {
+    }
+
+    public static synchronized LoanController getInstance() {
+        if (instance == null) {
+            instance = new LoanController();
+        }
+        return instance;
+    }
+
+    public List<LoanData> getAllLoans() {
+        LogManager.getLogger(LoanController.class).info("Get All Loans Start");
+        WebTarget getAllLoansWebTarget = ServiceLocator.getInstance().getWebTarget().path("bikeapp/loan/all")
+                .queryParam("token", UserController.getToken());
+        Invocation.Builder invocationBuilder = getAllLoansWebTarget.request(MediaType.APPLICATION_JSON);
+
+        Response response = invocationBuilder.get();
+        if (response.getStatus() == Response.Status.OK.getStatusCode()) {
+            LogManager.getLogger(LoanController.class).info("Get All Loans Success");
+            return response.readEntity(new GenericType<List<LoanData>>() {});
+        } else {
+            LogManager.getLogger(LoanController.class).error("Get All Loans Failed | Code: {} | Reason: {}",
+                    response.getStatus(), response.readEntity(String.class));
+            return null;
+        }
+    }
+
+    public boolean createLoan(LoanData loanData) {
+        LogManager.getLogger(LoanController.class).info("Create Loan Start");
+        WebTarget createLoanWebTarget = ServiceLocator.getInstance().getWebTarget().path("bikeapp/loan/create")
+                .queryParam("token", UserController.getToken());
+        Invocation.Builder invocationBuilder = createLoanWebTarget.request(MediaType.APPLICATION_JSON);
+
+        Response response = invocationBuilder.post(Entity.entity(loanData, MediaType.APPLICATION_JSON));
+        if (response.getStatus() == Response.Status.OK.getStatusCode()) {
+            LogManager.getLogger(LoanController.class).info("Create Loan Success");
+            return true;
+        } else {
+            LogManager.getLogger(LoanController.class).error("Create Loan Failed | Code: {} | Reason: {}",
+                    response.getStatus(), response.readEntity(String.class));
+            return false;
+        }
+    }
+
+    public boolean deleteLoan(int loanId) {
+        LogManager.getLogger(LoanController.class).info("Delete Loan Start");
+        WebTarget deleteLoanWebTarget = ServiceLocator.getInstance().getWebTarget().path("bikeapp/loan/delete/" + loanId)
+                .queryParam("token", UserController.getToken());
+        Invocation.Builder invocationBuilder = deleteLoanWebTarget.request(MediaType.APPLICATION_JSON);
+
+        Response response = invocationBuilder.delete();
+        if (response.getStatus() == Response.Status.OK.getStatusCode()) {
+            LogManager.getLogger(LoanController.class).info("Delete Loan Success");
+            return true;
+        } else {
+            LogManager.getLogger(LoanController.class).error("Delete Loan Failed | Code: {} | Reason: {}",
+                    response.getStatus(), response.readEntity(String.class));
+            return false;
+        }
+    }
+
+}
