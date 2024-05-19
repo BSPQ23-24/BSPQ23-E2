@@ -104,42 +104,29 @@ public class UserService {
      * @return a token representing the user's session if login is successful, -1 otherwise
      */
 	public long loginUser(String dni, String password) {
-		LogManager.getLogger(UserService.class).info("Login Start | User: '{}'", dni);
+	    LogManager.getLogger(UserService.class).info("Login Start | User: '{}'", dni);
 
-		User user = null;
-		try {
-			tx.begin();
-			try {
-				user = pm.getObjectById(User.class, dni);
-				if (!user.getPassword().equals(password)) {
-					user = null;
-					LogManager.getLogger(UserService.class).error("Login Failed | Password missmatch | User: '{}'",
-							dni);
-				}
-			} catch (javax.jdo.JDOObjectNotFoundException e) {
-				user = null;
-				LogManager.getLogger(UserService.class).error("Login Failed | User not found | User: '{}'", dni);
-			}
-			tx.commit();
-		} finally {
-			if (tx.isActive()) {
-				tx.rollback();
-			}
-		}
-
-		if (user != null) {
-			// If user is not logged in
-			if (!this.serverState.values().contains(user)) {
-				long token = Calendar.getInstance().getTimeInMillis();
-				this.serverState.put(token, user);
-				LogManager.getLogger(UserService.class).info("Login Success | User: '{}'", dni);
-				return token;
-			} else {
-				return -1;
-			}
-
-		}
-		return -1;
+	    User user = null;
+	    try {
+	        tx.begin();
+	        try {
+	            user = pm.getObjectById(User.class, dni);
+	            if (user != null && user.getPassword().equals(password)) {
+	                long token = Calendar.getInstance().getTimeInMillis();
+	                this.serverState.put(token, user);
+	                LogManager.getLogger(UserService.class).info("Login Success | User: '{}'", dni);
+	                return token;
+	            }
+	        } catch (javax.jdo.JDOObjectNotFoundException e) {
+	            LogManager.getLogger(UserService.class).error("Login Failed | User not found | User: '{}'", dni);
+	        }
+	        tx.commit();
+	    } finally {
+	        if (tx.isActive()) {
+	            tx.rollback();
+	        }
+	    }
+	    return -1;
 	}
 
 	/**
@@ -179,15 +166,15 @@ public class UserService {
      * @return true if logout is successful, false otherwise
      */
 	public boolean logoutUser(long token) {
-		LogManager.getLogger(UserService.class).info("Logout Start | Token: '{}'", token);
-		if (UserService.getInstance().isLoggedIn(token)) {
-			serverState.remove(token); // Remove the user from the server state
-			LogManager.getLogger(UserService.class).info("Logout Success | Token '{}'", token);
-			return true;
-		} else {
-			LogManager.getLogger(UserService.class).error("Logout Failed | User isn't logged in | Token '{}' ", token);
-			return false;
-		}
+	    LogManager.getLogger(UserService.class).info("Logout Start | Token: '{}'", token);
+	    if (serverState.containsKey(token)) {
+	        serverState.remove(token); // Remove the user from the server state
+	        LogManager.getLogger(UserService.class).info("Logout Success | Token '{}'", token);
+	        return true;
+	    } else {
+	        LogManager.getLogger(UserService.class).error("Logout Failed | User isn't logged in | Token '{}' ", token);
+	        return false;
+	    }
 	}
 
 	/**
