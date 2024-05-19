@@ -3,22 +3,23 @@ package com.deusto.app.client.UI;
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.TableCellRenderer;
 
 import com.deusto.app.client.controller.BikeController;
 import com.deusto.app.client.controller.UserController;
 import com.deusto.app.server.pojo.BicycleData;
 import com.deusto.app.server.pojo.StationData;
 
-import java.awt.GridLayout;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.List;
 
 import java.util.Locale;
 import java.util.ResourceBundle;
 
 public class DisplayStationsUI extends JFrame {
-    /**
-     * 
-     */
     private static final long serialVersionUID = 1L;
     private JTable stationTable;
 
@@ -28,8 +29,24 @@ public class DisplayStationsUI extends JFrame {
         this.translation = ResourceBundle.getBundle("translation", Locale.getDefault());
         setTitle(translation.getString("title_Stations"));
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(600, 400);
-        
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
+
+        initComponents();
+    }
+
+    private void initComponents() {
+        // Main panel setup
+        JPanel mainPanel = new JPanel(new BorderLayout());
+        mainPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+        mainPanel.setBackground(new Color(0, 150, 136)); // Background color
+
+        // Title label at the top
+        JLabel titleLabel = new JLabel("Estaciones DeustoBike", SwingConstants.CENTER);
+        titleLabel.setFont(new Font("Arial", Font.BOLD, 48));
+        titleLabel.setForeground(Color.WHITE);
+        mainPanel.add(titleLabel, BorderLayout.NORTH);
+
+        // Fetch station data
         List<StationData> stations = BikeController.getInstance().displayStations(UserController.getInstance().getToken());
 
         // Create a table to display station data
@@ -39,19 +56,29 @@ public class DisplayStationsUI extends JFrame {
             StationData station = stations.get(i);
             data[i][0] = station.getId();
             data[i][1] = station.getLocation();
-            data[i][2] = station.getBikeIds().toString(); // Convert list to string
+            data[i][2] = station.getBikeIds().toString();
         }
         stationTable = new JTable(data, columnNames) {
-            /**
-			 * 
-			 */
-			private static final long serialVersionUID = 1L;
+            private static final long serialVersionUID = 1L;
 
-			@Override
+            @Override
             public boolean isCellEditable(int row, int column) {
                 return false;
             }
         };
+        
+        // Bold and center align cell data
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment(JLabel.CENTER);
+        centerRenderer.setFont(stationTable.getFont().deriveFont(Font.BOLD));
+        stationTable.setDefaultRenderer(Object.class, centerRenderer);
+
+        stationTable.setFont(new Font("Arial", Font.PLAIN, 16));
+        stationTable.setRowHeight(30);
+        stationTable.setSelectionBackground(new Color(255, 114, 118));
+        stationTable.getTableHeader().setFont(new Font("Arial", Font.BOLD, 18));
+        stationTable.getTableHeader().setBackground(new Color(255, 114, 118));
+        stationTable.getTableHeader().setForeground(Color.WHITE);
 
         stationTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             @Override
@@ -68,19 +95,58 @@ public class DisplayStationsUI extends JFrame {
         });
 
         JScrollPane scrollPane = new JScrollPane(stationTable);
+        scrollPane.setBackground(new Color(0, 150, 136));
 
-        add(scrollPane);
+        mainPanel.add(scrollPane, BorderLayout.CENTER);
+
+        // Add the main panel to the window
+        add(mainPanel);
+
+        // Logout button setup
+        JButton logoutButton = new JButton("Logout");
+        logoutButton.setFont(new Font("Arial", Font.BOLD, 14));
+        logoutButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+            	
+        		boolean logout = UserController.getInstance().logoutUser(UserController.getToken());
+            	
+            	if (logout) {
+                    JOptionPane.showMessageDialog(DisplayStationsUI.this, "Logged out successfully.");
+                    System.exit(0);
+            	} else {
+                    JOptionPane.showMessageDialog(DisplayStationsUI.this, "Log out failed.");
+            	}
+
+            }
+        });
+
+        JPanel logoutPanel = new JPanel(new BorderLayout());
+        logoutPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        logoutPanel.setBackground(new Color(0, 150, 136));
+        logoutPanel.add(logoutButton, BorderLayout.EAST);
+        mainPanel.add(logoutPanel, BorderLayout.NORTH);
+
         setVisible(true);
     }
 
     private void displayBikeDetails(StationData station) {
         // Create a new window to display bike details
+<<<<<<< HEAD
         JFrame bikeDetailsWindow = new JFrame(translation.getString("bike_details_for_station") + station.getId());
         bikeDetailsWindow.setSize(400, 300);
+=======
+        JFrame bikeDetailsWindow = new JFrame("Bike Details for Station " + station.getId());
+        bikeDetailsWindow.setSize(800, 600); // Adjusted size for better display
+        bikeDetailsWindow.setExtendedState(JFrame.MAXIMIZED_BOTH);
+>>>>>>> 68-updating-guis-eg-logout-visually-etc
 
         // Create a panel to hold the bike details
-        JPanel panel = new JPanel(new GridLayout(0, 1));
+        JPanel panel = new JPanel(new BorderLayout());
+        panel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+        panel.setBackground(new Color(0, 150, 136));
 
+<<<<<<< HEAD
         // Iterate through the bike IDs of the selected station and display details for each bike
         for (Integer bikeId : station.getBikeIds()) {
             BicycleData bike = BikeController.getInstance().getBikeDetails(bikeId, UserController.getInstance().getToken());
@@ -105,15 +171,84 @@ public class DisplayStationsUI extends JFrame {
 
             panel.add(bikePanel);
             panel.add(new JSeparator(SwingConstants.HORIZONTAL)); // Add a separator between bikes
+=======
+        // Fetch bike data
+        List<Integer> bikeIds = station.getBikeIds();
+        Object[][] bikeData = new Object[bikeIds.size()][5];
+        for (int i = 0; i < bikeIds.size(); i++) {
+            BicycleData bike = BikeController.getInstance().getBikeDetails(bikeIds.get(i), UserController.getInstance().getToken());
+            bikeData[i][0] = bike.getId();
+            bikeData[i][1] = bike.getAcquisitionDate();
+            bikeData[i][2] = bike.getType();
+            bikeData[i][3] = bike.isAvailable() ? "Yes" : "No";
+            bikeData[i][4] = bike.getStationId();
+>>>>>>> 68-updating-guis-eg-logout-visually-etc
         }
 
-        JScrollPane scrollPane = new JScrollPane(panel);
-        bikeDetailsWindow.add(scrollPane);
+        String[] bikeColumnNames = {"ID", "Acquisition Date", "Type", "Is Available", "Station"};
+
+        JTable bikeTable = new JTable(bikeData, bikeColumnNames) {
+            private static final long serialVersionUID = 1L;
+
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+
+            @Override
+            public Component prepareRenderer(TableCellRenderer renderer, int row, int column) {
+                Component comp = super.prepareRenderer(renderer, row, column);
+                if (column == 3) { // Check availability column
+                    String value = (String) getValueAt(row, column);
+                    comp.setForeground("Yes".equals(value) ? Color.GREEN : Color.RED);
+                } else {
+                    comp.setForeground(Color.BLACK);
+                }
+                return comp;
+            }
+        };
+        
+        // Bold and center align cell data
+        DefaultTableCellRenderer bikeCenterRenderer = new DefaultTableCellRenderer();
+        bikeCenterRenderer.setHorizontalAlignment(JLabel.CENTER);
+        bikeCenterRenderer.setFont(bikeTable.getFont().deriveFont(Font.BOLD));
+        bikeTable.setDefaultRenderer(Object.class, bikeCenterRenderer);
+
+        bikeTable.setFont(new Font("Arial", Font.PLAIN, 16));
+        bikeTable.setRowHeight(30);
+        bikeTable.setSelectionBackground(new Color(255, 114, 118));
+        bikeTable.getTableHeader().setFont(new Font("Arial", Font.BOLD, 18));
+        bikeTable.getTableHeader().setBackground(new Color(255, 114, 118));
+        bikeTable.getTableHeader().setForeground(Color.WHITE);
+
+        JScrollPane bikeScrollPane = new JScrollPane(bikeTable);
+        bikeScrollPane.setBackground(new Color(0, 150, 136));
+
+        panel.add(bikeScrollPane, BorderLayout.CENTER);
+
+        // Logout button setup for bike details window
+        JButton logoutButton = new JButton("Logout");
+        logoutButton.setFont(new Font("Arial", Font.BOLD, 14));
+        logoutButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+            	
+            	
+            	
+                JOptionPane.showMessageDialog(bikeDetailsWindow, "Logged out successfully.");
+                System.exit(0);
+            }
+        });
+
+        JPanel logoutPanel = new JPanel(new BorderLayout());
+        logoutPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        logoutPanel.setBackground(new Color(0, 150, 136));
+        logoutPanel.add(logoutButton, BorderLayout.EAST);
+        panel.add(logoutPanel, BorderLayout.NORTH);
+
+        bikeDetailsWindow.add(panel);
         bikeDetailsWindow.setVisible(true);
     }
-
-
-
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {
