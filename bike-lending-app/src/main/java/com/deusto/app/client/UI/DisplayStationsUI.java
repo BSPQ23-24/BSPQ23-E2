@@ -3,6 +3,7 @@ package com.deusto.app.client.UI;
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import javax.swing.table.TableCellRenderer;
 
 import com.deusto.app.client.controller.BikeController;
 import com.deusto.app.client.controller.UserController;
@@ -91,57 +92,55 @@ public class DisplayStationsUI extends JFrame {
     private void displayBikeDetails(StationData station) {
         // Create a new window to display bike details
         JFrame bikeDetailsWindow = new JFrame("Bike Details for Station " + station.getId());
-        bikeDetailsWindow.setSize(600, 400);
+        bikeDetailsWindow.setSize(800, 600); // Adjusted size for better display
         bikeDetailsWindow.setExtendedState(JFrame.MAXIMIZED_BOTH);
 
-        // Create a panel to hold the bike details
-        JPanel panel = new JPanel(new GridLayout(0, 1));
-        panel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
-        panel.setBackground(new Color(0, 150, 136));
-
-        // Iterate through the bike IDs of the selected station and display details for each bike
-        for (Integer bikeId : station.getBikeIds()) {
-            BicycleData bike = BikeController.getInstance().getBikeDetails(bikeId, UserController.getInstance().getToken());
-
-            JLabel idLabel = new JLabel("ID: " + bike.getId());
-            idLabel.setFont(new Font("Arial", Font.PLAIN, 18));
-            idLabel.setForeground(Color.WHITE);
-            idLabel.setVerticalAlignment(SwingConstants.TOP);
-
-            JLabel acquisitionDateLabel = new JLabel("Acquisition Date: " + bike.getAcquisitionDate());
-            acquisitionDateLabel.setFont(new Font("Arial", Font.PLAIN, 18));
-            acquisitionDateLabel.setForeground(Color.WHITE);
-            acquisitionDateLabel.setVerticalAlignment(SwingConstants.TOP);
-
-            JLabel typeLabel = new JLabel("Type: " + bike.getType());
-            typeLabel.setFont(new Font("Arial", Font.PLAIN, 18));
-            typeLabel.setForeground(Color.WHITE);
-            typeLabel.setVerticalAlignment(SwingConstants.TOP);
-
-            JLabel isAvailableLabel = new JLabel("Is Available: " + bike.isAvailable());
-            isAvailableLabel.setFont(new Font("Arial", Font.PLAIN, 18));
-            isAvailableLabel.setForeground(Color.WHITE);
-            isAvailableLabel.setVerticalAlignment(SwingConstants.TOP);
-
-            JLabel stationLabel = new JLabel("Station: " + bike.getStationId());
-            stationLabel.setFont(new Font("Arial", Font.PLAIN, 18));
-            stationLabel.setForeground(Color.WHITE);
-            stationLabel.setVerticalAlignment(SwingConstants.TOP);
-
-            JPanel bikePanel = new JPanel(new GridLayout(5, 1));
-            bikePanel.setBackground(new Color(0, 150, 136));
-            bikePanel.add(idLabel);
-            bikePanel.add(acquisitionDateLabel);
-            bikePanel.add(typeLabel);
-            bikePanel.add(isAvailableLabel);
-            bikePanel.add(stationLabel);
-
-            panel.add(bikePanel);
-            panel.add(new JSeparator(SwingConstants.HORIZONTAL)); // Add a separator between bikes
+        // Fetch bike data
+        List<Integer> bikeIds = station.getBikeIds();
+        Object[][] bikeData = new Object[bikeIds.size()][5];
+        for (int i = 0; i < bikeIds.size(); i++) {
+            BicycleData bike = BikeController.getInstance().getBikeDetails(bikeIds.get(i), UserController.getInstance().getToken());
+            bikeData[i][0] = bike.getId();
+            bikeData[i][1] = bike.getAcquisitionDate();
+            bikeData[i][2] = bike.getType();
+            bikeData[i][3] = bike.isAvailable() ? "Yes" : "No";
+            bikeData[i][4] = bike.getStationId();
         }
 
-        JScrollPane scrollPane = new JScrollPane(panel);
-        bikeDetailsWindow.add(scrollPane);
+        String[] bikeColumnNames = {"ID", "Acquisition Date", "Type", "Is Available", "Station"};
+
+        JTable bikeTable = new JTable(bikeData, bikeColumnNames) {
+            private static final long serialVersionUID = 1L;
+
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+
+            @Override
+            public Component prepareRenderer(TableCellRenderer renderer, int row, int column) {
+                Component comp = super.prepareRenderer(renderer, row, column);
+                if (column == 3) { // Check availability column
+                    String value = (String) getValueAt(row, column);
+                    comp.setForeground("Yes".equals(value) ? Color.GREEN : Color.RED);
+                } else {
+                    comp.setForeground(Color.BLACK);
+                }
+                return comp;
+            }
+        };
+
+        bikeTable.setFont(new Font("Arial", Font.PLAIN, 16));
+        bikeTable.setRowHeight(30);
+        bikeTable.setSelectionBackground(new Color(255, 114, 118));
+        bikeTable.getTableHeader().setFont(new Font("Arial", Font.BOLD, 18));
+        bikeTable.getTableHeader().setBackground(new Color(255, 114, 118));
+        bikeTable.getTableHeader().setForeground(Color.WHITE);
+
+        JScrollPane bikeScrollPane = new JScrollPane(bikeTable);
+        bikeScrollPane.setBackground(new Color(0, 150, 136));
+
+        bikeDetailsWindow.add(bikeScrollPane);
         bikeDetailsWindow.setVisible(true);
     }
 
