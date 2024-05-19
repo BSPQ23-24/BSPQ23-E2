@@ -3,6 +3,7 @@ package com.deusto.app.client.UI;
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableCellRenderer;
 
 import com.deusto.app.client.controller.BikeController;
@@ -11,6 +12,8 @@ import com.deusto.app.server.pojo.BicycleData;
 import com.deusto.app.server.pojo.StationData;
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.List;
 
 public class DisplayStationsUI extends JFrame {
@@ -57,6 +60,12 @@ public class DisplayStationsUI extends JFrame {
                 return false;
             }
         };
+        
+        // Bold and center align cell data
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment(JLabel.CENTER);
+        centerRenderer.setFont(stationTable.getFont().deriveFont(Font.BOLD));
+        stationTable.setDefaultRenderer(Object.class, centerRenderer);
 
         stationTable.setFont(new Font("Arial", Font.PLAIN, 16));
         stationTable.setRowHeight(30);
@@ -86,6 +95,32 @@ public class DisplayStationsUI extends JFrame {
 
         // Add the main panel to the window
         add(mainPanel);
+
+        // Logout button setup
+        JButton logoutButton = new JButton("Logout");
+        logoutButton.setFont(new Font("Arial", Font.BOLD, 14));
+        logoutButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+            	
+        		boolean logout = UserController.getInstance().logoutUser(UserController.getToken());
+            	
+            	if (logout) {
+                    JOptionPane.showMessageDialog(DisplayStationsUI.this, "Logged out successfully.");
+                    System.exit(0);
+            	} else {
+                    JOptionPane.showMessageDialog(DisplayStationsUI.this, "Log out failed.");
+            	}
+
+            }
+        });
+
+        JPanel logoutPanel = new JPanel(new BorderLayout());
+        logoutPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        logoutPanel.setBackground(new Color(0, 150, 136));
+        logoutPanel.add(logoutButton, BorderLayout.EAST);
+        mainPanel.add(logoutPanel, BorderLayout.NORTH);
+
         setVisible(true);
     }
 
@@ -94,6 +129,11 @@ public class DisplayStationsUI extends JFrame {
         JFrame bikeDetailsWindow = new JFrame("Bike Details for Station " + station.getId());
         bikeDetailsWindow.setSize(800, 600); // Adjusted size for better display
         bikeDetailsWindow.setExtendedState(JFrame.MAXIMIZED_BOTH);
+
+        // Create a panel to hold the bike details
+        JPanel panel = new JPanel(new BorderLayout());
+        panel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+        panel.setBackground(new Color(0, 150, 136));
 
         // Fetch bike data
         List<Integer> bikeIds = station.getBikeIds();
@@ -129,6 +169,12 @@ public class DisplayStationsUI extends JFrame {
                 return comp;
             }
         };
+        
+        // Bold and center align cell data
+        DefaultTableCellRenderer bikeCenterRenderer = new DefaultTableCellRenderer();
+        bikeCenterRenderer.setHorizontalAlignment(JLabel.CENTER);
+        bikeCenterRenderer.setFont(bikeTable.getFont().deriveFont(Font.BOLD));
+        bikeTable.setDefaultRenderer(Object.class, bikeCenterRenderer);
 
         bikeTable.setFont(new Font("Arial", Font.PLAIN, 16));
         bikeTable.setRowHeight(30);
@@ -140,7 +186,29 @@ public class DisplayStationsUI extends JFrame {
         JScrollPane bikeScrollPane = new JScrollPane(bikeTable);
         bikeScrollPane.setBackground(new Color(0, 150, 136));
 
-        bikeDetailsWindow.add(bikeScrollPane);
+        panel.add(bikeScrollPane, BorderLayout.CENTER);
+
+        // Logout button setup for bike details window
+        JButton logoutButton = new JButton("Logout");
+        logoutButton.setFont(new Font("Arial", Font.BOLD, 14));
+        logoutButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+            	
+            	
+            	
+                JOptionPane.showMessageDialog(bikeDetailsWindow, "Logged out successfully.");
+                System.exit(0);
+            }
+        });
+
+        JPanel logoutPanel = new JPanel(new BorderLayout());
+        logoutPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        logoutPanel.setBackground(new Color(0, 150, 136));
+        logoutPanel.add(logoutButton, BorderLayout.EAST);
+        panel.add(logoutPanel, BorderLayout.NORTH);
+
+        bikeDetailsWindow.add(panel);
         bikeDetailsWindow.setVisible(true);
     }
 
