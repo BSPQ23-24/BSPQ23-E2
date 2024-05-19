@@ -12,6 +12,9 @@ import com.deusto.app.server.pojo.StationData;
 import java.awt.GridLayout;
 import java.util.List;
 
+import java.util.Locale;
+import java.util.ResourceBundle;
+
 public class DisplayStationsUI extends JFrame {
     /**
      * 
@@ -19,15 +22,18 @@ public class DisplayStationsUI extends JFrame {
     private static final long serialVersionUID = 1L;
     private JTable stationTable;
 
+    private ResourceBundle translation;
+
     public DisplayStationsUI() {
-        setTitle("Station Display");
+        this.translation = ResourceBundle.getBundle("translation", Locale.getDefault());
+        setTitle(translation.getString("title_Stations"));
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(600, 400);
         
         List<StationData> stations = BikeController.getInstance().displayStations(UserController.getInstance().getToken());
 
         // Create a table to display station data
-        String[] columnNames = {"ID", "Location", "Bike IDs"};
+        String[] columnNames = {translation.getString("column_ID"), translation.getString("column_Location"), translation.getString("column_Bike_IDs")};
         Object[][] data = new Object[stations.size()][3];
         for (int i = 0; i < stations.size(); i++) {
             StationData station = stations.get(i);
@@ -69,7 +75,7 @@ public class DisplayStationsUI extends JFrame {
 
     private void displayBikeDetails(StationData station) {
         // Create a new window to display bike details
-        JFrame bikeDetailsWindow = new JFrame("Bike Details for Station " + station.getId());
+        JFrame bikeDetailsWindow = new JFrame(translation.getString("bike_details_for_station") + station.getId());
         bikeDetailsWindow.setSize(400, 300);
 
         // Create a panel to hold the bike details
@@ -79,15 +85,15 @@ public class DisplayStationsUI extends JFrame {
         for (Integer bikeId : station.getBikeIds()) {
             BicycleData bike = BikeController.getInstance().getBikeDetails(bikeId, UserController.getInstance().getToken());
             
-            JLabel idLabel = new JLabel("ID: " + bike.getId());
+            JLabel idLabel = new JLabel(translation.getString("ID") + ": " + bike.getId());
             idLabel.setVerticalAlignment(SwingConstants.TOP); // Align text to the top
-            JLabel acquisitionDateLabel = new JLabel("Acquisition Date: " + bike.getAcquisitionDate());
+            JLabel acquisitionDateLabel = new JLabel(translation.getString("acquisition_date") + ": " + bike.getAcquisitionDate());
             acquisitionDateLabel.setVerticalAlignment(SwingConstants.TOP); // Align text to the top
-            JLabel typeLabel = new JLabel("Type: " + bike.getType());
+            JLabel typeLabel = new JLabel(translation.getString("bike_type") + ": " + bike.getType());
             typeLabel.setVerticalAlignment(SwingConstants.TOP); // Align text to the top
-            JLabel isAvailableLabel = new JLabel("Is Available: " + bike.isAvailable());
+            JLabel isAvailableLabel = new JLabel(translation.getString("bike_is_available") + ": " + bike.isAvailable());
             isAvailableLabel.setVerticalAlignment(SwingConstants.TOP); // Align text to the top
-            JLabel stationLabel = new JLabel("Station: " + bike.getStationId());
+            JLabel stationLabel = new JLabel(translation.getString("Station") + ": " + bike.getStationId());
             stationLabel.setVerticalAlignment(SwingConstants.TOP); // Align text to the top
 
             JPanel bikePanel = new JPanel(new GridLayout(5, 1));

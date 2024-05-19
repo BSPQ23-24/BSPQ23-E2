@@ -11,6 +11,9 @@ import jakarta.ws.rs.QueryParam;
 
 import java.awt.*;
 
+import java.util.Locale;
+import java.util.ResourceBundle;
+
 public class BicycleDetailUI extends JFrame {
     /**
 	 * 
@@ -19,29 +22,37 @@ public class BicycleDetailUI extends JFrame {
 	private JLabel idLabel, acquisitionDateLabel, typeLabel, isAvailableLabel, stationLabel;
     private JLabel idField, acquisitionDateField, typeField, isAvailableField, stationField;
 
+    private ResourceBundle translation;
+
+    private static String getBicycleDetailsTitle() {
+        ResourceBundle translation = ResourceBundle.getBundle("translation", Locale.getDefault());
+        return translation.getString("Bicycle_details");
+    }
+
     public BicycleDetailUI(int bikeId) {
-    	
-        super("Bicycle Details");
-        
+        super(getBicycleDetailsTitle());
+
+        this.translation = ResourceBundle.getBundle("translation", Locale.getDefault());
+
         BicycleData bike = BikeController.getInstance().getBikeDetails(bikeId, UserController.getInstance().getToken());
         
-        idLabel = new JLabel("ID:");
+        idLabel = new JLabel(translation.getString("bike_ID") + ":");
         idField = new JLabel();
         idField.setText(String.valueOf(bike.getId()));
 
-        acquisitionDateLabel = new JLabel("Acquisition Date:");
+        acquisitionDateLabel = new JLabel(translation.getString("acquisition_date") + ":");
         acquisitionDateField = new JLabel();
         acquisitionDateField.setText(bike.getAcquisitionDate());
 
-        typeLabel = new JLabel("Type:");
+        typeLabel = new JLabel(translation.getString("bike_type") + ":");
         typeField = new JLabel();
         typeField.setText(bike.getType());
 
-        isAvailableLabel = new JLabel("Is Available:");
+        isAvailableLabel = new JLabel(translation.getString("bike_is_available") + ":");
         isAvailableField = new JLabel();
         isAvailableField.setText(String.valueOf(bike.isAvailable()));
 
-        stationLabel = new JLabel("Station:");
+        stationLabel = new JLabel(translation.getString("Station") + ":");
         stationField = new JLabel();
         stationField.setText(String.valueOf(bike.getStationId()));
 

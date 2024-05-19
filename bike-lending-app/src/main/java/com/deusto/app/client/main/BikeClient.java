@@ -9,7 +9,7 @@ public class BikeClient {
 
 	public static void main(String[] args) {
 		ServiceLocator.getInstance().setService(args[0], args[1]); // "127.0.0.1", "8080"
-		
+
 		LoginUI loginUi = new LoginUI();
 		loginUi.showLogin();
 		
