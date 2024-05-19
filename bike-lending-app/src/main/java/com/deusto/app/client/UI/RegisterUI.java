@@ -13,39 +13,31 @@ import com.deusto.app.server.pojo.UserData;
 import java.awt.*;
 import java.awt.event.*;
 
-<<<<<<< HEAD
+
 import java.util.Locale;
 import java.util.ResourceBundle;
-=======
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
 import java.util.Properties;
->>>>>>> 68-updating-guis-eg-logout-visually-etc
+
 
 public class RegisterUI extends JFrame {
-    	    private static final long serialVersionUID = 1L;
-    	    private JTextField dniField, nameField, passwordField, surnameField, phoneField, mailField, repeatPassword;
-    	    private JDatePickerImpl dateOfBirthPicker;
-    	    
-    	    public RegisterUI() {
-    	        setTitle("Register");
-    	        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    	        setExtendedState(JFrame.MAXIMIZED_BOTH);  // Make the window fullscreen
-    	        setLocationRelativeTo(null);
-
-<<<<<<< HEAD
+    private static final long serialVersionUID = 1L;
+    private JTextField dniField, nameField, passwordField, surnameField, phoneField, mailField, repeatPassword;
+    private JDatePickerImpl dateOfBirthPicker;
     private ResourceBundle translation;
 
     public RegisterUI() {
         this.translation = ResourceBundle.getBundle("translation", Locale.getDefault());
         setTitle(translation.getString("title_Register"));
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(300, 150);
+        setExtendedState(JFrame.MAXIMIZED_BOTH);  // Make the window fullscreen
         setLocationRelativeTo(null);
-=======
+
     	        JPanel panel = new JPanel(new GridBagLayout());
     	        panel.setBackground(new Color(0, 150, 136)); // Same background color as login
     	        GridBagConstraints gbc = new GridBagConstraints();
@@ -61,7 +53,7 @@ public class RegisterUI extends JFrame {
     	        p.put("text.year", "Year");
     	        JDatePanelImpl datePanel = new JDatePanelImpl(model, p);
     	        dateOfBirthPicker = new JDatePickerImpl(datePanel, new DateComponentFormatter());
->>>>>>> 68-updating-guis-eg-logout-visually-etc
+
 
     	        // Title with icons
     	        JPanel titlePanel = new JPanel();
@@ -76,50 +68,24 @@ public class RegisterUI extends JFrame {
     	        titlePanel.add(titleLabel);
     	        titlePanel.add(new JLabel(scaledIcon));
     	        panel.add(titlePanel, gbc);
-
-<<<<<<< HEAD
-        JLabel usernameLabel = new JLabel(translation.getString("Username") + ":");
-        JLabel passwordLabel = new JLabel(translation.getString("Password") + ":");
-        usernameField = new JTextField();
-        passwordField = new JPasswordField();
-        JButton registerButton = new JButton(translation.getString("register_act"));
-=======
+		       
     	        // Adding fields
-    	        addField(panel, "DNI:", dniField = new JTextField(20), gbc);
+    	        addField(panel, translation.getString("Username") + ":", dniField = new JTextField(20), gbc);
     	        addField(panel, "Name:", nameField = new JTextField(20), gbc);
     	        addField(panel, "Surname:", surnameField = new JTextField(20), gbc);
     	        addField(panel, "Date of Birth:", dateOfBirthPicker, gbc);
     	        addField(panel, "Phone:", phoneField = new JTextField(20), gbc);
     	        addField(panel, "Mail:", mailField = new JTextField(20), gbc);
-    	        addField(panel, "Password:", passwordField = new JPasswordField(20), gbc);
+    	        addField(panel, translation.getString("Password") + ":", passwordField = new JPasswordField(20), gbc);
     	        addField(panel, "Repeat Password:", repeatPassword = new JPasswordField(20), gbc);
->>>>>>> 68-updating-guis-eg-logout-visually-etc
+
 
     	        // Buttons
-    	        JButton registerButton = new JButton("Registrarse");
+    	        JButton registerButton = new JButton(translation.getString("register_act"));
     	        JButton backButton = new JButton("Volver");
     	        registerButton.setBackground(new Color(255, 114, 118));
-    	       
 
-<<<<<<< HEAD
-                boolean register = UserController.getInstance().registerUser(userData);
-                                
-                if (register) {
-                    JOptionPane.showMessageDialog(RegisterUI.this, translation.getString("msg_usr_registered"));
-                   
-                    new LoginUI();
-                    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                    setVisible(false);
-                    dispose();
-                                       
-                    // ABRIR DISPLAY STATIONS con el token que se acaba de meter al usercontroller
-                   
-                } else {
-                    JOptionPane.showMessageDialog(RegisterUI.this, translation.getString("msg_register_error"));
-                }
-            }
-        });
-=======
+       
     	        registerButton.addActionListener(e -> {
     	            if (validateFields()) {
     	                registerUser();
@@ -127,8 +93,10 @@ public class RegisterUI extends JFrame {
     	                JOptionPane.showMessageDialog(this, "Please fill in all fields.", "Error", JOptionPane.ERROR_MESSAGE);
     	            }
     	        });
+    	        
+    	        
     	        backButton.addActionListener(e -> dispose());
->>>>>>> 68-updating-guis-eg-logout-visually-etc
+
 
     	        JPanel buttonPanel = new JPanel();
     	        buttonPanel.setBackground(new Color(0, 150, 136));  
@@ -183,11 +151,11 @@ public class RegisterUI extends JFrame {
 
     	            boolean register = UserController.getInstance().registerUser(userData);
     	            if (register) {
-    	                JOptionPane.showMessageDialog(this, "Usuario registrado");
+    	            	JOptionPane.showMessageDialog(RegisterUI.this, translation.getString("msg_usr_registered"));
     	                dispose();
     	                new LoginUI();  // Open Login window
     	            } else {
-    	                JOptionPane.showMessageDialog(this, "Error en el registro");
+    	            	JOptionPane.showMessageDialog(RegisterUI.this, translation.getString("msg_register_error"));
     	            }
     	    	} else {
     	    		JOptionPane.showMessageDialog(this, "Rellena todo los campos!");

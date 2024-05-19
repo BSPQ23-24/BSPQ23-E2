@@ -132,21 +132,17 @@ public class DisplayStationsUI extends JFrame {
 
     private void displayBikeDetails(StationData station) {
         // Create a new window to display bike details
-<<<<<<< HEAD
+
         JFrame bikeDetailsWindow = new JFrame(translation.getString("bike_details_for_station") + station.getId());
         bikeDetailsWindow.setSize(400, 300);
-=======
-        JFrame bikeDetailsWindow = new JFrame("Bike Details for Station " + station.getId());
         bikeDetailsWindow.setSize(800, 600); // Adjusted size for better display
         bikeDetailsWindow.setExtendedState(JFrame.MAXIMIZED_BOTH);
->>>>>>> 68-updating-guis-eg-logout-visually-etc
 
         // Create a panel to hold the bike details
         JPanel panel = new JPanel(new BorderLayout());
         panel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
         panel.setBackground(new Color(0, 150, 136));
 
-<<<<<<< HEAD
         // Iterate through the bike IDs of the selected station and display details for each bike
         for (Integer bikeId : station.getBikeIds()) {
             BicycleData bike = BikeController.getInstance().getBikeDetails(bikeId, UserController.getInstance().getToken());
@@ -171,7 +167,7 @@ public class DisplayStationsUI extends JFrame {
 
             panel.add(bikePanel);
             panel.add(new JSeparator(SwingConstants.HORIZONTAL)); // Add a separator between bikes
-=======
+        }
         // Fetch bike data
         List<Integer> bikeIds = station.getBikeIds();
         Object[][] bikeData = new Object[bikeIds.size()][5];
@@ -182,7 +178,7 @@ public class DisplayStationsUI extends JFrame {
             bikeData[i][2] = bike.getType();
             bikeData[i][3] = bike.isAvailable() ? "Yes" : "No";
             bikeData[i][4] = bike.getStationId();
->>>>>>> 68-updating-guis-eg-logout-visually-etc
+
         }
 
         String[] bikeColumnNames = {"ID", "Acquisition Date", "Type", "Is Available", "Station"};
