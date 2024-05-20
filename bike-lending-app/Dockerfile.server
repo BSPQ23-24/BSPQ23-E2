@@ -1,4 +1,4 @@
-# Dockerfile for the server
+# Dockerfile.server
 
 # Specifies the base image
 FROM maven:3.9.6-eclipse-temurin-21
@@ -11,6 +11,12 @@ COPY . .
 
 # Execute the maven build and enhance the classes
 RUN mvn clean compile datanucleus:enhance
+
+# Command to initialize the schema
+#RUN mvn datanucleus:schema-create
+
+# Expose the port that Jetty will run on (default is 8080)
+EXPOSE 8080
 
 # Specify which command will be launched when starting the container
 CMD ["mvn", "jetty:run"]

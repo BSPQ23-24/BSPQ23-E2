@@ -2,28 +2,28 @@ version: '3.8'
 
 services:
   mysql:
-    image: mysql
+    image: mysql:8.0
     environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: mydatabase
-      MYSQL_USER: myuser
-      MYSQL_PASSWORD: mypassword
+      MYSQL_ROOT_PASSWORD: example
+      MYSQL_DATABASE: bike_lending
+    ports:
+      - "3307:3306"
     volumes:
       - mysql-data:/var/lib/mysql
-    ports:
-      - "3307:3306"  # Map MySQL container port 3306 to host port 3307
-    restart: always
+      - ./sql:/docker-entrypoint-initdb.d  # Mount the sql directory to the initialization directory
 
   server:
     build:
       context: .
       dockerfile: Dockerfile.server
     ports:
-      - "8080:8080"  # Map server container port 8080 to host port 8080
+      - "8080:8080"  # Map TCP port 8080 in the container to 8080 on the host
     depends_on:
       - mysql
-    restart: always
+    environment:
+      DATABASE_URL: jdbc:mysql://mysql:3306/bike_lending
+      DATABASE_USER: root
+      DATABASE_PASSWORD: example
 
 volumes:
   mysql-data:
-    driver: local
