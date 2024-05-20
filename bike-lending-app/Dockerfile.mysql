@@ -1,0 +1,13 @@
+# Dockerfile.mysql
+
+# Specifies the base image
+FROM mysql:8.4.0
+
+# Set up environment variables
+ENV MYSQL_ROOT_PASSWORD=root
+ENV MYSQL_DATABASE=bikesdb
+ENV MYSQL_USER=myuser
+ENV MYSQL_PASSWORD=mypassword
+
+# Expose port (optional)
+EXPOSE 3306
