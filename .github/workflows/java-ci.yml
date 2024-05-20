@@ -82,7 +82,6 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: bike-lending-app/target/doxygen/html
           publish_branch: gh-pages
-          keep_files: true
           destination_dir: doxygen
 
       - name: Deploy JaCoCo report to GitHub Pages
@@ -91,8 +90,8 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: bike-lending-app/target/site/jacoco
           publish_branch: gh-pages
-          keep_files: true
           destination_dir: jacoco
+          keep_files: true
 
       
 
