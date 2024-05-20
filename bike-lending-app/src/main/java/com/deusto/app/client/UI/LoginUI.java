@@ -2,6 +2,7 @@ package com.deusto.app.client.UI;
 
 import javax.swing.*;
 
+import com.deusto.app.client.controller.AdminController;
 import com.deusto.app.client.controller.UserController;
 import com.deusto.app.server.pojo.UserData;
 
@@ -133,14 +134,26 @@ public class LoginUI extends JFrame {
                 userData.setPassword(password);
 
                 boolean login = UserController.getInstance().loginUser(userData);
+                boolean isAdmin = AdminController.getInstance().isAdmin(UserController.getToken());
 
                 if (login) {
-                    JOptionPane.showMessageDialog(LoginUI.this, translation.getString("msg_usr_accepted"));
-                   
-                    new DisplayStationsUI();
-                    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                    setVisible(false);
-                    dispose();
+                	if(isAdmin) {
+                		JOptionPane.showMessageDialog(LoginUI.this, translation.getString("msg_usr_accepted"));
+                        
+                        new RegisterUI();
+                        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                        setVisible(false);
+                        dispose();
+                	} else {
+                		JOptionPane.showMessageDialog(LoginUI.this, translation.getString("msg_usr_accepted"));
+                        
+                        new DisplayStationsUI();
+                        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                        setVisible(false);
+                        dispose();
+                	}
+                	
+                    
                 } else {
                     JOptionPane.showMessageDialog(LoginUI.this, translation.getString("msg_usr_pwd_incorrect"));
                 }

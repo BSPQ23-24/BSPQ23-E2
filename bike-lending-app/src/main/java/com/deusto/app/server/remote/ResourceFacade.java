@@ -287,6 +287,27 @@ public class ResourceFacade {
 	}
 	
 	/**
+	 * Checks if the login is from admin or client.
+	 *
+	 * @param token the user's authentication token
+	 * @return Response containing true or false
+	 */
+	
+	@GET
+	@Path("/admin/isAdmin")
+	public Response isAdmin(@QueryParam("token") long token) {
+		if(UserService.getInstance().isLoggedIn(token)) {
+			boolean admin= UserService.getInstance().isAdmin(token);
+				return Response.ok(admin).build();
+			
+			
+		} else {
+			return Response.status(Response.Status.UNAUTHORIZED).entity("User is not logged in").build();
+		}
+	}
+	
+	
+	/**
 	 * Retrieves all loans.
 	 *
 	 * @param token the user's authentication token
