@@ -4,8 +4,10 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 import javax.jdo.PersistenceManager;
+import javax.jdo.PersistenceManagerFactory;
 import javax.jdo.Transaction;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -25,8 +27,17 @@ public class UserServiceTest {
     @Mock
     private Transaction tx;
 
+    @Mock
+    private PersistenceManagerFactory pmf;
+
     @InjectMocks
     private UserService userService;
+
+    @BeforeEach
+    void setUp() {
+        when(pmf.getPersistenceManager()).thenReturn(pm);
+        when(pm.currentTransaction()).thenReturn(tx);
+    }
 
     @Test
     public void testRegisterUser_Success() {
@@ -41,7 +52,7 @@ public class UserServiceTest {
 
         assertTrue(userService.registerUser(userData));
     }
-    
+
     @Test
     public void testLoginUser_Success() {
         when(pm.getObjectById(User.class, "12345678A")).thenReturn(new User("12345678A", "password123", "John", "Doe", "01-01-1980", "555123456", "john@example.com", true));
@@ -49,33 +60,30 @@ public class UserServiceTest {
         assertEquals(-1, userService.loginUser("12345678A", "wrongpassword"));
         assertNotEquals(-1, userService.loginUser("12345678A", "password123"));
     }
-    
+
     @Test
     public void testLogoutUser_Success() {
-        // Mock a valid user
         User user = new User("12345678Z", "password123", "John", "Doe", "01-01-1980", "555123456", "john@example.com", true);
-        // Stub the getObjectById method to return the mock user
         when(pm.getObjectById(User.class, "12345678Z")).thenReturn(user);
 
         long token = userService.loginUser("12345678Z", "password123");
 
-        assertNotNull(token);
+        assertNotEquals(-1, token);
 
         assertTrue(userService.logoutUser(token));
     }
-    
+
     @Test
     public void testChangePassword_Success() {
         when(pm.getObjectById(User.class, "12345678A")).thenReturn(new User("12345678A", "password123", "John", "Doe", "01-01-1980", "555123456", "john@example.com", true));
 
         assertTrue(userService.changePassword("12345678A", "password123", "newpassword123"));
     }
-    
+
     @Test
     public void testChangePassword_OldPasswordMismatch() {
         when(pm.getObjectById(User.class, "12345678A")).thenReturn(new User("12345678A", "password123", "John", "Doe", "01-01-1980", "555123456", "john@example.com", true));
 
         assertFalse(userService.changePassword("12345678A", "wrongpassword", "newpassword123"));
     }
-    
 }

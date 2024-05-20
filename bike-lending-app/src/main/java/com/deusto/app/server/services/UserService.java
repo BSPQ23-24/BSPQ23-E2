@@ -40,6 +40,13 @@ public class UserService {
 		serverState = new HashMap<>();
 		initializeData();
 	}
+	
+	// Constructor for testing purposes
+	public UserService(PersistenceManagerFactory pmf) {
+	    this.pmf = pmf;
+	    serverState = new HashMap<>();
+	}
+
 
 	/**
      * Returns the singleton instance of UserService.
