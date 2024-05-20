@@ -122,6 +122,32 @@ public class BikeController {
 			return null;
 		}
 	}
+	
+	/**
+     * Retrieves No Available bikes.
+     *
+     * @param token the user's authentication token
+     * @return Response containing a list of no available bikes
+     */
+	public List<BicycleData> displayNoAvailableBikes(@QueryParam("token") long token) {
+		LogManager.getLogger(BikeController.class).info("Get No Available Bikes Start " );
+		WebTarget getBikesWebTarget = ServiceLocator.getInstance().getWebTarget().path("bikeapp/bike/na")
+																				 .queryParam("token", token);
+		Invocation.Builder invocationBuilder = getBikesWebTarget.request(MediaType.APPLICATION_JSON);
+
+		Response response = invocationBuilder.get();
+		if (response.getStatus() == Response.Status.OK.getStatusCode()) {
+			List<BicycleData> listBikes = response.readEntity(new GenericType<List<BicycleData>>() {
+			});
+			LogManager.getLogger(BikeController.class).info("Get No Available Bikes Success");
+			return listBikes;
+
+		} else {
+			LogManager.getLogger(BikeController.class).error("Get No Available Bikes Failed | Code: {} | Reason: {}",
+					response.getStatus(), response.readEntity(String.class));
+			return null;
+		}
+	}
 
 	/**
      * Selects a bike from a specific station.

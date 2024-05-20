@@ -1,37 +1,47 @@
 package com.deusto.app.client.UI;
 
-import javax.swing.*;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Font;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Image;
+import java.awt.Insets;
+import java.text.SimpleDateFormat;
+import java.util.List;
+import java.util.Locale;
+import java.util.Properties;
+import java.util.ResourceBundle;
+
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.SwingConstants;
+import javax.swing.SwingUtilities;
 
 import org.jdatepicker.impl.DateComponentFormatter;
 import org.jdatepicker.impl.JDatePanelImpl;
 import org.jdatepicker.impl.JDatePickerImpl;
 import org.jdatepicker.impl.UtilDateModel;
 
+import com.deusto.app.client.controller.AdminController;
+import com.deusto.app.client.controller.BikeController;
 import com.deusto.app.client.controller.UserController;
-import com.deusto.app.server.pojo.UserData;
-
-import java.awt.*;
-import java.awt.event.*;
+import com.deusto.app.server.pojo.BicycleData;
+import com.deusto.app.server.pojo.StationData;
 
 
-import java.util.Locale;
-import java.util.ResourceBundle;
-
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.text.SimpleDateFormat;
-import java.util.Properties;
-
-
-public class RegisterUI extends JFrame {
+public class CreateBikeUI extends JFrame {
     private static final long serialVersionUID = 1L;
-    private JTextField dniField, nameField, passwordField, surnameField, phoneField, mailField, repeatPassword;
-    private JDatePickerImpl dateOfBirthPicker;
+    private JComboBox<String> type, station;
+    private JDatePickerImpl acquisitionDate;
     private ResourceBundle translation;
 
-    public RegisterUI() {
+    public CreateBikeUI() {
         this.translation = ResourceBundle.getBundle("translation", Locale.getDefault());
         setTitle(translation.getString("title_Register"));
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -52,7 +62,7 @@ public class RegisterUI extends JFrame {
     	        p.put("text.month", "Month");
     	        p.put("text.year", "Year");
     	        JDatePanelImpl datePanel = new JDatePanelImpl(model, p);
-    	        dateOfBirthPicker = new JDatePickerImpl(datePanel, new DateComponentFormatter());
+    	        acquisitionDate = new JDatePickerImpl(datePanel, new DateComponentFormatter());
 
 
     	        // Title with icons
@@ -62,33 +72,41 @@ public class RegisterUI extends JFrame {
     	        Image scaledImage = icon.getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH); // Increased size
     	        ImageIcon scaledIcon = new ImageIcon(scaledImage);
     	        titlePanel.add(new JLabel(scaledIcon));
-    	        JLabel titleLabel=new JLabel("Nuevo Miembro!", SwingConstants.CENTER);
+    	        JLabel titleLabel=new JLabel("Nueva Bicicleta!", SwingConstants.CENTER);
     	        titleLabel.setFont(new Font("Arial", Font.BOLD, 30)); // Bigger font size
     	        titleLabel.setForeground(Color.WHITE); // Set text color to white
     	        titlePanel.add(titleLabel);
     	        titlePanel.add(new JLabel(scaledIcon));
     	        panel.add(titlePanel, gbc);
+    	        
+    	        type=new JComboBox<String>();
+    	        type.addItem("Mountain");
+    	        type.addItem("Road");
+    	        type.addItem("Hybrid");
+    	        type.addItem("Electric");
 		       
+    	        station=new JComboBox<String>();
+    	        List<StationData> stations =BikeController.getInstance().displayStations(UserController.getToken());
+    	        for (StationData stationData : stations) {
+					station.addItem(stationData.getLocation());
+				}
+    	        
     	        // Adding fields
-    	        addField(panel, translation.getString("Username") + ":", dniField = new JTextField(20), gbc);
-    	        addField(panel, "Name:", nameField = new JTextField(20), gbc);
-    	        addField(panel, "Surname:", surnameField = new JTextField(20), gbc);
-    	        addField(panel, "Date of Birth:", dateOfBirthPicker, gbc);
-    	        addField(panel, "Phone:", phoneField = new JTextField(20), gbc);
-    	        addField(panel, "Mail:", mailField = new JTextField(20), gbc);
-    	        addField(panel, translation.getString("Password") + ":", passwordField = new JPasswordField(20), gbc);
-    	        addField(panel, "Repeat Password:", repeatPassword = new JPasswordField(20), gbc);
+    	        addField(panel, "Bike Type :", type, gbc);
+    	        addField(panel, "Station:", station, gbc);
+    	        addField(panel, "Acquisition Date:", acquisitionDate, gbc);
+    	        
 
 
     	        // Buttons
-    	        JButton registerButton = new JButton(translation.getString("register_act"));
+    	        JButton addButton = new JButton(translation.getString("register_act"));
     	        JButton backButton = new JButton("Volver");
-    	        registerButton.setBackground(new Color(255, 114, 118));
+    	        addButton.setBackground(new Color(255, 114, 118));
 
        
-    	        registerButton.addActionListener(e -> {
+    	        addButton.addActionListener(e -> {
     	            if (validateFields()) {
-    	                registerUser();
+    	                addBike(stations);
     	            } else {
     	                JOptionPane.showMessageDialog(this, "Please fill in all fields.", "Error", JOptionPane.ERROR_MESSAGE);
     	            }
@@ -96,16 +114,16 @@ public class RegisterUI extends JFrame {
     	        
     	        
     	        backButton.addActionListener(e -> {
-    	        	new LoginUI();
-    	            setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    	            setVisible(false);
-    	            dispose();
+    	        	new AdminUI();
+	                setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	                setVisible(false);
+	                dispose();
     	        });
 
 
     	        JPanel buttonPanel = new JPanel();
     	        buttonPanel.setBackground(new Color(0, 150, 136));  
-    	        buttonPanel.add(registerButton);
+    	        buttonPanel.add(addButton);
     	        buttonPanel.add(backButton);
     	        panel.add(buttonPanel, gbc);
 
@@ -126,41 +144,38 @@ public class RegisterUI extends JFrame {
     	    }
     	    
     	    private boolean validateFields() {
-    	        return !dniField.getText().isEmpty() && !nameField.getText().isEmpty() && !passwordField.getText().isEmpty() &&
-    	                !surnameField.getText().isEmpty() && dateOfBirthPicker.getModel().getValue() != null && !phoneField.getText().isEmpty() &&
-    	                !mailField.getText().isEmpty() && !repeatPassword.getText().isEmpty();
+    	        return station.getSelectedItem() != null && type.getSelectedItem() != null 
+    	        		&&  acquisitionDate.getModel().getValue() != null;
     	    }
 
-    	    private void registerUser() {
+    	    private void addBike(List<StationData> stations) {
     	    	if(validateFields()) {
-    	    		if (!passwordField.getText().equals(repeatPassword.getText())) {
-        	            JOptionPane.showMessageDialog(this, "Las contraseñas no son iguales!");
-        	            return;
-        	        }
         	        // Assume the UserData class and UserController handle registration
-    	    		UserData userData = new UserData();
+    	    		BicycleData bikeData = new BicycleData();
     	            // Assume UserData class has these fields and set them
-    	            userData.setDni(dniField.getText());
-    	            userData.setName(nameField.getText());
-    	            userData.setPassword(new String(passwordField.getText()));
-    	            userData.setSurname(surnameField.getText());
+    	            bikeData.setAvailable(true);
+    	            for (StationData stationData : stations) {
+						if(stationData.getLocation().equals(station.getSelectedItem().toString())) {
+							bikeData.setStationId(stationData.getId());
+						}
+					}
     	            
-    	            java.util.Date date = (java.util.Date) dateOfBirthPicker.getModel().getValue();
+    	            bikeData.setType(type.getSelectedItem().toString());
+    	            
+    	            java.util.Date date = (java.util.Date) acquisitionDate.getModel().getValue();
     	            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd"); // Formatting the date as a string in the "yyyy-MM-dd" format
     	            String formattedDate = sdf.format(date); // Convert Date to String
-    	            userData.setDateOfBirth(formattedDate);
-    	            
-    	            userData.setPhone(phoneField.getText());
-    	            userData.setMail(mailField.getText());
-    	            userData.setAdmin(false);
+    	            bikeData.setAcquisitionDate(formattedDate);
 
-    	            boolean register = UserController.getInstance().registerUser(userData);
-    	            if (register) {
-    	            	JOptionPane.showMessageDialog(RegisterUI.this, translation.getString("msg_usr_registered"));
-    	                dispose();
-    	                new LoginUI();  // Open Login window
+    	            boolean add = AdminController.getInstance().addBike(bikeData, UserController.getToken());
+    	            if (add) {
+    	            	JOptionPane.showMessageDialog(CreateBikeUI.this, "Bicicleta Añadida");
+    	            	new AdminUI();
+    	                setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    	                setVisible(false);
+    	                dispose();  // Open Login window
     	            } else {
-    	            	JOptionPane.showMessageDialog(RegisterUI.this, translation.getString("msg_register_error"));
+    	            	JOptionPane.showMessageDialog(CreateBikeUI.this, "Problema añadiendo bicicleta!");
     	            }
     	    	} else {
     	    		JOptionPane.showMessageDialog(this, "Rellena todo los campos!");

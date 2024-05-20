@@ -34,13 +34,12 @@ public class AdminServiceTest {
     @Test
     public void testAddBike_Success() {
         BicycleData bikeData = new BicycleData();
-        bikeData.setId(1);
         bikeData.setType("Mountain");
         bikeData.setStationId(1);
+        bikeData.setAcquisitionDate("a");
+        
 
-        Station station = new Station();
-        station.setId(1);
-
+        
         boolean result = adminService.addBike(bikeData);
 
         assertTrue(result);

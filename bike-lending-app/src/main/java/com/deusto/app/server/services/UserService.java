@@ -28,8 +28,6 @@ public class UserService {
 	private static UserService instance;
 
 	private PersistenceManagerFactory pmf;
-	private PersistenceManager pm;
-	private Transaction tx;
 	private Map<Long, User> serverState;
 
 	/**
@@ -39,8 +37,6 @@ public class UserService {
      */
 	private UserService() {
 		pmf = JDOHelper.getPersistenceManagerFactory("datanucleus.properties");
-		pm = pmf.getPersistenceManager();
-		tx = pm.currentTransaction();
 		serverState = new HashMap<>();
 		initializeData();
 	}
@@ -67,6 +63,9 @@ public class UserService {
 
 		LogManager.getLogger(UserService.class).info("Register Start | User: '{}'", userData.getDni());
 
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Transaction tx = pm.currentTransaction();
+		
 		try {
 			tx.begin();
 
@@ -93,6 +92,7 @@ public class UserService {
 			if (tx.isActive()) {
 				tx.rollback();
 			}
+			pm.close();
 		}
 	}
 
@@ -106,6 +106,9 @@ public class UserService {
 	public long loginUser(String dni, String password) {
 	    LogManager.getLogger(UserService.class).info("Login Start | User: '{}'", dni);
 
+	    PersistenceManager pm = pmf.getPersistenceManager();
+		Transaction tx = pm.currentTransaction();
+	    
 	    User user = null;
 	    try {
 	        tx.begin();
@@ -113,7 +116,8 @@ public class UserService {
 	            user = pm.getObjectById(User.class, dni);
 	            if (user != null && user.getPassword().equals(password)) {
 	                long token = Calendar.getInstance().getTimeInMillis();
-	                this.serverState.put(token, user);
+	                User detachedUser = pm.detachCopy(user);
+	                this.serverState.put(token, detachedUser);
 	                LogManager.getLogger(UserService.class).info("Login Success | User: '{}'", dni);
 	                return token;
 	            }
@@ -125,6 +129,7 @@ public class UserService {
 	        if (tx.isActive()) {
 	            tx.rollback();
 	        }
+	        pm.close();
 	    }
 	    return -1;
 	}
@@ -188,6 +193,9 @@ public class UserService {
 	public boolean changePassword(String dni, String oldPassword, String newPassword) {
 		LogManager.getLogger(UserService.class).info("Change Password Start | User: '{}'", dni);
 
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Transaction tx = pm.currentTransaction();
+		
 		try {
 			tx.begin();
 
@@ -211,6 +219,8 @@ public class UserService {
 			}
 			LogManager.getLogger(UserService.class).error("Change Password Failed | '{}' | User: '{}'", e, dni);
 			return false;
+		} finally {
+			pm.close();
 		}
 	}
 
@@ -220,6 +230,9 @@ public class UserService {
 	private void initializeData() {
 		LogManager.getLogger(UserService.class).info("Initialize Data");
 
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Transaction tx = pm.currentTransaction();
+		
 		try {
 			tx.begin();
 
@@ -232,6 +245,7 @@ public class UserService {
 						"john@example.com",false);
 				User user2 = new User("87654321B", "password456", "Jane", "Smith", "02-02-1990", "555654321",
 						"jane@example.com",true);
+				
 				pm.makePersistent(user1);
 				pm.makePersistent(user2);
 
@@ -239,7 +253,7 @@ public class UserService {
 				Bicycle bike1 = new Bicycle();
 				bike1.setType("Mountain");
 				bike1.setAcquisitionDate("2023-01-01"); // Use consistent format if required
-				bike1.setAvailable(true);
+				bike1.setAvailable(false);
 
 				Bicycle bike2 = new Bicycle();
 				bike2.setType("Road");
@@ -249,7 +263,7 @@ public class UserService {
 				Bicycle bike3 = new Bicycle();
 				bike3.setType("Hybrid");
 				bike3.setAcquisitionDate("2023-03-01");
-				bike3.setAvailable(true);
+				bike3.setAvailable(false);
 
 				Bicycle bike4 = new Bicycle();
 				bike4.setType("Electric");
@@ -314,6 +328,8 @@ public class UserService {
 			if (tx.isActive()) {
 				tx.rollback();
 			}
+		} finally {
+			pm.close();
 		}
 	}
 

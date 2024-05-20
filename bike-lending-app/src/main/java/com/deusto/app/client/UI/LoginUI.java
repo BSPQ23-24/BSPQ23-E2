@@ -140,7 +140,7 @@ public class LoginUI extends JFrame {
                 	if(isAdmin) {
                 		JOptionPane.showMessageDialog(LoginUI.this, translation.getString("msg_usr_accepted"));
                         
-                        new RegisterUI();
+                        new AdminUI();
                         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                         setVisible(false);
                         dispose();

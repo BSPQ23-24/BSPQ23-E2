@@ -200,6 +200,28 @@ public class ResourceFacade {
 			return Response.status(Response.Status.UNAUTHORIZED).entity("User is not logged in").build();
 		}
 	}
+	
+	/**
+     * Retrieves No Available bikes.
+     *
+     * @param token the user's authentication token
+     * @return Response containing a list of no available bikes
+     */
+	
+	@GET
+	@Path("/bike/na")
+	public Response displayNoAvailableBikes(@QueryParam("token") long token) {
+		if (UserService.getInstance().isLoggedIn(token)) {
+			List<BicycleData> noAvailableBikes = BikeService.getInstance().displayNoAvailableBikes();
+			if (noAvailableBikes != null) {
+				return Response.ok(noAvailableBikes).build();
+			} else {
+				return Response.serverError().entity("Error getting no available bikes").build();
+			}
+		} else {
+			return Response.status(Response.Status.UNAUTHORIZED).entity("User is not logged in").build();
+		}
+	}
 
 	/**
      * Retrieves the details of a specific bike.
@@ -237,6 +259,7 @@ public class ResourceFacade {
 		if(UserService.getInstance().isLoggedIn(token)) {
 			if(UserService.getInstance().isAdmin(token)) {
 				boolean addition_success= AdminService.getInstance().addBike(bikeData);
+				
 				if(addition_success) {
 					return Response.ok().build();
 				} else {
