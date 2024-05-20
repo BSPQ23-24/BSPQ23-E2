@@ -2,18 +2,47 @@ version: '3.8'
 
 services:
   mysql:
-    image: mysql:8.4.0  # Specify the version of MySQL you want to use
+    image: mysql:8.0  # Use a valid MySQL version
     environment:
-      MYSQL_ROOT_PASSWORD:           # Root password
-      MYSQL_DATABASE:          # Database name to create
-      MYSQL_USER:                  # New user to create
-      MYSQL_PASSWORD:          # New user password
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: mydatabase
+      MYSQL_USER: myuser
+      MYSQL_PASSWORD: mypassword
     volumes:
-      - mysql-data:/var/lib/mysql           # Persist data
-      - ./init:/docker-entrypoint-initdb.d  # SQL scripts folder
+      - mysql-data:/var/lib/mysql
+      - ./sql:/docker-entrypoint-initdb.d  # Map sql directory for initialization scripts
     ports:
-      - "8080:8080"  # Map TCP port 8080 in the container to 8080 on the host
+      - "8080:8080"  # Map TCP port 8000 in the container to 8000 on the host
     restart: always
+
+  schema-init:
+    image: mysql:8.0
+    depends_on:
+      - mysql
+    command: >
+      bash -c "while ! mysqladmin ping -hmysql --silent; do sleep 1; done &&
+                mysql -hmysql -uroot -p${MYSQL_ROOT_PASSWORD} mydatabase < /docker-entrypoint-initdb.d/create-bikes.sql"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+
+  server:
+    build:
+      context: .
+      dockerfile: Dockerfile.server
+    ports:
+      - "8000:8000"  # Map TCP port 8080 in the container to 8080 on the host
+    depends_on:
+      - mysql
+      - schema-init
+
+  client:
+    build:
+      context: .
+      dockerfile: Dockerfile.client
+    environment:  # Add environment variable for X11 forwarding
+      DISPLAY: $DISPLAY
+    depends_on:
+      - server
 
 volumes:
   mysql-data:

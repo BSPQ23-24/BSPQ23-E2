@@ -1,10 +1,16 @@
+# Dockerfile for Client
+
 # Specifies the base image
 FROM maven:3.9.6-eclipse-temurin-21
+
+# Set the working directory
+WORKDIR /bike-lending-app
+
 # Copy the source code to the image
-COPY . /bike-lending-app
+COPY . .
+
 # Execute the maven build
-RUN cd bike-lending-app && mvn compile datanucleus:enhance
-# change to this directory
-WORKDIR bike-lending-app
+RUN mvn clean compile datanucleus:enhance
+
 # Specify which command will be launched when starting the container
-CMD ["mvn", "jetty:run"]
+CMD ["mvn", "exec:java", "-Pclient"]

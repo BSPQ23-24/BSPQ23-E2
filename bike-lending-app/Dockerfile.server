@@ -1,0 +1,16 @@
+# Dockerfile for the server
+
+# Specifies the base image
+FROM maven:3.9.6-eclipse-temurin-21
+
+# Set the working directory
+WORKDIR /bike-lending-app
+
+# Copy the source code to the image
+COPY . .
+
+# Execute the maven build and enhance the classes
+RUN mvn clean compile datanucleus:enhance
+
+# Specify which command will be launched when starting the container
+CMD ["mvn", "jetty:run"]
