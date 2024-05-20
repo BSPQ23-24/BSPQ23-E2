@@ -237,6 +237,7 @@ public class ResourceFacade {
 		if(UserService.getInstance().isLoggedIn(token)) {
 			if(UserService.getInstance().isAdmin(token)) {
 				boolean addition_success= AdminService.getInstance().addBike(bikeData);
+				
 				if(addition_success) {
 					return Response.ok().build();
 				} else {

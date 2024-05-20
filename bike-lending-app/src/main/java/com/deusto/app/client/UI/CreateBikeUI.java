@@ -166,11 +166,11 @@ public class CreateBikeUI extends JFrame {
 
     	            boolean add = AdminController.getInstance().addBike(bikeData, UserController.getToken());
     	            if (add) {
-    	            	JOptionPane.showMessageDialog(CreateBikeUI.this, translation.getString("Bicicleta Añadida"));
+    	            	JOptionPane.showMessageDialog(CreateBikeUI.this, "Bicicleta Añadida");
     	                dispose();
     	                new LoginUI();  // Open Login window
     	            } else {
-    	            	JOptionPane.showMessageDialog(CreateBikeUI.this, translation.getString("Problema añadiendo bicicleta!"));
+    	            	JOptionPane.showMessageDialog(CreateBikeUI.this, "Problema añadiendo bicicleta!");
     	            }
     	    	} else {
     	    		JOptionPane.showMessageDialog(this, "Rellena todo los campos!");

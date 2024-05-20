@@ -36,10 +36,10 @@ public class AdminServiceTest {
         BicycleData bikeData = new BicycleData();
         bikeData.setType("Mountain");
         bikeData.setStationId(1);
+        bikeData.setAcquisitionDate("a");
+        
 
-        Station station = new Station();
-        station.setId(1);
-
+        
         boolean result = adminService.addBike(bikeData);
 
         assertTrue(result);

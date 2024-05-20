@@ -89,6 +89,7 @@ public class BikeService {
 			tx.commit();
 
 			LogManager.getLogger(BikeService.class).info("Display Stations Success");
+			System.out.println(StationAssembler.getInstance().stationsToPOJO(stations));
 
 			return StationAssembler.getInstance().stationsToPOJO(stations);
 			

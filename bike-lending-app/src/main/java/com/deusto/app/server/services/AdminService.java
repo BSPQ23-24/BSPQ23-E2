@@ -1,5 +1,8 @@
 package com.deusto.app.server.services;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.annotation.Nonnull;
 import javax.jdo.JDOHelper;
 import javax.jdo.JDOObjectNotFoundException;
@@ -14,19 +17,23 @@ import com.deusto.app.server.data.domain.Bicycle;
 import com.deusto.app.server.data.domain.Station;
 import com.deusto.app.server.data.domain.User;
 import com.deusto.app.server.pojo.BicycleData;
+import com.deusto.app.server.pojo.StationAssembler;
+import com.deusto.app.server.pojo.StationData;
 
 public class AdminService {
 	private static AdminService instance;
-	private PersistenceManager pm = null;
-	private Transaction tx = null;
+
+	private PersistenceManagerFactory pmf;
+	private PersistenceManager pm;
+	private Transaction tx;
 
 	/**
      * Private constructor to initialize PersistenceManager and Transaction.
      */
 	private AdminService() {
-		PersistenceManagerFactory pmf = JDOHelper.getPersistenceManagerFactory("datanucleus.properties");
-		this.pm = pmf.getPersistenceManager();
-		this.tx = pm.currentTransaction();
+		pmf = JDOHelper.getPersistenceManagerFactory("datanucleus.properties");
+		pm = pmf.getPersistenceManager();
+		tx = pm.currentTransaction();
 	}
 
 	/**
@@ -49,49 +56,73 @@ public class AdminService {
      */
 	
 	 public boolean addBike(BicycleData bikeData) { 
-		 LogManager.getLogger(AdminService.class).info("Add | Bike: '{}'", bikeData.getId());
-
 			try {
 				tx.begin();
-
-				Bicycle bike = null;
+				Bicycle bike = new Bicycle();
+				LogManager.getLogger(AdminService.class).info("Add | Bike: '{}'", bike.getId());
 				try {
-					bike = pm.getObjectById(Bicycle.class, bikeData.getId());
+					bike = pm.getObjectById(Bicycle.class, bike.getId());
 					// If the user is found, return an unauthorized response
 					if (bike != null) {
 						LogManager.getLogger(AdminService.class)
-								.info("Addition Failed | The bike is already added | Bike: '{}'", bikeData.getId());
+								.info("Addition Failed | The bike is already added | Bike: '{}'", bike.getId());
 						return false;
 					}
 				} catch (javax.jdo.JDOObjectNotFoundException jonfe) {
 					// User not found, proceed to registration
-					bike=new Bicycle();
+					
+					
 					bike.setAcquisitionDate(bikeData.getAcquisitionDate());
 					bike.setType(bikeData.getType());
 					bike.setAvailable(true);
-					Station station=null;
-					try {
-						station=pm.getObjectById(Station.class,bikeData.getStationId());
-						if (station == null) {
-							LogManager.getLogger(AdminService.class)
-							.info("This station do not exist | Station: '{}'", bikeData.getStationId());
-							return false;
-						}
-					}catch (javax.jdo.JDOObjectNotFoundException jonfe2) {
-						bike.setStation(station);
-						
-						
-						pm.makePersistent(bike);
-						LogManager.getLogger(AdminService.class).info("Addition Success | Bike: '{}'", bikeData.getId());
-					}
+					
+					Station station= modifyStation(bikeData.getStationId(), bike);
+					bike.setStation(station);
+					pm.makePersistent(bike);
+					System.out.println(bike.getStation().getBikes());
+					LogManager.getLogger(AdminService.class).info("Addition Success | Bike: '{}'", bike.getId());
 					
 				}
+				
 				tx.commit();
 				return true;
 			} finally {
 				if (tx.isActive()) {
 					tx.rollback();
 				}
+			}
+	 }
+	 
+	 public Station modifyStation(int idStation, Bicycle bike) { 
+		 	LogManager.getLogger(AdminService.class).info("Modify | Station: '{}'", idStation);
+			try {
+				Station station = null;
+				
+				try {
+					station = pm.getObjectById(Station.class, idStation);
+					// If the user is found, return an unauthorized response
+					if (station == null) {
+						LogManager.getLogger(AdminService.class)
+								.info("Addition Failed | The station does not exist | Station: '{}'", idStation);
+						return null;
+					}
+				} catch (javax.jdo.JDOObjectNotFoundException jonfe) {}
+					// User not found, proceed to registration
+					
+					
+					
+					List<Bicycle> bikes=new ArrayList<Bicycle>();
+					for (Bicycle b: station.getBikes()) {
+						bikes.add(b);
+					}
+					bikes.add(bike);
+					station.setBikes(bikes);
+					
+					
+					
+					return station;
+			} finally {
+				
 			}
 	 }
 	 
