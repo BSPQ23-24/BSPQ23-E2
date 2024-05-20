@@ -32,8 +32,10 @@ import javax.swing.table.TableCellRenderer;
 
 import com.deusto.app.client.controller.AdminController;
 import com.deusto.app.client.controller.BikeController;
+import com.deusto.app.client.controller.LoanController;
 import com.deusto.app.client.controller.UserController;
 import com.deusto.app.server.pojo.BicycleData;
+import com.deusto.app.server.pojo.LoanData;
 import com.deusto.app.server.pojo.StationData;
 import com.deusto.app.server.pojo.UserData;
 
@@ -51,6 +53,14 @@ public class AdminUI extends JFrame {
         JPanel mainPanel = new JPanel(new BorderLayout(10, 10));
         mainPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         mainPanel.setBackground(new Color(0, 150, 136));
+        
+        JButton logoutButton = new JButton("Logout");
+        logoutButton.setFont(new Font("Arial", Font.BOLD, 16));
+        logoutButton.setForeground(Color.WHITE);
+        logoutButton.setBackground(new Color(0, 150, 136));
+        logoutButton.addActionListener(e -> logout());
+        logoutButton.setBorderPainted(false);
+        mainPanel.add(logoutButton, BorderLayout.NORTH);
 
         JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT);
         splitPane.setResizeWeight(0.5);
@@ -75,7 +85,41 @@ public class AdminUI extends JFrame {
 
     private void setupLoansPanel(JSplitPane splitPane) {
         JPanel loansPanel = new JPanel(new BorderLayout());
-        loansTable = new JTable(new Object[][]{{"Loan 1", "User A"}, {"Loan 2", "User B"}}, new String[]{"Loan ID", "User"});
+        
+        JLabel header = new JLabel("LOAN", SwingConstants.CENTER);
+        header.setOpaque(true);
+        header.setBackground(new Color(255, 114, 118));
+        header.setForeground(Color.WHITE);
+        header.setFont(new Font("Arial", Font.BOLD, 18));
+        loansPanel.add(header, BorderLayout.NORTH);
+        
+     // Fetch station data
+        List<LoanData> loans = LoanController.getInstance().getAllLoans();
+
+        // Create a table to display station data
+        String[] columnNames = {"ID","User","Bicycle","Date"};
+        Object[][] data = new Object[loans.size()][4];
+        for (int i = 0; i < loans.size(); i++) {
+            LoanData loan = loans.get(i);
+            data[i][0] = loan.getId();
+            data[i][1] = loan.getUserDni();
+            data[i][2] = loan.getBicycleId();
+            data[i][3] = loan.getLoanDate();
+
+            
+            
+        }
+        
+        loansTable = new JTable(data, columnNames) {
+            private static final long serialVersionUID = 1L;
+
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
+        
+        
         setupTable(loansTable);
         loansPanel.add(new JScrollPane(loansTable), BorderLayout.CENTER);
         JButton deleteLoanButton = new JButton("Borrar Loan");
@@ -90,7 +134,40 @@ public class AdminUI extends JFrame {
 
     private void setupNonAvailableBikesPanel(JSplitPane splitPane) {
         JPanel nonAvailableBikesPanel = new JPanel(new BorderLayout());
-        nonAvailableBikesTable = new JTable(new Object[][]{{"Bike 1", "Broken"}, {"Bike 2", "In Repair"}}, new String[]{"Bike ID", "Status"});
+        JLabel header = new JLabel("NO AVAILABLE BIKES", SwingConstants.CENTER);
+        header.setOpaque(true);
+        header.setBackground(new Color(255, 114, 118));
+        header.setForeground(Color.WHITE);
+        header.setFont(new Font("Arial", Font.BOLD, 18));
+        nonAvailableBikesPanel.add(header, BorderLayout.NORTH);
+        
+     // Fetch station data
+        List<BicycleData> bikes = BikeController.getInstance().displayNoAvailableBikes(UserController.getInstance().getToken());
+        List<StationData> stations = BikeController.getInstance().displayStations(UserController.getInstance().getToken());
+
+        // Create a table to display station data
+        String[] columnNames = {"ID","Type","Station"};
+        Object[][] data = new Object[bikes.size()][3];
+        for (int i = 0; i < bikes.size(); i++) {
+            BicycleData bike = bikes.get(i);
+            data[i][0] = bike.getId();
+            data[i][1] = bike.getType();
+            for (StationData stationData : stations) {
+            	if(stationData.getId()==bike.getStationId()) {
+            		data[i][2] = stationData.getLocation();
+            	}
+            }
+            
+        }
+        
+        nonAvailableBikesTable = new JTable(data, columnNames) {
+            private static final long serialVersionUID = 1L;
+
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
         setupTable(nonAvailableBikesTable);
         nonAvailableBikesPanel.add(new JScrollPane(nonAvailableBikesTable), BorderLayout.CENTER);
         JButton reactivateBikeButton = new JButton("Reactivar Bicicleta");
@@ -102,6 +179,8 @@ public class AdminUI extends JFrame {
         nonAvailableBikesPanel.setBackground(new Color(255,255,255));
         nonAvailableBikesTable.getTableHeader().setForeground(Color.WHITE);
         nonAvailableBikesTable.getTableHeader().setBackground(new Color(255, 114, 118));
+        
+     
     }
 
     private void setupTable(JTable table) {
@@ -129,6 +208,14 @@ public class AdminUI extends JFrame {
         });
     }
 
+    private void logout() {
+    	new LoginUI();
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setVisible(false);
+        dispose();
+        JOptionPane.showMessageDialog(this, "See YOU!");
+    }
+    
     private void deleteLoan() {
         JOptionPane.showMessageDialog(this, "Loan Deleted!");
     }

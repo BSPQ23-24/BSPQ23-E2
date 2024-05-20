@@ -199,6 +199,7 @@ public class User {
         result.append(" / Date of Birth: ").append(this.dateOfBirth);
         result.append(" / Phone: ").append(this.phone);
         result.append(" / Email: ").append(this.mail);
+        result.append(" / Admin: ").append(this.admin);
         return result.toString();
     }
 

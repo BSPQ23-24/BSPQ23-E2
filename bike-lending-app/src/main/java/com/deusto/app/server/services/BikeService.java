@@ -1,7 +1,6 @@
 
 package com.deusto.app.server.services;
 
-import java.util.ArrayList;
 import javax.jdo.JDOHelper;
 import javax.jdo.PersistenceManager;
 import javax.jdo.PersistenceManagerFactory;
@@ -10,8 +9,6 @@ import javax.jdo.Transaction;
 
 import org.apache.logging.log4j.LogManager;
 import java.util.List;
-import java.util.stream.Collectors;
-
 import com.deusto.app.server.data.domain.Bicycle;
 import com.deusto.app.server.data.domain.Station;
 import com.deusto.app.server.pojo.BicycleAssembler;
@@ -20,28 +17,26 @@ import com.deusto.app.server.pojo.StationAssembler;
 import com.deusto.app.server.pojo.StationData;
 
 /**
- * BikeService class provides services related to bike operations such as displaying stations,
- * getting available bikes, and retrieving bike details. It uses JDO for persistence.
+ * BikeService class provides services related to bike operations such as
+ * displaying stations, getting available bikes, and retrieving bike details. It
+ * uses JDO for persistence.
  */
 public class BikeService {
 	private static BikeService instance;
-	private PersistenceManager pm = null;
-	private Transaction tx = null;
+	private PersistenceManagerFactory pmf;
 
 	/**
-     * Private constructor to initialize PersistenceManager and Transaction.
-     */
+	 * Private constructor to initialize PersistenceManagerFactory.
+	 */
 	private BikeService() {
-		PersistenceManagerFactory pmf = JDOHelper.getPersistenceManagerFactory("datanucleus.properties");
-		this.pm = pmf.getPersistenceManager();
-		this.tx = pm.currentTransaction();
+		pmf = JDOHelper.getPersistenceManagerFactory("datanucleus.properties");
 	}
 
 	/**
-     * Returns the singleton instance of BikeService.
-     *
-     * @return BikeService instance
-     */
+	 * Returns the singleton instance of BikeService.
+	 *
+	 * @return BikeService instance
+	 */
 	public static BikeService getInstance() {
 		if (instance == null) {
 			instance = new BikeService();
@@ -49,36 +44,17 @@ public class BikeService {
 		return instance;
 	}
 
-	/*
-	 * public int createBike(int stationId, BicycleData bikeData) { try {
-	 * tx.begin();
-	 * 
-	 * //creation of new station Station station = new Station();
-	 * station.setLocation("Central Park"); pm.makePersistent(station);
-	 * 
-	 * // creation of new bicycle Bicycle bike = new Bicycle();
-	 * bike.setAcquisitionDate(new String()); bike.setType("Mountain Bike");
-	 * 
-	 * bike.setStation(station);
-	 * 
-	 * pm.makePersistent(bike);
-	 * 
-	 * tx.commit(); return bike.getId();
-	 * 
-	 * } catch (Exception e) { if (tx.isActive()) { tx.rollback(); }
-	 * e.printStackTrace();
-	 * 
-	 * return -1; } }
-	 */
-
 	/**
-     * Retrieves and displays all bike stations with their respective bike IDs.
-     *
-     * @return List of StationData containing the station details and bike IDs
-     */
+	 * Retrieves and displays all bike stations with their respective bike IDs.
+	 *
+	 * @return List of StationData containing the station details and bike IDs
+	 */
 	public List<StationData> displayStations() {
 
 		LogManager.getLogger(BikeService.class).info("Display Stations Start");
+
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Transaction tx = pm.currentTransaction();
 
 		try {
 			tx.begin();
@@ -92,7 +68,7 @@ public class BikeService {
 			System.out.println(StationAssembler.getInstance().stationsToPOJO(stations));
 
 			return StationAssembler.getInstance().stationsToPOJO(stations);
-			
+
 		} catch (Exception e) {
 			LogManager.getLogger(BikeService.class).error("Display Stations Failed | '{}'", e);
 			if (tx.isActive()) {
@@ -100,9 +76,12 @@ public class BikeService {
 			}
 
 			return null;
+		} finally {
+			pm.close();
 		}
 	}
 
+<<<<<<< HEAD
 	public List<BicycleData> displayNoAvailableBikes(){
 		LogManager.getLogger(BikeService.class).info("Display No Available Bikes");
 
@@ -138,6 +117,8 @@ public class BikeService {
 		}
 	}
 	
+=======
+>>>>>>> main
 	/**
 	 * Retrieves available bikes in a specific station.
 	 *
@@ -147,6 +128,9 @@ public class BikeService {
 	public List<BicycleData> getAvailableBikesInStation(int stationId) {
 
 		LogManager.getLogger(BikeService.class).info("Get Available Bikes Start | StationID : '{}'", stationId);
+
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Transaction tx = pm.currentTransaction();
 
 		try {
 			tx.begin();
@@ -160,7 +144,7 @@ public class BikeService {
 			LogManager.getLogger(BikeService.class).info("Get Available Bikes Success | StationID : '{}'", stationId);
 
 			return BicycleAssembler.getInstance().bikesToPOJO(availableBikes);
-			
+
 		} catch (Exception e) {
 			LogManager.getLogger(BikeService.class).error("Get Available Bikes Failed | '{}' | StationID: '{}'", e,
 					stationId);
@@ -168,6 +152,8 @@ public class BikeService {
 				tx.rollback();
 			}
 			return null;
+		} finally {
+			pm.close();
 		}
 	}
 
@@ -181,11 +167,14 @@ public class BikeService {
 
 		LogManager.getLogger(BikeService.class).info("Get Bike By ID Start | BikeID : '{}'", bikeId);
 
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Transaction tx = pm.currentTransaction();
+
 		try {
 			tx.begin();
 
 			Bicycle bike = pm.getObjectById(Bicycle.class, bikeId);
-			
+
 			tx.commit();
 
 			LogManager.getLogger(BikeService.class).info("Get Bike By ID Success | BikeID : '{}'", bikeId);
@@ -197,6 +186,8 @@ public class BikeService {
 				tx.rollback();
 			}
 			return null;
+		} finally {
+			pm.close();
 		}
 	}
 }
