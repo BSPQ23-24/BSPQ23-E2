@@ -10,6 +10,7 @@ import javax.jdo.Transaction;
 import org.apache.logging.log4j.LogManager;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import com.deusto.app.server.data.domain.Bicycle;
 import com.deusto.app.server.data.domain.Station;
@@ -32,6 +33,11 @@ public class BikeService {
 	 */
 	private BikeService() {
 		pmf = JDOHelper.getPersistenceManagerFactory("datanucleus.properties");
+	}
+	
+	// Constructor for testing purposes
+	public BikeService(PersistenceManagerFactory pmf) {
+	    this.pmf = pmf;
 	}
 
 	/**
