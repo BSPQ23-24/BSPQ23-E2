@@ -1,5 +1,11 @@
 var NAVTREEINDEX1 =
 {
+"classcom_1_1deusto_1_1app_1_1server_1_1remote_1_1_resource_facade.html#adfd34fe8ae74c59c1c637de931861400":[1,0,0,0,0,1,2,0,9],
+"classcom_1_1deusto_1_1app_1_1server_1_1remote_1_1_resource_facade.html#af7bbb58b383944fe3e6f36474c2b7272":[1,0,0,0,0,1,2,0,8],
+"classcom_1_1deusto_1_1app_1_1server_1_1remote_1_1_resource_facade.html#af92eb6b2e13b05a3230eb55047112729":[1,0,0,0,0,1,2,0,13],
+"classcom_1_1deusto_1_1app_1_1server_1_1services_1_1_admin_service.html":[1,0,0,0,0,1,3,0],
+"classcom_1_1deusto_1_1app_1_1server_1_1services_1_1_admin_service.html#a131d342d8824173cfe7e8f2eef978cc8":[1,0,0,0,0,1,3,0,0],
+"classcom_1_1deusto_1_1app_1_1server_1_1services_1_1_admin_service.html#a1d92e38c01c58f4b6a43bbd43aac5e59":[1,0,0,0,0,1,3,0,2],
 "classcom_1_1deusto_1_1app_1_1server_1_1services_1_1_admin_service.html#ad0c436d6a1f648330033ec4be0e43a7f":[1,0,0,0,0,1,3,0,3],
 "classcom_1_1deusto_1_1app_1_1server_1_1services_1_1_admin_service.html#ad261951d7c5bf722257b2d0b280bfed1":[1,0,0,0,0,1,3,0,1],
 "classcom_1_1deusto_1_1app_1_1server_1_1services_1_1_admin_service.html#af1ddf97cad8438102899ea429dd47c55":[1,0,0,0,0,1,3,0,4],
@@ -42,14 +48,14 @@ var NAVTREEINDEX1 =
 "dir_f846bedf5f8402a4894e21426d118d2f.html":[2,0,0,0,0,0,0,0,1,1],
 "dir_fd3f6763802dee1ad875f6c80eac0bda.html":[2,0,0,0,0],
 "files.html":[2,0],
-"functions.html":[1,3,0],
 "functions.html":[1,3,0,0],
+"functions.html":[1,3,0],
 "functions_b.html":[1,3,0,1],
 "functions_c.html":[1,3,0,2],
 "functions_d.html":[1,3,0,3],
 "functions_e.html":[1,3,0,4],
-"functions_func.html":[1,3,1,0],
 "functions_func.html":[1,3,1],
+"functions_func.html":[1,3,1,0],
 "functions_func_b.html":[1,3,1,1],
 "functions_func_c.html":[1,3,1,2],
 "functions_func_d.html":[1,3,1,3],
@@ -83,11 +89,5 @@ var NAVTREEINDEX1 =
 "namespacecom_1_1deusto_1_1app_1_1server_1_1remote.html":[0,0,0,0,0,1,2],
 "namespacecom_1_1deusto_1_1app_1_1server_1_1services.html":[0,0,0,0,0,1,3],
 "namespaces.html":[0,0],
-"pages.html":[],
-"":[0,0,0,0,0,0],
-"":[0,0,0,0,0,1],
-"":[0,0,0],
-"":[0,0,0,0,0,1,0],
-"":[0,0,0,0],
-"":[0,0,0,0,0]
+"pages.html":[]
 };

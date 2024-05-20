@@ -1,8 +1,10 @@
 <map id="com.deusto.app.client.UI.BicycleDetailUI.BicycleDetailUI" name="com.deusto.app.client.UI.BicycleDetailUI.BicycleDetailUI">
-<area shape="rect" id="node1" title=" " alt="" coords="5,103,232,144"/>
-<area shape="rect" id="node2" href="$classcom_1_1deusto_1_1app_1_1client_1_1controller_1_1_bike_controller.html#a47b1d1de41488d94db341b965c343f25" title=" " alt="" coords="280,37,571,79"/>
-<area shape="rect" id="node5" href="$classcom_1_1deusto_1_1app_1_1client_1_1controller_1_1_bike_controller.html#a7a137c4396c2d3964ad5c2de127d0559" title=" " alt="" coords="308,103,543,144"/>
-<area shape="rect" id="node6" href="$classcom_1_1deusto_1_1app_1_1client_1_1controller_1_1_user_controller.html#a91e3c45d5c3c3e76dc6443b2ae9ca138" title=" " alt="" coords="308,168,543,209"/>
+<area shape="rect" id="node1" title=" " alt="" coords="5,136,232,177"/>
+<area shape="rect" id="node2" href="$classcom_1_1deusto_1_1app_1_1client_1_1controller_1_1_bike_controller.html#a1646d903064ad4655b3455b1c674d6bc" title=" " alt="" coords="308,71,543,112"/>
+<area shape="rect" id="node5" href="$classcom_1_1deusto_1_1app_1_1client_1_1controller_1_1_bike_controller.html#a47b1d1de41488d94db341b965c343f25" title=" " alt="" coords="280,5,571,47"/>
+<area shape="rect" id="node6" href="$classcom_1_1deusto_1_1app_1_1client_1_1controller_1_1_bike_controller.html#a7a137c4396c2d3964ad5c2de127d0559" title=" " alt="" coords="308,136,543,177"/>
+<area shape="rect" id="node7" href="$classcom_1_1deusto_1_1app_1_1server_1_1pojo_1_1_station_data.html#a01e52cd3a597d7ffb3fbe1588685100b" title=" " alt="" coords="322,201,529,243"/>
+<area shape="rect" id="node8" href="$classcom_1_1deusto_1_1app_1_1client_1_1controller_1_1_user_controller.html#a91e3c45d5c3c3e76dc6443b2ae9ca138" title=" " alt="" coords="308,267,543,308"/>
 <area shape="rect" id="node3" href="$classcom_1_1deusto_1_1app_1_1client_1_1remote_1_1_service_locator.html#a1bbad089c98e858ca94692c58e9c1b69" title=" " alt="" coords="619,5,840,47"/>
 <area shape="rect" id="node4" href="$classcom_1_1deusto_1_1app_1_1client_1_1remote_1_1_service_locator.html#a485e52addfec6696493877e59276f671" title=" " alt="" coords="619,71,840,112"/>
 </map>
