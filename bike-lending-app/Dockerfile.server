@@ -1,16 +1,21 @@
-# Dockerfile for the server
-
 # Specifies the base image
 FROM maven:3.9.6-eclipse-temurin-21
 
-# Set the working directory
-WORKDIR /bike-lending-app
+# Install netcat which provides the 'nc' command used by wait-for-it.sh
+RUN apt-get update && apt-get install -y netcat
+
+# Copy the wait-for-it.sh script into the image
+COPY wait-for-it.sh /usr/local/bin/wait-for-it.sh
+RUN chmod +x /usr/local/bin/wait-for-it.sh
 
 # Copy the source code to the image
-COPY . .
+COPY . /bike-lending-app
 
-# Execute the maven build and enhance the classes
-RUN mvn clean compile datanucleus:enhance
+# change to this directory
+WORKDIR /bike-lending-app
 
-# Specify which command will be launched when starting the container
-CMD ["mvn", "jetty:run"]
+# Execute Maven clean and compile
+RUN mvn clean compile
+
+# Wait for MySQL to be ready before running the schema creation command
+CMD ["wait-for-it.sh", "mysql:3306", "--", "mvn", "datanucleus:schema-create"]

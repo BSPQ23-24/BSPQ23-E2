@@ -1,2 +1,6 @@
-docker build . -t nombre_build
+docker network create bike-lending-network
+
+
+docker-compose up --build
+
 
