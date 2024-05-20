@@ -348,6 +348,23 @@ public class ResourceFacade {
 	}
 	
 	/**
+	 * Check if the user has an active loan.
+	 *
+	 * @param token the user's authentication token
+	 * @return Response containing a boolean if the user has an active loan
+	 */
+	@GET
+	@Path("/loan/active")
+	public Response isLoanActive(@QueryParam("token") long token) {
+	    if (UserService.getInstance().isLoggedIn(token)) {
+	        LoanData loan = LoanService.getInstance().isLoanActive(token);
+	        return Response.ok(loan).build();
+	    } else {
+	        return Response.status(Response.Status.UNAUTHORIZED).entity("User is not logged in").build();
+	    }
+	}
+	
+	/**
 	 * Creates a new loan.
 	 *
 	 * @param loanData the loan data to create

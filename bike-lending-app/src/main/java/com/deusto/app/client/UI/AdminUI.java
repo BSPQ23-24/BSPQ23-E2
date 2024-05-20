@@ -4,14 +4,10 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
-import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.List;
-import java.util.Locale;
-import java.util.ResourceBundle;
+
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -20,15 +16,13 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JSeparator;
+
 import javax.swing.JSplitPane;
 import javax.swing.JTable;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableCellRenderer;
-import javax.swing.table.TableCellRenderer;
+
 
 import com.deusto.app.client.controller.AdminController;
 import com.deusto.app.client.controller.BikeController;
@@ -37,7 +31,7 @@ import com.deusto.app.client.controller.UserController;
 import com.deusto.app.server.pojo.BicycleData;
 import com.deusto.app.server.pojo.LoanData;
 import com.deusto.app.server.pojo.StationData;
-import com.deusto.app.server.pojo.UserData;
+
 
 public class AdminUI extends JFrame {
     private JTable loansTable, nonAvailableBikesTable;
@@ -214,11 +208,17 @@ public class AdminUI extends JFrame {
 }
 
     private void logout() {
-    	JOptionPane.showMessageDialog(this, "See YOU!");
-    	new LoginUI();
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setVisible(false);
-        dispose();
+    	boolean logout = UserController.getInstance().logoutUser(UserController.getToken());
+    	
+    	if (logout) {
+            JOptionPane.showMessageDialog(AdminUI.this, "Logged out successfully.");
+            new LoginUI();
+            setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            setVisible(false);
+            dispose();
+    	} else {
+            JOptionPane.showMessageDialog(AdminUI.this, "Log out failed.");
+    	}
         
     }
     

@@ -7,8 +7,10 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableCellRenderer;
 
 import com.deusto.app.client.controller.BikeController;
+import com.deusto.app.client.controller.LoanController;
 import com.deusto.app.client.controller.UserController;
 import com.deusto.app.server.pojo.BicycleData;
+import com.deusto.app.server.pojo.LoanData;
 import com.deusto.app.server.pojo.StationData;
 
 import java.awt.*;
@@ -22,6 +24,9 @@ import java.util.ResourceBundle;
 public class DisplayStationsUI extends JFrame {
     private static final long serialVersionUID = 1L;
     private JTable stationTable;
+    private JPanel statusPanel; 
+    private JLabel statusLabel;
+    private JButton reportButton;
 
     private ResourceBundle translation;
 
@@ -88,12 +93,28 @@ public class DisplayStationsUI extends JFrame {
                     if (selectedRow != -1) {
                         StationData selectedStation = stations.get(selectedRow);
                         // Open another window to display bike details for the selected station
-                        displayBikeDetails(selectedStation);
+                        
                     }
                 }
             }
         });
 
+        statusPanel = new JPanel(new BorderLayout());
+        statusLabel = new JLabel("", SwingConstants.CENTER);
+        statusLabel.setFont(new Font("Arial", Font.BOLD, 16));
+        statusLabel.setForeground(Color.WHITE);
+        
+
+        reportButton = new JButton("REPORT");
+        reportButton.setFont(new Font("Arial", Font.BOLD, 16));
+        reportButton.setForeground(Color.WHITE);
+        reportButton.setBorderPainted(false);
+        statusPanel.add(reportButton, BorderLayout.EAST);
+        statusPanel.add(statusLabel, BorderLayout.CENTER);
+        updateStatusPanel(); // Call this method to set the initial state of the panel
+
+        mainPanel.add(statusPanel, BorderLayout.SOUTH);
+        
         JScrollPane scrollPane = new JScrollPane(stationTable);
         scrollPane.setBackground(new Color(0, 150, 136));
 
@@ -104,147 +125,42 @@ public class DisplayStationsUI extends JFrame {
 
         // Logout button setup
         JButton logoutButton = new JButton("Logout");
-        logoutButton.setFont(new Font("Arial", Font.BOLD, 14));
-        logoutButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-            	
-        		boolean logout = UserController.getInstance().logoutUser(UserController.getToken());
-            	
-            	if (logout) {
-                    JOptionPane.showMessageDialog(DisplayStationsUI.this, "Logged out successfully.");
-                    System.exit(0);
-            	} else {
-                    JOptionPane.showMessageDialog(DisplayStationsUI.this, "Log out failed.");
-            	}
+        logoutButton.setFont(new Font("Arial", Font.BOLD, 16));
+        logoutButton.setForeground(Color.WHITE);
+        logoutButton.setBackground(new Color(0, 150, 136));
+        logoutButton.addActionListener(e -> {
+        	boolean logout = UserController.getInstance().logoutUser(UserController.getToken());
+        	
+        	if (logout) {
+                JOptionPane.showMessageDialog(DisplayStationsUI.this, "Logged out successfully.");
+                new LoginUI();
+                setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                setVisible(false);
+                dispose();
+        	} else {
+                JOptionPane.showMessageDialog(DisplayStationsUI.this, "Log out failed.");
+        	}
 
-            }
         });
-
-        JPanel logoutPanel = new JPanel(new BorderLayout());
-        logoutPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-        logoutPanel.setBackground(new Color(0, 150, 136));
-        logoutPanel.add(logoutButton, BorderLayout.EAST);
-        mainPanel.add(logoutPanel, BorderLayout.NORTH);
+        logoutButton.setBorderPainted(false);
+        mainPanel.add(logoutButton, BorderLayout.NORTH);
 
         setVisible(true);
     }
-
-    private void displayBikeDetails(StationData station) {
-        // Create a new window to display bike details
-
-        JFrame bikeDetailsWindow = new JFrame(translation.getString("bike_details_for_station") + station.getId());
-        bikeDetailsWindow.setSize(400, 300);
-        bikeDetailsWindow.setSize(800, 600); // Adjusted size for better display
-        bikeDetailsWindow.setExtendedState(JFrame.MAXIMIZED_BOTH);
-
-        // Create a panel to hold the bike details
-        JPanel panel = new JPanel(new BorderLayout());
-        panel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
-        panel.setBackground(new Color(0, 150, 136));
-
-        // Iterate through the bike IDs of the selected station and display details for each bike
-        for (Integer bikeId : station.getBikeIds()) {
-            BicycleData bike = BikeController.getInstance().getBikeDetails(bikeId, UserController.getInstance().getToken());
-            
-            JLabel idLabel = new JLabel(translation.getString("ID") + ": " + bike.getId());
-            idLabel.setVerticalAlignment(SwingConstants.TOP); // Align text to the top
-            JLabel acquisitionDateLabel = new JLabel(translation.getString("acquisition_date") + ": " + bike.getAcquisitionDate());
-            acquisitionDateLabel.setVerticalAlignment(SwingConstants.TOP); // Align text to the top
-            JLabel typeLabel = new JLabel(translation.getString("bike_type") + ": " + bike.getType());
-            typeLabel.setVerticalAlignment(SwingConstants.TOP); // Align text to the top
-            JLabel isAvailableLabel = new JLabel(translation.getString("bike_is_available") + ": " + bike.isAvailable());
-            isAvailableLabel.setVerticalAlignment(SwingConstants.TOP); // Align text to the top
-            JLabel stationLabel = new JLabel(translation.getString("Station") + ": " + bike.getStationId());
-            stationLabel.setVerticalAlignment(SwingConstants.TOP); // Align text to the top
-
-            JPanel bikePanel = new JPanel(new GridLayout(5, 1));
-            bikePanel.add(idLabel);
-            bikePanel.add(acquisitionDateLabel);
-            bikePanel.add(typeLabel);
-            bikePanel.add(isAvailableLabel);
-            bikePanel.add(stationLabel);
-
-            panel.add(bikePanel);
-            panel.add(new JSeparator(SwingConstants.HORIZONTAL)); // Add a separator between bikes
+    
+    private void updateStatusPanel() {
+    	LoanData loan= LoanController.getInstance().isLoanActive(UserController.getToken());
+        if (loan!=null) {
+        	System.out.println(loan);
+            statusPanel.setBackground(Color.ORANGE);
+            statusLabel.setText("Tienes una bici activada");
+        } else {
+            statusPanel.setBackground(Color.BLUE);
+            reportButton.setBackground(Color.BLUE);
+            statusLabel.setText("Esperando a que alquiles una bici");
         }
-        // Fetch bike data
-        List<Integer> bikeIds = station.getBikeIds();
-        Object[][] bikeData = new Object[bikeIds.size()][5];
-        for (int i = 0; i < bikeIds.size(); i++) {
-            BicycleData bike = BikeController.getInstance().getBikeDetails(bikeIds.get(i), UserController.getInstance().getToken());
-            bikeData[i][0] = bike.getId();
-            bikeData[i][1] = bike.getAcquisitionDate();
-            bikeData[i][2] = bike.getType();
-            bikeData[i][3] = bike.isAvailable() ? "Yes" : "No";
-            bikeData[i][4] = bike.getStationId();
-
-        }
-
-        String[] bikeColumnNames = {"ID", "Acquisition Date", "Type", "Is Available", "Station"};
-
-        JTable bikeTable = new JTable(bikeData, bikeColumnNames) {
-            private static final long serialVersionUID = 1L;
-
-            @Override
-            public boolean isCellEditable(int row, int column) {
-                return false;
-            }
-
-            @Override
-            public Component prepareRenderer(TableCellRenderer renderer, int row, int column) {
-                Component comp = super.prepareRenderer(renderer, row, column);
-                if (column == 3) { // Check availability column
-                    String value = (String) getValueAt(row, column);
-                    comp.setForeground("Yes".equals(value) ? Color.GREEN : Color.RED);
-                } else {
-                    comp.setForeground(Color.BLACK);
-                }
-                return comp;
-            }
-        };
-        
-        // Bold and center align cell data
-        DefaultTableCellRenderer bikeCenterRenderer = new DefaultTableCellRenderer();
-        bikeCenterRenderer.setHorizontalAlignment(JLabel.CENTER);
-        bikeCenterRenderer.setFont(bikeTable.getFont().deriveFont(Font.BOLD));
-        bikeTable.setDefaultRenderer(Object.class, bikeCenterRenderer);
-
-        bikeTable.setFont(new Font("Arial", Font.PLAIN, 16));
-        bikeTable.setRowHeight(30);
-        bikeTable.setSelectionBackground(new Color(255, 114, 118));
-        bikeTable.getTableHeader().setFont(new Font("Arial", Font.BOLD, 18));
-        bikeTable.getTableHeader().setBackground(new Color(255, 114, 118));
-        bikeTable.getTableHeader().setForeground(Color.WHITE);
-
-        JScrollPane bikeScrollPane = new JScrollPane(bikeTable);
-        bikeScrollPane.setBackground(new Color(0, 150, 136));
-
-        panel.add(bikeScrollPane, BorderLayout.CENTER);
-
-        // Logout button setup for bike details window
-        JButton logoutButton = new JButton("Logout");
-        logoutButton.setFont(new Font("Arial", Font.BOLD, 14));
-        logoutButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-            	
-            	
-            	
-                JOptionPane.showMessageDialog(bikeDetailsWindow, "Logged out successfully.");
-                System.exit(0);
-            }
-        });
-
-        JPanel logoutPanel = new JPanel(new BorderLayout());
-        logoutPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-        logoutPanel.setBackground(new Color(0, 150, 136));
-        logoutPanel.add(logoutButton, BorderLayout.EAST);
-        panel.add(logoutPanel, BorderLayout.NORTH);
-
-        bikeDetailsWindow.add(panel);
-        bikeDetailsWindow.setVisible(true);
     }
+
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {

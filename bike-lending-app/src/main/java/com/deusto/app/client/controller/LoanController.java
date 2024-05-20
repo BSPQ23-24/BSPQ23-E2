@@ -2,6 +2,8 @@ package com.deusto.app.client.controller;
 
 import com.deusto.app.client.remote.ServiceLocator;
 import com.deusto.app.server.pojo.LoanData;
+
+import jakarta.ws.rs.QueryParam;
 import jakarta.ws.rs.client.Entity;
 import jakarta.ws.rs.client.Invocation;
 import jakarta.ws.rs.client.WebTarget;
@@ -73,6 +75,29 @@ public class LoanController {
             LogManager.getLogger(LoanController.class).error("Delete Loan Failed | Code: {} | Reason: {}",
                     response.getStatus(), response.readEntity(String.class));
             return false;
+        }
+    }
+    
+    /**
+	 * Check if the user has an active loan.
+	 *
+	 * @param token the user's authentication token
+	 * @return Response containing a boolean if the user has an active loan
+	 */
+    
+    public LoanData isLoanActive(@QueryParam("token") long token) {
+        LogManager.getLogger(LoanController.class).info("Do you have any loan active?");
+        WebTarget loanActive = ServiceLocator.getInstance().getWebTarget().path("bikeapp/loan/active")
+                																	.queryParam("token", token);
+        Invocation.Builder invocationBuilder = loanActive.request(MediaType.APPLICATION_JSON);
+
+        Response response = invocationBuilder.get();
+        if (response.getStatus() == Response.Status.OK.getStatusCode()) {
+            return response.readEntity(LoanData.class);
+        } else {
+            LogManager.getLogger(LoanController.class).error("Checking Loans Failed | Code: {} | Reason: {}",
+                    response.getStatus(), response.readEntity(String.class));
+            return null;
         }
     }
 

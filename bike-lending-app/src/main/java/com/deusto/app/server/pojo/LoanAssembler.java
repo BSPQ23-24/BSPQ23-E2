@@ -25,7 +25,7 @@ public class LoanAssembler {
         loanData.setStartHour(loan.getStartHour());
         loanData.setEndHour(loan.getEndHour());
         loanData.setBicycleId(loan.getBicycle().getId());
-        loanData.setUserDni(loan.getId());
+        loanData.setUserDni(loan.getUser().getDni());
         
         return loanData;
     }

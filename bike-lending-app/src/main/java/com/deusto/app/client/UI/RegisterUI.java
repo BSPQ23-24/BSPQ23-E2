@@ -11,16 +11,13 @@ import com.deusto.app.client.controller.UserController;
 import com.deusto.app.server.pojo.UserData;
 
 import java.awt.*;
-import java.awt.event.*;
+
 
 
 import java.util.Locale;
 import java.util.ResourceBundle;
 
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+
 import java.text.SimpleDateFormat;
 import java.util.Properties;
 
