@@ -1,5 +1,7 @@
 <map id="com.deusto.app.server.pojo.LoanData.getLoanDate" name="com.deusto.app.server.pojo.LoanData.getLoanDate">
-<area shape="rect" id="node1" title=" " alt="" coords="559,5,765,47"/>
+<area shape="rect" id="node1" title=" " alt="" coords="559,39,765,80"/>
 <area shape="rect" id="node2" href="$classcom_1_1deusto_1_1app_1_1server_1_1services_1_1_loan_service.html#a7f25bc6ef481bb1aa2cc0dcf8355a7d7" title=" " alt="" coords="279,5,511,47"/>
+<area shape="rect" id="node4" href="$classcom_1_1deusto_1_1app_1_1server_1_1services_1_1_loan_service.html#a1a79de28c21cb1fdae14c0c1a51228f2" title=" " alt="" coords="279,71,511,112"/>
 <area shape="rect" id="node3" href="$classcom_1_1deusto_1_1app_1_1server_1_1remote_1_1_resource_facade.html#a1d5e95f4462036693d6600f196b79785" title=" " alt="" coords="5,5,231,47"/>
+<area shape="rect" id="node5" href="$classcom_1_1deusto_1_1app_1_1server_1_1remote_1_1_resource_facade.html#af92eb6b2e13b05a3230eb55047112729" title=" " alt="" coords="5,71,231,112"/>
 </map>

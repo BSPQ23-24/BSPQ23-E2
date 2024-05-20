@@ -12,6 +12,7 @@ var classcom_1_1deusto_1_1app_1_1server_1_1remote_1_1_resource_facade =
     [ "getAvailableBikesInStation", "classcom_1_1deusto_1_1app_1_1server_1_1remote_1_1_resource_facade.html#adfd34fe8ae74c59c1c637de931861400", null ],
     [ "getBikeDetails", "classcom_1_1deusto_1_1app_1_1server_1_1remote_1_1_resource_facade.html#a020007dfc91d82ab9df4ab9c6e788421", null ],
     [ "isAdmin", "classcom_1_1deusto_1_1app_1_1server_1_1remote_1_1_resource_facade.html#a6c75697e38c5357b99926cc4759260ef", null ],
+    [ "isLoanActive", "classcom_1_1deusto_1_1app_1_1server_1_1remote_1_1_resource_facade.html#af92eb6b2e13b05a3230eb55047112729", null ],
     [ "loginUser", "classcom_1_1deusto_1_1app_1_1server_1_1remote_1_1_resource_facade.html#a0879c17c915b3dba51b7a4ced9dfaae9", null ],
     [ "logoutUser", "classcom_1_1deusto_1_1app_1_1server_1_1remote_1_1_resource_facade.html#a1bc6be00d134eb01a67f496c3a1034ef", null ],
     [ "registerUser", "classcom_1_1deusto_1_1app_1_1server_1_1remote_1_1_resource_facade.html#a12ca580d21ea4169601eb49eb2a5937f", null ],

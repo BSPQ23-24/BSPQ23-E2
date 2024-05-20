@@ -120,6 +120,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a6c75697e38c5357b99926cc4759260ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af7bbb58b383944fe3e6f36474c2b7272"><td class="memItemLeft" align="right" valign="top">Response&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcom_1_1deusto_1_1app_1_1server_1_1remote_1_1_resource_facade.html#af7bbb58b383944fe3e6f36474c2b7272">getAllLoans</a> (@QueryParam(&quot;token&quot;) long token)</td></tr>
 <tr class="separator:af7bbb58b383944fe3e6f36474c2b7272"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af92eb6b2e13b05a3230eb55047112729"><td class="memItemLeft" align="right" valign="top">Response&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcom_1_1deusto_1_1app_1_1server_1_1remote_1_1_resource_facade.html#af92eb6b2e13b05a3230eb55047112729">isLoanActive</a> (@QueryParam(&quot;token&quot;) long token)</td></tr>
+<tr class="separator:af92eb6b2e13b05a3230eb55047112729"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1d5e95f4462036693d6600f196b79785"><td class="memItemLeft" align="right" valign="top">Response&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcom_1_1deusto_1_1app_1_1server_1_1remote_1_1_resource_facade.html#a1d5e95f4462036693d6600f196b79785">createLoan</a> (<a class="el" href="classcom_1_1deusto_1_1app_1_1server_1_1pojo_1_1_loan_data.html">LoanData</a> loanData, @QueryParam(&quot;token&quot;) long token)</td></tr>
 <tr class="separator:a1d5e95f4462036693d6600f196b79785"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7b073b24a6eb9f2eef38b8668d907de8"><td class="memItemLeft" align="right" valign="top">Response&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcom_1_1deusto_1_1app_1_1server_1_1remote_1_1_resource_facade.html#a7b073b24a6eb9f2eef38b8668d907de8">deleteLoan</a> (@PathParam(&quot;loanId&quot;) int loanId, @QueryParam(&quot;token&quot;) long token)</td></tr>
@@ -331,7 +333,7 @@ Here is the call graph for this function:</div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Response indicating success or failure of loan creation </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="_resource_facade_8java_source.html#l00359">359</a> of file <a class="el" href="_resource_facade_8java_source.html">ResourceFacade.java</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_resource_facade_8java_source.html#l00376">376</a> of file <a class="el" href="_resource_facade_8java_source.html">ResourceFacade.java</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -394,7 +396,7 @@ Here is the call graph for this function:</div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Response indicating success or failure of loan deletion </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="_resource_facade_8java_source.html#l00381">381</a> of file <a class="el" href="_resource_facade_8java_source.html">ResourceFacade.java</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_resource_facade_8java_source.html#l00398">398</a> of file <a class="el" href="_resource_facade_8java_source.html">ResourceFacade.java</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -585,17 +587,28 @@ Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="classcom_1_1deusto_1_1app_1_1server_1_1remote_1_1_resource_facade_af7bbb58b383944fe3e6f36474c2b7272_cgraph.png" border="0" usemap="#aclasscom_1_1deusto_1_1app_1_1server_1_1remote_1_1_resource_facade_af7bbb58b383944fe3e6f36474c2b7272_cgraph" alt=""/></div>
 <map name="aclasscom_1_1deusto_1_1app_1_1server_1_1remote_1_1_resource_facade_af7bbb58b383944fe3e6f36474c2b7272_cgraph" id="aclasscom_1_1deusto_1_1app_1_1server_1_1remote_1_1_resource_facade_af7bbb58b383944fe3e6f36474c2b7272_cgraph">
-<area shape="rect" title=" " alt="" coords="5,267,231,308"/>
-<area shape="rect" href="classcom_1_1deusto_1_1app_1_1server_1_1services_1_1_loan_service.html#ace3f5405ebc70bcd19ff95a33ee50667" title=" " alt="" coords="279,168,511,209"/>
-<area shape="rect" href="classcom_1_1deusto_1_1app_1_1server_1_1services_1_1_loan_service.html#a63921eb0aeec0a5aa2eddc5c62eaf4d4" title=" " alt="" coords="279,233,511,275"/>
-<area shape="rect" href="classcom_1_1deusto_1_1app_1_1server_1_1services_1_1_user_service.html#a1b7c83ab78758d99793ce63df847be7c" title=" " alt="" coords="279,299,511,340"/>
-<area shape="rect" href="classcom_1_1deusto_1_1app_1_1server_1_1services_1_1_user_service.html#a6e516cfcceae38c2e1c1aede375c15eb" title=" " alt="" coords="279,364,511,405"/>
-<area shape="rect" href="classcom_1_1deusto_1_1app_1_1server_1_1pojo_1_1_loan_data.html#a80828af97c3d10a8ccdb0f6d678ab72e" title=" " alt="" coords="559,5,765,47"/>
-<area shape="rect" href="classcom_1_1deusto_1_1app_1_1server_1_1pojo_1_1_loan_data.html#a78f0ae4eb09f8d9b114da4fd8d5bae9d" title=" " alt="" coords="559,71,765,112"/>
-<area shape="rect" href="classcom_1_1deusto_1_1app_1_1server_1_1pojo_1_1_loan_data.html#a9a0cd437412a659383d3cea0e72cd683" title=" " alt="" coords="559,136,765,177"/>
-<area shape="rect" href="classcom_1_1deusto_1_1app_1_1server_1_1pojo_1_1_loan_data.html#a8ef974236dc539d7b566e0726f60a2f0" title=" " alt="" coords="559,201,765,243"/>
-<area shape="rect" href="classcom_1_1deusto_1_1app_1_1server_1_1pojo_1_1_loan_data.html#a48d713aae41d2068cd5fea29639212b5" title=" " alt="" coords="559,267,765,308"/>
-<area shape="rect" href="classcom_1_1deusto_1_1app_1_1server_1_1pojo_1_1_loan_data.html#a02b20283bfb046159660127e863ae207" title=" " alt="" coords="559,332,765,373"/>
+<area shape="rect" title=" " alt="" coords="5,496,231,537"/>
+<area shape="rect" href="classcom_1_1deusto_1_1app_1_1server_1_1services_1_1_loan_service.html#ace3f5405ebc70bcd19ff95a33ee50667" title=" " alt="" coords="279,397,511,439"/>
+<area shape="rect" href="classcom_1_1deusto_1_1app_1_1server_1_1services_1_1_loan_service.html#a63921eb0aeec0a5aa2eddc5c62eaf4d4" title=" " alt="" coords="279,463,511,504"/>
+<area shape="rect" href="classcom_1_1deusto_1_1app_1_1server_1_1services_1_1_user_service.html#a1b7c83ab78758d99793ce63df847be7c" title=" " alt="" coords="279,528,511,569"/>
+<area shape="rect" href="classcom_1_1deusto_1_1app_1_1server_1_1services_1_1_user_service.html#a6e516cfcceae38c2e1c1aede375c15eb" title=" " alt="" coords="279,593,511,635"/>
+<area shape="rect" href="classcom_1_1deusto_1_1app_1_1server_1_1pojo_1_1_loan_assembler.html#a0a7c3cccfd4e5e33a6abe3c8c4cf8656" title=" " alt="" coords="559,365,765,407"/>
+<area shape="rect" href="classcom_1_1deusto_1_1app_1_1server_1_1pojo_1_1_loan_assembler.html#a92b1dbe22c306fd1ad949d377d23be58" title=" " alt="" coords="559,431,765,472"/>
+<area shape="rect" href="classcom_1_1deusto_1_1app_1_1server_1_1pojo_1_1_loan_assembler.html#a472b7bfed3f3b2cbb50293783a11893a" title=" " alt="" coords="813,431,1020,472"/>
+<area shape="rect" href="classcom_1_1deusto_1_1app_1_1server_1_1data_1_1domain_1_1_loan.html#a5f9246d3b8a914d4e17de561c711d4fe" title=" " alt="" coords="1068,5,1328,47"/>
+<area shape="rect" href="classcom_1_1deusto_1_1app_1_1server_1_1data_1_1domain_1_1_user.html#a36c4782ded6f2eadbbd446143873497b" title=" " alt="" coords="1068,71,1328,112"/>
+<area shape="rect" href="classcom_1_1deusto_1_1app_1_1server_1_1data_1_1domain_1_1_loan.html#a1b9029b0b9a97639d26c148ed3ac8c14" title=" " alt="" coords="1068,136,1328,177"/>
+<area shape="rect" href="classcom_1_1deusto_1_1app_1_1server_1_1data_1_1domain_1_1_bicycle.html#a83ac54e2feb818fbe9f0d86b9b6df66a" title=" " alt="" coords="1068,201,1328,243"/>
+<area shape="rect" href="classcom_1_1deusto_1_1app_1_1server_1_1data_1_1domain_1_1_loan.html#a4c8cf7b5e49e7e9624e6e28c78ad340c" title=" " alt="" coords="1068,267,1328,308"/>
+<area shape="rect" href="classcom_1_1deusto_1_1app_1_1server_1_1data_1_1domain_1_1_loan.html#acd0e959feec3cb539af179ebbd1d88fe" title=" " alt="" coords="1068,332,1328,373"/>
+<area shape="rect" href="classcom_1_1deusto_1_1app_1_1server_1_1data_1_1domain_1_1_loan.html#abf9505f03f3f3b564ca5f932335b7980" title=" " alt="" coords="1068,397,1328,439"/>
+<area shape="rect" href="classcom_1_1deusto_1_1app_1_1server_1_1data_1_1domain_1_1_loan.html#a87480b3c4a769950222cac1423043803" title=" " alt="" coords="1068,463,1328,504"/>
+<area shape="rect" href="classcom_1_1deusto_1_1app_1_1server_1_1pojo_1_1_loan_data.html#a80828af97c3d10a8ccdb0f6d678ab72e" title=" " alt="" coords="1095,528,1301,569"/>
+<area shape="rect" href="classcom_1_1deusto_1_1app_1_1server_1_1pojo_1_1_loan_data.html#a78f0ae4eb09f8d9b114da4fd8d5bae9d" title=" " alt="" coords="1095,593,1301,635"/>
+<area shape="rect" href="classcom_1_1deusto_1_1app_1_1server_1_1pojo_1_1_loan_data.html#a9a0cd437412a659383d3cea0e72cd683" title=" " alt="" coords="1095,659,1301,700"/>
+<area shape="rect" href="classcom_1_1deusto_1_1app_1_1server_1_1pojo_1_1_loan_data.html#a8ef974236dc539d7b566e0726f60a2f0" title=" " alt="" coords="1095,724,1301,765"/>
+<area shape="rect" href="classcom_1_1deusto_1_1app_1_1server_1_1pojo_1_1_loan_data.html#a48d713aae41d2068cd5fea29639212b5" title=" " alt="" coords="1095,789,1301,831"/>
+<area shape="rect" href="classcom_1_1deusto_1_1app_1_1server_1_1pojo_1_1_loan_data.html#a4f620ff109f575a91b45a2b69d892834" title=" " alt="" coords="1095,855,1301,896"/>
 </map>
 </div>
 
@@ -764,6 +777,68 @@ Here is the call graph for this function:</div>
 <area shape="rect" href="classcom_1_1deusto_1_1app_1_1server_1_1services_1_1_user_service.html#ac695917b586c56fbdb7e5b2e63110e5c" title=" " alt="" coords="279,71,511,112"/>
 <area shape="rect" href="classcom_1_1deusto_1_1app_1_1server_1_1services_1_1_user_service.html#a6e516cfcceae38c2e1c1aede375c15eb" title=" " alt="" coords="279,136,511,177"/>
 <area shape="rect" href="classcom_1_1deusto_1_1app_1_1server_1_1data_1_1domain_1_1_user.html#ae1344ba6fe4b6fadf4d006eddfdd5c5a" title=" " alt="" coords="559,71,819,112"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="af92eb6b2e13b05a3230eb55047112729"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af92eb6b2e13b05a3230eb55047112729">&#9670;&nbsp;</a></span>isLoanActive()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Response com.deusto.app.server.remote.ResourceFacade.isLoanActive </td>
+          <td>(</td>
+          <td class="paramtype">@QueryParam(&quot;token&quot;) long&#160;</td>
+          <td class="paramname"><em>token</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Check if the user has an active loan.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">token</td><td>the user's authentication token </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Response containing a boolean if the user has an active loan </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="_resource_facade_8java_source.html#l00358">358</a> of file <a class="el" href="_resource_facade_8java_source.html">ResourceFacade.java</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classcom_1_1deusto_1_1app_1_1server_1_1remote_1_1_resource_facade_af92eb6b2e13b05a3230eb55047112729_cgraph.png" border="0" usemap="#aclasscom_1_1deusto_1_1app_1_1server_1_1remote_1_1_resource_facade_af92eb6b2e13b05a3230eb55047112729_cgraph" alt=""/></div>
+<map name="aclasscom_1_1deusto_1_1app_1_1server_1_1remote_1_1_resource_facade_af92eb6b2e13b05a3230eb55047112729_cgraph" id="aclasscom_1_1deusto_1_1app_1_1server_1_1remote_1_1_resource_facade_af92eb6b2e13b05a3230eb55047112729_cgraph">
+<area shape="rect" title=" " alt="" coords="5,728,231,769"/>
+<area shape="rect" href="classcom_1_1deusto_1_1app_1_1server_1_1services_1_1_loan_service.html#a63921eb0aeec0a5aa2eddc5c62eaf4d4" title=" " alt="" coords="279,640,511,681"/>
+<area shape="rect" href="classcom_1_1deusto_1_1app_1_1server_1_1services_1_1_user_service.html#a1b7c83ab78758d99793ce63df847be7c" title=" " alt="" coords="559,597,791,639"/>
+<area shape="rect" href="classcom_1_1deusto_1_1app_1_1server_1_1services_1_1_loan_service.html#a1a79de28c21cb1fdae14c0c1a51228f2" title=" " alt="" coords="279,757,511,799"/>
+<area shape="rect" href="classcom_1_1deusto_1_1app_1_1server_1_1services_1_1_user_service.html#a6e516cfcceae38c2e1c1aede375c15eb" title=" " alt="" coords="279,823,511,864"/>
+<area shape="rect" href="classcom_1_1deusto_1_1app_1_1server_1_1services_1_1_loan_service.html#ace3f5405ebc70bcd19ff95a33ee50667" title=" " alt="" coords="559,728,791,769"/>
+<area shape="rect" href="classcom_1_1deusto_1_1app_1_1server_1_1data_1_1domain_1_1_user.html#a36c4782ded6f2eadbbd446143873497b" title=" " alt="" coords="1348,855,1608,896"/>
+<area shape="rect" href="classcom_1_1deusto_1_1app_1_1server_1_1pojo_1_1_loan_data.html#a6f81d5f1a475d9e35f8838913c7be87f" title=" " alt="" coords="571,845,778,887"/>
+<area shape="rect" href="classcom_1_1deusto_1_1app_1_1server_1_1pojo_1_1_loan_data.html#ac97bc4003ef28193c40b5d07b1bec6f6" title=" " alt="" coords="571,911,778,952"/>
+<area shape="rect" href="classcom_1_1deusto_1_1app_1_1server_1_1pojo_1_1_loan_data.html#a8e7421103242fe469d06905ab82b04bf" title=" " alt="" coords="571,976,778,1017"/>
+<area shape="rect" href="classcom_1_1deusto_1_1app_1_1server_1_1services_1_1_user_service.html#a505f9958c938eda7bf5dd1d6dc901c77" title=" " alt="" coords="559,663,791,704"/>
+<area shape="rect" href="classcom_1_1deusto_1_1app_1_1server_1_1pojo_1_1_loan_assembler.html#a0a7c3cccfd4e5e33a6abe3c8c4cf8656" title=" " alt="" coords="839,728,1045,769"/>
+<area shape="rect" href="classcom_1_1deusto_1_1app_1_1server_1_1pojo_1_1_loan_assembler.html#a92b1dbe22c306fd1ad949d377d23be58" title=" " alt="" coords="839,529,1045,571"/>
+<area shape="rect" href="classcom_1_1deusto_1_1app_1_1server_1_1pojo_1_1_loan_assembler.html#a472b7bfed3f3b2cbb50293783a11893a" title=" " alt="" coords="1093,463,1300,504"/>
+<area shape="rect" href="classcom_1_1deusto_1_1app_1_1server_1_1data_1_1domain_1_1_loan.html#a5f9246d3b8a914d4e17de561c711d4fe" title=" " alt="" coords="1348,71,1608,112"/>
+<area shape="rect" href="classcom_1_1deusto_1_1app_1_1server_1_1data_1_1domain_1_1_loan.html#a1b9029b0b9a97639d26c148ed3ac8c14" title=" " alt="" coords="1348,136,1608,177"/>
+<area shape="rect" href="classcom_1_1deusto_1_1app_1_1server_1_1data_1_1domain_1_1_bicycle.html#a83ac54e2feb818fbe9f0d86b9b6df66a" title=" " alt="" coords="1348,201,1608,243"/>
+<area shape="rect" href="classcom_1_1deusto_1_1app_1_1server_1_1data_1_1domain_1_1_loan.html#a4c8cf7b5e49e7e9624e6e28c78ad340c" title=" " alt="" coords="1348,267,1608,308"/>
+<area shape="rect" href="classcom_1_1deusto_1_1app_1_1server_1_1data_1_1domain_1_1_loan.html#acd0e959feec3cb539af179ebbd1d88fe" title=" " alt="" coords="1348,332,1608,373"/>
+<area shape="rect" href="classcom_1_1deusto_1_1app_1_1server_1_1data_1_1domain_1_1_loan.html#abf9505f03f3f3b564ca5f932335b7980" title=" " alt="" coords="1348,397,1608,439"/>
+<area shape="rect" href="classcom_1_1deusto_1_1app_1_1server_1_1data_1_1domain_1_1_loan.html#a87480b3c4a769950222cac1423043803" title=" " alt="" coords="1348,463,1608,504"/>
+<area shape="rect" href="classcom_1_1deusto_1_1app_1_1server_1_1pojo_1_1_loan_data.html#a80828af97c3d10a8ccdb0f6d678ab72e" title=" " alt="" coords="1375,528,1581,569"/>
+<area shape="rect" href="classcom_1_1deusto_1_1app_1_1server_1_1pojo_1_1_loan_data.html#a78f0ae4eb09f8d9b114da4fd8d5bae9d" title=" " alt="" coords="1375,593,1581,635"/>
+<area shape="rect" href="classcom_1_1deusto_1_1app_1_1server_1_1pojo_1_1_loan_data.html#a9a0cd437412a659383d3cea0e72cd683" title=" " alt="" coords="1375,659,1581,700"/>
+<area shape="rect" href="classcom_1_1deusto_1_1app_1_1server_1_1pojo_1_1_loan_data.html#a8ef974236dc539d7b566e0726f60a2f0" title=" " alt="" coords="1375,724,1581,765"/>
+<area shape="rect" href="classcom_1_1deusto_1_1app_1_1server_1_1pojo_1_1_loan_data.html#a48d713aae41d2068cd5fea29639212b5" title=" " alt="" coords="1375,789,1581,831"/>
+<area shape="rect" href="classcom_1_1deusto_1_1app_1_1server_1_1pojo_1_1_loan_data.html#a4f620ff109f575a91b45a2b69d892834" title=" " alt="" coords="1375,5,1581,47"/>
 </map>
 </div>
 

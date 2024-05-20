@@ -1,5 +1,5 @@
 <map id="com.deusto.app.client.remote.ServiceLocator.getWebTarget" name="com.deusto.app.client.remote.ServiceLocator.getWebTarget">
-<area shape="rect" id="node1" title=" " alt="" coords="619,528,840,569"/>
+<area shape="rect" id="node1" title=" " alt="" coords="619,561,840,603"/>
 <area shape="rect" id="node2" href="$classcom_1_1deusto_1_1app_1_1client_1_1controller_1_1_admin_controller.html#a0f40f604e2cad2f1c985d08ba6a3bce7" title=" " alt="" coords="308,5,543,47"/>
 <area shape="rect" id="node3" href="$classcom_1_1deusto_1_1app_1_1client_1_1controller_1_1_admin_controller.html#a7de1bc088aa88b25ec7d173a3dd36827" title=" " alt="" coords="308,71,543,112"/>
 <area shape="rect" id="node4" href="$classcom_1_1deusto_1_1app_1_1client_1_1controller_1_1_user_controller.html#a7a36571d4e79f7281d63bc5348821d89" title=" " alt="" coords="308,136,543,177"/>
@@ -13,10 +13,11 @@
 <area shape="rect" id="node13" href="$classcom_1_1deusto_1_1app_1_1client_1_1controller_1_1_bike_controller.html#a47b1d1de41488d94db341b965c343f25" title=" " alt="" coords="280,659,571,700"/>
 <area shape="rect" id="node14" href="$classcom_1_1deusto_1_1app_1_1client_1_1controller_1_1_bike_controller.html#a0eff44e441b01cee5a589144a384e952" title=" " alt="" coords="308,724,543,765"/>
 <area shape="rect" id="node16" href="$classcom_1_1deusto_1_1app_1_1client_1_1controller_1_1_admin_controller.html#a89078131b7e9d03c59d5621353dc0496" title=" " alt="" coords="308,789,543,831"/>
-<area shape="rect" id="node17" href="$classcom_1_1deusto_1_1app_1_1client_1_1controller_1_1_user_controller.html#a7a3bfe68f9f8554b865a1717ef9e93b5" title=" " alt="" coords="308,855,543,896"/>
-<area shape="rect" id="node18" href="$classcom_1_1deusto_1_1app_1_1client_1_1controller_1_1_user_controller.html#ae9cdb967fb3c75bdca8e7711dda5ee8f" title=" " alt="" coords="308,920,543,961"/>
-<area shape="rect" id="node19" href="$classcom_1_1deusto_1_1app_1_1client_1_1controller_1_1_user_controller.html#aba3fed7866ccfa02afa761a7b11e03db" title=" " alt="" coords="308,985,543,1027"/>
-<area shape="rect" id="node20" href="$classcom_1_1deusto_1_1app_1_1client_1_1controller_1_1_bike_controller.html#ad87bd0823bce8e21a846d16fef84e40b" title=" " alt="" coords="308,1051,543,1092"/>
+<area shape="rect" id="node17" href="$classcom_1_1deusto_1_1app_1_1client_1_1controller_1_1_loan_controller.html#ad2694249f4d832161c9b07b7cfc171f3" title=" " alt="" coords="308,855,543,896"/>
+<area shape="rect" id="node18" href="$classcom_1_1deusto_1_1app_1_1client_1_1controller_1_1_user_controller.html#a7a3bfe68f9f8554b865a1717ef9e93b5" title=" " alt="" coords="308,920,543,961"/>
+<area shape="rect" id="node19" href="$classcom_1_1deusto_1_1app_1_1client_1_1controller_1_1_user_controller.html#ae9cdb967fb3c75bdca8e7711dda5ee8f" title=" " alt="" coords="308,985,543,1027"/>
+<area shape="rect" id="node20" href="$classcom_1_1deusto_1_1app_1_1client_1_1controller_1_1_user_controller.html#aba3fed7866ccfa02afa761a7b11e03db" title=" " alt="" coords="308,1051,543,1092"/>
+<area shape="rect" id="node21" href="$classcom_1_1deusto_1_1app_1_1client_1_1controller_1_1_bike_controller.html#ad87bd0823bce8e21a846d16fef84e40b" title=" " alt="" coords="308,1116,543,1157"/>
 <area shape="rect" id="node11" href="$classcom_1_1deusto_1_1app_1_1client_1_1_u_i_1_1_create_bike_u_i.html#a6611ba28a91cda8dd8c5134a46c54e8c" title=" " alt="" coords="21,528,217,569"/>
 <area shape="rect" id="node15" href="$classcom_1_1deusto_1_1app_1_1client_1_1_u_i_1_1_bicycle_detail_u_i.html#aad79df4b3bb7183bacbbf882d4c829ec" title=" " alt="" coords="5,724,232,765"/>
 </map>

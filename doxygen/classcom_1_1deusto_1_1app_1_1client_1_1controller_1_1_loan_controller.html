@@ -99,6 +99,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a76b7c7b3c526d532529922d123dfe884"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acd095526899852a13dedbad1d7a59e96"><td class="memItemLeft" align="right" valign="top">boolean&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcom_1_1deusto_1_1app_1_1client_1_1controller_1_1_loan_controller.html#acd095526899852a13dedbad1d7a59e96">deleteLoan</a> (int loanId)</td></tr>
 <tr class="separator:acd095526899852a13dedbad1d7a59e96"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad2694249f4d832161c9b07b7cfc171f3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classcom_1_1deusto_1_1app_1_1server_1_1pojo_1_1_loan_data.html">LoanData</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcom_1_1deusto_1_1app_1_1client_1_1controller_1_1_loan_controller.html#ad2694249f4d832161c9b07b7cfc171f3">isLoanActive</a> (@QueryParam(&quot;token&quot;) long token)</td></tr>
+<tr class="separator:ad2694249f4d832161c9b07b7cfc171f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
@@ -107,7 +109,7 @@ Static Public Member Functions</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock">
-<p class="definition">Definition at line <a class="el" href="_loan_controller_8java_source.html#l00015">15</a> of file <a class="el" href="_loan_controller_8java_source.html">LoanController.java</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_loan_controller_8java_source.html#l00017">17</a> of file <a class="el" href="_loan_controller_8java_source.html">LoanController.java</a>.</p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="a76b7c7b3c526d532529922d123dfe884"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a76b7c7b3c526d532529922d123dfe884">&#9670;&nbsp;</a></span>createLoan()</h2>
@@ -125,7 +127,7 @@ Static Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_loan_controller_8java_source.html#l00045">45</a> of file <a class="el" href="_loan_controller_8java_source.html">LoanController.java</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_loan_controller_8java_source.html#l00047">47</a> of file <a class="el" href="_loan_controller_8java_source.html">LoanController.java</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -156,7 +158,7 @@ Here is the call graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_loan_controller_8java_source.html#l00062">62</a> of file <a class="el" href="_loan_controller_8java_source.html">LoanController.java</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_loan_controller_8java_source.html#l00064">64</a> of file <a class="el" href="_loan_controller_8java_source.html">LoanController.java</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -186,7 +188,7 @@ Here is the call graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_loan_controller_8java_source.html#l00028">28</a> of file <a class="el" href="_loan_controller_8java_source.html">LoanController.java</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_loan_controller_8java_source.html#l00030">30</a> of file <a class="el" href="_loan_controller_8java_source.html">LoanController.java</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -224,7 +226,45 @@ Here is the call graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_loan_controller_8java_source.html#l00021">21</a> of file <a class="el" href="_loan_controller_8java_source.html">LoanController.java</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_loan_controller_8java_source.html#l00023">23</a> of file <a class="el" href="_loan_controller_8java_source.html">LoanController.java</a>.</p>
+
+</div>
+</div>
+<a id="ad2694249f4d832161c9b07b7cfc171f3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad2694249f4d832161c9b07b7cfc171f3">&#9670;&nbsp;</a></span>isLoanActive()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classcom_1_1deusto_1_1app_1_1server_1_1pojo_1_1_loan_data.html">LoanData</a> com.deusto.app.client.controller.LoanController.isLoanActive </td>
+          <td>(</td>
+          <td class="paramtype">@QueryParam(&quot;token&quot;) long&#160;</td>
+          <td class="paramname"><em>token</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Check if the user has an active loan.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">token</td><td>the user's authentication token </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Response containing a boolean if the user has an active loan </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="_loan_controller_8java_source.html#l00088">88</a> of file <a class="el" href="_loan_controller_8java_source.html">LoanController.java</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classcom_1_1deusto_1_1app_1_1client_1_1controller_1_1_loan_controller_ad2694249f4d832161c9b07b7cfc171f3_cgraph.png" border="0" usemap="#aclasscom_1_1deusto_1_1app_1_1client_1_1controller_1_1_loan_controller_ad2694249f4d832161c9b07b7cfc171f3_cgraph" alt=""/></div>
+<map name="aclasscom_1_1deusto_1_1app_1_1client_1_1controller_1_1_loan_controller_ad2694249f4d832161c9b07b7cfc171f3_cgraph" id="aclasscom_1_1deusto_1_1app_1_1client_1_1controller_1_1_loan_controller_ad2694249f4d832161c9b07b7cfc171f3_cgraph">
+<area shape="rect" title=" " alt="" coords="5,39,240,80"/>
+<area shape="rect" href="classcom_1_1deusto_1_1app_1_1client_1_1remote_1_1_service_locator.html#a1bbad089c98e858ca94692c58e9c1b69" title=" " alt="" coords="288,5,509,47"/>
+<area shape="rect" href="classcom_1_1deusto_1_1app_1_1client_1_1remote_1_1_service_locator.html#a485e52addfec6696493877e59276f671" title=" " alt="" coords="288,71,509,112"/>
+</map>
+</div>
 
 </div>
 </div>

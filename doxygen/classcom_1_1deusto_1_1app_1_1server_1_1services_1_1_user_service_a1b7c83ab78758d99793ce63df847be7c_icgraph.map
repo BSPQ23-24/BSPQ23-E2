@@ -1,18 +1,20 @@
 <map id="com.deusto.app.server.services.UserService.getInstance" name="com.deusto.app.server.services.UserService.getInstance">
-<area shape="rect" id="node1" title=" " alt="" coords="344,463,576,504"/>
-<area shape="rect" id="node2" href="$classcom_1_1deusto_1_1app_1_1server_1_1remote_1_1_resource_facade.html#ac469eb7043c7d33cb94298456589b3fe" title=" " alt="" coords="38,5,263,47"/>
-<area shape="rect" id="node3" href="$classcom_1_1deusto_1_1app_1_1server_1_1remote_1_1_resource_facade.html#ac6ea163da26b882c67d9656f831fe0a6" title=" " alt="" coords="38,71,263,112"/>
-<area shape="rect" id="node4" href="$classcom_1_1deusto_1_1app_1_1server_1_1remote_1_1_resource_facade.html#a82715e328ff1eaaf704216329e011339" title=" " alt="" coords="31,136,270,177"/>
-<area shape="rect" id="node5" href="$classcom_1_1deusto_1_1app_1_1server_1_1remote_1_1_resource_facade.html#a1d5e95f4462036693d6600f196b79785" title=" " alt="" coords="38,201,263,243"/>
-<area shape="rect" id="node6" href="$classcom_1_1deusto_1_1app_1_1server_1_1remote_1_1_resource_facade.html#a7b073b24a6eb9f2eef38b8668d907de8" title=" " alt="" coords="38,267,263,308"/>
-<area shape="rect" id="node7" href="$classcom_1_1deusto_1_1app_1_1server_1_1remote_1_1_resource_facade.html#a1495c48c00405ca835afa6eb991ef34b" title=" " alt="" coords="38,332,263,373"/>
-<area shape="rect" id="node8" href="$classcom_1_1deusto_1_1app_1_1server_1_1remote_1_1_resource_facade.html#accbbcee69210c89105800bda94145f04" title=" " alt="" coords="5,397,296,439"/>
-<area shape="rect" id="node9" href="$classcom_1_1deusto_1_1app_1_1server_1_1remote_1_1_resource_facade.html#a315ad98b67aad295058874de347e5490" title=" " alt="" coords="35,463,266,504"/>
-<area shape="rect" id="node10" href="$classcom_1_1deusto_1_1app_1_1server_1_1remote_1_1_resource_facade.html#af7bbb58b383944fe3e6f36474c2b7272" title=" " alt="" coords="38,528,263,569"/>
-<area shape="rect" id="node11" href="$classcom_1_1deusto_1_1app_1_1server_1_1remote_1_1_resource_facade.html#adfd34fe8ae74c59c1c637de931861400" title=" " alt="" coords="27,594,274,650"/>
-<area shape="rect" id="node12" href="$classcom_1_1deusto_1_1app_1_1server_1_1remote_1_1_resource_facade.html#a020007dfc91d82ab9df4ab9c6e788421" title=" " alt="" coords="37,675,264,716"/>
-<area shape="rect" id="node13" href="$classcom_1_1deusto_1_1app_1_1server_1_1remote_1_1_resource_facade.html#a6c75697e38c5357b99926cc4759260ef" title=" " alt="" coords="38,740,263,781"/>
-<area shape="rect" id="node14" href="$classcom_1_1deusto_1_1app_1_1server_1_1remote_1_1_resource_facade.html#a0879c17c915b3dba51b7a4ced9dfaae9" title=" " alt="" coords="38,805,263,847"/>
-<area shape="rect" id="node15" href="$classcom_1_1deusto_1_1app_1_1server_1_1remote_1_1_resource_facade.html#a1bc6be00d134eb01a67f496c3a1034ef" title=" " alt="" coords="38,871,263,912"/>
-<area shape="rect" id="node16" href="$classcom_1_1deusto_1_1app_1_1server_1_1remote_1_1_resource_facade.html#a12ca580d21ea4169601eb49eb2a5937f" title=" " alt="" coords="38,936,263,977"/>
+<area shape="rect" id="node1" title=" " alt="" coords="617,528,849,569"/>
+<area shape="rect" id="node2" href="$classcom_1_1deusto_1_1app_1_1server_1_1remote_1_1_resource_facade.html#ac469eb7043c7d33cb94298456589b3fe" title=" " alt="" coords="311,5,537,47"/>
+<area shape="rect" id="node3" href="$classcom_1_1deusto_1_1app_1_1server_1_1remote_1_1_resource_facade.html#ac6ea163da26b882c67d9656f831fe0a6" title=" " alt="" coords="311,71,537,112"/>
+<area shape="rect" id="node4" href="$classcom_1_1deusto_1_1app_1_1server_1_1remote_1_1_resource_facade.html#a82715e328ff1eaaf704216329e011339" title=" " alt="" coords="305,136,543,177"/>
+<area shape="rect" id="node5" href="$classcom_1_1deusto_1_1app_1_1server_1_1remote_1_1_resource_facade.html#a1d5e95f4462036693d6600f196b79785" title=" " alt="" coords="311,201,537,243"/>
+<area shape="rect" id="node6" href="$classcom_1_1deusto_1_1app_1_1server_1_1remote_1_1_resource_facade.html#a7b073b24a6eb9f2eef38b8668d907de8" title=" " alt="" coords="311,267,537,308"/>
+<area shape="rect" id="node7" href="$classcom_1_1deusto_1_1app_1_1server_1_1remote_1_1_resource_facade.html#a1495c48c00405ca835afa6eb991ef34b" title=" " alt="" coords="311,332,537,373"/>
+<area shape="rect" id="node8" href="$classcom_1_1deusto_1_1app_1_1server_1_1remote_1_1_resource_facade.html#accbbcee69210c89105800bda94145f04" title=" " alt="" coords="279,397,569,439"/>
+<area shape="rect" id="node9" href="$classcom_1_1deusto_1_1app_1_1server_1_1remote_1_1_resource_facade.html#a315ad98b67aad295058874de347e5490" title=" " alt="" coords="309,463,539,504"/>
+<area shape="rect" id="node10" href="$classcom_1_1deusto_1_1app_1_1server_1_1remote_1_1_resource_facade.html#af7bbb58b383944fe3e6f36474c2b7272" title=" " alt="" coords="311,528,537,569"/>
+<area shape="rect" id="node11" href="$classcom_1_1deusto_1_1app_1_1server_1_1remote_1_1_resource_facade.html#adfd34fe8ae74c59c1c637de931861400" title=" " alt="" coords="301,594,547,650"/>
+<area shape="rect" id="node12" href="$classcom_1_1deusto_1_1app_1_1server_1_1remote_1_1_resource_facade.html#a020007dfc91d82ab9df4ab9c6e788421" title=" " alt="" coords="311,675,537,716"/>
+<area shape="rect" id="node13" href="$classcom_1_1deusto_1_1app_1_1server_1_1remote_1_1_resource_facade.html#a6c75697e38c5357b99926cc4759260ef" title=" " alt="" coords="311,740,537,781"/>
+<area shape="rect" id="node14" href="$classcom_1_1deusto_1_1app_1_1server_1_1remote_1_1_resource_facade.html#af92eb6b2e13b05a3230eb55047112729" title=" " alt="" coords="5,828,231,869"/>
+<area shape="rect" id="node15" href="$classcom_1_1deusto_1_1app_1_1server_1_1services_1_1_loan_service.html#a1a79de28c21cb1fdae14c0c1a51228f2" title=" " alt="" coords="308,857,540,899"/>
+<area shape="rect" id="node16" href="$classcom_1_1deusto_1_1app_1_1server_1_1remote_1_1_resource_facade.html#a0879c17c915b3dba51b7a4ced9dfaae9" title=" " alt="" coords="311,923,537,964"/>
+<area shape="rect" id="node17" href="$classcom_1_1deusto_1_1app_1_1server_1_1remote_1_1_resource_facade.html#a1bc6be00d134eb01a67f496c3a1034ef" title=" " alt="" coords="311,988,537,1029"/>
+<area shape="rect" id="node18" href="$classcom_1_1deusto_1_1app_1_1server_1_1remote_1_1_resource_facade.html#a12ca580d21ea4169601eb49eb2a5937f" title=" " alt="" coords="311,1053,537,1095"/>
 </map>
