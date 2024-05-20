@@ -348,6 +348,23 @@ import jakarta.ws.rs.core.Response;
 	}
 	
 	/**
+	 * Check if the user has an active loan.
+	 *
+	 * @param token the user's authentication token
+	 * @return Response containing a boolean if the user has an active loan
+	 */
+	@GET
+	@Path(&quot;/loan/active&quot;)
+	public Response isLoanActive(@QueryParam(&quot;token&quot;) long token) {
+<span class="nc bnc" id="L359" title="All 2 branches missed.">	    if (UserService.getInstance().isLoggedIn(token)) {</span>
+<span class="nc" id="L360">	        LoanData loan = LoanService.getInstance().isLoanActive(token);</span>
+<span class="nc" id="L361">	        return Response.ok(loan).build();</span>
+	    } else {
+<span class="nc" id="L363">	        return Response.status(Response.Status.UNAUTHORIZED).entity(&quot;User is not logged in&quot;).build();</span>
+	    }
+	}
+	
+	/**
 	 * Creates a new loan.
 	 *
 	 * @param loanData the loan data to create
@@ -357,15 +374,15 @@ import jakarta.ws.rs.core.Response;
 	@POST
 	@Path(&quot;/loan/create&quot;)
 	public Response createLoan(LoanData loanData, @QueryParam(&quot;token&quot;) long token) {
-<span class="nc bnc" id="L360" title="All 2 branches missed.">	    if (UserService.getInstance().isLoggedIn(token)) {</span>
-<span class="nc" id="L361">	        boolean create_success = LoanService.getInstance().createLoan(loanData);</span>
-<span class="nc bnc" id="L362" title="All 2 branches missed.">	        if (create_success) {</span>
-<span class="nc" id="L363">	            return Response.ok().build();</span>
+<span class="nc bnc" id="L377" title="All 2 branches missed.">	    if (UserService.getInstance().isLoggedIn(token)) {</span>
+<span class="nc" id="L378">	        boolean create_success = LoanService.getInstance().createLoan(loanData);</span>
+<span class="nc bnc" id="L379" title="All 2 branches missed.">	        if (create_success) {</span>
+<span class="nc" id="L380">	            return Response.ok().build();</span>
 	        } else {
-<span class="nc" id="L365">	            return Response.status(Response.Status.BAD_REQUEST).entity(&quot;Failed to create loan&quot;).build();</span>
+<span class="nc" id="L382">	            return Response.status(Response.Status.BAD_REQUEST).entity(&quot;Failed to create loan&quot;).build();</span>
 	        }
 	    } else {
-<span class="nc" id="L368">	        return Response.status(Response.Status.UNAUTHORIZED).entity(&quot;User is not logged in&quot;).build();</span>
+<span class="nc" id="L385">	        return Response.status(Response.Status.UNAUTHORIZED).entity(&quot;User is not logged in&quot;).build();</span>
 	    }
 	}
 	
@@ -379,15 +396,15 @@ import jakarta.ws.rs.core.Response;
 	@DELETE
 	@Path(&quot;/loan/delete/{loanId}&quot;)
 	public Response deleteLoan(@PathParam(&quot;loanId&quot;) int loanId, @QueryParam(&quot;token&quot;) long token) {
-<span class="nc bnc" id="L382" title="All 2 branches missed.">	    if (UserService.getInstance().isLoggedIn(token)) {</span>
-<span class="nc" id="L383">	        boolean delete_success = LoanService.getInstance().deleteLoan(loanId);</span>
-<span class="nc bnc" id="L384" title="All 2 branches missed.">	        if (delete_success) {</span>
-<span class="nc" id="L385">	            return Response.ok().build();</span>
+<span class="nc bnc" id="L399" title="All 2 branches missed.">	    if (UserService.getInstance().isLoggedIn(token)) {</span>
+<span class="nc" id="L400">	        boolean delete_success = LoanService.getInstance().deleteLoan(loanId);</span>
+<span class="nc bnc" id="L401" title="All 2 branches missed.">	        if (delete_success) {</span>
+<span class="nc" id="L402">	            return Response.ok().build();</span>
 	        } else {
-<span class="nc" id="L387">	            return Response.status(Response.Status.NOT_FOUND).entity(&quot;Loan not found&quot;).build();</span>
+<span class="nc" id="L404">	            return Response.status(Response.Status.NOT_FOUND).entity(&quot;Loan not found&quot;).build();</span>
 	        }
 	    } else {
-<span class="nc" id="L390">	        return Response.status(Response.Status.UNAUTHORIZED).entity(&quot;User is not logged in&quot;).build();</span>
+<span class="nc" id="L407">	        return Response.status(Response.Status.UNAUTHORIZED).entity(&quot;User is not logged in&quot;).build();</span>
 	    }
 	}
 

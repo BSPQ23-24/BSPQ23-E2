@@ -6,7 +6,7 @@ public class LoanData {
     private String startHour;
     private String endHour;
     private Integer bicycleId; 
-    private Integer userDni; 
+    private String userDni; 
 
 <span class="nc" id="L11">    public LoanData() {</span>
         // Required by serialization
@@ -53,11 +53,11 @@ public class LoanData {
 <span class="nc" id="L53">        this.bicycleId = bicycleId;</span>
 <span class="nc" id="L54">    }</span>
 
-    public Integer getUserDni() {
+    public String getUserDni() {
 <span class="nc" id="L57">        return userDni;</span>
     }
 
-    public void setUserDni(Integer userDni) {
+    public void setUserDni(String userDni) {
 <span class="nc" id="L61">        this.userDni = userDni;</span>
 <span class="nc" id="L62">    }</span>
 

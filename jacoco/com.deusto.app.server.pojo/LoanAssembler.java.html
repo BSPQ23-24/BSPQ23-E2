@@ -25,7 +25,7 @@ public class LoanAssembler {
 <span class="nc" id="L25">        loanData.setStartHour(loan.getStartHour());</span>
 <span class="nc" id="L26">        loanData.setEndHour(loan.getEndHour());</span>
 <span class="nc" id="L27">        loanData.setBicycleId(loan.getBicycle().getId());</span>
-<span class="nc" id="L28">        loanData.setUserDni(loan.getId());</span>
+<span class="nc" id="L28">        loanData.setUserDni(loan.getUser().getDni());</span>
         
 <span class="nc" id="L30">        return loanData;</span>
     }
