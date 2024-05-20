@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  mysql:
+    image: mysql:8.4.0  # Specify the version of MySQL you want to use
+    environment:
+      MYSQL_ROOT_PASSWORD:           # Root password
+      MYSQL_DATABASE:          # Database name to create
+      MYSQL_USER:                  # New user to create
+      MYSQL_PASSWORD:          # New user password
+    volumes:
+      - mysql-data:/var/lib/mysql           # Persist data
+      - ./init:/docker-entrypoint-initdb.d  # SQL scripts folder
+    ports:
+      - "8080:8080"  # Map TCP port 8080 in the container to 8080 on the host
+    restart: always
+
+volumes:
+  mysql-data:
+    driver: local
