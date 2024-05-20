@@ -1,0 +1,12 @@
+<map id="com.deusto.app.server.remote.ResourceFacade.registerUser" name="com.deusto.app.server.remote.ResourceFacade.registerUser">
+<area shape="rect" id="node1" title=" " alt="" coords="5,169,231,211"/>
+<area shape="rect" id="node2" href="$classcom_1_1deusto_1_1app_1_1server_1_1services_1_1_user_service.html#a1b7c83ab78758d99793ce63df847be7c" title=" " alt="" coords="279,136,511,177"/>
+<area shape="rect" id="node3" href="$classcom_1_1deusto_1_1app_1_1server_1_1services_1_1_user_service.html#a50cbdc3db9e74e04753e7f8e202909af" title=" " alt="" coords="279,201,511,243"/>
+<area shape="rect" id="node4" href="$classcom_1_1deusto_1_1app_1_1server_1_1pojo_1_1_user_data.html#a254a445c5a17bb322a919bde2e91db8c" title=" " alt="" coords="559,5,765,47"/>
+<area shape="rect" id="node5" href="$classcom_1_1deusto_1_1app_1_1server_1_1pojo_1_1_user_data.html#a1abc40a56f796aaf6d7948c83021e07f" title=" " alt="" coords="559,71,765,112"/>
+<area shape="rect" id="node6" href="$classcom_1_1deusto_1_1app_1_1server_1_1pojo_1_1_user_data.html#ab472d0b1df27ece0112dca34f0464239" title=" " alt="" coords="559,136,765,177"/>
+<area shape="rect" id="node7" href="$classcom_1_1deusto_1_1app_1_1server_1_1pojo_1_1_user_data.html#a1964e33a4d394cfb7eb5efd792ca7859" title=" " alt="" coords="559,201,765,243"/>
+<area shape="rect" id="node8" href="$classcom_1_1deusto_1_1app_1_1server_1_1pojo_1_1_user_data.html#a625f2f714b671c004ba0f0dc7fbbcd01" title=" " alt="" coords="559,267,765,308"/>
+<area shape="rect" id="node9" href="$classcom_1_1deusto_1_1app_1_1server_1_1pojo_1_1_user_data.html#a65a2eba2b92906eec6d2078e885301cb" title=" " alt="" coords="559,332,765,373"/>
+<area shape="rect" id="node10" href="$classcom_1_1deusto_1_1app_1_1server_1_1pojo_1_1_user_data.html#a8984af103bcae4792d7511028b61130f" title=" " alt="" coords="559,397,765,439"/>
+</map>

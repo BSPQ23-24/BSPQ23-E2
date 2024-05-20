@@ -1,0 +1,8 @@
+<map id="com.deusto.app.client.UI.CreateBikeUI.CreateBikeUI" name="com.deusto.app.client.UI.CreateBikeUI.CreateBikeUI">
+<area shape="rect" id="node1" title=" " alt="" coords="5,103,201,144"/>
+<area shape="rect" id="node2" href="$classcom_1_1deusto_1_1app_1_1client_1_1controller_1_1_bike_controller.html#a1646d903064ad4655b3455b1c674d6bc" title=" " alt="" coords="249,37,484,79"/>
+<area shape="rect" id="node5" href="$classcom_1_1deusto_1_1app_1_1client_1_1controller_1_1_bike_controller.html#a7a137c4396c2d3964ad5c2de127d0559" title=" " alt="" coords="249,103,484,144"/>
+<area shape="rect" id="node6" href="$classcom_1_1deusto_1_1app_1_1client_1_1controller_1_1_user_controller.html#a91e3c45d5c3c3e76dc6443b2ae9ca138" title=" " alt="" coords="249,168,484,209"/>
+<area shape="rect" id="node3" href="$classcom_1_1deusto_1_1app_1_1client_1_1remote_1_1_service_locator.html#a1bbad089c98e858ca94692c58e9c1b69" title=" " alt="" coords="532,5,753,47"/>
+<area shape="rect" id="node4" href="$classcom_1_1deusto_1_1app_1_1client_1_1remote_1_1_service_locator.html#a485e52addfec6696493877e59276f671" title=" " alt="" coords="532,71,753,112"/>
+</map>

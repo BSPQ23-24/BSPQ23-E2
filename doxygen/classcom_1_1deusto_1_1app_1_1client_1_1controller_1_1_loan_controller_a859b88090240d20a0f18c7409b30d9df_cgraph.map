@@ -1,0 +1,6 @@
+<map id="com.deusto.app.client.controller.LoanController.getAllLoans" name="com.deusto.app.client.controller.LoanController.getAllLoans">
+<area shape="rect" id="node1" title=" " alt="" coords="5,71,240,112"/>
+<area shape="rect" id="node2" href="$classcom_1_1deusto_1_1app_1_1client_1_1remote_1_1_service_locator.html#a1bbad089c98e858ca94692c58e9c1b69" title=" " alt="" coords="295,5,516,47"/>
+<area shape="rect" id="node3" href="$classcom_1_1deusto_1_1app_1_1client_1_1controller_1_1_user_controller.html#a91e3c45d5c3c3e76dc6443b2ae9ca138" title=" " alt="" coords="288,71,523,112"/>
+<area shape="rect" id="node4" href="$classcom_1_1deusto_1_1app_1_1client_1_1remote_1_1_service_locator.html#a485e52addfec6696493877e59276f671" title=" " alt="" coords="295,136,516,177"/>
+</map>

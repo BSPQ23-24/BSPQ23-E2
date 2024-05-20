@@ -1,0 +1,20 @@
+<map id="com.deusto.app.server.pojo.UserAssembler.usersToPOJO" name="com.deusto.app.server.pojo.UserAssembler.usersToPOJO">
+<area shape="rect" id="node1" title=" " alt="" coords="5,496,212,537"/>
+<area shape="rect" id="node2" href="$classcom_1_1deusto_1_1app_1_1server_1_1pojo_1_1_user_assembler.html#ac05cb903e88c33d9cd344fecf43df62d" title=" " alt="" coords="260,496,467,537"/>
+<area shape="rect" id="node3" href="$classcom_1_1deusto_1_1app_1_1server_1_1data_1_1domain_1_1_user.html#a2b84624a2f4dd51697c92f2b44b11ea4" title=" " alt="" coords="515,5,775,47"/>
+<area shape="rect" id="node4" href="$classcom_1_1deusto_1_1app_1_1server_1_1data_1_1domain_1_1_user.html#a36c4782ded6f2eadbbd446143873497b" title=" " alt="" coords="515,71,775,112"/>
+<area shape="rect" id="node5" href="$classcom_1_1deusto_1_1app_1_1server_1_1data_1_1domain_1_1_user.html#a6a839bb47c9146111ca8d6c8cfe1a1c4" title=" " alt="" coords="515,136,775,177"/>
+<area shape="rect" id="node6" href="$classcom_1_1deusto_1_1app_1_1server_1_1data_1_1domain_1_1_user.html#abb3484e9a59591d2954e3dea821dc2ed" title=" " alt="" coords="515,201,775,243"/>
+<area shape="rect" id="node7" href="$classcom_1_1deusto_1_1app_1_1server_1_1data_1_1domain_1_1_user.html#a117e65cdc819049f518780a6f8b197a5" title=" " alt="" coords="515,267,775,308"/>
+<area shape="rect" id="node8" href="$classcom_1_1deusto_1_1app_1_1server_1_1data_1_1domain_1_1_user.html#ad997869ecde7f6d8d42080cf36731a32" title=" " alt="" coords="515,332,775,373"/>
+<area shape="rect" id="node9" href="$classcom_1_1deusto_1_1app_1_1server_1_1data_1_1domain_1_1_user.html#a358bb4317b0389bec0870bdeec1c2af1" title=" " alt="" coords="515,397,775,439"/>
+<area shape="rect" id="node10" href="$classcom_1_1deusto_1_1app_1_1server_1_1data_1_1domain_1_1_user.html#ae1344ba6fe4b6fadf4d006eddfdd5c5a" title=" " alt="" coords="515,463,775,504"/>
+<area shape="rect" id="node11" href="$classcom_1_1deusto_1_1app_1_1server_1_1pojo_1_1_user_data.html#a4a86217cfdc9d460974d0cafd700d175" title=" " alt="" coords="541,528,748,569"/>
+<area shape="rect" id="node12" href="$classcom_1_1deusto_1_1app_1_1server_1_1pojo_1_1_user_data.html#a56020bf1e53d2e6ad096b888b365e0bc" title=" " alt="" coords="541,593,748,635"/>
+<area shape="rect" id="node13" href="$classcom_1_1deusto_1_1app_1_1server_1_1pojo_1_1_user_data.html#a007bb3a5dc03f1f8a132ea329b1f1431" title=" " alt="" coords="541,659,748,700"/>
+<area shape="rect" id="node14" href="$classcom_1_1deusto_1_1app_1_1server_1_1pojo_1_1_user_data.html#af25ab0b811f83724caaf6891c292c954" title=" " alt="" coords="541,724,748,765"/>
+<area shape="rect" id="node15" href="$classcom_1_1deusto_1_1app_1_1server_1_1pojo_1_1_user_data.html#a006dd231fea83b823602cf408bf6d49b" title=" " alt="" coords="541,789,748,831"/>
+<area shape="rect" id="node16" href="$classcom_1_1deusto_1_1app_1_1server_1_1pojo_1_1_user_data.html#ab502fa6bee654e096436f8bb16c82919" title=" " alt="" coords="541,855,748,896"/>
+<area shape="rect" id="node17" href="$classcom_1_1deusto_1_1app_1_1server_1_1pojo_1_1_user_data.html#a50a9a88e04cd63d8a95bb69c795d9838" title=" " alt="" coords="541,920,748,961"/>
+<area shape="rect" id="node18" href="$classcom_1_1deusto_1_1app_1_1server_1_1pojo_1_1_user_data.html#a8bc633fb56b152dbabb3782557d1a75a" title=" " alt="" coords="541,985,748,1027"/>
+</map>

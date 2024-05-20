@@ -1,0 +1,13 @@
+<map id="com.deusto.app.server.remote.ResourceFacade.getAllLoans" name="com.deusto.app.server.remote.ResourceFacade.getAllLoans">
+<area shape="rect" id="node1" title=" " alt="" coords="5,267,231,308"/>
+<area shape="rect" id="node2" href="$classcom_1_1deusto_1_1app_1_1server_1_1services_1_1_loan_service.html#ace3f5405ebc70bcd19ff95a33ee50667" title=" " alt="" coords="279,168,511,209"/>
+<area shape="rect" id="node9" href="$classcom_1_1deusto_1_1app_1_1server_1_1services_1_1_loan_service.html#a63921eb0aeec0a5aa2eddc5c62eaf4d4" title=" " alt="" coords="279,233,511,275"/>
+<area shape="rect" id="node10" href="$classcom_1_1deusto_1_1app_1_1server_1_1services_1_1_user_service.html#a1b7c83ab78758d99793ce63df847be7c" title=" " alt="" coords="279,299,511,340"/>
+<area shape="rect" id="node11" href="$classcom_1_1deusto_1_1app_1_1server_1_1services_1_1_user_service.html#a6e516cfcceae38c2e1c1aede375c15eb" title=" " alt="" coords="279,364,511,405"/>
+<area shape="rect" id="node3" href="$classcom_1_1deusto_1_1app_1_1server_1_1pojo_1_1_loan_data.html#a80828af97c3d10a8ccdb0f6d678ab72e" title=" " alt="" coords="559,5,765,47"/>
+<area shape="rect" id="node4" href="$classcom_1_1deusto_1_1app_1_1server_1_1pojo_1_1_loan_data.html#a78f0ae4eb09f8d9b114da4fd8d5bae9d" title=" " alt="" coords="559,71,765,112"/>
+<area shape="rect" id="node5" href="$classcom_1_1deusto_1_1app_1_1server_1_1pojo_1_1_loan_data.html#a9a0cd437412a659383d3cea0e72cd683" title=" " alt="" coords="559,136,765,177"/>
+<area shape="rect" id="node6" href="$classcom_1_1deusto_1_1app_1_1server_1_1pojo_1_1_loan_data.html#a8ef974236dc539d7b566e0726f60a2f0" title=" " alt="" coords="559,201,765,243"/>
+<area shape="rect" id="node7" href="$classcom_1_1deusto_1_1app_1_1server_1_1pojo_1_1_loan_data.html#a48d713aae41d2068cd5fea29639212b5" title=" " alt="" coords="559,267,765,308"/>
+<area shape="rect" id="node8" href="$classcom_1_1deusto_1_1app_1_1server_1_1pojo_1_1_loan_data.html#a02b20283bfb046159660127e863ae207" title=" " alt="" coords="559,332,765,373"/>
+</map>

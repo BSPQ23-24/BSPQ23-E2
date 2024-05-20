@@ -1,0 +1,13 @@
+<map id="com.deusto.app.client.UI.BicycleDetailUI.BicycleDetailUI" name="com.deusto.app.client.UI.BicycleDetailUI.BicycleDetailUI">
+<area shape="rect" id="node1" title=" " alt="" coords="5,235,232,276"/>
+<area shape="rect" id="node2" href="$classcom_1_1deusto_1_1app_1_1server_1_1pojo_1_1_bicycle_data.html#afa67ee1e17c468ea9dccf7866bf1e823" title=" " alt="" coords="283,5,511,47"/>
+<area shape="rect" id="node3" href="$classcom_1_1deusto_1_1app_1_1client_1_1controller_1_1_bike_controller.html#a0eff44e441b01cee5a589144a384e952" title=" " alt="" coords="280,71,515,112"/>
+<area shape="rect" id="node6" href="$classcom_1_1deusto_1_1app_1_1server_1_1pojo_1_1_bicycle_data.html#a994ed5b7667d2d3c9987e833267732bd" title=" " alt="" coords="294,136,501,177"/>
+<area shape="rect" id="node7" href="$classcom_1_1deusto_1_1app_1_1client_1_1controller_1_1_bike_controller.html#a7a137c4396c2d3964ad5c2de127d0559" title=" " alt="" coords="280,201,515,243"/>
+<area shape="rect" id="node8" href="$classcom_1_1deusto_1_1app_1_1client_1_1controller_1_1_user_controller.html#af1f382695b49dc04920332b50d362b9e" title=" " alt="" coords="280,267,515,308"/>
+<area shape="rect" id="node9" href="$classcom_1_1deusto_1_1app_1_1server_1_1pojo_1_1_bicycle_data.html#a7c779da01d6aa076c19698b31a54ebfe" title=" " alt="" coords="294,332,501,373"/>
+<area shape="rect" id="node10" href="$classcom_1_1deusto_1_1app_1_1client_1_1controller_1_1_user_controller.html#a91e3c45d5c3c3e76dc6443b2ae9ca138" title=" " alt="" coords="280,397,515,439"/>
+<area shape="rect" id="node11" href="$classcom_1_1deusto_1_1app_1_1server_1_1pojo_1_1_bicycle_data.html#ad1e699432e1d3c67d2be1bacc00a132a" title=" " alt="" coords="294,463,501,504"/>
+<area shape="rect" id="node4" href="$classcom_1_1deusto_1_1app_1_1client_1_1remote_1_1_service_locator.html#a1bbad089c98e858ca94692c58e9c1b69" title=" " alt="" coords="563,39,784,80"/>
+<area shape="rect" id="node5" href="$classcom_1_1deusto_1_1app_1_1client_1_1remote_1_1_service_locator.html#a485e52addfec6696493877e59276f671" title=" " alt="" coords="563,104,784,145"/>
+</map>

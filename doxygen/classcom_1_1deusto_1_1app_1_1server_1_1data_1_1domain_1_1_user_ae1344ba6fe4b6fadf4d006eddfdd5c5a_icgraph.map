@@ -1,0 +1,8 @@
+<map id="com.deusto.app.server.data.domain.User.isAdmin" name="com.deusto.app.server.data.domain.User.isAdmin">
+<area shape="rect" id="node1" title=" " alt="" coords="559,104,819,145"/>
+<area shape="rect" id="node2" href="$classcom_1_1deusto_1_1app_1_1server_1_1services_1_1_user_service.html#ac695917b586c56fbdb7e5b2e63110e5c" title=" " alt="" coords="279,71,511,112"/>
+<area shape="rect" id="node5" href="$classcom_1_1deusto_1_1app_1_1server_1_1pojo_1_1_user_assembler.html#ac05cb903e88c33d9cd344fecf43df62d" title=" " alt="" coords="291,136,498,177"/>
+<area shape="rect" id="node3" href="$classcom_1_1deusto_1_1app_1_1server_1_1remote_1_1_resource_facade.html#ac6ea163da26b882c67d9656f831fe0a6" title=" " alt="" coords="5,5,231,47"/>
+<area shape="rect" id="node4" href="$classcom_1_1deusto_1_1app_1_1server_1_1remote_1_1_resource_facade.html#a6c75697e38c5357b99926cc4759260ef" title=" " alt="" coords="5,71,231,112"/>
+<area shape="rect" id="node6" href="$classcom_1_1deusto_1_1app_1_1server_1_1pojo_1_1_user_assembler.html#a45af0aa3233c10c9f9584bbae9fc5e4f" title=" " alt="" coords="15,136,221,177"/>
+</map>

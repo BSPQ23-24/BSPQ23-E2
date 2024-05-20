@@ -1,0 +1,5 @@
+<map id="com.deusto.app.server.pojo.UserData.getMail" name="com.deusto.app.server.pojo.UserData.getMail">
+<area shape="rect" id="node1" title=" " alt="" coords="559,5,765,47"/>
+<area shape="rect" id="node2" href="$classcom_1_1deusto_1_1app_1_1server_1_1services_1_1_user_service.html#a50cbdc3db9e74e04753e7f8e202909af" title=" " alt="" coords="279,5,511,47"/>
+<area shape="rect" id="node3" href="$classcom_1_1deusto_1_1app_1_1server_1_1remote_1_1_resource_facade.html#a12ca580d21ea4169601eb49eb2a5937f" title=" " alt="" coords="5,5,231,47"/>
+</map>

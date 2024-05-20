@@ -1,0 +1,8 @@
+<map id="com.deusto.app.server.remote.ResourceFacade.disableBike" name="com.deusto.app.server.remote.ResourceFacade.disableBike">
+<area shape="rect" id="node1" title=" " alt="" coords="5,104,231,145"/>
+<area shape="rect" id="node2" href="$classcom_1_1deusto_1_1app_1_1server_1_1services_1_1_admin_service.html#af1ddf97cad8438102899ea429dd47c55" title=" " alt="" coords="279,5,511,47"/>
+<area shape="rect" id="node4" href="$classcom_1_1deusto_1_1app_1_1server_1_1services_1_1_admin_service.html#aeae34676f4f99483fe91a6f88681dedf" title=" " alt="" coords="279,71,511,112"/>
+<area shape="rect" id="node5" href="$classcom_1_1deusto_1_1app_1_1server_1_1services_1_1_user_service.html#a1b7c83ab78758d99793ce63df847be7c" title=" " alt="" coords="279,136,511,177"/>
+<area shape="rect" id="node6" href="$classcom_1_1deusto_1_1app_1_1server_1_1services_1_1_user_service.html#a6e516cfcceae38c2e1c1aede375c15eb" title=" " alt="" coords="279,201,511,243"/>
+<area shape="rect" id="node3" href="$classcom_1_1deusto_1_1app_1_1server_1_1data_1_1domain_1_1_bicycle.html#af67a436ad335f007d00d68a8c03855f3" title=" " alt="" coords="559,5,819,47"/>
+</map>

@@ -1,0 +1,9 @@
+<map id="com.deusto.app.server.services.LoanService.getAllLoans" name="com.deusto.app.server.services.LoanService.getAllLoans">
+<area shape="rect" id="node1" title=" " alt="" coords="5,169,237,211"/>
+<area shape="rect" id="node2" href="$classcom_1_1deusto_1_1app_1_1server_1_1pojo_1_1_loan_data.html#a80828af97c3d10a8ccdb0f6d678ab72e" title=" " alt="" coords="285,5,492,47"/>
+<area shape="rect" id="node3" href="$classcom_1_1deusto_1_1app_1_1server_1_1pojo_1_1_loan_data.html#a78f0ae4eb09f8d9b114da4fd8d5bae9d" title=" " alt="" coords="285,71,492,112"/>
+<area shape="rect" id="node4" href="$classcom_1_1deusto_1_1app_1_1server_1_1pojo_1_1_loan_data.html#a9a0cd437412a659383d3cea0e72cd683" title=" " alt="" coords="285,136,492,177"/>
+<area shape="rect" id="node5" href="$classcom_1_1deusto_1_1app_1_1server_1_1pojo_1_1_loan_data.html#a8ef974236dc539d7b566e0726f60a2f0" title=" " alt="" coords="285,201,492,243"/>
+<area shape="rect" id="node6" href="$classcom_1_1deusto_1_1app_1_1server_1_1pojo_1_1_loan_data.html#a48d713aae41d2068cd5fea29639212b5" title=" " alt="" coords="285,267,492,308"/>
+<area shape="rect" id="node7" href="$classcom_1_1deusto_1_1app_1_1server_1_1pojo_1_1_loan_data.html#a02b20283bfb046159660127e863ae207" title=" " alt="" coords="285,332,492,373"/>
+</map>

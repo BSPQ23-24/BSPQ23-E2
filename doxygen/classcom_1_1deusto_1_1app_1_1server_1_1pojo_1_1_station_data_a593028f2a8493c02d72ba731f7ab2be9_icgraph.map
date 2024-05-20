@@ -1,0 +1,7 @@
+<map id="com.deusto.app.server.pojo.StationData.setLocation" name="com.deusto.app.server.pojo.StationData.setLocation">
+<area shape="rect" id="node1" title=" " alt="" coords="1129,5,1336,47"/>
+<area shape="rect" id="node2" href="$classcom_1_1deusto_1_1app_1_1server_1_1pojo_1_1_station_assembler.html#a75564c5778955bdf5a69d1ed682d28e6" title=" " alt="" coords="851,5,1081,47"/>
+<area shape="rect" id="node3" href="$classcom_1_1deusto_1_1app_1_1server_1_1pojo_1_1_station_assembler.html#aa73876d04d6e472200e903d017dd3ef9" title=" " alt="" coords="564,5,803,47"/>
+<area shape="rect" id="node4" href="$classcom_1_1deusto_1_1app_1_1server_1_1services_1_1_bike_service.html#a6be1ffc5f93e21682f035c1ec3850e87" title=" " alt="" coords="284,5,516,47"/>
+<area shape="rect" id="node5" href="$classcom_1_1deusto_1_1app_1_1server_1_1remote_1_1_resource_facade.html#a315ad98b67aad295058874de347e5490" title=" " alt="" coords="5,5,236,47"/>
+</map>

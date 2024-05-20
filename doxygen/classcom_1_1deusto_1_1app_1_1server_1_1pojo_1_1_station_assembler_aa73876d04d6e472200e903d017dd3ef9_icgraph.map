@@ -1,0 +1,5 @@
+<map id="com.deusto.app.server.pojo.StationAssembler.stationsToPOJO" name="com.deusto.app.server.pojo.StationAssembler.stationsToPOJO">
+<area shape="rect" id="node1" title=" " alt="" coords="564,5,803,47"/>
+<area shape="rect" id="node2" href="$classcom_1_1deusto_1_1app_1_1server_1_1services_1_1_bike_service.html#a6be1ffc5f93e21682f035c1ec3850e87" title=" " alt="" coords="284,5,516,47"/>
+<area shape="rect" id="node3" href="$classcom_1_1deusto_1_1app_1_1server_1_1remote_1_1_resource_facade.html#a315ad98b67aad295058874de347e5490" title=" " alt="" coords="5,5,236,47"/>
+</map>
