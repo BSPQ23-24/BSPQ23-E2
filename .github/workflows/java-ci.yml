@@ -47,6 +47,14 @@ jobs:
           cd bike-lending-app
           mvn jacoco:report
 
+      - name: Deploy JaCoCo report to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: bike-lending-app/target/site/jacoco
+          publish_branch: gh-pages
+          destination_dir: jacoco
+
       - name: Execute integration tests
         run: |
           cd bike-lending-app
@@ -75,14 +83,6 @@ jobs:
         run: |
           cd bike-lending-app
           mvn doxygen:report
-
-      - name: Deploy JaCoCo report to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v4
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: bike-lending-app/target/site/jacoco
-          publish_branch: gh-pages
-          destination_dir: jacoco
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
