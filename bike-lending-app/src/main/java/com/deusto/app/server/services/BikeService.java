@@ -103,41 +103,40 @@ public class BikeService {
 		}
 	}
 
-	/*
-	 * public BicycleData selectBike(int stationId) {
-	 * 
-	 * LogManager.getLogger(BikeService.class).
-	 * info("Select Bike Start | StationID : '{}'", stationId);
-	 * 
-	 * try { tx.begin();
-	 * 
-	 * Station station = pm.getObjectById(Station.class, stationId); Bicycle
-	 * selectedBike = null;
-	 * 
-	 * for (Bicycle bike : station.getBikes()) { if (bike.isAvailable()) {
-	 * selectedBike = bike; break; } }
-	 * 
-	 * if (selectedBike != null) { selectedBike.setAvailable(false);
-	 * 
-	 * BicycleData selectedBikeInfo = new BicycleData();
-	 * selectedBikeInfo.setId(selectedBike.getId());
-	 * selectedBikeInfo.setAcquisitionDate(selectedBike.getAcquisitionDate());
-	 * selectedBikeInfo.setType(selectedBike.getType());
-	 * selectedBikeInfo.setAvailable(selectedBike.isAvailable());
-	 * selectedBikeInfo.setStationId(stationId);
-	 * 
-	 * tx.commit();
-	 * 
-	 * LogManager.getLogger(BikeService.class).
-	 * info("Select Bike Success | BikeID : '{}'", selectedBikeInfo.getId());
-	 * 
-	 * return selectedBikeInfo; } else { LogManager.getLogger(BikeService.class)
-	 * .error("Select Bike Failed | No available bikes in station | StationID: '{}'"
-	 * , stationId); tx.rollback(); return null; } } catch (Exception e) {
-	 * LogManager.getLogger(BikeService.class).
-	 * error("Select Bike Failed | '{}' | StationID: '{}'", e, stationId); if
-	 * (tx.isActive()) { tx.rollback(); } return null; } }
-	 */
+	public List<BicycleData> displayNoAvailableBikes(){
+		LogManager.getLogger(BikeService.class).info("Display No Available Bikes");
+
+		try {
+			tx.begin();
+
+			Query<Bicycle> bicycleQuery = pm.newQuery(Bicycle.class);
+			List<Bicycle> bikes = (List<Bicycle>) bicycleQuery.execute();
+
+			tx.commit();
+			
+			List<Bicycle> bikesNA=new ArrayList<Bicycle>();
+			for (Bicycle bike : bikes) {
+				if(!bike.isAvailable()) {
+					bikesNA.add(bike);
+				}
+			}
+
+			LogManager.getLogger(BikeService.class).info("Display No Available Bikes Success");
+			
+			
+			
+
+			return BicycleAssembler.getInstance().bikesToPOJO(bikesNA);
+			
+		} catch (Exception e) {
+			LogManager.getLogger(BikeService.class).error("Display Stations Failed | '{}'", e);
+			if (tx.isActive()) {
+				tx.rollback();
+			}
+
+			return null;
+		}
+	}
 	
 	/**
 	 * Retrieves available bikes in a specific station.
