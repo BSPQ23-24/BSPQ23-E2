@@ -170,6 +170,13 @@
 						<goals>
 							<goal>prepare-agent</goal>
 						</goals>
+						<configuration>
+                            <excludes>
+                                <exclude>**/*IT.*</exclude>
+								<exclude>**/*PT.*</exclude>
+								<exclude>**/dn*</exclude> <!-- Exclude datanucleus methods -->
+                            </excludes>
+                        </configuration>
 					</execution>
 					<execution>
 						<id>report</id>
@@ -177,6 +184,25 @@
 						<goals>
 							<goal>report</goal>
 						</goals>
+						<configuration>
+							<rules>
+								<rule>
+									<element>BUNDLE</element>
+									<limits>
+										<limit>
+											<counter>INSTRUCTION</counter>
+											<value>COVEREDRATIO</value>
+											<minimum>0.05</minimum>
+										</limit>
+										<limit>
+											<counter>BRANCH</counter>
+											<value>COVEREDRATIO</value>
+											<minimum>0.05</minimum>
+										</limit>
+									</limits>
+								</rule>
+							</rules>
+						</configuration>
 					</execution>
 				</executions>
 			</plugin>
