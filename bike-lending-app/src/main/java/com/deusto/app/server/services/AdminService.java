@@ -66,8 +66,7 @@ public class AdminService {
 				} catch (javax.jdo.JDOObjectNotFoundException jonfe) {
 					// User not found, proceed to registration
 					bike=new Bicycle();
-					bike.setId(bikeData.getId());
-					bike.setAcquisitionDate(null);
+					bike.setAcquisitionDate(bikeData.getAcquisitionDate());
 					bike.setType(bikeData.getType());
 					bike.setAvailable(true);
 					Station station=null;
@@ -80,6 +79,7 @@ public class AdminService {
 						}
 					}catch (javax.jdo.JDOObjectNotFoundException jonfe2) {
 						bike.setStation(station);
+						
 						
 						pm.makePersistent(bike);
 						LogManager.getLogger(AdminService.class).info("Addition Success | Bike: '{}'", bikeData.getId());
