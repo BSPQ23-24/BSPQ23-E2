@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>BikeService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">bike-lending-app</a> &gt; <a href="index.source.html" class="el_package">com.deusto.app.server.services</a> &gt; <span class="el_source">BikeService.java</span></div><h1>BikeService.java</h1><pre class="source lang-java linenums">
+package com.deusto.app.server.services;
+
+import javax.jdo.JDOHelper;
+import javax.jdo.PersistenceManager;
+import javax.jdo.PersistenceManagerFactory;
+import javax.jdo.Query;
+import javax.jdo.Transaction;
+
+import org.apache.logging.log4j.LogManager;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import com.deusto.app.server.data.domain.Bicycle;
+import com.deusto.app.server.data.domain.Station;
+import com.deusto.app.server.pojo.BicycleAssembler;
+import com.deusto.app.server.pojo.BicycleData;
+import com.deusto.app.server.pojo.StationAssembler;
+import com.deusto.app.server.pojo.StationData;
+
+/**
+ * BikeService class provides services related to bike operations such as
+ * displaying stations, getting available bikes, and retrieving bike details. It
+ * uses JDO for persistence.
+ */
+public class BikeService {
+	private static BikeService instance;
+	private PersistenceManagerFactory pmf;
+
+	/**
+	 * Private constructor to initialize PersistenceManagerFactory.
+	 */
+<span class="nc" id="L34">	private BikeService() {</span>
+<span class="nc" id="L35">		pmf = JDOHelper.getPersistenceManagerFactory(&quot;datanucleus.properties&quot;);</span>
+<span class="nc" id="L36">	}</span>
+	
+	// Constructor for testing purposes
+<span class="fc" id="L39">	public BikeService(PersistenceManagerFactory pmf) {</span>
+<span class="fc" id="L40">	    this.pmf = pmf;</span>
+<span class="fc" id="L41">	}</span>
+
+	/**
+	 * Returns the singleton instance of BikeService.
+	 *
+	 * @return BikeService instance
+	 */
+	public static BikeService getInstance() {
+<span class="nc bnc" id="L49" title="All 2 branches missed.">		if (instance == null) {</span>
+<span class="nc" id="L50">			instance = new BikeService();</span>
+		}
+<span class="nc" id="L52">		return instance;</span>
+	}
+
+	/**
+	 * Retrieves and displays all bike stations with their respective bike IDs.
+	 *
+	 * @return List of StationData containing the station details and bike IDs
+	 */
+	public List&lt;StationData&gt; displayStations() {
+
+<span class="fc" id="L62">		LogManager.getLogger(BikeService.class).info(&quot;Display Stations Start&quot;);</span>
+
+<span class="fc" id="L64">		PersistenceManager pm = pmf.getPersistenceManager();</span>
+<span class="fc" id="L65">		Transaction tx = pm.currentTransaction();</span>
+
+		try {
+<span class="fc" id="L68">			tx.begin();</span>
+
+<span class="fc" id="L70">			Query&lt;Station&gt; stationQuery = pm.newQuery(Station.class);</span>
+<span class="fc" id="L71">			List&lt;Station&gt; stations = (List&lt;Station&gt;) stationQuery.execute();</span>
+
+<span class="fc" id="L73">			tx.commit();</span>
+
+<span class="fc" id="L75">			LogManager.getLogger(BikeService.class).info(&quot;Display Stations Success&quot;);</span>
+<span class="fc" id="L76">			System.out.println(StationAssembler.getInstance().stationsToPOJO(stations));</span>
+
+<span class="fc" id="L78">			return StationAssembler.getInstance().stationsToPOJO(stations);</span>
+
+<span class="nc" id="L80">		} catch (Exception e) {</span>
+<span class="nc" id="L81">			LogManager.getLogger(BikeService.class).error(&quot;Display Stations Failed | '{}'&quot;, e);</span>
+<span class="nc bnc" id="L82" title="All 2 branches missed.">			if (tx.isActive()) {</span>
+<span class="nc" id="L83">				tx.rollback();</span>
+			}
+
+<span class="nc" id="L86">			return null;</span>
+		} finally {
+<span class="fc" id="L88">			pm.close();</span>
+		}
+	}
+
+
+	public List&lt;BicycleData&gt; displayNoAvailableBikes(){
+<span class="nc" id="L94">		LogManager.getLogger(BikeService.class).info(&quot;Display No Available Bikes&quot;);</span>
+<span class="nc" id="L95">		PersistenceManager pm = pmf.getPersistenceManager();</span>
+<span class="nc" id="L96">		Transaction tx = pm.currentTransaction();</span>
+
+		try {
+<span class="nc" id="L99">			tx.begin();</span>
+
+<span class="nc" id="L101">			Query&lt;Bicycle&gt; bicycleQuery = pm.newQuery(Bicycle.class);</span>
+<span class="nc" id="L102">			List&lt;Bicycle&gt; bikes = (List&lt;Bicycle&gt;) bicycleQuery.execute();</span>
+
+<span class="nc" id="L104">			tx.commit();</span>
+			
+<span class="nc" id="L106">			List&lt;Bicycle&gt; bikesNA=new ArrayList&lt;Bicycle&gt;();</span>
+<span class="nc bnc" id="L107" title="All 2 branches missed.">			for (Bicycle bike : bikes) {</span>
+<span class="nc bnc" id="L108" title="All 2 branches missed.">				if(!bike.isAvailable()) {</span>
+<span class="nc" id="L109">					bikesNA.add(bike);</span>
+				}
+<span class="nc" id="L111">			}</span>
+
+<span class="nc" id="L113">			LogManager.getLogger(BikeService.class).info(&quot;Display No Available Bikes Success&quot;);</span>
+			
+			
+			
+
+<span class="nc" id="L118">			return BicycleAssembler.getInstance().bikesToPOJO(bikesNA);</span>
+			
+<span class="nc" id="L120">		} catch (Exception e) {</span>
+<span class="nc" id="L121">			LogManager.getLogger(BikeService.class).error(&quot;Display Stations Failed | '{}'&quot;, e);</span>
+<span class="nc bnc" id="L122" title="All 2 branches missed.">			if (tx.isActive()) {</span>
+<span class="nc" id="L123">				tx.rollback();</span>
+			}
+
+<span class="nc" id="L126">			return null;</span>
+		}
+	}
+	
+
+	/**
+	 * Retrieves available bikes in a specific station.
+	 *
+	 * @param stationId the ID of the station
+	 * @return List of BicycleData containing the available bike details
+	 */
+	public List&lt;BicycleData&gt; getAvailableBikesInStation(int stationId) {
+
+<span class="fc" id="L139">		LogManager.getLogger(BikeService.class).info(&quot;Get Available Bikes Start | StationID : '{}'&quot;, stationId);</span>
+
+<span class="fc" id="L141">		PersistenceManager pm = pmf.getPersistenceManager();</span>
+<span class="fc" id="L142">		Transaction tx = pm.currentTransaction();</span>
+
+		try {
+<span class="fc" id="L145">			tx.begin();</span>
+
+<span class="fc" id="L147">			Station station = pm.getObjectById(Station.class, stationId);</span>
+<span class="fc" id="L148">			List&lt;Bicycle&gt; availableBikes = station.getBikes();</span>
+<span class="fc" id="L149">			System.out.println(availableBikes);</span>
+
+<span class="fc" id="L151">			tx.commit();</span>
+
+<span class="fc" id="L153">			LogManager.getLogger(BikeService.class).info(&quot;Get Available Bikes Success | StationID : '{}'&quot;, stationId);</span>
+
+<span class="fc" id="L155">			return BicycleAssembler.getInstance().bikesToPOJO(availableBikes);</span>
+
+<span class="nc" id="L157">		} catch (Exception e) {</span>
+<span class="nc" id="L158">			LogManager.getLogger(BikeService.class).error(&quot;Get Available Bikes Failed | '{}' | StationID: '{}'&quot;, e,</span>
+<span class="nc" id="L159">					stationId);</span>
+<span class="nc bnc" id="L160" title="All 2 branches missed.">			if (tx.isActive()) {</span>
+<span class="nc" id="L161">				tx.rollback();</span>
+			}
+<span class="nc" id="L163">			return null;</span>
+		} finally {
+<span class="fc" id="L165">			pm.close();</span>
+		}
+	}
+
+	/**
+	 * Retrieves the details of a bike by its ID.
+	 *
+	 * @param bikeId the ID of the bike
+	 * @return BicycleData containing the bike details, or null if retrieval fails
+	 */
+	public BicycleData getBikeById(int bikeId) {
+
+<span class="fc" id="L177">		LogManager.getLogger(BikeService.class).info(&quot;Get Bike By ID Start | BikeID : '{}'&quot;, bikeId);</span>
+
+<span class="fc" id="L179">		PersistenceManager pm = pmf.getPersistenceManager();</span>
+<span class="fc" id="L180">		Transaction tx = pm.currentTransaction();</span>
+
+		try {
+<span class="fc" id="L183">			tx.begin();</span>
+
+<span class="fc" id="L185">			Bicycle bike = pm.getObjectById(Bicycle.class, bikeId);</span>
+
+<span class="fc" id="L187">			tx.commit();</span>
+
+<span class="fc" id="L189">			LogManager.getLogger(BikeService.class).info(&quot;Get Bike By ID Success | BikeID : '{}'&quot;, bikeId);</span>
+
+<span class="fc" id="L191">			return BicycleAssembler.getInstance().bikeToPOJO(bike);</span>
+<span class="nc" id="L192">		} catch (Exception e) {</span>
+<span class="nc" id="L193">			LogManager.getLogger(BikeService.class).error(&quot;Get Bike By ID Failed | '{}' | BikeID: '{}'&quot;, e, bikeId);</span>
+<span class="nc bnc" id="L194" title="All 2 branches missed.">			if (tx.isActive()) {</span>
+<span class="nc" id="L195">				tx.rollback();</span>
+			}
+<span class="nc" id="L197">			return null;</span>
+		} finally {
+<span class="fc" id="L199">			pm.close();</span>
+		}
+	}
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

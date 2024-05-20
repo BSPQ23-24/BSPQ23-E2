@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>LoanService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">bike-lending-app</a> &gt; <a href="index.source.html" class="el_package">com.deusto.app.server.services</a> &gt; <span class="el_source">LoanService.java</span></div><h1>LoanService.java</h1><pre class="source lang-java linenums">package com.deusto.app.server.services;
+
+import java.util.ArrayList;
+import java.util.List;
+import javax.jdo.PersistenceManager;
+import javax.jdo.PersistenceManagerFactory;
+import javax.jdo.Query;
+import javax.jdo.Transaction;
+import javax.jdo.JDOHelper;
+
+import com.deusto.app.server.data.domain.Loan;
+import com.deusto.app.server.pojo.LoanData;
+
+public class LoanService {
+
+	private static LoanService instance;
+	private PersistenceManagerFactory pmf;
+
+<span class="nc" id="L19">	private LoanService() {</span>
+<span class="nc" id="L20">		pmf = JDOHelper.getPersistenceManagerFactory(&quot;datanucleus.properties&quot;);</span>
+<span class="nc" id="L21">	}</span>
+
+	public static LoanService getInstance() {
+<span class="nc bnc" id="L24" title="All 2 branches missed.">		if (instance == null) {</span>
+<span class="nc" id="L25">			instance = new LoanService();</span>
+		}
+<span class="nc" id="L27">		return instance;</span>
+	}
+
+	public List&lt;LoanData&gt; getAllLoans() {
+<span class="nc" id="L31">		PersistenceManager pm = pmf.getPersistenceManager();</span>
+<span class="nc" id="L32">		Transaction tx = pm.currentTransaction();</span>
+<span class="nc" id="L33">		List&lt;LoanData&gt; loanDataList = new ArrayList&lt;&gt;();</span>
+		try {
+<span class="nc" id="L35">			tx.begin();</span>
+<span class="nc" id="L36">			Query&lt;Loan&gt; query = pm.newQuery(Loan.class);</span>
+<span class="nc" id="L37">			List&lt;Loan&gt; loans = (List&lt;Loan&gt;) query.execute();</span>
+<span class="nc bnc" id="L38" title="All 2 branches missed.">			for (Loan loan : loans) {</span>
+<span class="nc" id="L39">				LoanData loanData = new LoanData();</span>
+<span class="nc" id="L40">				loanData.setId(loan.getId());</span>
+<span class="nc" id="L41">				loanData.setLoanDate(loan.getLoanDate());</span>
+<span class="nc" id="L42">				loanData.setStartHour(loan.getStartHour());</span>
+<span class="nc" id="L43">				loanData.setEndHour(loan.getEndHour());</span>
+<span class="nc" id="L44">				loanData.setUserDni(loan.getId());</span>
+<span class="nc" id="L45">				loanData.setBicycleId(loan.getBicycle().getId());</span>
+<span class="nc" id="L46">				loanDataList.add(loanData);</span>
+<span class="nc" id="L47">			}</span>
+<span class="nc" id="L48">			tx.commit();</span>
+<span class="nc" id="L49">		} catch (Exception e) {</span>
+<span class="nc bnc" id="L50" title="All 2 branches missed.">			if (tx.isActive()) {</span>
+<span class="nc" id="L51">				tx.rollback();</span>
+			}
+<span class="nc" id="L53">			e.printStackTrace();</span>
+		} finally {
+<span class="nc" id="L55">			pm.close();</span>
+		}
+<span class="nc" id="L57">		return loanDataList;</span>
+	}
+
+	public boolean createLoan(LoanData loanData) {
+<span class="nc" id="L61">		PersistenceManager pm = pmf.getPersistenceManager();</span>
+<span class="nc" id="L62">		Transaction tx = pm.currentTransaction();</span>
+		try {
+<span class="nc" id="L64">			tx.begin();</span>
+<span class="nc" id="L65">			Loan loan = new Loan();</span>
+<span class="nc" id="L66">			loan.setId(loanData.getId());</span>
+<span class="nc" id="L67">			loan.setLoanDate(loanData.getLoanDate());</span>
+<span class="nc" id="L68">			loan.setStartHour(loanData.getStartHour());</span>
+<span class="nc" id="L69">			loan.setEndHour(loanData.getEndHour());</span>
+<span class="nc" id="L70">			loan.setUser(loan.getUser());</span>
+<span class="nc" id="L71">			loan.setBicycle(loan.getBicycle());</span>
+<span class="nc" id="L72">			pm.makePersistent(loan);</span>
+<span class="nc" id="L73">			tx.commit();</span>
+<span class="nc" id="L74">			return true;</span>
+<span class="nc" id="L75">		} catch (Exception e) {</span>
+<span class="nc bnc" id="L76" title="All 2 branches missed.">			if (tx.isActive()) {</span>
+<span class="nc" id="L77">				tx.rollback();</span>
+			}
+<span class="nc" id="L79">			e.printStackTrace();</span>
+<span class="nc" id="L80">			return false;</span>
+		} finally {
+<span class="nc" id="L82">			pm.close();</span>
+		}
+	}
+
+	public boolean deleteLoan(int loanId) {
+<span class="nc" id="L87">		PersistenceManager pm = pmf.getPersistenceManager();</span>
+<span class="nc" id="L88">		Transaction tx = pm.currentTransaction();</span>
+		try {
+<span class="nc" id="L90">			tx.begin();</span>
+<span class="nc" id="L91">			Loan loan = pm.getObjectById(Loan.class, loanId);</span>
+<span class="nc bnc" id="L92" title="All 2 branches missed.">			if (loan != null) {</span>
+<span class="nc" id="L93">				pm.deletePersistent(loan);</span>
+<span class="nc" id="L94">				tx.commit();</span>
+<span class="nc" id="L95">				return true;</span>
+			} else {
+<span class="nc" id="L97">				return false;</span>
+			}
+<span class="nc" id="L99">		} catch (Exception e) {</span>
+<span class="nc bnc" id="L100" title="All 2 branches missed.">			if (tx.isActive()) {</span>
+<span class="nc" id="L101">				tx.rollback();</span>
+			}
+<span class="nc" id="L103">			e.printStackTrace();</span>
+<span class="nc" id="L104">			return false;</span>
+		} finally {
+<span class="nc" id="L106">			pm.close();</span>
+		}
+	}
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

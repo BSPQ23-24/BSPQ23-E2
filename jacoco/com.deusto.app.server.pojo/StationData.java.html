@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>StationData.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">bike-lending-app</a> &gt; <a href="index.source.html" class="el_package">com.deusto.app.server.pojo</a> &gt; <span class="el_source">StationData.java</span></div><h1>StationData.java</h1><pre class="source lang-java linenums">package com.deusto.app.server.pojo;
+
+import java.util.List;
+
+public class StationData {
+    private int id;
+    private String location;
+    private List&lt;Integer&gt; bikeIds; // A list to hold bike IDs
+
+<span class="fc" id="L10">    public StationData() {</span>
+        // Required by serialization
+<span class="fc" id="L12">    }</span>
+
+    // Getters and Setters
+    public int getId() {
+<span class="fc" id="L16">        return id;</span>
+    }
+
+    public void setId(int id) {
+<span class="fc" id="L20">        this.id = id;</span>
+<span class="fc" id="L21">    }</span>
+
+    public String getLocation() {
+<span class="fc" id="L24">        return location;</span>
+    }
+
+    public void setLocation(String location) {
+<span class="fc" id="L28">        this.location = location;</span>
+<span class="fc" id="L29">    }</span>
+
+    public List&lt;Integer&gt; getBikeIds() {
+<span class="fc" id="L32">        return bikeIds;</span>
+    }
+
+    public void setBikeIds(List&lt;Integer&gt; bikeIds) {
+<span class="fc" id="L36">        this.bikeIds = bikeIds;</span>
+<span class="fc" id="L37">    }</span>
+
+    @Override
+    public String toString() {
+<span class="fc" id="L41">        return &quot;StationData{&quot; +</span>
+                &quot;id=&quot; + id +
+                &quot;, location='&quot; + location + '\'' +
+                &quot;, bikeIds=&quot; + bikeIds +
+                '}';
+    }
+}
+
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

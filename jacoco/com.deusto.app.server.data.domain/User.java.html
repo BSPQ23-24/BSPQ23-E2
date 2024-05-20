@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>User.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">bike-lending-app</a> &gt; <a href="index.source.html" class="el_package">com.deusto.app.server.data.domain</a> &gt; <span class="el_source">User.java</span></div><h1>User.java</h1><pre class="source lang-java linenums">package com.deusto.app.server.data.domain;
+
+import javax.jdo.annotations.PersistenceCapable;
+import javax.jdo.annotations.PrimaryKey;
+
+/**
+ * User class represents a user in the bike rental system.
+ * It includes details such as DNI, name, password, surname, date of birth,
+ * phone number, and email address.
+ */
+@PersistenceCapable
+public class User {
+
+    @PrimaryKey
+    private String dni;
+    private String name;
+    private String password;
+    private String surname;
+    private String dateOfBirth;
+    private String phone;
+    private String mail;
+    private boolean admin; //true admin, false client
+
+    /**
+     * Constructs a new User with the specified details.
+     *
+     * @param dni         the user's DNI
+     * @param password    the user's password
+     * @param name        the user's name
+     * @param surname     the user's surname
+     * @param dateOfBirth the user's date of birth
+     * @param phone       the user's phone number
+     * @param mail        the user's email address
+     * @param admin       if the user is client or admin
+     */
+<span class="fc" id="L36">    public User(String dni, String password, String name, String surname, String dateOfBirth, String phone, String mail, boolean admin) {</span>
+<span class="fc" id="L37">        this.dni = dni;</span>
+<span class="fc" id="L38">        this.name = name;</span>
+<span class="fc" id="L39">        this.password = password;</span>
+<span class="fc" id="L40">        this.surname = surname;</span>
+<span class="fc" id="L41">        this.dateOfBirth = dateOfBirth;</span>
+<span class="fc" id="L42">        this.phone = phone;</span>
+<span class="fc" id="L43">        this.mail = mail;</span>
+<span class="fc" id="L44">        this.admin= admin;  //true admin, false client</span>
+<span class="fc" id="L45">    }</span>
+
+    /**
+     * Default constructor for User.
+     */
+<span class="fc" id="L50">    public User() {</span>
+<span class="fc" id="L51">    }</span>
+
+    /**
+     * Returns the user's DNI.
+     *
+     * @return the DNI
+     */
+    public String getDni() {
+<span class="fc" id="L59">        return dni;</span>
+    }
+
+    /**
+     * Sets the user's DNI.
+     *
+     * @param dni the DNI to set
+     */
+    public void setDni(String dni) {
+<span class="fc" id="L68">        this.dni = dni;</span>
+<span class="fc" id="L69">    }</span>
+
+    /**
+     * Returns the user's name.
+     *
+     * @return the name
+     */
+    public String getName() {
+<span class="fc" id="L77">        return name;</span>
+    }
+
+    /**
+     * Sets the user's name.
+     *
+     * @param name the name to set
+     */
+    public void setName(String name) {
+<span class="fc" id="L86">        this.name = name;</span>
+<span class="fc" id="L87">    }</span>
+
+    /**
+     * Returns the user's surname.
+     *
+     * @return the surname
+     */
+    public String getSurname() {
+<span class="fc" id="L95">        return surname;</span>
+    }
+
+    /**
+     * Sets the user's surname.
+     *
+     * @param surname the surname to set
+     */
+    public void setSurname(String surname) {
+<span class="fc" id="L104">        this.surname = surname;</span>
+<span class="fc" id="L105">    }</span>
+
+    /**
+     * Returns the user's date of birth.
+     *
+     * @return the date of birth
+     */
+    public String getDateOfBirth() {
+<span class="fc" id="L113">        return dateOfBirth;</span>
+    }
+
+    /**
+     * Sets the user's date of birth.
+     *
+     * @param dateOfBirth the date of birth to set
+     */
+    public void setDateOfBirth(String dateOfBirth) {
+<span class="fc" id="L122">        this.dateOfBirth = dateOfBirth;</span>
+<span class="fc" id="L123">    }</span>
+
+    /**
+     * Returns the user's phone number.
+     *
+     * @return the phone number
+     */
+    public String getPhone() {
+<span class="fc" id="L131">        return phone;</span>
+    }
+
+    /**
+     * Sets the user's phone number.
+     *
+     * @param phone the phone number to set
+     */
+    public void setPhone(String phone) {
+<span class="fc" id="L140">        this.phone = phone;</span>
+<span class="fc" id="L141">    }</span>
+
+    /**
+     * Returns the user's email address.
+     *
+     * @return the email address
+     */
+    public String getMail() {
+<span class="fc" id="L149">        return mail;</span>
+    }
+
+    /**
+     * Sets the user's email address.
+     *
+     * @param mail the email address to set
+     */
+    public void setMail(String mail) {
+<span class="fc" id="L158">        this.mail = mail;</span>
+<span class="fc" id="L159">    }</span>
+
+    /**
+     * Returns the user's password.
+     *
+     * @return the password
+     */
+    public String getPassword() {
+<span class="fc" id="L167">        return password;</span>
+    }
+
+    /**
+     * Sets the user's password.
+     *
+     * @param password the password to set
+     */
+    public void setPassword(String password) {
+<span class="fc" id="L176">        this.password = password;</span>
+<span class="fc" id="L177">    }</span>
+    
+    public boolean isAdmin() {
+<span class="nc" id="L180">		return admin;</span>
+	}
+
+	public void setAdmin(boolean admin) {
+<span class="nc" id="L184">		this.admin = admin;</span>
+<span class="nc" id="L185">	}</span>
+
+	/**
+     * Returns a string representation of the user.
+     *
+     * @return a string containing the user details
+     */
+    @Override
+    public String toString() {
+<span class="fc" id="L194">        StringBuilder result = new StringBuilder();</span>
+<span class="fc" id="L195">        result.append(&quot;DNI: &quot;).append(this.dni);</span>
+<span class="fc" id="L196">        result.append(&quot; / Password: &quot;).append(this.password);</span>
+<span class="fc" id="L197">        result.append(&quot; / Name: &quot;).append(this.name);</span>
+<span class="fc" id="L198">        result.append(&quot; / Surname: &quot;).append(this.surname);</span>
+<span class="fc" id="L199">        result.append(&quot; / Date of Birth: &quot;).append(this.dateOfBirth);</span>
+<span class="fc" id="L200">        result.append(&quot; / Phone: &quot;).append(this.phone);</span>
+<span class="fc" id="L201">        result.append(&quot; / Email: &quot;).append(this.mail);</span>
+<span class="fc" id="L202">        result.append(&quot; / Admin: &quot;).append(this.admin);</span>
+<span class="fc" id="L203">        return result.toString();</span>
+    }
+
+    /**
+     * Checks if the given object is equal to this user.
+     *
+     * @param obj the object to compare with
+     * @return true if the objects are equal, false otherwise
+     */
+    @Override
+    public boolean equals(Object obj) {
+<span class="fc bfc" id="L214" title="All 2 branches covered.">        if (this == obj) {</span>
+<span class="fc" id="L215">            return true;</span>
+        }
+<span class="pc bpc" id="L217" title="1 of 4 branches missed.">        if (obj == null || getClass() != obj.getClass()) {</span>
+<span class="fc" id="L218">            return false;</span>
+        }
+<span class="fc" id="L220">        User user = (User) obj;</span>
+<span class="fc" id="L221">        return dni.equals(user.dni);</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

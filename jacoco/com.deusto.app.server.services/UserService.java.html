@@ -1,0 +1,344 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>UserService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">bike-lending-app</a> &gt; <a href="index.source.html" class="el_package">com.deusto.app.server.services</a> &gt; <span class="el_source">UserService.java</span></div><h1>UserService.java</h1><pre class="source lang-java linenums">package com.deusto.app.server.services;
+
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.jdo.JDOHelper;
+import javax.jdo.PersistenceManager;
+import javax.jdo.PersistenceManagerFactory;
+import javax.jdo.Transaction;
+import org.apache.logging.log4j.LogManager;
+
+import com.deusto.app.server.data.domain.Bicycle;
+import com.deusto.app.server.data.domain.Loan;
+import com.deusto.app.server.data.domain.Station;
+import com.deusto.app.server.data.domain.User;
+import com.deusto.app.server.pojo.UserData;
+
+/**
+ * UserService class handles user-related operations including registration,
+ * login, logout, password changes, and initialization of data. It also manages
+ * the server state for user sessions.
+ */
+public class UserService {
+
+	private static UserService instance;
+
+	private PersistenceManagerFactory pmf;
+	private Map&lt;Long, User&gt; serverState;
+
+	/**
+     * Private constructor to initialize PersistenceManagerFactory,
+     * PersistenceManager, Transaction, and server state. It also initializes
+     * example data.
+     */
+<span class="nc" id="L38">	private UserService() {</span>
+<span class="nc" id="L39">		pmf = JDOHelper.getPersistenceManagerFactory(&quot;datanucleus.properties&quot;);</span>
+<span class="nc" id="L40">		serverState = new HashMap&lt;&gt;();</span>
+<span class="nc" id="L41">		initializeData();</span>
+<span class="nc" id="L42">	}</span>
+	
+	// Constructor for testing purposes
+<span class="fc" id="L45">	public UserService(PersistenceManagerFactory pmf) {</span>
+<span class="fc" id="L46">	    this.pmf = pmf;</span>
+<span class="fc" id="L47">	    serverState = new HashMap&lt;&gt;();</span>
+<span class="fc" id="L48">	}</span>
+
+
+	/**
+     * Returns the singleton instance of UserService.
+     *
+     * @return UserService instance
+     */
+	public static UserService getInstance() {
+<span class="nc bnc" id="L57" title="All 2 branches missed.">		if (instance == null) {</span>
+<span class="nc" id="L58">			instance = new UserService();</span>
+		}
+<span class="nc" id="L60">		return instance;</span>
+	}
+
+	/**
+     * Registers a new user in the system.
+     *
+     * @param userData the user data to be registered
+     * @return true if the registration is successful, false if the user already exists
+     */
+	public boolean registerUser(UserData userData) {
+
+<span class="fc" id="L71">		LogManager.getLogger(UserService.class).info(&quot;Register Start | User: '{}'&quot;, userData.getDni());</span>
+
+<span class="fc" id="L73">		PersistenceManager pm = pmf.getPersistenceManager();</span>
+<span class="fc" id="L74">		Transaction tx = pm.currentTransaction();</span>
+		
+		try {
+<span class="fc" id="L77">			tx.begin();</span>
+
+<span class="fc" id="L79">			User user = null;</span>
+			try {
+<span class="fc" id="L81">				user = pm.getObjectById(User.class, userData.getDni());</span>
+				// If the user is found, return an unauthorized response
+<span class="pc bpc" id="L83" title="1 of 2 branches missed.">				if (user != null) {</span>
+<span class="nc" id="L84">					LogManager.getLogger(UserService.class)</span>
+<span class="nc" id="L85">							.info(&quot;Registration Failed | User is already registered | User: '{}'&quot;, userData.getDni());</span>
+<span class="nc" id="L86">					return false;</span>
+				}
+<span class="nc" id="L88">			} catch (javax.jdo.JDOObjectNotFoundException jonfe) {</span>
+				// User not found, proceed to registration
+<span class="nc" id="L90">				user = new User(userData.getDni(), userData.getPassword(), userData.getName(), userData.getSurname(),</span>
+<span class="nc" id="L91">						userData.getDateOfBirth(), userData.getPhone(), userData.getMail(), true);</span>
+
+<span class="nc" id="L93">				pm.makePersistent(user);</span>
+<span class="nc" id="L94">				LogManager.getLogger(UserService.class).info(&quot;Registration Success | User: '{}'&quot;, userData.getDni());</span>
+<span class="fc" id="L95">			}</span>
+<span class="fc" id="L96">			tx.commit();</span>
+<span class="fc" id="L97">			return true;</span>
+		} finally {
+<span class="pc bpc" id="L99" title="1 of 2 branches missed.">			if (tx.isActive()) {</span>
+<span class="nc" id="L100">				tx.rollback();</span>
+			}
+<span class="fc" id="L102">			pm.close();</span>
+		}
+	}
+
+	/**
+     * Logs in a user.
+     *
+     * @param dni      the user's DNI
+     * @param password the user's password
+     * @return a token representing the user's session if login is successful, -1 otherwise
+     */
+	public long loginUser(String dni, String password) {
+<span class="fc" id="L114">	    LogManager.getLogger(UserService.class).info(&quot;Login Start | User: '{}'&quot;, dni);</span>
+
+<span class="fc" id="L116">	    PersistenceManager pm = pmf.getPersistenceManager();</span>
+<span class="fc" id="L117">		Transaction tx = pm.currentTransaction();</span>
+	    
+<span class="fc" id="L119">	    User user = null;</span>
+	    try {
+<span class="fc" id="L121">	        tx.begin();</span>
+	        try {
+<span class="fc" id="L123">	            user = pm.getObjectById(User.class, dni);</span>
+<span class="pc bpc" id="L124" title="1 of 4 branches missed.">	            if (user != null &amp;&amp; user.getPassword().equals(password)) {</span>
+<span class="fc" id="L125">	                long token = Calendar.getInstance().getTimeInMillis();</span>
+<span class="fc" id="L126">	                User detachedUser = pm.detachCopy(user);</span>
+<span class="fc" id="L127">	                this.serverState.put(token, detachedUser);</span>
+<span class="fc" id="L128">	                LogManager.getLogger(UserService.class).info(&quot;Login Success | User: '{}'&quot;, dni);</span>
+<span class="fc" id="L129">	                return token;</span>
+	            }
+<span class="nc" id="L131">	        } catch (javax.jdo.JDOObjectNotFoundException e) {</span>
+<span class="nc" id="L132">	            LogManager.getLogger(UserService.class).error(&quot;Login Failed | User not found | User: '{}'&quot;, dni);</span>
+<span class="fc" id="L133">	        }</span>
+<span class="fc" id="L134">	        tx.commit();</span>
+	    } finally {
+<span class="pc bpc" id="L136" title="1 of 2 branches missed.">	        if (tx.isActive()) {</span>
+<span class="nc" id="L137">	            tx.rollback();</span>
+	        }
+<span class="fc" id="L139">	        pm.close();</span>
+	    }
+<span class="fc" id="L141">	    return -1;</span>
+	}
+
+	/**
+     * Checks if a user is logged in.
+     *
+     * @param token the user's session token
+     * @return true if the user is logged in, false otherwise
+     */
+	public boolean isLoggedIn(long token) {
+<span class="nc bnc" id="L151" title="All 2 branches missed.">		if (serverState.containsKey(token)) {</span>
+<span class="nc" id="L152">			return true;</span>
+		} else {
+<span class="nc" id="L154">			return false;</span>
+		}
+	}
+	
+	/**
+     * Checks if a user is admin or client.
+     *
+     * @param token the user's session token
+     * @return true if the user is an admin, false otherwise
+     */
+	public boolean isAdmin(long token) {
+<span class="nc" id="L165">		User user=serverState.get(token);</span>
+<span class="nc bnc" id="L166" title="All 2 branches missed.">		if(user.isAdmin()) {</span>
+<span class="nc" id="L167">			return true;</span>
+		}else {
+<span class="nc" id="L169">			return false;</span>
+		}
+		
+	}
+
+	/**
+     * Logs out a user.
+     *
+     * @param token the user's session token
+     * @return true if logout is successful, false otherwise
+     */
+	public boolean logoutUser(long token) {
+<span class="fc" id="L181">	    LogManager.getLogger(UserService.class).info(&quot;Logout Start | Token: '{}'&quot;, token);</span>
+<span class="pc bpc" id="L182" title="1 of 2 branches missed.">	    if (serverState.containsKey(token)) {</span>
+<span class="fc" id="L183">	        serverState.remove(token); // Remove the user from the server state</span>
+<span class="fc" id="L184">	        LogManager.getLogger(UserService.class).info(&quot;Logout Success | Token '{}'&quot;, token);</span>
+<span class="fc" id="L185">	        return true;</span>
+	    } else {
+<span class="nc" id="L187">	        LogManager.getLogger(UserService.class).error(&quot;Logout Failed | User isn't logged in | Token '{}' &quot;, token);</span>
+<span class="nc" id="L188">	        return false;</span>
+	    }
+	}
+
+	/**
+     * Changes the password of a user.
+     *
+     * @param dni        the user's DNI
+     * @param oldPassword the user's current password
+     * @param newPassword the new password to set
+     * @return true if the password change is successful, false otherwise
+     */
+	public boolean changePassword(String dni, String oldPassword, String newPassword) {
+<span class="fc" id="L201">		LogManager.getLogger(UserService.class).info(&quot;Change Password Start | User: '{}'&quot;, dni);</span>
+
+<span class="fc" id="L203">		PersistenceManager pm = pmf.getPersistenceManager();</span>
+<span class="fc" id="L204">		Transaction tx = pm.currentTransaction();</span>
+		
+		try {
+<span class="fc" id="L207">			tx.begin();</span>
+
+<span class="fc" id="L209">			User user = pm.getObjectById(User.class, dni);</span>
+
+<span class="fc bfc" id="L211" title="All 2 branches covered.">			if (!user.getPassword().equals(oldPassword)) {</span>
+<span class="fc" id="L212">				LogManager.getLogger(UserService.class)</span>
+<span class="fc" id="L213">						.error(&quot;Change Password Failed | Old password missmatch | User: '{}'&quot;, dni);</span>
+<span class="fc" id="L214">				return false;</span>
+			}
+
+			// Update the password with the new one
+<span class="fc" id="L218">			user.setPassword(newPassword);</span>
+<span class="fc" id="L219">			LogManager.getLogger(UserService.class).info(&quot;Change Password Success | User: '{}'&quot;, dni);</span>
+
+<span class="fc" id="L221">			tx.commit();</span>
+<span class="fc" id="L222">			return true;</span>
+<span class="nc" id="L223">		} catch (Exception e) {</span>
+<span class="nc bnc" id="L224" title="All 2 branches missed.">			if (tx.isActive()) {</span>
+<span class="nc" id="L225">				tx.rollback();</span>
+			}
+<span class="nc" id="L227">			LogManager.getLogger(UserService.class).error(&quot;Change Password Failed | '{}' | User: '{}'&quot;, e, dni);</span>
+<span class="nc" id="L228">			return false;</span>
+		} finally {
+<span class="fc" id="L230">			pm.close();</span>
+		}
+	}
+
+	/**
+     * Initializes example data for the application.
+     */
+	private void initializeData() {
+<span class="nc" id="L238">		LogManager.getLogger(UserService.class).info(&quot;Initialize Data&quot;);</span>
+
+<span class="nc" id="L240">		PersistenceManager pm = pmf.getPersistenceManager();</span>
+<span class="nc" id="L241">		Transaction tx = pm.currentTransaction();</span>
+		
+		try {
+<span class="nc" id="L244">			tx.begin();</span>
+
+			// Check if there are any existing data entries
+<span class="nc bnc" id="L247" title="All 2 branches missed.">			if (pm.getExtent(User.class).iterator().hasNext()) {</span>
+<span class="nc" id="L248">				LogManager.getLogger(UserService.class).error(&quot;Initialize Data Failed | Data already present&quot;);</span>
+			} else {
+				// Create and persist example Users
+<span class="nc" id="L251">				User user1 = new User(&quot;12345678A&quot;, &quot;password123&quot;, &quot;John&quot;, &quot;Doe&quot;, &quot;01-01-1980&quot;, &quot;555123456&quot;,</span>
+						&quot;john@example.com&quot;,false);
+<span class="nc" id="L253">				User user2 = new User(&quot;87654321B&quot;, &quot;password456&quot;, &quot;Jane&quot;, &quot;Smith&quot;, &quot;02-02-1990&quot;, &quot;555654321&quot;,</span>
+						&quot;jane@example.com&quot;,true);
+				
+<span class="nc" id="L256">				pm.makePersistent(user1);</span>
+<span class="nc" id="L257">				pm.makePersistent(user2);</span>
+
+				// Create and persist example Bicycles
+<span class="nc" id="L260">				Bicycle bike1 = new Bicycle();</span>
+<span class="nc" id="L261">				bike1.setType(&quot;Mountain&quot;);</span>
+<span class="nc" id="L262">				bike1.setAcquisitionDate(&quot;2023-01-01&quot;); // Use consistent format if required</span>
+<span class="nc" id="L263">				bike1.setAvailable(false);</span>
+
+<span class="nc" id="L265">				Bicycle bike2 = new Bicycle();</span>
+<span class="nc" id="L266">				bike2.setType(&quot;Road&quot;);</span>
+<span class="nc" id="L267">				bike2.setAcquisitionDate(&quot;2023-02-01&quot;); // Use consistent format if required</span>
+<span class="nc" id="L268">				bike2.setAvailable(true);</span>
+
+<span class="nc" id="L270">				Bicycle bike3 = new Bicycle();</span>
+<span class="nc" id="L271">				bike3.setType(&quot;Hybrid&quot;);</span>
+<span class="nc" id="L272">				bike3.setAcquisitionDate(&quot;2023-03-01&quot;);</span>
+<span class="nc" id="L273">				bike3.setAvailable(false);</span>
+
+<span class="nc" id="L275">				Bicycle bike4 = new Bicycle();</span>
+<span class="nc" id="L276">				bike4.setType(&quot;Electric&quot;);</span>
+<span class="nc" id="L277">				bike4.setAcquisitionDate(&quot;2023-03-15&quot;);</span>
+<span class="nc" id="L278">				bike4.setAvailable(true);</span>
+
+<span class="nc" id="L280">				pm.makePersistent(bike1);</span>
+<span class="nc" id="L281">				pm.makePersistent(bike2);</span>
+<span class="nc" id="L282">				pm.makePersistent(bike3);</span>
+<span class="nc" id="L283">				pm.makePersistent(bike4);</span>
+
+				// Create and persist example Station
+<span class="nc" id="L286">				Station station1 = new Station();</span>
+<span class="nc" id="L287">				station1.setLocation(&quot;Central Park&quot;);</span>
+<span class="nc" id="L288">				Station station2 = new Station();</span>
+<span class="nc" id="L289">				station2.setLocation(&quot;Riverside Park&quot;);</span>
+
+				// Assign bicycles to station
+
+<span class="nc" id="L293">				bike1.setStation(station1);</span>
+<span class="nc" id="L294">				bike2.setStation(station1);</span>
+<span class="nc" id="L295">				bike3.setStation(station2);</span>
+<span class="nc" id="L296">				bike4.setStation(station2);</span>
+
+<span class="nc" id="L298">				List&lt;Bicycle&gt; station1array = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L299">				station1array.add(bike1);</span>
+<span class="nc" id="L300">				station1array.add(bike2);</span>
+
+<span class="nc" id="L302">				List&lt;Bicycle&gt; station2array = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L303">				station2array.add(bike3);</span>
+<span class="nc" id="L304">				station2array.add(bike4);</span>
+
+<span class="nc" id="L306">				station1.setBikes(station1array);</span>
+<span class="nc" id="L307">				station2.setBikes(station2array);</span>
+
+<span class="nc" id="L309">				pm.makePersistent(station1);</span>
+<span class="nc" id="L310">				pm.makePersistent(station2);</span>
+
+				// Create and persist example Loans
+<span class="nc" id="L313">				Loan loan1 = new Loan();</span>
+<span class="nc" id="L314">				loan1.setLoanDate(&quot;15-04-2023&quot;);</span>
+<span class="nc" id="L315">				loan1.setStartHour(&quot;10:00&quot;);</span>
+<span class="nc" id="L316">				loan1.setEndHour(&quot;12:00&quot;);</span>
+<span class="nc" id="L317">				loan1.setUser(user1);</span>
+<span class="nc" id="L318">				loan1.setBicycle(bike1);</span>
+<span class="nc" id="L319">				pm.makePersistent(loan1);</span>
+
+<span class="nc" id="L321">				Loan loan2 = new Loan();</span>
+<span class="nc" id="L322">				loan2.setLoanDate(&quot;16-04-2023&quot;);</span>
+<span class="nc" id="L323">				loan2.setStartHour(&quot;13:00&quot;);</span>
+<span class="nc" id="L324">				loan2.setEndHour(&quot;15:00&quot;);</span>
+<span class="nc" id="L325">				loan2.setUser(user2);</span>
+<span class="nc" id="L326">				loan2.setBicycle(bike3);</span>
+<span class="nc" id="L327">				pm.makePersistent(loan2);</span>
+
+<span class="nc" id="L329">				LogManager.getLogger(UserService.class).info(&quot;Initialize Data Success&quot;);</span>
+			}
+
+<span class="nc" id="L332">			tx.commit();</span>
+<span class="nc" id="L333">		} catch (Exception e) {</span>
+<span class="nc" id="L334">			LogManager.getLogger(UserService.class).error(&quot;Initialize Data Failed | Reason: '{}'&quot;, e);</span>
+<span class="nc bnc" id="L335" title="All 2 branches missed.">			if (tx.isActive()) {</span>
+<span class="nc" id="L336">				tx.rollback();</span>
+			}
+		} finally {
+<span class="nc" id="L339">			pm.close();</span>
+		}
+<span class="nc" id="L341">	}</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

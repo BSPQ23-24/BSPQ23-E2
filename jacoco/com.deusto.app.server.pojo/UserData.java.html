@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>UserData.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">bike-lending-app</a> &gt; <a href="index.source.html" class="el_package">com.deusto.app.server.pojo</a> &gt; <span class="el_source">UserData.java</span></div><h1>UserData.java</h1><pre class="source lang-java linenums">package com.deusto.app.server.pojo;
+
+public class UserData {
+
+	private String dni;
+	private String password;
+	private String name;
+	private String surname;
+	private String dateOfBirth;
+	private String phone;
+	private String mail;
+	private boolean admin;
+
+<span class="fc" id="L14">	public UserData() {</span>
+		// required by serialization
+<span class="fc" id="L16">	}</span>
+
+	public String getDni() {
+<span class="fc" id="L19">		return dni;</span>
+	}
+
+	public void setDni(String dni) {
+<span class="fc" id="L23">		this.dni = dni;</span>
+<span class="fc" id="L24">	}</span>
+
+	public String getPassword() {
+<span class="fc" id="L27">		return password;</span>
+	}
+
+	public void setPassword(String password) {
+<span class="fc" id="L31">		this.password = password;</span>
+<span class="fc" id="L32">	}</span>
+
+	public String getName() {
+<span class="fc" id="L35">		return name;</span>
+	}
+
+	public void setName(String name) {
+<span class="fc" id="L39">		this.name = name;</span>
+<span class="fc" id="L40">	}</span>
+
+	public String getSurname() {
+<span class="fc" id="L43">		return surname;</span>
+	}
+
+	public void setSurname(String surname) {
+<span class="fc" id="L47">		this.surname = surname;</span>
+<span class="fc" id="L48">	}</span>
+
+	public String getDateOfBirth() {
+<span class="fc" id="L51">		return dateOfBirth;</span>
+	}
+
+	public void setDateOfBirth(String dateOfBirth) {
+<span class="fc" id="L55">		this.dateOfBirth = dateOfBirth;</span>
+<span class="fc" id="L56">	}</span>
+
+	public String getPhone() {
+<span class="fc" id="L59">		return phone;</span>
+	}
+
+	public void setPhone(String phone) {
+<span class="fc" id="L63">		this.phone = phone;</span>
+<span class="fc" id="L64">	}</span>
+
+	public String getMail() {
+<span class="fc" id="L67">		return mail;</span>
+	}
+
+	public void setMail(String mail) {
+<span class="fc" id="L71">		this.mail = mail;</span>
+<span class="fc" id="L72">	}</span>
+	
+	public boolean isAdmin() {
+<span class="nc" id="L75">		return admin;</span>
+	}
+
+	public void setAdmin(boolean admin) {
+<span class="nc" id="L79">		this.admin = admin;</span>
+<span class="nc" id="L80">	}</span>
+
+	@Override
+	public String toString() {
+<span class="fc" id="L84">		return &quot;UserData [dni=&quot; + dni + &quot;, password=&quot; + password + &quot;, name=&quot; + name + &quot;, surname=&quot; + surname</span>
+				+ &quot;, dateOfBirth=&quot; + dateOfBirth + &quot;, phone=&quot; + phone + &quot;, mail=&quot; + mail + &quot;]&quot;;
+	}
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

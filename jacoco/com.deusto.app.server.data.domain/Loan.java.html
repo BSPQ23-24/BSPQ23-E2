@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Loan.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">bike-lending-app</a> &gt; <a href="index.source.html" class="el_package">com.deusto.app.server.data.domain</a> &gt; <span class="el_source">Loan.java</span></div><h1>Loan.java</h1><pre class="source lang-java linenums">package com.deusto.app.server.data.domain;
+
+import javax.jdo.annotations.IdGeneratorStrategy;
+import javax.jdo.annotations.PersistenceCapable;
+import javax.jdo.annotations.Persistent;
+import javax.jdo.annotations.PrimaryKey;
+
+/**
+ * Loan class represents a loan transaction in the bike rental system.
+ * It includes details such as loan ID, loan date, start hour, end hour,
+ * associated bicycle, and the user who made the loan.
+ */
+@PersistenceCapable(detachable = &quot;true&quot;)
+<span class="fc" id="L14">public class Loan {</span>
+
+    @PrimaryKey
+    @Persistent(valueStrategy = IdGeneratorStrategy.INCREMENT)
+    private int id;
+    private String loanDate;
+    private String startHour;
+    private String endHour;
+
+    @Persistent(defaultFetchGroup = &quot;true&quot;)
+    private Bicycle bicycle;
+
+    @Persistent(defaultFetchGroup = &quot;true&quot;)
+    private User user;
+
+    /**
+     * Returns the ID of the loan.
+     *
+     * @return the loan ID
+     */
+    public int getId() {
+<span class="fc" id="L35">        return id;</span>
+    }
+
+    /**
+     * Sets the ID of the loan.
+     *
+     * @param id the loan ID to set
+     */
+    public void setId(int id) {
+<span class="fc" id="L44">        this.id = id;</span>
+<span class="fc" id="L45">    }</span>
+
+    /**
+     * Returns the date of the loan.
+     *
+     * @return the loan date
+     */
+    public String getLoanDate() {
+<span class="fc" id="L53">        return loanDate;</span>
+    }
+
+    /**
+     * Sets the date of the loan.
+     *
+     * @param loanDate the loan date to set
+     */
+    public void setLoanDate(String loanDate) {
+<span class="fc" id="L62">        this.loanDate = loanDate;</span>
+<span class="fc" id="L63">    }</span>
+
+    /**
+     * Returns the start hour of the loan.
+     *
+     * @return the start hour
+     */
+    public String getStartHour() {
+<span class="fc" id="L71">        return startHour;</span>
+    }
+
+    /**
+     * Sets the start hour of the loan.
+     *
+     * @param startHour the start hour to set
+     */
+    public void setStartHour(String startHour) {
+<span class="fc" id="L80">        this.startHour = startHour;</span>
+<span class="fc" id="L81">    }</span>
+
+    /**
+     * Returns the end hour of the loan.
+     *
+     * @return the end hour
+     */
+    public String getEndHour() {
+<span class="fc" id="L89">        return endHour;</span>
+    }
+
+    /**
+     * Sets the end hour of the loan.
+     *
+     * @param endHour the end hour to set
+     */
+    public void setEndHour(String endHour) {
+<span class="fc" id="L98">        this.endHour = endHour;</span>
+<span class="fc" id="L99">    }</span>
+
+    /**
+     * Returns the bicycle associated with the loan.
+     *
+     * @return the bicycle
+     */
+    public Bicycle getBicycle() {
+<span class="fc" id="L107">        return bicycle;</span>
+    }
+
+    /**
+     * Sets the bicycle associated with the loan.
+     *
+     * @param bicycle the bicycle to set
+     */
+    public void setBicycle(Bicycle bicycle) {
+<span class="fc" id="L116">        this.bicycle = bicycle;</span>
+<span class="fc" id="L117">    }</span>
+
+    /**
+     * Returns the user who made the loan.
+     *
+     * @return the user
+     */
+    public User getUser() {
+<span class="fc" id="L125">        return user;</span>
+    }
+
+    /**
+     * Sets the user who made the loan.
+     *
+     * @param user the user to set
+     */
+    public void setUser(User user) {
+<span class="fc" id="L134">        this.user = user;</span>
+<span class="fc" id="L135">    }</span>
+
+    /**
+     * Returns a string representation of the loan.
+     *
+     * @return a string containing the loan details
+     */
+    @Override
+    public String toString() {
+<span class="fc" id="L144">        StringBuilder result = new StringBuilder();</span>
+<span class="fc" id="L145">        result.append(&quot;Loan ID: &quot;);</span>
+<span class="fc" id="L146">        result.append(this.id);</span>
+<span class="fc" id="L147">        result.append(&quot; / Loan Date: &quot;);</span>
+<span class="fc" id="L148">        result.append(this.loanDate);</span>
+<span class="fc" id="L149">        result.append(&quot; / Start Hour: &quot;);</span>
+<span class="fc" id="L150">        result.append(this.startHour);</span>
+<span class="fc" id="L151">        result.append(&quot; / End Hour: &quot;);</span>
+<span class="fc" id="L152">        result.append(this.endHour);</span>
+<span class="fc" id="L153">        result.append(&quot; / Bicycle ID: &quot;);</span>
+<span class="fc" id="L154">        result.append(this.bicycle.getId());</span>
+<span class="fc" id="L155">        result.append(&quot; / User DNI: &quot;);</span>
+<span class="fc" id="L156">        result.append(this.user.getDni());</span>
+<span class="fc" id="L157">        return result.toString();</span>
+    }
+
+    /**
+     * Checks if the given object is equal to this loan.
+     *
+     * @param obj the object to compare with
+     * @return true if the objects are equal, false otherwise
+     */
+    @Override
+    public boolean equals(Object obj) {
+<span class="fc bfc" id="L168" title="All 2 branches covered.">        if (this.getClass().getName().equals(obj.getClass().getName())) {</span>
+<span class="fc bfc" id="L169" title="All 2 branches covered.">            return this.id == ((Loan) obj).id;</span>
+        }
+<span class="fc" id="L171">        return false;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

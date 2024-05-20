@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Station.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">bike-lending-app</a> &gt; <a href="index.source.html" class="el_package">com.deusto.app.server.data.domain</a> &gt; <span class="el_source">Station.java</span></div><h1>Station.java</h1><pre class="source lang-java linenums">package com.deusto.app.server.data.domain;
+
+import java.util.List;
+
+import javax.jdo.annotations.IdGeneratorStrategy;
+import javax.jdo.annotations.PersistenceCapable;
+import javax.jdo.annotations.Persistent;
+import javax.jdo.annotations.PrimaryKey;
+
+/**
+ * Station class represents a bike station in the bike rental system.
+ * It includes details such as station ID, location, and the list of bikes associated with the station.
+ */
+@PersistenceCapable(detachable = &quot;true&quot;)
+<span class="fc" id="L15">public class Station {</span>
+
+    @PrimaryKey
+    @Persistent(valueStrategy = IdGeneratorStrategy.INCREMENT)
+    private int id;
+    private String location;
+
+    @Persistent(mappedBy = &quot;station&quot;)
+    private List&lt;Bicycle&gt; bikes;
+
+    /**
+     * Returns the ID of the station.
+     *
+     * @return the station ID
+     */
+    public int getId() {
+<span class="fc" id="L31">        return id;</span>
+    }
+
+    /**
+     * Sets the ID of the station.
+     *
+     * @param id the station ID to set
+     */
+    public void setId(int id) {
+<span class="fc" id="L40">        this.id = id;</span>
+<span class="fc" id="L41">    }</span>
+
+    /**
+     * Returns the location of the station.
+     *
+     * @return the station location
+     */
+    public String getLocation() {
+<span class="fc" id="L49">        return location;</span>
+    }
+
+    /**
+     * Sets the location of the station.
+     *
+     * @param location the station location to set
+     */
+    public void setLocation(String location) {
+<span class="fc" id="L58">        this.location = location;</span>
+<span class="fc" id="L59">    }</span>
+
+    /**
+     * Returns the list of bikes associated with the station.
+     *
+     * @return the list of bikes
+     */
+    public List&lt;Bicycle&gt; getBikes() {
+<span class="fc" id="L67">        return bikes;</span>
+    }
+
+    /**
+     * Sets the list of bikes associated with the station.
+     *
+     * @param bikes the list of bikes to set
+     */
+    public void setBikes(List&lt;Bicycle&gt; bikes) {
+<span class="fc" id="L76">        this.bikes = bikes;</span>
+<span class="fc" id="L77">    }</span>
+
+    /**
+     * Returns a string representation of the station.
+     *
+     * @return a string containing the station details
+     */
+    @Override
+    public String toString() {
+<span class="fc" id="L86">        StringBuilder result = new StringBuilder();</span>
+<span class="fc" id="L87">        result.append(&quot;Station ID: &quot;);</span>
+<span class="fc" id="L88">        result.append(this.id);</span>
+<span class="fc" id="L89">        result.append(&quot; / Location: &quot;);</span>
+<span class="fc" id="L90">        result.append(this.location);</span>
+<span class="fc" id="L91">        return result.toString();</span>
+    }
+
+    /**
+     * Checks if the given object is equal to this station.
+     *
+     * @param obj the object to compare with
+     * @return true if the objects are equal, false otherwise
+     */
+    @Override
+    public boolean equals(Object obj) {
+<span class="fc bfc" id="L102" title="All 2 branches covered.">        if (this.getClass().getName().equals(obj.getClass().getName())) {</span>
+<span class="fc bfc" id="L103" title="All 2 branches covered.">            return this.id == ((Station) obj).id;</span>
+        }
+<span class="fc" id="L105">        return false;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>AdminService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">bike-lending-app</a> &gt; <a href="index.source.html" class="el_package">com.deusto.app.server.services</a> &gt; <span class="el_source">AdminService.java</span></div><h1>AdminService.java</h1><pre class="source lang-java linenums">package com.deusto.app.server.services;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.jdo.JDOHelper;
+import javax.jdo.JDOObjectNotFoundException;
+import javax.jdo.PersistenceManager;
+import javax.jdo.PersistenceManagerFactory;
+import javax.jdo.Transaction;
+
+import org.apache.logging.log4j.LogManager;
+
+import com.deusto.app.server.data.domain.Bicycle;
+import com.deusto.app.server.data.domain.Station;
+import com.deusto.app.server.pojo.BicycleData;
+
+public class AdminService {
+	private static AdminService instance;
+
+	private PersistenceManagerFactory pmf;
+
+	/**
+	 * Private constructor to initialize PersistenceManagerFactory.
+	 */
+<span class="nc" id="L26">	private AdminService() {</span>
+<span class="nc" id="L27">		pmf = JDOHelper.getPersistenceManagerFactory(&quot;datanucleus.properties&quot;);</span>
+<span class="nc" id="L28">	}</span>
+
+	// Constructor for testing purposes
+<span class="fc" id="L31">    public AdminService(PersistenceManagerFactory pmf) {</span>
+<span class="fc" id="L32">        this.pmf = pmf;</span>
+<span class="fc" id="L33">    }</span>
+	
+	/**
+	 * Returns the singleton instance of AdminService.
+	 *
+	 * @return AdminService instance
+	 */
+	public static AdminService getInstance() {
+<span class="nc bnc" id="L41" title="All 2 branches missed.">		if (instance == null) {</span>
+<span class="nc" id="L42">			instance = new AdminService();</span>
+		}
+<span class="nc" id="L44">		return instance;</span>
+	}
+
+	/**
+	 * Adds a bike to a station.
+	 *
+	 * @return true if the bike is added successfully, false otherwise
+	 */
+	public boolean addBike(BicycleData bikeData) {
+<span class="fc" id="L53">		PersistenceManager pm = pmf.getPersistenceManager();</span>
+<span class="fc" id="L54">		Transaction tx = pm.currentTransaction();</span>
+		try {
+<span class="fc" id="L56">			tx.begin();</span>
+<span class="fc" id="L57">			Bicycle bike = new Bicycle();</span>
+<span class="fc" id="L58">			LogManager.getLogger(AdminService.class).info(&quot;Add | Bike: '{}'&quot;, bike.getId());</span>
+
+			try {
+<span class="nc" id="L61">				bike = pm.getObjectById(Bicycle.class, bike.getId());</span>
+				// If the bike is found, return a failure response
+<span class="nc bnc" id="L63" title="All 2 branches missed.">				if (bike != null) {</span>
+<span class="nc" id="L64">					LogManager.getLogger(AdminService.class)</span>
+<span class="nc" id="L65">							.info(&quot;Addition Failed | The bike is already added | Bike: '{}'&quot;, bike.getId());</span>
+<span class="nc" id="L66">					return false;</span>
+				}
+<span class="fc" id="L68">			} catch (javax.jdo.JDOObjectNotFoundException jonfe) {</span>
+				// Bike not found, proceed to addition
+
+<span class="fc" id="L71">				bike.setAcquisitionDate(bikeData.getAcquisitionDate());</span>
+<span class="fc" id="L72">				bike.setType(bikeData.getType());</span>
+<span class="fc" id="L73">				bike.setAvailable(true);</span>
+
+				// Modify station logic moved here
+<span class="fc" id="L76">				int idStation = bikeData.getStationId();</span>
+<span class="fc" id="L77">				LogManager.getLogger(AdminService.class).info(&quot;Modify | Station: '{}'&quot;, idStation);</span>
+				Station station;
+				try {
+<span class="fc" id="L80">					station = pm.getObjectById(Station.class, idStation);</span>
+					// If the station is not found, return a failure response
+<span class="pc bpc" id="L82" title="1 of 2 branches missed.">					if (station == null) {</span>
+<span class="nc" id="L83">						LogManager.getLogger(AdminService.class)</span>
+<span class="nc" id="L84">								.info(&quot;Addition Failed | The station does not exist | Station: '{}'&quot;, idStation);</span>
+<span class="nc" id="L85">						return false;</span>
+					}
+<span class="nc" id="L87">				} catch (javax.jdo.JDOObjectNotFoundException jonfe2) {</span>
+<span class="nc" id="L88">					LogManager.getLogger(AdminService.class)</span>
+<span class="nc" id="L89">							.info(&quot;Addition Failed | The station does not exist | Station: '{}'&quot;, idStation);</span>
+<span class="nc" id="L90">					return false;</span>
+<span class="fc" id="L91">				}</span>
+
+<span class="fc" id="L93">				List&lt;Bicycle&gt; bikes = new ArrayList&lt;&gt;(station.getBikes());</span>
+<span class="fc" id="L94">				bikes.add(bike);</span>
+<span class="fc" id="L95">				station.setBikes(bikes);</span>
+<span class="fc" id="L96">				bike.setStation(station);</span>
+
+<span class="fc" id="L98">				pm.makePersistent(bike);</span>
+<span class="fc" id="L99">				pm.makePersistent(station); // Persist the modified station</span>
+<span class="fc" id="L100">				System.out.println(bike.getStation().getBikes());</span>
+<span class="fc" id="L101">				LogManager.getLogger(AdminService.class).info(&quot;Addition Success | Bike: '{}'&quot;, bike.getId());</span>
+<span class="nc" id="L102">			}</span>
+
+<span class="fc" id="L104">			tx.commit();</span>
+<span class="fc" id="L105">			return true;</span>
+<span class="nc" id="L106">		} catch (Exception e) {</span>
+<span class="nc" id="L107">			LogManager.getLogger(AdminService.class).error(&quot;Addition Failed | Exception: {}&quot;, e.getMessage());</span>
+<span class="nc" id="L108">			return false;</span>
+		} finally {
+<span class="pc bpc" id="L110" title="1 of 2 branches missed.">			if (tx.isActive()) {</span>
+<span class="nc" id="L111">				tx.rollback();</span>
+			}
+<span class="fc" id="L113">			pm.close();</span>
+		}
+	}
+
+	public boolean deleteBike(int bikeId) {
+<span class="fc" id="L118">		PersistenceManager pm = pmf.getPersistenceManager();</span>
+<span class="fc" id="L119">		Transaction tx = pm.currentTransaction();</span>
+<span class="fc" id="L120">		LogManager.getLogger(AdminService.class).info(&quot;Delete | Bike: '{}'&quot;, bikeId);</span>
+
+		try {
+<span class="fc" id="L123">			tx.begin();</span>
+			try {
+<span class="fc" id="L125">				Bicycle bike = pm.getObjectById(Bicycle.class, bikeId);</span>
+<span class="pc bpc" id="L126" title="1 of 2 branches missed.">				if (bike != null) {</span>
+<span class="fc" id="L127">					pm.deletePersistent(bike);</span>
+<span class="fc" id="L128">					LogManager.getLogger(AdminService.class).info(&quot;Deletion Success | Bike: '{}'&quot;, bikeId);</span>
+<span class="fc" id="L129">					tx.commit();</span>
+<span class="fc" id="L130">					return true;</span>
+				}
+<span class="fc" id="L132">			} catch (JDOObjectNotFoundException jonfe) {</span>
+<span class="fc" id="L133">				LogManager.getLogger(AdminService.class).info(&quot;This bike does not exist | Bike: '{}'&quot;, bikeId);</span>
+<span class="nc" id="L134">			}</span>
+<span class="fc" id="L135">			tx.commit();</span>
+<span class="nc" id="L136">		} catch (Exception e) {</span>
+<span class="nc bnc" id="L137" title="All 2 branches missed.">			if (tx.isActive()) {</span>
+<span class="nc" id="L138">				tx.rollback();</span>
+			}
+<span class="nc" id="L140">			throw e;</span>
+		} finally {
+<span class="pc bpc" id="L142" title="1 of 2 branches missed.">			if (tx.isActive()) {</span>
+<span class="nc" id="L143">				tx.rollback();</span>
+			}
+<span class="fc" id="L145">			pm.close();</span>
+		}
+<span class="fc" id="L147">		return false;</span>
+	}
+
+	public boolean disableBike(int bikeId) {
+<span class="fc" id="L151">		PersistenceManager pm = pmf.getPersistenceManager();</span>
+<span class="fc" id="L152">		Transaction tx = pm.currentTransaction();</span>
+<span class="fc" id="L153">		LogManager.getLogger(AdminService.class).info(&quot;Disable | Bike: '{}'&quot;, bikeId);</span>
+		try {
+<span class="fc" id="L155">			tx.begin();</span>
+<span class="fc" id="L156">			Bicycle bike = null;</span>
+			try {
+<span class="fc" id="L158">				bike = pm.getObjectById(Bicycle.class, bikeId);</span>
+<span class="pc bpc" id="L159" title="1 of 2 branches missed.">				if (bike == null) {</span>
+<span class="nc" id="L160">					LogManager.getLogger(AdminService.class).info(&quot;This bike do not exist | Bike: '{}'&quot;, bikeId);</span>
+<span class="nc" id="L161">					return false;</span>
+				}
+<span class="fc" id="L163">				bike.setAvailable(false);</span>
+<span class="fc" id="L164">				pm.makePersistent(bike);</span>
+<span class="nc" id="L165">			} catch (javax.jdo.JDOObjectNotFoundException jonfe) {</span>
+<span class="nc" id="L166">				LogManager.getLogger(AdminService.class).info(&quot;Bike not found, cannot disable | Bike: '{}'&quot;, bikeId);</span>
+<span class="nc" id="L167">				return false;</span>
+<span class="fc" id="L168">			}</span>
+<span class="fc" id="L169">			tx.commit();</span>
+<span class="fc" id="L170">			return true;</span>
+		} finally {
+<span class="pc bpc" id="L172" title="1 of 2 branches missed.">			if (tx.isActive()) {</span>
+<span class="nc" id="L173">				tx.rollback();</span>
+			}
+<span class="fc" id="L175">			pm.close();</span>
+		}
+	}
+
+	public boolean ableBike(int bikeId) {
+<span class="fc" id="L180">		PersistenceManager pm = pmf.getPersistenceManager();</span>
+<span class="fc" id="L181">		Transaction tx = pm.currentTransaction();</span>
+<span class="fc" id="L182">		LogManager.getLogger(AdminService.class).info(&quot;Able | Bike: '{}'&quot;, bikeId);</span>
+		try {
+<span class="fc" id="L184">			tx.begin();</span>
+<span class="fc" id="L185">			Bicycle bike = null;</span>
+			try {
+<span class="fc" id="L187">				bike = pm.getObjectById(Bicycle.class, bikeId);</span>
+<span class="pc bpc" id="L188" title="1 of 2 branches missed.">				if (bike == null) {</span>
+<span class="nc" id="L189">					LogManager.getLogger(AdminService.class).info(&quot;This bike do not exist | Bike: '{}'&quot;, bikeId);</span>
+<span class="nc" id="L190">					return false;</span>
+				}
+<span class="fc" id="L192">				bike.setAvailable(true);</span>
+<span class="fc" id="L193">				pm.makePersistent(bike);</span>
+<span class="nc" id="L194">			} catch (javax.jdo.JDOObjectNotFoundException jonfe) {</span>
+<span class="nc" id="L195">				LogManager.getLogger(AdminService.class).info(&quot;Bike not found, cannot disable | Bike: '{}'&quot;, bikeId);</span>
+<span class="nc" id="L196">				return false;</span>
+<span class="fc" id="L197">			}</span>
+<span class="fc" id="L198">			tx.commit();</span>
+<span class="fc" id="L199">			return true;</span>
+		} finally {
+<span class="pc bpc" id="L201" title="1 of 2 branches missed.">			if (tx.isActive()) {</span>
+<span class="nc" id="L202">				tx.rollback();</span>
+			}
+<span class="fc" id="L204">			pm.close();</span>
+		}
+	}
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>
