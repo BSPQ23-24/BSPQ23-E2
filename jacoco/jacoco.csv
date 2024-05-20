@@ -8,11 +8,11 @@ bike-lending-app,com.deusto.app.server.pojo,LoanData,59,0,0,0,21,0,14,0,14,0
 bike-lending-app,com.deusto.app.server.pojo,BicycleData,0,50,0,0,0,18,0,12,0,12
 bike-lending-app,com.deusto.app.server.pojo,LoanAssembler,64,0,4,0,16,0,5,0,3,0
 bike-lending-app,com.deusto.app.server.data.domain,Loan,915,288,171,28,0,36,135,34,30,32
-bike-lending-app,com.deusto.app.server.data.domain,Bicycle,843,242,156,26,0,29,124,31,30,28
+bike-lending-app,com.deusto.app.server.data.domain,Bicycle,844,241,157,25,0,29,125,30,30,28
 bike-lending-app,com.deusto.app.server.data.domain,Station,704,161,124,16,0,19,101,22,30,20
 bike-lending-app,com.deusto.app.server.data.domain,User,810,311,150,19,3,49,126,39,33,37
-bike-lending-app,com.deusto.app.server.remote,ResourceFacade,366,0,52,0,87,0,44,0,18,0
+bike-lending-app,com.deusto.app.server.remote,ResourceFacade,393,0,56,0,93,0,47,0,19,0
 bike-lending-app,com.deusto.app.server.services,UserService,381,188,17,9,105,52,17,7,6,5
-bike-lending-app,com.deusto.app.server.services,BikeService,130,123,14,0,41,33,10,4,3,4
+bike-lending-app,com.deusto.app.server.services,BikeService,130,142,14,4,41,36,10,6,3,4
 bike-lending-app,com.deusto.app.server.services,AdminService,128,250,14,8,41,73,13,5,2,5
-bike-lending-app,com.deusto.app.server.services,LoanService,246,0,20,0,76,0,16,0,6,0
+bike-lending-app,com.deusto.app.server.services,LoanService,241,0,20,0,75,0,16,0,6,0

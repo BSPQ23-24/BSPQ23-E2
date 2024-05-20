@@ -12,8 +12,11 @@ import org.apache.logging.log4j.LogManager;
 
 import javax.jdo.JDOHelper;
 
+import com.deusto.app.server.data.domain.Bicycle;
 import com.deusto.app.server.data.domain.Loan;
+import com.deusto.app.server.data.domain.Station;
 import com.deusto.app.server.data.domain.User;
+import com.deusto.app.server.pojo.BicycleData;
 import com.deusto.app.server.pojo.LoanAssembler;
 import com.deusto.app.server.pojo.LoanData;
 
@@ -22,118 +25,118 @@ public class LoanService {
 	private static LoanService instance;
 	private PersistenceManagerFactory pmf;
 
-<span class="nc" id="L25">	private LoanService() {</span>
-<span class="nc" id="L26">		pmf = JDOHelper.getPersistenceManagerFactory(&quot;datanucleus.properties&quot;);</span>
-<span class="nc" id="L27">	}</span>
+<span class="nc" id="L28">	private LoanService() {</span>
+<span class="nc" id="L29">		pmf = JDOHelper.getPersistenceManagerFactory(&quot;datanucleus.properties&quot;);</span>
+<span class="nc" id="L30">	}</span>
 
 	public static LoanService getInstance() {
-<span class="nc bnc" id="L30" title="All 2 branches missed.">		if (instance == null) {</span>
-<span class="nc" id="L31">			instance = new LoanService();</span>
+<span class="nc bnc" id="L33" title="All 2 branches missed.">		if (instance == null) {</span>
+<span class="nc" id="L34">			instance = new LoanService();</span>
 		}
-<span class="nc" id="L33">		return instance;</span>
+<span class="nc" id="L36">		return instance;</span>
 	}
 
 	public List&lt;LoanData&gt; getAllLoans() {
-<span class="nc" id="L37">		PersistenceManager pm = pmf.getPersistenceManager();</span>
-<span class="nc" id="L38">		Transaction tx = pm.currentTransaction();</span>
-<span class="nc" id="L39">		List&lt;Loan&gt; loans = null;</span>
+<span class="nc" id="L40">		PersistenceManager pm = pmf.getPersistenceManager();</span>
+<span class="nc" id="L41">		Transaction tx = pm.currentTransaction();</span>
+<span class="nc" id="L42">		List&lt;Loan&gt; loans = null;</span>
 		try {
-<span class="nc" id="L41">			tx.begin();</span>
-<span class="nc" id="L42">			Query&lt;Loan&gt; query = pm.newQuery(Loan.class);</span>
-<span class="nc" id="L43">			loans = (List&lt;Loan&gt;) query.execute();</span>
+<span class="nc" id="L44">			tx.begin();</span>
+<span class="nc" id="L45">			Query&lt;Loan&gt; query = pm.newQuery(Loan.class);</span>
+<span class="nc" id="L46">			loans = (List&lt;Loan&gt;) query.execute();</span>
 			
-<span class="nc" id="L45">			tx.commit();</span>
-<span class="nc" id="L46">			return LoanAssembler.getInstance().loansToPOJO(loans);</span>
-<span class="nc" id="L47">		} catch (Exception e) {</span>
-<span class="nc bnc" id="L48" title="All 2 branches missed.">			if (tx.isActive()) {</span>
-<span class="nc" id="L49">				tx.rollback();</span>
+<span class="nc" id="L48">			tx.commit();</span>
+<span class="nc" id="L49">			return LoanAssembler.getInstance().loansToPOJO(loans);</span>
+<span class="nc" id="L50">		} catch (Exception e) {</span>
+<span class="nc bnc" id="L51" title="All 2 branches missed.">			if (tx.isActive()) {</span>
+<span class="nc" id="L52">				tx.rollback();</span>
 			}
-<span class="nc" id="L51">			return null;</span>
+<span class="nc" id="L54">			return null;</span>
 			
 		} finally {
-<span class="nc" id="L54">			pm.close();</span>
+<span class="nc" id="L57">			pm.close();</span>
 		}
 		
 	}
 
 	public boolean createLoan(LoanData loanData) {
-<span class="nc" id="L60">		PersistenceManager pm = pmf.getPersistenceManager();</span>
-<span class="nc" id="L61">		Transaction tx = pm.currentTransaction();</span>
+<span class="nc" id="L63">		PersistenceManager pm = pmf.getPersistenceManager();</span>
+<span class="nc" id="L64">		Transaction tx = pm.currentTransaction();</span>
 		try {
-<span class="nc" id="L63">			tx.begin();</span>
-<span class="nc" id="L64">			Loan loan = new Loan();</span>
-<span class="nc" id="L65">			loan.setId(loanData.getId());</span>
-<span class="nc" id="L66">			loan.setLoanDate(loanData.getLoanDate());</span>
-<span class="nc" id="L67">			loan.setStartHour(loanData.getStartHour());</span>
-<span class="nc" id="L68">			loan.setEndHour(loanData.getEndHour());</span>
-<span class="nc" id="L69">			loan.setUser(loan.getUser());</span>
-<span class="nc" id="L70">			loan.setBicycle(loan.getBicycle());</span>
-<span class="nc" id="L71">			pm.makePersistent(loan);</span>
-<span class="nc" id="L72">			tx.commit();</span>
-<span class="nc" id="L73">			return true;</span>
-<span class="nc" id="L74">		} catch (Exception e) {</span>
-<span class="nc bnc" id="L75" title="All 2 branches missed.">			if (tx.isActive()) {</span>
-<span class="nc" id="L76">				tx.rollback();</span>
+<span class="nc" id="L66">			tx.begin();</span>
+<span class="nc" id="L67">			Loan loan = new Loan();</span>
+<span class="nc" id="L68">			loan.setLoanDate(loanData.getLoanDate());</span>
+<span class="nc" id="L69">			loan.setStartHour(loanData.getStartHour());</span>
+<span class="nc" id="L70">			loan.setEndHour(loanData.getEndHour());</span>
+<span class="nc" id="L71">			User user = pm.getObjectById(User.class, loanData.getUserDni());</span>
+<span class="nc" id="L72">			loan.setUser(user);</span>
+<span class="nc" id="L73">			Bicycle bike = pm.getObjectById(Bicycle.class, loanData.getBicycleId());</span>
+<span class="nc" id="L74">			loan.setBicycle(bike);</span>
+<span class="nc" id="L75">			pm.makePersistent(loan);</span>
+<span class="nc" id="L76">			tx.commit();</span>
+<span class="nc" id="L77">			return true;</span>
+<span class="nc" id="L78">		} catch (Exception e) {</span>
+<span class="nc bnc" id="L79" title="All 2 branches missed.">			if (tx.isActive()) {</span>
+<span class="nc" id="L80">				tx.rollback();</span>
 			}
-<span class="nc" id="L78">			e.printStackTrace();</span>
-<span class="nc" id="L79">			return false;</span>
+<span class="nc" id="L82">			e.printStackTrace();</span>
+<span class="nc" id="L83">			return false;</span>
 		} finally {
-<span class="nc" id="L81">			pm.close();</span>
+<span class="nc" id="L85">			pm.close();</span>
 		}
 	}
 
 	public boolean deleteLoan(int loanId) {
-<span class="nc" id="L86">		PersistenceManager pm = pmf.getPersistenceManager();</span>
-<span class="nc" id="L87">		Transaction tx = pm.currentTransaction();</span>
+<span class="nc" id="L90">		PersistenceManager pm = pmf.getPersistenceManager();</span>
+<span class="nc" id="L91">		Transaction tx = pm.currentTransaction();</span>
 		try {
-<span class="nc" id="L89">			tx.begin();</span>
-<span class="nc" id="L90">			Loan loan = pm.getObjectById(Loan.class, loanId);</span>
-<span class="nc bnc" id="L91" title="All 2 branches missed.">			if (loan != null) {</span>
-<span class="nc" id="L92">				pm.deletePersistent(loan);</span>
-<span class="nc" id="L93">				tx.commit();</span>
-<span class="nc" id="L94">				return true;</span>
+<span class="nc" id="L93">			tx.begin();</span>
+<span class="nc" id="L94">			Loan loan = pm.getObjectById(Loan.class, loanId);</span>
+<span class="nc bnc" id="L95" title="All 2 branches missed.">			if (loan != null) {</span>
+<span class="nc" id="L96">				pm.deletePersistent(loan);</span>
+<span class="nc" id="L97">				tx.commit();</span>
+<span class="nc" id="L98">				return true;</span>
 			} else {
-<span class="nc" id="L96">				return false;</span>
+<span class="nc" id="L100">				return false;</span>
 			}
-<span class="nc" id="L98">		} catch (Exception e) {</span>
-<span class="nc bnc" id="L99" title="All 2 branches missed.">			if (tx.isActive()) {</span>
-<span class="nc" id="L100">				tx.rollback();</span>
+<span class="nc" id="L102">		} catch (Exception e) {</span>
+<span class="nc bnc" id="L103" title="All 2 branches missed.">			if (tx.isActive()) {</span>
+<span class="nc" id="L104">				tx.rollback();</span>
 			}
-<span class="nc" id="L102">			e.printStackTrace();</span>
-<span class="nc" id="L103">			return false;</span>
+<span class="nc" id="L106">			e.printStackTrace();</span>
+<span class="nc" id="L107">			return false;</span>
 		} finally {
-<span class="nc" id="L105">			pm.close();</span>
+<span class="nc" id="L109">			pm.close();</span>
 		}
 	}
 	
 	public LoanData isLoanActive(long token) {
-<span class="nc" id="L110">		List&lt;LoanData&gt; loans = getAllLoans();</span>
-<span class="nc" id="L111">		User user=UserService.getInstance().getUser(token);</span>
-<span class="nc" id="L112">		LoanData lastLoan=null;</span>
-<span class="nc" id="L113">		String dni=user.getDni();</span>
-<span class="nc bnc" id="L114" title="All 2 branches missed.">		for (LoanData loan : loans) {</span>
-<span class="nc bnc" id="L115" title="All 2 branches missed.">			if(dni.equals(loan.getUserDni())) {</span>
-<span class="nc" id="L116">				lastLoan=loan;</span>
+<span class="nc" id="L114">		List&lt;LoanData&gt; loans = getAllLoans();</span>
+<span class="nc" id="L115">		User user=UserService.getInstance().getUser(token);</span>
+<span class="nc" id="L116">		LoanData lastLoan=null;</span>
+<span class="nc" id="L117">		String dni=user.getDni();</span>
+<span class="nc bnc" id="L118" title="All 2 branches missed.">		for (LoanData loan : loans) {</span>
+<span class="nc bnc" id="L119" title="All 2 branches missed.">			if(dni.equals(loan.getUserDni())) {</span>
+<span class="nc" id="L120">				lastLoan=loan;</span>
 			}
-<span class="nc" id="L118">		}</span>
-<span class="nc bnc" id="L119" title="All 2 branches missed.">		if(lastLoan==null) {</span>
-<span class="nc" id="L120">			LogManager.getLogger(AdminService.class).info(&quot;You do not have loans yet!&quot;);</span>
-<span class="nc" id="L121">			return lastLoan;</span>
+<span class="nc" id="L122">		}</span>
+<span class="nc bnc" id="L123" title="All 2 branches missed.">		if(lastLoan==null) {</span>
+<span class="nc" id="L124">			LogManager.getLogger(AdminService.class).info(&quot;You do not have loans yet!&quot;);</span>
+<span class="nc" id="L125">			return lastLoan;</span>
 		}else {
-<span class="nc" id="L123">			LocalDateTime now= LocalDateTime.now();</span>
-<span class="nc" id="L124">			String date=lastLoan.getLoanDate(); //format YYYY-MM-DD</span>
-<span class="nc" id="L125">			String startHour=lastLoan.getStartHour();	//format HH:mm</span>
-<span class="nc" id="L126">			String endHour=lastLoan.getEndHour();  //format HH:mm</span>
-<span class="nc" id="L127">			LocalDateTime loanStart = LocalDateTime.parse(date + &quot;T&quot; + startHour);</span>
-<span class="nc" id="L128">	        LocalDateTime loanEnd = LocalDateTime.parse(date + &quot;T&quot; + endHour);</span>
-<span class="nc" id="L129">	        System.out.println(loanEnd);</span>
-<span class="nc" id="L130">	        System.out.println(&quot;Loan Start:&quot; + now.isAfter(loanStart));</span>
-<span class="nc" id="L131">	        System.out.println(&quot;Loan End:&quot; + now.isBefore(loanEnd));</span>
-
-<span class="nc bnc" id="L133" title="All 4 branches missed.">	        if(now.isAfter(loanStart) &amp;&amp; now.isBefore(loanEnd)) {</span>
-<span class="nc" id="L134">	        	return lastLoan;</span>
-	        }else {
+<span class="nc" id="L127">			LocalDateTime now= LocalDateTime.now();</span>
+<span class="nc" id="L128">			String date=lastLoan.getLoanDate(); //format YYYY-MM-DD</span>
+<span class="nc" id="L129">			String startHour=lastLoan.getStartHour();	//format HH:mm</span>
+<span class="nc" id="L130">			String endHour=lastLoan.getEndHour();  //format HH:mm</span>
+<span class="nc" id="L131">			LocalDateTime loanStart = LocalDateTime.parse(date + &quot;T&quot; + startHour);</span>
+<span class="nc" id="L132">	        LocalDateTime loanEnd = LocalDateTime.parse(date + &quot;T&quot; + endHour);</span>
+	        
+	        
+<span class="nc bnc" id="L135" title="All 4 branches missed.">	        if(now.isAfter(loanStart) &amp;&amp; now.isBefore(loanEnd)) {</span>
 <span class="nc" id="L136">	        	return lastLoan;</span>
+	        }else {
+<span class="nc" id="L138">	        	lastLoan=null;</span>
+<span class="nc" id="L139">	        	return lastLoan;</span>
 	        }
 	        
 			

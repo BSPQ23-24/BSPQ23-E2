@@ -145,24 +145,27 @@ public class BikeService {
 <span class="fc" id="L145">			tx.begin();</span>
 
 <span class="fc" id="L147">			Station station = pm.getObjectById(Station.class, stationId);</span>
-<span class="fc" id="L148">			List&lt;Bicycle&gt; availableBikes = station.getBikes();</span>
-<span class="fc" id="L149">			System.out.println(availableBikes);</span>
+<span class="fc" id="L148">			List&lt;Bicycle&gt; bikes = station.getBikes();</span>
+<span class="fc" id="L149">			List&lt;Bicycle&gt; availableBikes=new ArrayList&lt;Bicycle&gt;();</span>
+<span class="fc bfc" id="L150" title="All 2 branches covered.">			for (Bicycle bike : bikes) {</span>
+<span class="fc bfc" id="L151" title="All 2 branches covered.">				if(bike.isAvailable()) availableBikes.add(bike);</span>
+<span class="fc" id="L152">			}</span>
 
-<span class="fc" id="L151">			tx.commit();</span>
+<span class="fc" id="L154">			tx.commit();</span>
 
-<span class="fc" id="L153">			LogManager.getLogger(BikeService.class).info(&quot;Get Available Bikes Success | StationID : '{}'&quot;, stationId);</span>
+<span class="fc" id="L156">			LogManager.getLogger(BikeService.class).info(&quot;Get Available Bikes Success | StationID : '{}'&quot;, stationId);</span>
 
-<span class="fc" id="L155">			return BicycleAssembler.getInstance().bikesToPOJO(availableBikes);</span>
+<span class="fc" id="L158">			return BicycleAssembler.getInstance().bikesToPOJO(availableBikes);</span>
 
-<span class="nc" id="L157">		} catch (Exception e) {</span>
-<span class="nc" id="L158">			LogManager.getLogger(BikeService.class).error(&quot;Get Available Bikes Failed | '{}' | StationID: '{}'&quot;, e,</span>
-<span class="nc" id="L159">					stationId);</span>
-<span class="nc bnc" id="L160" title="All 2 branches missed.">			if (tx.isActive()) {</span>
-<span class="nc" id="L161">				tx.rollback();</span>
+<span class="nc" id="L160">		} catch (Exception e) {</span>
+<span class="nc" id="L161">			LogManager.getLogger(BikeService.class).error(&quot;Get Available Bikes Failed | '{}' | StationID: '{}'&quot;, e,</span>
+<span class="nc" id="L162">					stationId);</span>
+<span class="nc bnc" id="L163" title="All 2 branches missed.">			if (tx.isActive()) {</span>
+<span class="nc" id="L164">				tx.rollback();</span>
 			}
-<span class="nc" id="L163">			return null;</span>
+<span class="nc" id="L166">			return null;</span>
 		} finally {
-<span class="fc" id="L165">			pm.close();</span>
+<span class="fc" id="L168">			pm.close();</span>
 		}
 	}
 
@@ -174,29 +177,29 @@ public class BikeService {
 	 */
 	public BicycleData getBikeById(int bikeId) {
 
-<span class="fc" id="L177">		LogManager.getLogger(BikeService.class).info(&quot;Get Bike By ID Start | BikeID : '{}'&quot;, bikeId);</span>
+<span class="fc" id="L180">		LogManager.getLogger(BikeService.class).info(&quot;Get Bike By ID Start | BikeID : '{}'&quot;, bikeId);</span>
 
-<span class="fc" id="L179">		PersistenceManager pm = pmf.getPersistenceManager();</span>
-<span class="fc" id="L180">		Transaction tx = pm.currentTransaction();</span>
+<span class="fc" id="L182">		PersistenceManager pm = pmf.getPersistenceManager();</span>
+<span class="fc" id="L183">		Transaction tx = pm.currentTransaction();</span>
 
 		try {
-<span class="fc" id="L183">			tx.begin();</span>
+<span class="fc" id="L186">			tx.begin();</span>
 
-<span class="fc" id="L185">			Bicycle bike = pm.getObjectById(Bicycle.class, bikeId);</span>
+<span class="fc" id="L188">			Bicycle bike = pm.getObjectById(Bicycle.class, bikeId);</span>
 
-<span class="fc" id="L187">			tx.commit();</span>
+<span class="fc" id="L190">			tx.commit();</span>
 
-<span class="fc" id="L189">			LogManager.getLogger(BikeService.class).info(&quot;Get Bike By ID Success | BikeID : '{}'&quot;, bikeId);</span>
+<span class="fc" id="L192">			LogManager.getLogger(BikeService.class).info(&quot;Get Bike By ID Success | BikeID : '{}'&quot;, bikeId);</span>
 
-<span class="fc" id="L191">			return BicycleAssembler.getInstance().bikeToPOJO(bike);</span>
-<span class="nc" id="L192">		} catch (Exception e) {</span>
-<span class="nc" id="L193">			LogManager.getLogger(BikeService.class).error(&quot;Get Bike By ID Failed | '{}' | BikeID: '{}'&quot;, e, bikeId);</span>
-<span class="nc bnc" id="L194" title="All 2 branches missed.">			if (tx.isActive()) {</span>
-<span class="nc" id="L195">				tx.rollback();</span>
+<span class="fc" id="L194">			return BicycleAssembler.getInstance().bikeToPOJO(bike);</span>
+<span class="nc" id="L195">		} catch (Exception e) {</span>
+<span class="nc" id="L196">			LogManager.getLogger(BikeService.class).error(&quot;Get Bike By ID Failed | '{}' | BikeID: '{}'&quot;, e, bikeId);</span>
+<span class="nc bnc" id="L197" title="All 2 branches missed.">			if (tx.isActive()) {</span>
+<span class="nc" id="L198">				tx.rollback();</span>
 			}
-<span class="nc" id="L197">			return null;</span>
+<span class="nc" id="L200">			return null;</span>
 		} finally {
-<span class="fc" id="L199">			pm.close();</span>
+<span class="fc" id="L202">			pm.close();</span>
 		}
 	}
 }
