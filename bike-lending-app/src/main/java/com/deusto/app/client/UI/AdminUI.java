@@ -188,25 +188,30 @@ public class AdminUI extends JFrame {
             @Override
             public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
                 super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-                if (!isSelected) setBackground(null);
-                return this;
+                if (isSelected) {
+                	setBackground(new Color(255, 114, 118));
+                } else {
+                setBackground(Color.WHITE); // Restore to default color when not selected
+            }
+            	return this;
             }
         });
+    
+    
+    table.addMouseListener(new MouseAdapter() {
+        @Override
+        public void mousePressed(MouseEvent e) {
+            JTable source = (JTable) e.getSource();
+            int row = source.rowAtPoint(e.getPoint());
+            int column = source.columnAtPoint(e.getPoint());
 
-        table.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseEntered(MouseEvent e) {
-                super.mouseEntered(e);
-                table.setSelectionBackground(new Color(255, 114, 118));
+            // Clear selection when clicking outside of valid rows
+            if (!source.isRowSelected(row)) {
+                source.clearSelection();
             }
-
-            @Override
-            public void mouseExited(MouseEvent e) {
-                super.mouseExited(e);
-                table.clearSelection();
-            }
-        });
-    }
+        }
+    });
+}
 
     private void logout() {
     	JOptionPane.showMessageDialog(this, "See YOU!");
@@ -218,11 +223,45 @@ public class AdminUI extends JFrame {
     }
     
     private void deleteLoan() {
-        JOptionPane.showMessageDialog(this, "Loan Deleted!");
+    	int selectedRow = loansTable.getSelectedRow();
+        if (selectedRow >= 0) {
+            // Assume delete logic here
+        	boolean success= LoanController.getInstance().deleteLoan(Integer.parseInt(loansTable.getValueAt(selectedRow, 0).toString()));
+        	if(success) {
+        		JOptionPane.showMessageDialog(this, "Loan Deleted: " + loansTable.getValueAt(selectedRow, 0));
+        		new AdminUI();
+                setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                setVisible(false);
+                dispose();
+        	}else {
+        		JOptionPane.showMessageDialog(this, "ERROR!");
+        	}
+            
+        } else {
+            JOptionPane.showMessageDialog(this, "No loan selected.");
+        }
+        
     }
 
     private void reactivateBike() {
-        JOptionPane.showMessageDialog(this, "Bike Reactivated!");
+    	int selectedRow = nonAvailableBikesTable.getSelectedRow();
+        if (selectedRow >= 0) {
+            // Assume delete logic here
+        	boolean success= AdminController.getInstance().ableBike(Integer.parseInt(nonAvailableBikesTable.getValueAt(selectedRow, 0).toString())
+        															,UserController.getToken());
+        	if(success) {
+        		JOptionPane.showMessageDialog(this, "Bike Enable: " + nonAvailableBikesTable.getValueAt(selectedRow, 0));
+        		new AdminUI();
+                setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                setVisible(false);
+                dispose();
+        	}else {
+        		JOptionPane.showMessageDialog(this, "ERROR!");
+        	}
+            
+        } else {
+            JOptionPane.showMessageDialog(this, "No loan selected.");
+        }
     }
 
     private void createNewBike() {

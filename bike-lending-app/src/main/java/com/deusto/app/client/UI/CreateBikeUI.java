@@ -20,8 +20,6 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JPasswordField;
-import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 
@@ -35,7 +33,7 @@ import com.deusto.app.client.controller.BikeController;
 import com.deusto.app.client.controller.UserController;
 import com.deusto.app.server.pojo.BicycleData;
 import com.deusto.app.server.pojo.StationData;
-import com.deusto.app.server.pojo.UserData;
+
 
 public class CreateBikeUI extends JFrame {
     private static final long serialVersionUID = 1L;
@@ -74,7 +72,7 @@ public class CreateBikeUI extends JFrame {
     	        Image scaledImage = icon.getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH); // Increased size
     	        ImageIcon scaledIcon = new ImageIcon(scaledImage);
     	        titlePanel.add(new JLabel(scaledIcon));
-    	        JLabel titleLabel=new JLabel("Nuevo Miembro!", SwingConstants.CENTER);
+    	        JLabel titleLabel=new JLabel("Nueva Bicicleta!", SwingConstants.CENTER);
     	        titleLabel.setFont(new Font("Arial", Font.BOLD, 30)); // Bigger font size
     	        titleLabel.setForeground(Color.WHITE); // Set text color to white
     	        titlePanel.add(titleLabel);
@@ -96,7 +94,7 @@ public class CreateBikeUI extends JFrame {
     	        // Adding fields
     	        addField(panel, "Bike Type :", type, gbc);
     	        addField(panel, "Station:", station, gbc);
-    	        addField(panel, "Date of Birth:", acquisitionDate, gbc);
+    	        addField(panel, "Acquisition Date:", acquisitionDate, gbc);
     	        
 
 
