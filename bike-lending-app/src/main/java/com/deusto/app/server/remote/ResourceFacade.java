@@ -5,6 +5,7 @@ import com.deusto.app.server.data.domain.Bicycle;
 import com.deusto.app.server.data.domain.User;
 import com.deusto.app.server.pojo.BicycleData;
 import com.deusto.app.server.pojo.StationData;
+import com.deusto.app.server.pojo.UserAssembler;
 import com.deusto.app.server.pojo.UserData;
 import com.deusto.app.server.services.AdminService;
 import com.deusto.app.server.services.BikeService;
@@ -108,6 +109,27 @@ public class ResourceFacade {
 		boolean logout_success = UserService.getInstance().logoutUser(token);
 		if (logout_success) {
 			return Response.ok().entity("User logged out successfully").build();
+		} else {
+			return Response.status(Response.Status.UNAUTHORIZED).entity("Invalid token or user not logged in").build();
+		}
+	}
+	
+	/**
+     * Return´s a user from a token
+     *
+     * @param token the user's authentication token
+     * @return Response returning the user´s data
+     */
+	@GET
+	@Path("/user/getuser")
+	public Response getUser(@QueryParam("token") long token) {
+		if (UserService.getInstance().isLoggedIn(token)) {
+			UserData userData=UserAssembler.getInstance().userToPOJO(UserService.getInstance().getUser(token));
+			if (userData!=null) {
+				return Response.ok(userData).build();
+			} else {
+				return Response.serverError().entity("Error sending the user").build();
+			}
 		} else {
 			return Response.status(Response.Status.UNAUTHORIZED).entity("Invalid token or user not logged in").build();
 		}

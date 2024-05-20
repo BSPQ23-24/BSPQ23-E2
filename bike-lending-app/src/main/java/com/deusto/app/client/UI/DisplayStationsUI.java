@@ -6,6 +6,7 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableCellRenderer;
 
+import com.deusto.app.client.controller.AdminController;
 import com.deusto.app.client.controller.BikeController;
 import com.deusto.app.client.controller.LoanController;
 import com.deusto.app.client.controller.UserController;
@@ -93,7 +94,10 @@ public class DisplayStationsUI extends JFrame {
                     if (selectedRow != -1) {
                         StationData selectedStation = stations.get(selectedRow);
                         // Open another window to display bike details for the selected station
-                        
+                        new BicycleDetailUI(selectedStation.getId());
+                        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                        setVisible(false);
+                        dispose();
                     }
                 }
             }
@@ -112,7 +116,7 @@ public class DisplayStationsUI extends JFrame {
         statusPanel.add(reportButton, BorderLayout.EAST);
         statusPanel.add(statusLabel, BorderLayout.CENTER);
         updateStatusPanel(); // Call this method to set the initial state of the panel
-
+        reportButton.addActionListener(e -> report());
         mainPanel.add(statusPanel, BorderLayout.SOUTH);
         
         JScrollPane scrollPane = new JScrollPane(stationTable);
@@ -132,6 +136,7 @@ public class DisplayStationsUI extends JFrame {
         	boolean logout = UserController.getInstance().logoutUser(UserController.getToken());
         	
         	if (logout) {
+        		
                 JOptionPane.showMessageDialog(DisplayStationsUI.this, "Logged out successfully.");
                 new LoginUI();
                 setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -148,10 +153,26 @@ public class DisplayStationsUI extends JFrame {
         setVisible(true);
     }
     
+    private void report() {
+    	long token = UserController.getToken();
+    	LoanData loan= LoanController.getInstance().isLoanActive(token);
+    	if(loan!=null) {
+    		JOptionPane.showMessageDialog(DisplayStationsUI.this, "Bicicleta Reportada! Alquiler Anulado!");
+    		LoanController.getInstance().deleteLoan(loan.getId());
+    		new DisplayStationsUI();
+            setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            setVisible(false);
+            dispose();
+    		
+    		
+    	}else {
+    		JOptionPane.showMessageDialog(DisplayStationsUI.this, "No tienes alquilada ninguna bicicleta!");
+    	}
+    }
     private void updateStatusPanel() {
     	LoanData loan= LoanController.getInstance().isLoanActive(UserController.getToken());
         if (loan!=null) {
-        	System.out.println(loan);
+        	System.out.println(loan);	
             statusPanel.setBackground(Color.ORANGE);
             statusLabel.setText("Tienes una bici activada");
         } else {

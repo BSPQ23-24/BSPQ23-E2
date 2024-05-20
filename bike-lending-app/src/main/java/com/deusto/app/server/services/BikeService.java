@@ -145,8 +145,11 @@ public class BikeService {
 			tx.begin();
 
 			Station station = pm.getObjectById(Station.class, stationId);
-			List<Bicycle> availableBikes = station.getBikes();
-			System.out.println(availableBikes);
+			List<Bicycle> bikes = station.getBikes();
+			List<Bicycle> availableBikes=new ArrayList<Bicycle>();
+			for (Bicycle bike : bikes) {
+				if(bike.isAvailable()) availableBikes.add(bike);
+			}
 
 			tx.commit();
 

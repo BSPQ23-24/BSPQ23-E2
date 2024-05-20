@@ -12,8 +12,11 @@ import org.apache.logging.log4j.LogManager;
 
 import javax.jdo.JDOHelper;
 
+import com.deusto.app.server.data.domain.Bicycle;
 import com.deusto.app.server.data.domain.Loan;
+import com.deusto.app.server.data.domain.Station;
 import com.deusto.app.server.data.domain.User;
+import com.deusto.app.server.pojo.BicycleData;
 import com.deusto.app.server.pojo.LoanAssembler;
 import com.deusto.app.server.pojo.LoanData;
 
@@ -62,12 +65,13 @@ public class LoanService {
 		try {
 			tx.begin();
 			Loan loan = new Loan();
-			loan.setId(loanData.getId());
 			loan.setLoanDate(loanData.getLoanDate());
 			loan.setStartHour(loanData.getStartHour());
 			loan.setEndHour(loanData.getEndHour());
-			loan.setUser(loan.getUser());
-			loan.setBicycle(loan.getBicycle());
+			User user = pm.getObjectById(User.class, loanData.getUserDni());
+			loan.setUser(user);
+			Bicycle bike = pm.getObjectById(Bicycle.class, loanData.getBicycleId());
+			loan.setBicycle(bike);
 			pm.makePersistent(loan);
 			tx.commit();
 			return true;
@@ -126,13 +130,12 @@ public class LoanService {
 			String endHour=lastLoan.getEndHour();  //format HH:mm
 			LocalDateTime loanStart = LocalDateTime.parse(date + "T" + startHour);
 	        LocalDateTime loanEnd = LocalDateTime.parse(date + "T" + endHour);
-	        System.out.println(loanEnd);
-	        System.out.println("Loan Start:" + now.isAfter(loanStart));
-	        System.out.println("Loan End:" + now.isBefore(loanEnd));
-
+	        
+	        
 	        if(now.isAfter(loanStart) && now.isBefore(loanEnd)) {
 	        	return lastLoan;
 	        }else {
+	        	lastLoan=null;
 	        	return lastLoan;
 	        }
 	        
