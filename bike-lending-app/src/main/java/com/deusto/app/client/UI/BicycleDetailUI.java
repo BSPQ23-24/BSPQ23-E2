@@ -7,21 +7,16 @@ import org.jdatepicker.impl.JDatePanelImpl;
 import org.jdatepicker.impl.JDatePickerImpl;
 import org.jdatepicker.impl.UtilDateModel;
 
-import com.deusto.app.client.controller.AdminController;
+
 import com.deusto.app.client.controller.BikeController;
 import com.deusto.app.client.controller.LoanController;
 import com.deusto.app.client.controller.UserController;
 import com.deusto.app.server.pojo.BicycleData;
 import com.deusto.app.server.pojo.LoanData;
-import com.deusto.app.server.pojo.StationData;
-import com.deusto.app.server.services.UserService;
 
-import jakarta.ws.rs.PathParam;
-import jakarta.ws.rs.QueryParam;
 
 import java.awt.*;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 import java.util.Properties;

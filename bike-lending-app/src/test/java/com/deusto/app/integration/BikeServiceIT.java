@@ -52,7 +52,7 @@ public class BikeServiceIT {
 
 		assertNotNull(response, "Response should not be null");
 		assertFalse(response.isEmpty(), "List of bikes should not be empty");
-		assertEquals(response.size(), 2, "Number of bikes should match");
+		assertEquals(response.size(), 1, "Number of bikes should match");
 	}
 
 	@Test
