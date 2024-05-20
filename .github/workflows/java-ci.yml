@@ -76,14 +76,6 @@ jobs:
           cd bike-lending-app
           mvn doxygen:report
 
-      - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: bike-lending-app/target/doxygen/html
-          publish_branch: gh-pages
-          destination_dir: doxygen
-
       - name: Deploy JaCoCo report to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
@@ -91,8 +83,14 @@ jobs:
           publish_dir: bike-lending-app/target/site/jacoco
           publish_branch: gh-pages
           destination_dir: jacoco
-          keep_files: true
 
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: bike-lending-app/target/doxygen/html
+          publish_branch: gh-pages
+          destination_dir: doxygen
       
 
   package:
