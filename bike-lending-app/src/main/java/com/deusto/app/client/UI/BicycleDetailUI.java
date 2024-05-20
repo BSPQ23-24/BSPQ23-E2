@@ -7,16 +7,18 @@ import org.jdatepicker.impl.JDatePanelImpl;
 import org.jdatepicker.impl.JDatePickerImpl;
 import org.jdatepicker.impl.UtilDateModel;
 
-
+import com.deusto.app.client.controller.AdminController;
 import com.deusto.app.client.controller.BikeController;
 import com.deusto.app.client.controller.LoanController;
 import com.deusto.app.client.controller.UserController;
 import com.deusto.app.server.pojo.BicycleData;
 import com.deusto.app.server.pojo.LoanData;
-
+import com.deusto.app.server.pojo.StationData;
 
 import java.awt.*;
+import java.sql.Date;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 import java.util.Properties;
@@ -43,14 +45,7 @@ public class BicycleDetailUI extends JFrame {
     	        gbc.fill = GridBagConstraints.HORIZONTAL;
     	        gbc.insets = new Insets(10, 50, 10, 50);
     	        
-    	     // Setup date picker
-    	        UtilDateModel model = new UtilDateModel();
-    	        Properties p = new Properties();
-    	        p.put("text.today", "Today");
-    	        p.put("text.month", "Month");
-    	        p.put("text.year", "Year");
-    	        JDatePanelImpl datePanel = new JDatePanelImpl(model, p);
-    	        loanDate = new JDatePickerImpl(datePanel, new DateComponentFormatter());
+    	        setupDatePicker(); 
 
 
     	        // Title with icons
@@ -60,7 +55,12 @@ public class BicycleDetailUI extends JFrame {
     	        Image scaledImage = icon.getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH); // Increased size
     	        ImageIcon scaledIcon = new ImageIcon(scaledImage);
     	        titlePanel.add(new JLabel(scaledIcon));
-    	        JLabel titleLabel=new JLabel("Nueva Bicicleta!", SwingConstants.CENTER);
+    	        List<StationData> stations = BikeController.getInstance().displayStations(UserController.getToken());
+    	        StationData sta=null;
+    	        for (StationData station : stations) {
+					if(station.getId()==stationID)sta=station;
+				}
+    	        JLabel titleLabel=new JLabel("Alquila Bicicleta de " + sta.getLocation(), SwingConstants.CENTER);
     	        titleLabel.setFont(new Font("Arial", Font.BOLD, 30)); // Bigger font size
     	        titleLabel.setForeground(Color.WHITE); // Set text color to white
     	        titlePanel.add(titleLabel);
@@ -83,7 +83,7 @@ public class BicycleDetailUI extends JFrame {
 
 
     	        // Buttons
-    	        JButton addButton = new JButton(translation.getString("register_act"));
+    	        JButton addButton = new JButton("Alquilar");
     	        JButton backButton = new JButton("Volver");
     	        addButton.setBackground(new Color(255, 114, 118));
 
@@ -98,7 +98,7 @@ public class BicycleDetailUI extends JFrame {
     	        
     	        
     	        backButton.addActionListener(e -> {
-    	        	new AdminUI();
+    	        	new DisplayStationsUI();
 	                setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	                setVisible(false);
 	                dispose();
@@ -166,6 +166,7 @@ public class BicycleDetailUI extends JFrame {
     	            boolean createLoan = LoanController.getInstance().createLoan(loanData);
     	            if (createLoan) {
     	            	JOptionPane.showMessageDialog(BicycleDetailUI.this, "Bicicleta Añadida");
+    	            	AdminController.getInstance().disableBike(loanData.getBicycleId(), UserController.getToken());
     	            	new DisplayStationsUI();
     	                setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     	                setVisible(false);
@@ -177,6 +178,37 @@ public class BicycleDetailUI extends JFrame {
     	    		JOptionPane.showMessageDialog(this, "Rellena todo los campos!");
     	    	}
     	        
+    	    }
+    	    
+    	    private void setupDatePicker() {
+    	    	UtilDateModel model = new UtilDateModel();
+    	        Properties properties = new Properties();
+    	        properties.put("text.today", "Today");
+    	        properties.put("text.month", "Month");
+    	        properties.put("text.year", "Year");
+
+    	        model.setDate(Calendar.getInstance().get(Calendar.YEAR),
+    	                      Calendar.getInstance().get(Calendar.MONTH),
+    	                      Calendar.getInstance().get(Calendar.DAY_OF_MONTH));
+    	        model.setSelected(true);
+
+    	        JDatePanelImpl datePanel = new JDatePanelImpl(model, properties);
+    	        loanDate = new JDatePickerImpl(datePanel, new DateComponentFormatter());
+
+    	        // You can't directly set a range, but you can set a validator or listener if needed
+    	        loanDate.addActionListener(e -> {
+    	            java.util.Date selectedDate =  (java.util.Date) loanDate.getModel().getValue();
+    	            Calendar selectedCalendar = Calendar.getInstance();
+    	            if (selectedDate != null) {
+    	                selectedCalendar.setTime(selectedDate);
+    	            }
+    	            Calendar today = Calendar.getInstance();
+    	            if (selectedCalendar.before(today)) {
+    	                // Reset the selection or show an error
+    	                loanDate.getModel().setDate(today.get(Calendar.YEAR), today.get(Calendar.MONTH), today.get(Calendar.DAY_OF_MONTH));
+    	                JOptionPane.showMessageDialog(this, "Please select today's date or a future date.");
+    	            }
+    	        });
     	    }
     	    
     	    private boolean validateTimeDifference() {

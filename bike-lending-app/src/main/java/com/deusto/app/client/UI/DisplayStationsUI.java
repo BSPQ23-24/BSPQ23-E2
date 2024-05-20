@@ -94,10 +94,17 @@ public class DisplayStationsUI extends JFrame {
                     if (selectedRow != -1) {
                         StationData selectedStation = stations.get(selectedRow);
                         // Open another window to display bike details for the selected station
-                        new BicycleDetailUI(selectedStation.getId());
-                        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                        setVisible(false);
-                        dispose();
+                        long token = UserController.getToken();
+                    	LoanData loan= LoanController.getInstance().isLoanActive(token);
+                    	if(loan==null) {
+                    		new BicycleDetailUI(selectedStation.getId());
+                            setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                            setVisible(false);
+                            dispose();
+                    	}else {
+                    		JOptionPane.showMessageDialog(DisplayStationsUI.this, "Ya tienes una bicicleta alquilada!");
+                    	}
+                        
                     }
                 }
             }
