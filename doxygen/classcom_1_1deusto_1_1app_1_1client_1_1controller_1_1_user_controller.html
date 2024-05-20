@@ -101,6 +101,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a7a36571d4e79f7281d63bc5348821d89"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae9cdb967fb3c75bdca8e7711dda5ee8f"><td class="memItemLeft" align="right" valign="top">boolean&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcom_1_1deusto_1_1app_1_1client_1_1controller_1_1_user_controller.html#ae9cdb967fb3c75bdca8e7711dda5ee8f">logoutUser</a> (long token)</td></tr>
 <tr class="separator:ae9cdb967fb3c75bdca8e7711dda5ee8f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a63dd3c163cddc652d99735986775a103"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classcom_1_1deusto_1_1app_1_1server_1_1pojo_1_1_user_data.html">UserData</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcom_1_1deusto_1_1app_1_1client_1_1controller_1_1_user_controller.html#a63dd3c163cddc652d99735986775a103">getUser</a> (@QueryParam(&quot;token&quot;) long token)</td></tr>
+<tr class="separator:a63dd3c163cddc652d99735986775a103"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
@@ -112,7 +114,7 @@ Static Public Member Functions</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p><a class="el" href="classcom_1_1deusto_1_1app_1_1client_1_1controller_1_1_user_controller.html">UserController</a> class handles client-side user operations including registration, login, logout, and password change. It interacts with the remote services through RESTful APIs. </p>
 
-<p class="definition">Definition at line <a class="el" href="_user_controller_8java_source.html#l00017">17</a> of file <a class="el" href="_user_controller_8java_source.html">UserController.java</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_user_controller_8java_source.html#l00024">24</a> of file <a class="el" href="_user_controller_8java_source.html">UserController.java</a>.</p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="a7a36571d4e79f7281d63bc5348821d89"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a7a36571d4e79f7281d63bc5348821d89">&#9670;&nbsp;</a></span>changePassword()</h2>
@@ -156,7 +158,7 @@ Static Public Member Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>true if the password change is successful, false otherwise </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="_user_controller_8java_source.html#l00093">93</a> of file <a class="el" href="_user_controller_8java_source.html">UserController.java</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_user_controller_8java_source.html#l00100">100</a> of file <a class="el" href="_user_controller_8java_source.html">UserController.java</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -195,16 +197,7 @@ Here is the call graph for this function:</div>
 <p>Returns the singleton instance of <a class="el" href="classcom_1_1deusto_1_1app_1_1client_1_1controller_1_1_user_controller.html">UserController</a>.</p>
 <dl class="section return"><dt>Returns</dt><dd><a class="el" href="classcom_1_1deusto_1_1app_1_1client_1_1controller_1_1_user_controller.html">UserController</a> instance </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="_user_controller_8java_source.html#l00032">32</a> of file <a class="el" href="_user_controller_8java_source.html">UserController.java</a>.</p>
-<div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="classcom_1_1deusto_1_1app_1_1client_1_1controller_1_1_user_controller_af1f382695b49dc04920332b50d362b9e_icgraph.png" border="0" usemap="#aclasscom_1_1deusto_1_1app_1_1client_1_1controller_1_1_user_controller_af1f382695b49dc04920332b50d362b9e_icgraph" alt=""/></div>
-<map name="aclasscom_1_1deusto_1_1app_1_1client_1_1controller_1_1_user_controller_af1f382695b49dc04920332b50d362b9e_icgraph" id="aclasscom_1_1deusto_1_1app_1_1client_1_1controller_1_1_user_controller_af1f382695b49dc04920332b50d362b9e_icgraph">
-<area shape="rect" title=" " alt="" coords="280,5,515,47"/>
-<area shape="rect" href="classcom_1_1deusto_1_1app_1_1client_1_1_u_i_1_1_bicycle_detail_u_i.html#aad79df4b3bb7183bacbbf882d4c829ec" title=" " alt="" coords="5,5,232,47"/>
-</map>
-</div>
+<p class="definition">Definition at line <a class="el" href="_user_controller_8java_source.html#l00039">39</a> of file <a class="el" href="_user_controller_8java_source.html">UserController.java</a>.</p>
 
 </div>
 </div>
@@ -233,18 +226,48 @@ Here is the caller graph for this function:</div>
 <p>Retrieves the current session token.</p>
 <dl class="section return"><dt>Returns</dt><dd>the current session token </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="_user_controller_8java_source.html#l00140">140</a> of file <a class="el" href="_user_controller_8java_source.html">UserController.java</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_user_controller_8java_source.html#l00166">166</a> of file <a class="el" href="_user_controller_8java_source.html">UserController.java</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="classcom_1_1deusto_1_1app_1_1client_1_1controller_1_1_user_controller_a91e3c45d5c3c3e76dc6443b2ae9ca138_icgraph.png" border="0" usemap="#aclasscom_1_1deusto_1_1app_1_1client_1_1controller_1_1_user_controller_a91e3c45d5c3c3e76dc6443b2ae9ca138_icgraph" alt=""/></div>
 <map name="aclasscom_1_1deusto_1_1app_1_1client_1_1controller_1_1_user_controller_a91e3c45d5c3c3e76dc6443b2ae9ca138_icgraph" id="aclasscom_1_1deusto_1_1app_1_1client_1_1controller_1_1_user_controller_a91e3c45d5c3c3e76dc6443b2ae9ca138_icgraph">
 <area shape="rect" title=" " alt="" coords="288,136,523,177"/>
-<area shape="rect" href="classcom_1_1deusto_1_1app_1_1client_1_1_u_i_1_1_bicycle_detail_u_i.html#aad79df4b3bb7183bacbbf882d4c829ec" title=" " alt="" coords="9,5,236,47"/>
+<area shape="rect" href="classcom_1_1deusto_1_1app_1_1client_1_1_u_i_1_1_bicycle_detail_u_i.html#a4deb13cb029c8cbc8e51ceeab7ca7e5a" title=" " alt="" coords="9,5,236,47"/>
 <area shape="rect" href="classcom_1_1deusto_1_1app_1_1client_1_1_u_i_1_1_create_bike_u_i.html#a6611ba28a91cda8dd8c5134a46c54e8c" title=" " alt="" coords="25,71,221,112"/>
 <area shape="rect" href="classcom_1_1deusto_1_1app_1_1client_1_1controller_1_1_loan_controller.html#a76b7c7b3c526d532529922d123dfe884" title=" " alt="" coords="5,136,240,177"/>
 <area shape="rect" href="classcom_1_1deusto_1_1app_1_1client_1_1controller_1_1_loan_controller.html#acd095526899852a13dedbad1d7a59e96" title=" " alt="" coords="5,201,240,243"/>
 <area shape="rect" href="classcom_1_1deusto_1_1app_1_1client_1_1controller_1_1_loan_controller.html#a859b88090240d20a0f18c7409b30d9df" title=" " alt="" coords="5,267,240,308"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="a63dd3c163cddc652d99735986775a103"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a63dd3c163cddc652d99735986775a103">&#9670;&nbsp;</a></span>getUser()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classcom_1_1deusto_1_1app_1_1server_1_1pojo_1_1_user_data.html">UserData</a> com.deusto.app.client.controller.UserController.getUser </td>
+          <td>(</td>
+          <td class="paramtype">@QueryParam(&quot;token&quot;) long&#160;</td>
+          <td class="paramname"><em>token</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="_user_controller_8java_source.html#l00142">142</a> of file <a class="el" href="_user_controller_8java_source.html">UserController.java</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classcom_1_1deusto_1_1app_1_1client_1_1controller_1_1_user_controller_a63dd3c163cddc652d99735986775a103_cgraph.png" border="0" usemap="#aclasscom_1_1deusto_1_1app_1_1client_1_1controller_1_1_user_controller_a63dd3c163cddc652d99735986775a103_cgraph" alt=""/></div>
+<map name="aclasscom_1_1deusto_1_1app_1_1client_1_1controller_1_1_user_controller_a63dd3c163cddc652d99735986775a103_cgraph" id="aclasscom_1_1deusto_1_1app_1_1client_1_1controller_1_1_user_controller_a63dd3c163cddc652d99735986775a103_cgraph">
+<area shape="rect" title=" " alt="" coords="5,39,240,80"/>
+<area shape="rect" href="classcom_1_1deusto_1_1app_1_1client_1_1remote_1_1_service_locator.html#a1bbad089c98e858ca94692c58e9c1b69" title=" " alt="" coords="288,5,509,47"/>
+<area shape="rect" href="classcom_1_1deusto_1_1app_1_1client_1_1remote_1_1_service_locator.html#a485e52addfec6696493877e59276f671" title=" " alt="" coords="288,71,509,112"/>
 </map>
 </div>
 
@@ -274,7 +297,7 @@ Here is the caller graph for this function:</div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>true if the login is successful, false otherwise </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="_user_controller_8java_source.html#l00068">68</a> of file <a class="el" href="_user_controller_8java_source.html">UserController.java</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_user_controller_8java_source.html#l00075">75</a> of file <a class="el" href="_user_controller_8java_source.html">UserController.java</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -312,7 +335,7 @@ Here is the call graph for this function:</div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>true if the logout is successful, false otherwise </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="_user_controller_8java_source.html#l00117">117</a> of file <a class="el" href="_user_controller_8java_source.html">UserController.java</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_user_controller_8java_source.html#l00124">124</a> of file <a class="el" href="_user_controller_8java_source.html">UserController.java</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -350,7 +373,7 @@ Here is the call graph for this function:</div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>true if the registration is successful, false otherwise </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="_user_controller_8java_source.html#l00045">45</a> of file <a class="el" href="_user_controller_8java_source.html">UserController.java</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_user_controller_8java_source.html#l00052">52</a> of file <a class="el" href="_user_controller_8java_source.html">UserController.java</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">

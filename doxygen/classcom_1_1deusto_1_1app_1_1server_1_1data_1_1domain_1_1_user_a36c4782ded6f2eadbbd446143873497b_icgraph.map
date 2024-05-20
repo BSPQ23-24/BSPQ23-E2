@@ -1,12 +1,13 @@
 <map id="com.deusto.app.server.data.domain.User.getDni" name="com.deusto.app.server.data.domain.User.getDni">
-<area shape="rect" id="node1" title=" " alt="" coords="1401,97,1661,139"/>
+<area shape="rect" id="node1" title=" " alt="" coords="1420,97,1680,139"/>
 <area shape="rect" id="node2" href="$classcom_1_1deusto_1_1app_1_1server_1_1services_1_1_loan_service.html#a1a79de28c21cb1fdae14c0c1a51228f2" title=" " alt="" coords="279,5,511,47"/>
-<area shape="rect" id="node4" href="$classcom_1_1deusto_1_1app_1_1server_1_1pojo_1_1_loan_assembler.html#a472b7bfed3f3b2cbb50293783a11893a" title=" " alt="" coords="1120,64,1327,105"/>
-<area shape="rect" id="node8" href="$classcom_1_1deusto_1_1app_1_1server_1_1data_1_1domain_1_1_loan.html#a092a3995c7385282a091a0240ef50afd" title=" " alt="" coords="1093,129,1353,171"/>
-<area shape="rect" id="node9" href="$classcom_1_1deusto_1_1app_1_1server_1_1pojo_1_1_user_assembler.html#ac05cb903e88c33d9cd344fecf43df62d" title=" " alt="" coords="1120,195,1327,236"/>
+<area shape="rect" id="node4" href="$classcom_1_1deusto_1_1app_1_1server_1_1pojo_1_1_loan_assembler.html#a472b7bfed3f3b2cbb50293783a11893a" title=" " alt="" coords="1139,64,1345,105"/>
+<area shape="rect" id="node8" href="$classcom_1_1deusto_1_1app_1_1server_1_1data_1_1domain_1_1_loan.html#a092a3995c7385282a091a0240ef50afd" title=" " alt="" coords="1112,129,1372,171"/>
+<area shape="rect" id="node9" href="$classcom_1_1deusto_1_1app_1_1server_1_1pojo_1_1_user_assembler.html#ac05cb903e88c33d9cd344fecf43df62d" title=" " alt="" coords="1139,195,1345,236"/>
 <area shape="rect" id="node3" href="$classcom_1_1deusto_1_1app_1_1server_1_1remote_1_1_resource_facade.html#af92eb6b2e13b05a3230eb55047112729" title=" " alt="" coords="5,5,231,47"/>
-<area shape="rect" id="node5" href="$classcom_1_1deusto_1_1app_1_1server_1_1pojo_1_1_loan_assembler.html#a92b1dbe22c306fd1ad949d377d23be58" title=" " alt="" coords="839,64,1045,105"/>
+<area shape="rect" id="node5" href="$classcom_1_1deusto_1_1app_1_1server_1_1pojo_1_1_loan_assembler.html#a92b1dbe22c306fd1ad949d377d23be58" title=" " alt="" coords="848,64,1055,105"/>
 <area shape="rect" id="node6" href="$classcom_1_1deusto_1_1app_1_1server_1_1services_1_1_loan_service.html#ace3f5405ebc70bcd19ff95a33ee50667" title=" " alt="" coords="559,64,791,105"/>
 <area shape="rect" id="node7" href="$classcom_1_1deusto_1_1app_1_1server_1_1remote_1_1_resource_facade.html#af7bbb58b383944fe3e6f36474c2b7272" title=" " alt="" coords="282,71,507,112"/>
-<area shape="rect" id="node10" href="$classcom_1_1deusto_1_1app_1_1server_1_1pojo_1_1_user_assembler.html#a45af0aa3233c10c9f9584bbae9fc5e4f" title=" " alt="" coords="839,195,1045,236"/>
+<area shape="rect" id="node10" href="$classcom_1_1deusto_1_1app_1_1server_1_1remote_1_1_resource_facade.html#a00de4a5d23464c7792eb510f7c58af2c" title=" " alt="" coords="839,161,1064,203"/>
+<area shape="rect" id="node11" href="$classcom_1_1deusto_1_1app_1_1server_1_1pojo_1_1_user_assembler.html#a45af0aa3233c10c9f9584bbae9fc5e4f" title=" " alt="" coords="848,227,1055,268"/>
 </map>

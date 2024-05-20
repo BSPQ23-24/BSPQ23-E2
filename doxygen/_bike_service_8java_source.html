@@ -209,55 +209,58 @@ $(document).ready(function(){initNavTree('_bike_service_8java_source.html',''); 
 <div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;            tx.begin();</div>
 <div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160; </div>
 <div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;            <a class="code" href="classcom_1_1deusto_1_1app_1_1server_1_1data_1_1domain_1_1_station.html">Station</a> station = pm.getObjectById(<a class="code" href="classcom_1_1deusto_1_1app_1_1server_1_1data_1_1domain_1_1_station.html">Station</a>.class, stationId);</div>
-<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;            List&lt;Bicycle&gt; availableBikes = station.<a class="code" href="classcom_1_1deusto_1_1app_1_1server_1_1data_1_1domain_1_1_station.html#aed022c113b05d3b513b185e45c822e42">getBikes</a>();</div>
-<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;            System.out.println(availableBikes);</div>
-<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160; </div>
-<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;            tx.commit();</div>
-<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160; </div>
-<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;            LogManager.getLogger(<a class="code" href="classcom_1_1deusto_1_1app_1_1server_1_1services_1_1_bike_service.html">BikeService</a>.class).info(<span class="stringliteral">&quot;Get Available Bikes Success | StationID : &#39;{}&#39;&quot;</span>, stationId);</div>
-<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160; </div>
-<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;            <span class="keywordflow">return</span> <a class="code" href="classcom_1_1deusto_1_1app_1_1server_1_1pojo_1_1_bicycle_assembler.html">BicycleAssembler</a>.<a class="code" href="classcom_1_1deusto_1_1app_1_1server_1_1pojo_1_1_bicycle_assembler.html#a75526845debbb8861fe7891834bba89a">getInstance</a>().<a class="code" href="classcom_1_1deusto_1_1app_1_1server_1_1pojo_1_1_bicycle_assembler.html#a652331e2f4e434fae7316b3a9cfeb7ec">bikesToPOJO</a>(availableBikes);</div>
-<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160; </div>
-<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;        } <span class="keywordflow">catch</span> (Exception e) {</div>
-<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;            LogManager.getLogger(<a class="code" href="classcom_1_1deusto_1_1app_1_1server_1_1services_1_1_bike_service.html">BikeService</a>.class).error(<span class="stringliteral">&quot;Get Available Bikes Failed | &#39;{}&#39; | StationID: &#39;{}&#39;&quot;</span>, e,</div>
-<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;                    stationId);</div>
-<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;            <span class="keywordflow">if</span> (tx.isActive()) {</div>
-<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;                tx.rollback();</div>
-<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;            }</div>
-<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;            <span class="keywordflow">return</span> <span class="keyword">null</span>;</div>
-<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;        } <span class="keywordflow">finally</span> {</div>
-<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;            pm.close();</div>
-<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;        }</div>
-<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;    }</div>
-<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160; </div>
-<div class="line"><a name="l00175"></a><span class="lineno"><a class="line" href="classcom_1_1deusto_1_1app_1_1server_1_1services_1_1_bike_service.html#ab0f734c824767e720810fef6dd99aca1">  175</a></span>&#160;    <span class="keyword">public</span> <a class="code" href="classcom_1_1deusto_1_1app_1_1server_1_1pojo_1_1_bicycle_data.html">BicycleData</a> <a class="code" href="classcom_1_1deusto_1_1app_1_1server_1_1services_1_1_bike_service.html#ab0f734c824767e720810fef6dd99aca1">getBikeById</a>(<span class="keywordtype">int</span> bikeId) {</div>
-<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160; </div>
-<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;        LogManager.getLogger(<a class="code" href="classcom_1_1deusto_1_1app_1_1server_1_1services_1_1_bike_service.html">BikeService</a>.class).info(<span class="stringliteral">&quot;Get Bike By ID Start | BikeID : &#39;{}&#39;&quot;</span>, bikeId);</div>
-<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160; </div>
-<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;        PersistenceManager pm = pmf.getPersistenceManager();</div>
-<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;        Transaction tx = pm.currentTransaction();</div>
+<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;            List&lt;Bicycle&gt; bikes = station.<a class="code" href="classcom_1_1deusto_1_1app_1_1server_1_1data_1_1domain_1_1_station.html#aed022c113b05d3b513b185e45c822e42">getBikes</a>();</div>
+<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;            List&lt;Bicycle&gt; availableBikes=<span class="keyword">new</span> ArrayList&lt;Bicycle&gt;();</div>
+<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;            <span class="keywordflow">for</span> (<a class="code" href="classcom_1_1deusto_1_1app_1_1server_1_1data_1_1domain_1_1_bicycle.html">Bicycle</a> bike : bikes) {</div>
+<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;                <span class="keywordflow">if</span>(bike.isAvailable()) availableBikes.add(bike);</div>
+<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;            }</div>
+<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160; </div>
+<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;            tx.commit();</div>
+<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160; </div>
+<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;            LogManager.getLogger(<a class="code" href="classcom_1_1deusto_1_1app_1_1server_1_1services_1_1_bike_service.html">BikeService</a>.class).info(<span class="stringliteral">&quot;Get Available Bikes Success | StationID : &#39;{}&#39;&quot;</span>, stationId);</div>
+<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160; </div>
+<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;            <span class="keywordflow">return</span> <a class="code" href="classcom_1_1deusto_1_1app_1_1server_1_1pojo_1_1_bicycle_assembler.html">BicycleAssembler</a>.<a class="code" href="classcom_1_1deusto_1_1app_1_1server_1_1pojo_1_1_bicycle_assembler.html#a75526845debbb8861fe7891834bba89a">getInstance</a>().<a class="code" href="classcom_1_1deusto_1_1app_1_1server_1_1pojo_1_1_bicycle_assembler.html#a652331e2f4e434fae7316b3a9cfeb7ec">bikesToPOJO</a>(availableBikes);</div>
+<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160; </div>
+<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;        } <span class="keywordflow">catch</span> (Exception e) {</div>
+<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;            LogManager.getLogger(<a class="code" href="classcom_1_1deusto_1_1app_1_1server_1_1services_1_1_bike_service.html">BikeService</a>.class).error(<span class="stringliteral">&quot;Get Available Bikes Failed | &#39;{}&#39; | StationID: &#39;{}&#39;&quot;</span>, e,</div>
+<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;                    stationId);</div>
+<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;            <span class="keywordflow">if</span> (tx.isActive()) {</div>
+<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;                tx.rollback();</div>
+<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;            }</div>
+<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;            <span class="keywordflow">return</span> <span class="keyword">null</span>;</div>
+<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;        } <span class="keywordflow">finally</span> {</div>
+<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;            pm.close();</div>
+<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;        }</div>
+<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;    }</div>
+<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160; </div>
+<div class="line"><a name="l00178"></a><span class="lineno"><a class="line" href="classcom_1_1deusto_1_1app_1_1server_1_1services_1_1_bike_service.html#ab0f734c824767e720810fef6dd99aca1">  178</a></span>&#160;    <span class="keyword">public</span> <a class="code" href="classcom_1_1deusto_1_1app_1_1server_1_1pojo_1_1_bicycle_data.html">BicycleData</a> <a class="code" href="classcom_1_1deusto_1_1app_1_1server_1_1services_1_1_bike_service.html#ab0f734c824767e720810fef6dd99aca1">getBikeById</a>(<span class="keywordtype">int</span> bikeId) {</div>
+<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160; </div>
+<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;        LogManager.getLogger(<a class="code" href="classcom_1_1deusto_1_1app_1_1server_1_1services_1_1_bike_service.html">BikeService</a>.class).info(<span class="stringliteral">&quot;Get Bike By ID Start | BikeID : &#39;{}&#39;&quot;</span>, bikeId);</div>
 <div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160; </div>
-<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;        <span class="keywordflow">try</span> {</div>
-<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;            tx.begin();</div>
+<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;        PersistenceManager pm = pmf.getPersistenceManager();</div>
+<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;        Transaction tx = pm.currentTransaction();</div>
 <div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160; </div>
-<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;            <a class="code" href="classcom_1_1deusto_1_1app_1_1server_1_1data_1_1domain_1_1_bicycle.html">Bicycle</a> bike = pm.getObjectById(<a class="code" href="classcom_1_1deusto_1_1app_1_1server_1_1data_1_1domain_1_1_bicycle.html">Bicycle</a>.class, bikeId);</div>
-<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160; </div>
-<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;            tx.commit();</div>
-<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160; </div>
-<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;            LogManager.getLogger(<a class="code" href="classcom_1_1deusto_1_1app_1_1server_1_1services_1_1_bike_service.html">BikeService</a>.class).info(<span class="stringliteral">&quot;Get Bike By ID Success | BikeID : &#39;{}&#39;&quot;</span>, bikeId);</div>
-<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160; </div>
-<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;            <span class="keywordflow">return</span> <a class="code" href="classcom_1_1deusto_1_1app_1_1server_1_1pojo_1_1_bicycle_assembler.html">BicycleAssembler</a>.<a class="code" href="classcom_1_1deusto_1_1app_1_1server_1_1pojo_1_1_bicycle_assembler.html#a75526845debbb8861fe7891834bba89a">getInstance</a>().<a class="code" href="classcom_1_1deusto_1_1app_1_1server_1_1pojo_1_1_bicycle_assembler.html#afe6bf26275c6b555792bebf86223e64c">bikeToPOJO</a>(bike);</div>
-<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;        } <span class="keywordflow">catch</span> (Exception e) {</div>
-<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;            LogManager.getLogger(<a class="code" href="classcom_1_1deusto_1_1app_1_1server_1_1services_1_1_bike_service.html">BikeService</a>.class).error(<span class="stringliteral">&quot;Get Bike By ID Failed | &#39;{}&#39; | BikeID: &#39;{}&#39;&quot;</span>, e, bikeId);</div>
-<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;            <span class="keywordflow">if</span> (tx.isActive()) {</div>
-<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;                tx.rollback();</div>
-<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;            }</div>
-<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;            <span class="keywordflow">return</span> <span class="keyword">null</span>;</div>
-<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;        } <span class="keywordflow">finally</span> {</div>
-<div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;            pm.close();</div>
-<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;        }</div>
-<div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;    }</div>
-<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;}</div>
+<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;        <span class="keywordflow">try</span> {</div>
+<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;            tx.begin();</div>
+<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160; </div>
+<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;            <a class="code" href="classcom_1_1deusto_1_1app_1_1server_1_1data_1_1domain_1_1_bicycle.html">Bicycle</a> bike = pm.getObjectById(<a class="code" href="classcom_1_1deusto_1_1app_1_1server_1_1data_1_1domain_1_1_bicycle.html">Bicycle</a>.class, bikeId);</div>
+<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160; </div>
+<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;            tx.commit();</div>
+<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160; </div>
+<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;            LogManager.getLogger(<a class="code" href="classcom_1_1deusto_1_1app_1_1server_1_1services_1_1_bike_service.html">BikeService</a>.class).info(<span class="stringliteral">&quot;Get Bike By ID Success | BikeID : &#39;{}&#39;&quot;</span>, bikeId);</div>
+<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160; </div>
+<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;            <span class="keywordflow">return</span> <a class="code" href="classcom_1_1deusto_1_1app_1_1server_1_1pojo_1_1_bicycle_assembler.html">BicycleAssembler</a>.<a class="code" href="classcom_1_1deusto_1_1app_1_1server_1_1pojo_1_1_bicycle_assembler.html#a75526845debbb8861fe7891834bba89a">getInstance</a>().<a class="code" href="classcom_1_1deusto_1_1app_1_1server_1_1pojo_1_1_bicycle_assembler.html#afe6bf26275c6b555792bebf86223e64c">bikeToPOJO</a>(bike);</div>
+<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;        } <span class="keywordflow">catch</span> (Exception e) {</div>
+<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;            LogManager.getLogger(<a class="code" href="classcom_1_1deusto_1_1app_1_1server_1_1services_1_1_bike_service.html">BikeService</a>.class).error(<span class="stringliteral">&quot;Get Bike By ID Failed | &#39;{}&#39; | BikeID: &#39;{}&#39;&quot;</span>, e, bikeId);</div>
+<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;            <span class="keywordflow">if</span> (tx.isActive()) {</div>
+<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;                tx.rollback();</div>
+<div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;            }</div>
+<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;            <span class="keywordflow">return</span> <span class="keyword">null</span>;</div>
+<div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;        } <span class="keywordflow">finally</span> {</div>
+<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;            pm.close();</div>
+<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;        }</div>
+<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;    }</div>
+<div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160;}</div>
 <div class="ttc" id="aclasscom_1_1deusto_1_1app_1_1server_1_1data_1_1domain_1_1_bicycle_html"><div class="ttname"><a href="classcom_1_1deusto_1_1app_1_1server_1_1data_1_1domain_1_1_bicycle.html">com.deusto.app.server.data.domain.Bicycle</a></div><div class="ttdef"><b>Definition:</b> <a href="_bicycle_8java_source.html#l00014">Bicycle.java:14</a></div></div>
 <div class="ttc" id="aclasscom_1_1deusto_1_1app_1_1server_1_1data_1_1domain_1_1_station_html"><div class="ttname"><a href="classcom_1_1deusto_1_1app_1_1server_1_1data_1_1domain_1_1_station.html">com.deusto.app.server.data.domain.Station</a></div><div class="ttdef"><b>Definition:</b> <a href="_station_8java_source.html#l00015">Station.java:15</a></div></div>
 <div class="ttc" id="aclasscom_1_1deusto_1_1app_1_1server_1_1data_1_1domain_1_1_station_html_aed022c113b05d3b513b185e45c822e42"><div class="ttname"><a href="classcom_1_1deusto_1_1app_1_1server_1_1data_1_1domain_1_1_station.html#aed022c113b05d3b513b185e45c822e42">com.deusto.app.server.data.domain.Station.getBikes</a></div><div class="ttdeci">List&lt; Bicycle &gt; getBikes()</div><div class="ttdef"><b>Definition:</b> <a href="_station_8java_source.html#l00066">Station.java:66</a></div></div>
@@ -273,7 +276,7 @@ $(document).ready(function(){initNavTree('_bike_service_8java_source.html',''); 
 <div class="ttc" id="aclasscom_1_1deusto_1_1app_1_1server_1_1services_1_1_bike_service_html_a2e4e28f53d8a4d3ab5b18d76aa7cf790"><div class="ttname"><a href="classcom_1_1deusto_1_1app_1_1server_1_1services_1_1_bike_service.html#a2e4e28f53d8a4d3ab5b18d76aa7cf790">com.deusto.app.server.services.BikeService.BikeService</a></div><div class="ttdeci">BikeService(PersistenceManagerFactory pmf)</div><div class="ttdef"><b>Definition:</b> <a href="_bike_service_8java_source.html#l00039">BikeService.java:39</a></div></div>
 <div class="ttc" id="aclasscom_1_1deusto_1_1app_1_1server_1_1services_1_1_bike_service_html_a6be1ffc5f93e21682f035c1ec3850e87"><div class="ttname"><a href="classcom_1_1deusto_1_1app_1_1server_1_1services_1_1_bike_service.html#a6be1ffc5f93e21682f035c1ec3850e87">com.deusto.app.server.services.BikeService.displayStations</a></div><div class="ttdeci">List&lt; StationData &gt; displayStations()</div><div class="ttdef"><b>Definition:</b> <a href="_bike_service_8java_source.html#l00060">BikeService.java:60</a></div></div>
 <div class="ttc" id="aclasscom_1_1deusto_1_1app_1_1server_1_1services_1_1_bike_service_html_aa17e35e0d97d17e8b4a291616330eefb"><div class="ttname"><a href="classcom_1_1deusto_1_1app_1_1server_1_1services_1_1_bike_service.html#aa17e35e0d97d17e8b4a291616330eefb">com.deusto.app.server.services.BikeService.getAvailableBikesInStation</a></div><div class="ttdeci">List&lt; BicycleData &gt; getAvailableBikesInStation(int stationId)</div><div class="ttdef"><b>Definition:</b> <a href="_bike_service_8java_source.html#l00137">BikeService.java:137</a></div></div>
-<div class="ttc" id="aclasscom_1_1deusto_1_1app_1_1server_1_1services_1_1_bike_service_html_ab0f734c824767e720810fef6dd99aca1"><div class="ttname"><a href="classcom_1_1deusto_1_1app_1_1server_1_1services_1_1_bike_service.html#ab0f734c824767e720810fef6dd99aca1">com.deusto.app.server.services.BikeService.getBikeById</a></div><div class="ttdeci">BicycleData getBikeById(int bikeId)</div><div class="ttdef"><b>Definition:</b> <a href="_bike_service_8java_source.html#l00175">BikeService.java:175</a></div></div>
+<div class="ttc" id="aclasscom_1_1deusto_1_1app_1_1server_1_1services_1_1_bike_service_html_ab0f734c824767e720810fef6dd99aca1"><div class="ttname"><a href="classcom_1_1deusto_1_1app_1_1server_1_1services_1_1_bike_service.html#ab0f734c824767e720810fef6dd99aca1">com.deusto.app.server.services.BikeService.getBikeById</a></div><div class="ttdeci">BicycleData getBikeById(int bikeId)</div><div class="ttdef"><b>Definition:</b> <a href="_bike_service_8java_source.html#l00178">BikeService.java:178</a></div></div>
 <div class="ttc" id="aclasscom_1_1deusto_1_1app_1_1server_1_1services_1_1_bike_service_html_ab9512efa5962d216a146d007ec930599"><div class="ttname"><a href="classcom_1_1deusto_1_1app_1_1server_1_1services_1_1_bike_service.html#ab9512efa5962d216a146d007ec930599">com.deusto.app.server.services.BikeService.getInstance</a></div><div class="ttdeci">static BikeService getInstance()</div><div class="ttdef"><b>Definition:</b> <a href="_bike_service_8java_source.html#l00048">BikeService.java:48</a></div></div>
 <div class="ttc" id="aclasscom_1_1deusto_1_1app_1_1server_1_1services_1_1_bike_service_html_aebcf58a90e71b949d512d9f440cd5c1d"><div class="ttname"><a href="classcom_1_1deusto_1_1app_1_1server_1_1services_1_1_bike_service.html#aebcf58a90e71b949d512d9f440cd5c1d">com.deusto.app.server.services.BikeService.displayNoAvailableBikes</a></div><div class="ttdeci">List&lt; BicycleData &gt; displayNoAvailableBikes()</div><div class="ttdef"><b>Definition:</b> <a href="_bike_service_8java_source.html#l00093">BikeService.java:93</a></div></div>
 </div><!-- fragment --></div><!-- contents -->

@@ -100,6 +100,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a0879c17c915b3dba51b7a4ced9dfaae9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1bc6be00d134eb01a67f496c3a1034ef"><td class="memItemLeft" align="right" valign="top">Response&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcom_1_1deusto_1_1app_1_1server_1_1remote_1_1_resource_facade.html#a1bc6be00d134eb01a67f496c3a1034ef">logoutUser</a> (@QueryParam(&quot;token&quot;) long token)</td></tr>
 <tr class="separator:a1bc6be00d134eb01a67f496c3a1034ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a00de4a5d23464c7792eb510f7c58af2c"><td class="memItemLeft" align="right" valign="top">Response&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcom_1_1deusto_1_1app_1_1server_1_1remote_1_1_resource_facade.html#a00de4a5d23464c7792eb510f7c58af2c">getUser</a> (@QueryParam(&quot;token&quot;) long token)</td></tr>
+<tr class="separator:a00de4a5d23464c7792eb510f7c58af2c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a96ffe331ee5c29f55ded003482c24a6f"><td class="memItemLeft" align="right" valign="top">Response&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcom_1_1deusto_1_1app_1_1server_1_1remote_1_1_resource_facade.html#a96ffe331ee5c29f55ded003482c24a6f">sayHello</a> ()</td></tr>
 <tr class="separator:a96ffe331ee5c29f55ded003482c24a6f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a315ad98b67aad295058874de347e5490"><td class="memItemLeft" align="right" valign="top">Response&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcom_1_1deusto_1_1app_1_1server_1_1remote_1_1_resource_facade.html#a315ad98b67aad295058874de347e5490">displayStations</a> (@QueryParam(&quot;token&quot;) long token)</td></tr>
@@ -131,7 +133,7 @@ Public Member Functions</h2></td></tr>
 <div class="textblock"><p><a class="el" href="classcom_1_1deusto_1_1app_1_1server_1_1remote_1_1_resource_facade.html">ResourceFacade</a> class provides RESTful APIs for bike rental application. It includes user management (registration, login, logout, password change) and bike management (display stations, available bikes, bike details).</p>
 <p>All endpoints produce responses in JSON format. </p>
 
-<p class="definition">Definition at line <a class="el" href="_resource_facade_8java_source.html#l00036">36</a> of file <a class="el" href="_resource_facade_8java_source.html">ResourceFacade.java</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_resource_facade_8java_source.html#l00037">37</a> of file <a class="el" href="_resource_facade_8java_source.html">ResourceFacade.java</a>.</p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="ac469eb7043c7d33cb94298456589b3fe"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ac469eb7043c7d33cb94298456589b3fe">&#9670;&nbsp;</a></span>ableBike()</h2>
@@ -159,7 +161,7 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_resource_facade_8java_source.html#l00297">297</a> of file <a class="el" href="_resource_facade_8java_source.html">ResourceFacade.java</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_resource_facade_8java_source.html#l00319">319</a> of file <a class="el" href="_resource_facade_8java_source.html">ResourceFacade.java</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -211,7 +213,7 @@ Here is the call graph for this function:</div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Response containing the bike details </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="_resource_facade_8java_source.html#l00258">258</a> of file <a class="el" href="_resource_facade_8java_source.html">ResourceFacade.java</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_resource_facade_8java_source.html#l00280">280</a> of file <a class="el" href="_resource_facade_8java_source.html">ResourceFacade.java</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -282,7 +284,7 @@ Here is the call graph for this function:</div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Response indicating success or failure of the password change </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="_resource_facade_8java_source.html#l00048">48</a> of file <a class="el" href="_resource_facade_8java_source.html">ResourceFacade.java</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_resource_facade_8java_source.html#l00049">49</a> of file <a class="el" href="_resource_facade_8java_source.html">ResourceFacade.java</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -333,29 +335,27 @@ Here is the call graph for this function:</div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Response indicating success or failure of loan creation </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="_resource_facade_8java_source.html#l00376">376</a> of file <a class="el" href="_resource_facade_8java_source.html">ResourceFacade.java</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_resource_facade_8java_source.html#l00398">398</a> of file <a class="el" href="_resource_facade_8java_source.html">ResourceFacade.java</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="classcom_1_1deusto_1_1app_1_1server_1_1remote_1_1_resource_facade_a1d5e95f4462036693d6600f196b79785_cgraph.png" border="0" usemap="#aclasscom_1_1deusto_1_1app_1_1server_1_1remote_1_1_resource_facade_a1d5e95f4462036693d6600f196b79785_cgraph" alt=""/></div>
 <map name="aclasscom_1_1deusto_1_1app_1_1server_1_1remote_1_1_resource_facade_a1d5e95f4462036693d6600f196b79785_cgraph" id="aclasscom_1_1deusto_1_1app_1_1server_1_1remote_1_1_resource_facade_a1d5e95f4462036693d6600f196b79785_cgraph">
-<area shape="rect" title=" " alt="" coords="5,464,231,505"/>
-<area shape="rect" href="classcom_1_1deusto_1_1app_1_1server_1_1services_1_1_loan_service.html#a7f25bc6ef481bb1aa2cc0dcf8355a7d7" title=" " alt="" coords="279,365,511,407"/>
-<area shape="rect" href="classcom_1_1deusto_1_1app_1_1server_1_1services_1_1_loan_service.html#a63921eb0aeec0a5aa2eddc5c62eaf4d4" title=" " alt="" coords="279,431,511,472"/>
-<area shape="rect" href="classcom_1_1deusto_1_1app_1_1server_1_1services_1_1_user_service.html#a1b7c83ab78758d99793ce63df847be7c" title=" " alt="" coords="279,496,511,537"/>
-<area shape="rect" href="classcom_1_1deusto_1_1app_1_1server_1_1services_1_1_user_service.html#a6e516cfcceae38c2e1c1aede375c15eb" title=" " alt="" coords="279,561,511,603"/>
-<area shape="rect" href="classcom_1_1deusto_1_1app_1_1server_1_1data_1_1domain_1_1_loan.html#a5f9246d3b8a914d4e17de561c711d4fe" title=" " alt="" coords="559,5,819,47"/>
+<area shape="rect" title=" " alt="" coords="5,399,231,440"/>
+<area shape="rect" href="classcom_1_1deusto_1_1app_1_1server_1_1services_1_1_loan_service.html#a7f25bc6ef481bb1aa2cc0dcf8355a7d7" title=" " alt="" coords="279,300,511,341"/>
+<area shape="rect" href="classcom_1_1deusto_1_1app_1_1server_1_1services_1_1_loan_service.html#a63921eb0aeec0a5aa2eddc5c62eaf4d4" title=" " alt="" coords="279,365,511,407"/>
+<area shape="rect" href="classcom_1_1deusto_1_1app_1_1server_1_1services_1_1_user_service.html#a1b7c83ab78758d99793ce63df847be7c" title=" " alt="" coords="279,431,511,472"/>
+<area shape="rect" href="classcom_1_1deusto_1_1app_1_1server_1_1services_1_1_user_service.html#a6e516cfcceae38c2e1c1aede375c15eb" title=" " alt="" coords="279,496,511,537"/>
+<area shape="rect" href="classcom_1_1deusto_1_1app_1_1server_1_1pojo_1_1_loan_data.html#a363d7fd0ad25185120f41cdf39731a97" title=" " alt="" coords="585,5,792,47"/>
 <area shape="rect" href="classcom_1_1deusto_1_1app_1_1server_1_1pojo_1_1_loan_data.html#a6f81d5f1a475d9e35f8838913c7be87f" title=" " alt="" coords="585,71,792,112"/>
-<area shape="rect" href="classcom_1_1deusto_1_1app_1_1server_1_1pojo_1_1_loan_data.html#a47147d4f5f86c2a3d9204ee9eb0e6105" title=" " alt="" coords="585,136,792,177"/>
-<area shape="rect" href="classcom_1_1deusto_1_1app_1_1server_1_1pojo_1_1_loan_data.html#ac97bc4003ef28193c40b5d07b1bec6f6" title=" " alt="" coords="585,201,792,243"/>
-<area shape="rect" href="classcom_1_1deusto_1_1app_1_1server_1_1pojo_1_1_loan_data.html#a8e7421103242fe469d06905ab82b04bf" title=" " alt="" coords="585,267,792,308"/>
-<area shape="rect" href="classcom_1_1deusto_1_1app_1_1server_1_1data_1_1domain_1_1_loan.html#a87480b3c4a769950222cac1423043803" title=" " alt="" coords="559,332,819,373"/>
-<area shape="rect" href="classcom_1_1deusto_1_1app_1_1server_1_1data_1_1domain_1_1_loan.html#ae785024735746817fb73814137129f9c" title=" " alt="" coords="559,397,819,439"/>
-<area shape="rect" href="classcom_1_1deusto_1_1app_1_1server_1_1data_1_1domain_1_1_loan.html#aaf1897d003c10162c7846de619aaaf39" title=" " alt="" coords="559,463,819,504"/>
-<area shape="rect" href="classcom_1_1deusto_1_1app_1_1server_1_1data_1_1domain_1_1_loan.html#af5f04fc05f59b74450d4e3f8f72df38a" title=" " alt="" coords="559,528,819,569"/>
-<area shape="rect" href="classcom_1_1deusto_1_1app_1_1server_1_1data_1_1domain_1_1_loan.html#ac1c1eef77253a1e061d80103fa81ab9d" title=" " alt="" coords="559,593,819,635"/>
-<area shape="rect" href="classcom_1_1deusto_1_1app_1_1server_1_1data_1_1domain_1_1_loan.html#a2dfcadb26e163ae55a26f38987e6f3f9" title=" " alt="" coords="559,659,819,700"/>
-<area shape="rect" href="classcom_1_1deusto_1_1app_1_1server_1_1data_1_1domain_1_1_loan.html#a64ba8f55d07a56d0b23f59be7805e988" title=" " alt="" coords="559,724,819,765"/>
+<area shape="rect" href="classcom_1_1deusto_1_1app_1_1server_1_1pojo_1_1_loan_data.html#ac97bc4003ef28193c40b5d07b1bec6f6" title=" " alt="" coords="585,136,792,177"/>
+<area shape="rect" href="classcom_1_1deusto_1_1app_1_1server_1_1pojo_1_1_loan_data.html#a8e7421103242fe469d06905ab82b04bf" title=" " alt="" coords="585,201,792,243"/>
+<area shape="rect" href="classcom_1_1deusto_1_1app_1_1server_1_1pojo_1_1_loan_data.html#add215e67751b810271683bb2914869b6" title=" " alt="" coords="585,267,792,308"/>
+<area shape="rect" href="classcom_1_1deusto_1_1app_1_1server_1_1data_1_1domain_1_1_loan.html#ae785024735746817fb73814137129f9c" title=" " alt="" coords="559,332,819,373"/>
+<area shape="rect" href="classcom_1_1deusto_1_1app_1_1server_1_1data_1_1domain_1_1_loan.html#aaf1897d003c10162c7846de619aaaf39" title=" " alt="" coords="559,397,819,439"/>
+<area shape="rect" href="classcom_1_1deusto_1_1app_1_1server_1_1data_1_1domain_1_1_loan.html#ac1c1eef77253a1e061d80103fa81ab9d" title=" " alt="" coords="559,463,819,504"/>
+<area shape="rect" href="classcom_1_1deusto_1_1app_1_1server_1_1data_1_1domain_1_1_loan.html#a2dfcadb26e163ae55a26f38987e6f3f9" title=" " alt="" coords="559,528,819,569"/>
+<area shape="rect" href="classcom_1_1deusto_1_1app_1_1server_1_1data_1_1domain_1_1_loan.html#a64ba8f55d07a56d0b23f59be7805e988" title=" " alt="" coords="559,593,819,635"/>
 </map>
 </div>
 
@@ -396,7 +396,7 @@ Here is the call graph for this function:</div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Response indicating success or failure of loan deletion </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="_resource_facade_8java_source.html#l00398">398</a> of file <a class="el" href="_resource_facade_8java_source.html">ResourceFacade.java</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_resource_facade_8java_source.html#l00420">420</a> of file <a class="el" href="_resource_facade_8java_source.html">ResourceFacade.java</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -438,7 +438,7 @@ Here is the call graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_resource_facade_8java_source.html#l00280">280</a> of file <a class="el" href="_resource_facade_8java_source.html">ResourceFacade.java</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_resource_facade_8java_source.html#l00302">302</a> of file <a class="el" href="_resource_facade_8java_source.html">ResourceFacade.java</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -479,7 +479,7 @@ Here is the call graph for this function:</div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Response containing a list of no available bikes </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="_resource_facade_8java_source.html#l00213">213</a> of file <a class="el" href="_resource_facade_8java_source.html">ResourceFacade.java</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_resource_facade_8java_source.html#l00235">235</a> of file <a class="el" href="_resource_facade_8java_source.html">ResourceFacade.java</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -532,7 +532,7 @@ Here is the call graph for this function:</div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Response containing a list of all bike stations </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="_resource_facade_8java_source.html#l00153">153</a> of file <a class="el" href="_resource_facade_8java_source.html">ResourceFacade.java</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_resource_facade_8java_source.html#l00175">175</a> of file <a class="el" href="_resource_facade_8java_source.html">ResourceFacade.java</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -581,7 +581,7 @@ Here is the call graph for this function:</div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Response containing a list of all loans </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="_resource_facade_8java_source.html#l00341">341</a> of file <a class="el" href="_resource_facade_8java_source.html">ResourceFacade.java</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_resource_facade_8java_source.html#l00363">363</a> of file <a class="el" href="_resource_facade_8java_source.html">ResourceFacade.java</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -649,7 +649,7 @@ Here is the call graph for this function:</div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Response containing a list of available bikes </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="_resource_facade_8java_source.html#l00190">190</a> of file <a class="el" href="_resource_facade_8java_source.html">ResourceFacade.java</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_resource_facade_8java_source.html#l00212">212</a> of file <a class="el" href="_resource_facade_8java_source.html">ResourceFacade.java</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -714,7 +714,7 @@ Here is the call graph for this function:</div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Response containing the bike details </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="_resource_facade_8java_source.html#l00235">235</a> of file <a class="el" href="_resource_facade_8java_source.html">ResourceFacade.java</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_resource_facade_8java_source.html#l00257">257</a> of file <a class="el" href="_resource_facade_8java_source.html">ResourceFacade.java</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -737,6 +737,63 @@ Here is the call graph for this function:</div>
 <area shape="rect" href="classcom_1_1deusto_1_1app_1_1server_1_1pojo_1_1_bicycle_data.html#a463789b3160237c6189b1ad2b82d3d69" title=" " alt="" coords="852,463,1059,504"/>
 <area shape="rect" href="classcom_1_1deusto_1_1app_1_1server_1_1pojo_1_1_bicycle_data.html#aaf5fe8b4c8d4c950e189bb374a35db10" title=" " alt="" coords="852,528,1059,569"/>
 <area shape="rect" href="classcom_1_1deusto_1_1app_1_1server_1_1pojo_1_1_bicycle_data.html#a0bea49b37bf1359599e15c57a6759d12" title=" " alt="" coords="852,593,1059,635"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="a00de4a5d23464c7792eb510f7c58af2c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a00de4a5d23464c7792eb510f7c58af2c">&#9670;&nbsp;</a></span>getUser()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Response com.deusto.app.server.remote.ResourceFacade.getUser </td>
+          <td>(</td>
+          <td class="paramtype">@QueryParam(&quot;token&quot;) long&#160;</td>
+          <td class="paramname"><em>token</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Return´s a user from a token</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">token</td><td>the user's authentication token </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Response returning the user´s data </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="_resource_facade_8java_source.html#l00125">125</a> of file <a class="el" href="_resource_facade_8java_source.html">ResourceFacade.java</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classcom_1_1deusto_1_1app_1_1server_1_1remote_1_1_resource_facade_a00de4a5d23464c7792eb510f7c58af2c_cgraph.png" border="0" usemap="#aclasscom_1_1deusto_1_1app_1_1server_1_1remote_1_1_resource_facade_a00de4a5d23464c7792eb510f7c58af2c_cgraph" alt=""/></div>
+<map name="aclasscom_1_1deusto_1_1app_1_1server_1_1remote_1_1_resource_facade_a00de4a5d23464c7792eb510f7c58af2c_cgraph" id="aclasscom_1_1deusto_1_1app_1_1server_1_1remote_1_1_resource_facade_a00de4a5d23464c7792eb510f7c58af2c_cgraph">
+<area shape="rect" title=" " alt="" coords="5,365,231,407"/>
+<area shape="rect" href="classcom_1_1deusto_1_1app_1_1server_1_1pojo_1_1_user_assembler.html#a0b47bcf59766a6f5f8d2580534cfdf04" title=" " alt="" coords="291,235,498,276"/>
+<area shape="rect" href="classcom_1_1deusto_1_1app_1_1server_1_1services_1_1_user_service.html#a1b7c83ab78758d99793ce63df847be7c" title=" " alt="" coords="279,300,511,341"/>
+<area shape="rect" href="classcom_1_1deusto_1_1app_1_1server_1_1services_1_1_user_service.html#a505f9958c938eda7bf5dd1d6dc901c77" title=" " alt="" coords="279,365,511,407"/>
+<area shape="rect" href="classcom_1_1deusto_1_1app_1_1server_1_1services_1_1_user_service.html#a6e516cfcceae38c2e1c1aede375c15eb" title=" " alt="" coords="279,431,511,472"/>
+<area shape="rect" href="classcom_1_1deusto_1_1app_1_1server_1_1pojo_1_1_user_assembler.html#ac05cb903e88c33d9cd344fecf43df62d" title=" " alt="" coords="291,496,498,537"/>
+<area shape="rect" href="classcom_1_1deusto_1_1app_1_1server_1_1data_1_1domain_1_1_user.html#a2b84624a2f4dd51697c92f2b44b11ea4" title=" " alt="" coords="559,5,819,47"/>
+<area shape="rect" href="classcom_1_1deusto_1_1app_1_1server_1_1data_1_1domain_1_1_user.html#a36c4782ded6f2eadbbd446143873497b" title=" " alt="" coords="559,71,819,112"/>
+<area shape="rect" href="classcom_1_1deusto_1_1app_1_1server_1_1data_1_1domain_1_1_user.html#a6a839bb47c9146111ca8d6c8cfe1a1c4" title=" " alt="" coords="559,136,819,177"/>
+<area shape="rect" href="classcom_1_1deusto_1_1app_1_1server_1_1data_1_1domain_1_1_user.html#abb3484e9a59591d2954e3dea821dc2ed" title=" " alt="" coords="559,201,819,243"/>
+<area shape="rect" href="classcom_1_1deusto_1_1app_1_1server_1_1data_1_1domain_1_1_user.html#a117e65cdc819049f518780a6f8b197a5" title=" " alt="" coords="559,267,819,308"/>
+<area shape="rect" href="classcom_1_1deusto_1_1app_1_1server_1_1data_1_1domain_1_1_user.html#ad997869ecde7f6d8d42080cf36731a32" title=" " alt="" coords="559,332,819,373"/>
+<area shape="rect" href="classcom_1_1deusto_1_1app_1_1server_1_1data_1_1domain_1_1_user.html#a358bb4317b0389bec0870bdeec1c2af1" title=" " alt="" coords="559,397,819,439"/>
+<area shape="rect" href="classcom_1_1deusto_1_1app_1_1server_1_1data_1_1domain_1_1_user.html#ae1344ba6fe4b6fadf4d006eddfdd5c5a" title=" " alt="" coords="559,463,819,504"/>
+<area shape="rect" href="classcom_1_1deusto_1_1app_1_1server_1_1pojo_1_1_user_data.html#a4a86217cfdc9d460974d0cafd700d175" title=" " alt="" coords="585,528,792,569"/>
+<area shape="rect" href="classcom_1_1deusto_1_1app_1_1server_1_1pojo_1_1_user_data.html#a56020bf1e53d2e6ad096b888b365e0bc" title=" " alt="" coords="585,593,792,635"/>
+<area shape="rect" href="classcom_1_1deusto_1_1app_1_1server_1_1pojo_1_1_user_data.html#a007bb3a5dc03f1f8a132ea329b1f1431" title=" " alt="" coords="585,659,792,700"/>
+<area shape="rect" href="classcom_1_1deusto_1_1app_1_1server_1_1pojo_1_1_user_data.html#af25ab0b811f83724caaf6891c292c954" title=" " alt="" coords="585,724,792,765"/>
+<area shape="rect" href="classcom_1_1deusto_1_1app_1_1server_1_1pojo_1_1_user_data.html#a006dd231fea83b823602cf408bf6d49b" title=" " alt="" coords="585,789,792,831"/>
+<area shape="rect" href="classcom_1_1deusto_1_1app_1_1server_1_1pojo_1_1_user_data.html#ab502fa6bee654e096436f8bb16c82919" title=" " alt="" coords="585,855,792,896"/>
+<area shape="rect" href="classcom_1_1deusto_1_1app_1_1server_1_1pojo_1_1_user_data.html#a50a9a88e04cd63d8a95bb69c795d9838" title=" " alt="" coords="585,920,792,961"/>
+<area shape="rect" href="classcom_1_1deusto_1_1app_1_1server_1_1pojo_1_1_user_data.html#a8bc633fb56b152dbabb3782557d1a75a" title=" " alt="" coords="585,985,792,1027"/>
 </map>
 </div>
 
@@ -766,7 +823,7 @@ Here is the call graph for this function:</div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Response containing true or false </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="_resource_facade_8java_source.html#l00321">321</a> of file <a class="el" href="_resource_facade_8java_source.html">ResourceFacade.java</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_resource_facade_8java_source.html#l00343">343</a> of file <a class="el" href="_resource_facade_8java_source.html">ResourceFacade.java</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -806,7 +863,7 @@ Here is the call graph for this function:</div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Response containing a boolean if the user has an active loan </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="_resource_facade_8java_source.html#l00358">358</a> of file <a class="el" href="_resource_facade_8java_source.html">ResourceFacade.java</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_resource_facade_8java_source.html#l00380">380</a> of file <a class="el" href="_resource_facade_8java_source.html">ResourceFacade.java</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -868,7 +925,7 @@ Here is the call graph for this function:</div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Response containing the user's token if login is successful </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="_resource_facade_8java_source.html#l00087">87</a> of file <a class="el" href="_resource_facade_8java_source.html">ResourceFacade.java</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_resource_facade_8java_source.html#l00088">88</a> of file <a class="el" href="_resource_facade_8java_source.html">ResourceFacade.java</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -907,7 +964,7 @@ Here is the call graph for this function:</div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Response indicating success or failure of the logout </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="_resource_facade_8java_source.html#l00107">107</a> of file <a class="el" href="_resource_facade_8java_source.html">ResourceFacade.java</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_resource_facade_8java_source.html#l00108">108</a> of file <a class="el" href="_resource_facade_8java_source.html">ResourceFacade.java</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -945,7 +1002,7 @@ Here is the call graph for this function:</div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Response indicating success or failure of the registration </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="_resource_facade_8java_source.html#l00068">68</a> of file <a class="el" href="_resource_facade_8java_source.html">ResourceFacade.java</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_resource_facade_8java_source.html#l00069">69</a> of file <a class="el" href="_resource_facade_8java_source.html">ResourceFacade.java</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -983,7 +1040,7 @@ Here is the call graph for this function:</div>
 <p>A simple endpoint to test connectivity.</p>
 <dl class="section return"><dt>Returns</dt><dd>A plain text "Hello world!" response </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="_resource_facade_8java_source.html#l00124">124</a> of file <a class="el" href="_resource_facade_8java_source.html">ResourceFacade.java</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_resource_facade_8java_source.html#l00146">146</a> of file <a class="el" href="_resource_facade_8java_source.html">ResourceFacade.java</a>.</p>
 
 </div>
 </div>
