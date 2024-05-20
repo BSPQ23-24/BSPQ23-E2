@@ -6,7 +6,7 @@ The Bike Lending App is a Maven-based Java project designed to facilitate bike r
 
 ## Documentation
 
-- [Doxygen Documentation](https://bspq23-24.github.io/BSPQ23-E2/)
+- [Doxygen Documentation](https://bspq23-24.github.io/BSPQ23-E2/doxygen)
 - [JaCoCo Report](https://bspq23-24.github.io/BSPQ23-E2/jacoco/)
 
 ## Getting Started
