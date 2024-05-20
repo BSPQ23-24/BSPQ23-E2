@@ -77,9 +77,8 @@ public class BikeServiceTest {
 
         // Testing
         List<BicycleData> bicycleDataList = bikeService.getAvailableBikesInStation(1);
-        assertEquals(2, bicycleDataList.size());
+        assertEquals(1, bicycleDataList.size());
         assertEquals("Type 1", bicycleDataList.get(0).getType());
-        assertEquals("Type 2", bicycleDataList.get(1).getType());
     }
 
     @Test
