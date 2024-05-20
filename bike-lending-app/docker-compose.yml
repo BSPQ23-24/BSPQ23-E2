@@ -4,8 +4,8 @@ services:
   mysql:
     image: mysql:8.0
     environment:
-      MYSQL_ROOT_PASSWORD: example
-      MYSQL_DATABASE: bike_lending
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: bikesdb
     ports:
       - "3307:3306"
     volumes:
@@ -21,9 +21,9 @@ services:
     depends_on:
       - mysql
     environment:
-      DATABASE_URL: jdbc:mysql://mysql:3306/bike_lending
+      #DATABASE_URL: jdbc:mysql://mysql:3306/bikesdb
       DATABASE_USER: root
-      DATABASE_PASSWORD: example
+      DATABASE_PASSWORD: root
 
 volumes:
   mysql-data:

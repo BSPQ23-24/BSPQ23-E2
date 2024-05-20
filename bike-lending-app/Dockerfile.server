@@ -13,7 +13,7 @@ COPY . .
 RUN mvn clean compile datanucleus:enhance
 
 # Command to initialize the schema
-#RUN mvn datanucleus:schema-create
+# RUN mvn datanucleus:schema-create
 
 # Expose the port that Jetty will run on (default is 8080)
 EXPOSE 8080
