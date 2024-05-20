@@ -253,7 +253,7 @@ public class UserService {
 				Bicycle bike1 = new Bicycle();
 				bike1.setType("Mountain");
 				bike1.setAcquisitionDate("2023-01-01"); // Use consistent format if required
-				bike1.setAvailable(true);
+				bike1.setAvailable(false);
 
 				Bicycle bike2 = new Bicycle();
 				bike2.setType("Road");
@@ -263,7 +263,7 @@ public class UserService {
 				Bicycle bike3 = new Bicycle();
 				bike3.setType("Hybrid");
 				bike3.setAcquisitionDate("2023-03-01");
-				bike3.setAvailable(true);
+				bike3.setAvailable(false);
 
 				Bicycle bike4 = new Bicycle();
 				bike4.setType("Electric");

@@ -209,11 +209,12 @@ public class AdminUI extends JFrame {
     }
 
     private void logout() {
+    	JOptionPane.showMessageDialog(this, "See YOU!");
     	new LoginUI();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(false);
         dispose();
-        JOptionPane.showMessageDialog(this, "See YOU!");
+        
     }
     
     private void deleteLoan() {

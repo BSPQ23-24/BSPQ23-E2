@@ -8,6 +8,8 @@ import javax.jdo.Query;
 import javax.jdo.Transaction;
 
 import org.apache.logging.log4j.LogManager;
+
+import java.util.ArrayList;
 import java.util.List;
 import com.deusto.app.server.data.domain.Bicycle;
 import com.deusto.app.server.data.domain.Station;
@@ -81,9 +83,11 @@ public class BikeService {
 		}
 	}
 
-<<<<<<< HEAD
+
 	public List<BicycleData> displayNoAvailableBikes(){
 		LogManager.getLogger(BikeService.class).info("Display No Available Bikes");
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Transaction tx = pm.currentTransaction();
 
 		try {
 			tx.begin();
@@ -117,8 +121,7 @@ public class BikeService {
 		}
 	}
 	
-=======
->>>>>>> main
+
 	/**
 	 * Retrieves available bikes in a specific station.
 	 *

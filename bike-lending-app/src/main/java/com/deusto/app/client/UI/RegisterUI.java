@@ -95,7 +95,12 @@ public class RegisterUI extends JFrame {
     	        });
     	        
     	        
-    	        backButton.addActionListener(e -> dispose());
+    	        backButton.addActionListener(e -> {
+    	        	new LoginUI();
+    	            setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    	            setVisible(false);
+    	            dispose();
+    	        });
 
 
     	        JPanel buttonPanel = new JPanel();

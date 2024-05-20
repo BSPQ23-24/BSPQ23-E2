@@ -115,7 +115,12 @@ public class CreateBikeUI extends JFrame {
     	        });
     	        
     	        
-    	        backButton.addActionListener(e -> dispose());
+    	        backButton.addActionListener(e -> {
+    	        	new AdminUI();
+	                setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	                setVisible(false);
+	                dispose();
+    	        });
 
 
     	        JPanel buttonPanel = new JPanel();
@@ -167,8 +172,10 @@ public class CreateBikeUI extends JFrame {
     	            boolean add = AdminController.getInstance().addBike(bikeData, UserController.getToken());
     	            if (add) {
     	            	JOptionPane.showMessageDialog(CreateBikeUI.this, "Bicicleta Añadida");
-    	                dispose();
-    	                new LoginUI();  // Open Login window
+    	            	new AdminUI();
+    	                setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    	                setVisible(false);
+    	                dispose();  // Open Login window
     	            } else {
     	            	JOptionPane.showMessageDialog(CreateBikeUI.this, "Problema añadiendo bicicleta!");
     	            }
