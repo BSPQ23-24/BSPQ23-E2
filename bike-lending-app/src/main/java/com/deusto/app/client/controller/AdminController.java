@@ -91,5 +91,35 @@ public class AdminController {
 					response.getStatus(), response.readEntity(String.class));
 			return false;
 		}
-}
+	}
+	
+	/**
+	 * Checks if the login is from admin or client.
+	 *
+	 * @param token the user's authentication token
+	 * @return Response containing true or false
+	 */
+	public boolean isAdmin(@QueryParam("token") long token) {
+		LogManager.getLogger(AdminController.class).info("Are you admin? | Token: ", token);
+		WebTarget isAdminWebTarget = ServiceLocator.getInstance().getWebTarget().path("bikeapp/admin/isAdmin")
+																				.queryParam("token", token);
+		Invocation.Builder invocationBuilder = isAdminWebTarget.request(MediaType.APPLICATION_JSON);
+
+		Response response = invocationBuilder.get();
+		if (response.getStatus() == Response.Status.OK.getStatusCode()) {
+			boolean bikeSelected = response.readEntity(Boolean.class);
+			if(bikeSelected) {
+				LogManager.getLogger(AdminController.class).info("You are an admin");
+			} else {
+				LogManager.getLogger(AdminController.class).info("You are a client");
+			}
+			return bikeSelected;
+
+		} else {
+			LogManager.getLogger(AdminController.class).error("Check Who Are You Failed | Code: {} | Reason: {}",
+					response.getStatus(), response.readEntity(String.class));
+			return (Boolean) null;
+		}
+
+	}
 }

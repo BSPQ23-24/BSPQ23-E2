@@ -4,6 +4,11 @@
 
 The Bike Lending App is a Maven-based Java project designed to facilitate bike rentals and management. It includes a client-server architecture where the server handles bike lending logic, and the client provides an interface for users to interact with the system. The application uses a SQL database for data persistence and requires configuration and schema setup before use.
 
+## Documentation
+
+- [Doxygen Documentation](https://bspq23-24.github.io/BSPQ23-E2/doxygen)
+- [JaCoCo Report](https://bspq23-24.github.io/BSPQ23-E2/jacoco/)
+
 ## Getting Started
 
 To get started with the Bike Lending App, ensure you have Maven and MySQL installed on your system. Follow the steps below to configure the database, build the project, and run the application.

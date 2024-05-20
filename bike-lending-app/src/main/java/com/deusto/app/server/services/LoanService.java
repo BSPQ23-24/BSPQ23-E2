@@ -1,7 +1,7 @@
 package com.deusto.app.server.services;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 import javax.jdo.PersistenceManager;
 import javax.jdo.PersistenceManagerFactory;
 import javax.jdo.Query;
@@ -30,31 +30,45 @@ public class LoanService {
     public List<LoanData> getAllLoans() {
         PersistenceManager pm = pmf.getPersistenceManager();
         Transaction tx = pm.currentTransaction();
-        List<LoanData> loanDataList = null;
-
+        List<LoanData> loanDataList = new ArrayList<>();
         try {
             tx.begin();
             Query<Loan> query = pm.newQuery(Loan.class);
-            List<Loan> loans = query.executeList();
-            loanDataList = loans.stream().map(this::convertToLoanData).collect(Collectors.toList());
+            List<Loan> loans = (List<Loan>) query.execute();
+            for (Loan loan : loans) {
+                LoanData loanData = new LoanData();
+                loanData.setId(loan.getId());
+                loanData.setLoanDate(loan.getLoanDate());
+                loanData.setStartHour(loan.getStartHour());
+                loanData.setEndHour(loan.getEndHour());
+                loanData.setUserDni(loan.getId());
+                loanData.setBicycleId(loan.getBicycle().getId());
+                loanDataList.add(loanData);
+            }
             tx.commit();
         } catch (Exception e) {
             if (tx.isActive()) {
                 tx.rollback();
             }
             e.printStackTrace();
+        } finally {
+            pm.close();
         }
-
         return loanDataList;
     }
 
     public boolean createLoan(LoanData loanData) {
         PersistenceManager pm = pmf.getPersistenceManager();
         Transaction tx = pm.currentTransaction();
-
         try {
             tx.begin();
-            Loan loan = convertToLoan(loanData);
+            Loan loan = new Loan();
+            loan.setId(loanData.getId()); 
+            loan.setLoanDate(loanData.getLoanDate());
+            loan.setStartHour(loanData.getStartHour());
+            loan.setEndHour(loanData.getEndHour());
+            loan.setUser(loan.getUser());
+            loan.setBicycle(loan.getBicycle());
             pm.makePersistent(loan);
             tx.commit();
             return true;
@@ -64,13 +78,14 @@ public class LoanService {
             }
             e.printStackTrace();
             return false;
+        } finally {
+            pm.close();
         }
     }
 
     public boolean deleteLoan(int loanId) {
         PersistenceManager pm = pmf.getPersistenceManager();
         Transaction tx = pm.currentTransaction();
-
         try {
             tx.begin();
             Loan loan = pm.getObjectById(Loan.class, loanId);
@@ -87,28 +102,8 @@ public class LoanService {
             }
             e.printStackTrace();
             return false;
+        } finally {
+            pm.close();
         }
-    }
-
-    private LoanData convertToLoanData(Loan loan) {
-        LoanData loanData = new LoanData();
-        loanData.setId(loan.getId());
-        loanData.setLoanDate(loan.getLoanDate());
-        loanData.setStartHour(loan.getStartHour());
-        loanData.setEndHour(loan.getEndHour());
-        loanData.setId(loan.getId());
-        loanData.setBicycleId(loan.getId());
-        return loanData;
-    }
-
-    private Loan convertToLoan(LoanData loanData) {
-        Loan loan = new Loan();
-        loan.setId(loanData.getId());
-        loan.setLoanDate(loanData.getLoanDate());
-        loan.setStartHour(loanData.getStartHour());
-        loan.setEndHour(loanData.getEndHour());
-        loan.setId(loanData.getId());
-        //loan.setBicycle(loanData.getId());
-        return loan;
     }
 }
