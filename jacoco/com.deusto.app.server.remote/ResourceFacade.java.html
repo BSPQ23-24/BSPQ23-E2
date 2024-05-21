@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ResourceFacade.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">bike-lending-app</a> &gt; <a href="index.source.html" class="el_package">com.deusto.app.server.remote</a> &gt; <span class="el_source">ResourceFacade.java</span></div><h1>ResourceFacade.java</h1><pre class="source lang-java linenums">package com.deusto.app.server.remote;
 
 import java.util.List;
-import com.deusto.app.server.data.domain.Bicycle;
-import com.deusto.app.server.data.domain.User;
 import com.deusto.app.server.pojo.BicycleData;
 import com.deusto.app.server.pojo.StationData;
 import com.deusto.app.server.pojo.UserAssembler;
@@ -14,7 +12,6 @@ import com.deusto.app.server.pojo.LoanData;
 import com.deusto.app.server.services.LoanService;
 
 import jakarta.ws.rs.DELETE;
-import jakarta.ws.rs.FormParam;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
@@ -34,7 +31,7 @@ import jakarta.ws.rs.core.Response;
  */
 @Path(&quot;/bikeapp&quot;)
 @Produces(MediaType.APPLICATION_JSON)
-<span class="nc" id="L37">public class ResourceFacade {</span>
+<span class="nc" id="L34">public class ResourceFacade {</span>
 
 	/**
      * Changes the password of a user.
@@ -49,12 +46,12 @@ import jakarta.ws.rs.core.Response;
 	public Response changePassword(@QueryParam(&quot;dni&quot;) String dni, @QueryParam(&quot;oldPassword&quot;) String oldPassword,
 			@QueryParam(&quot;newPassword&quot;) String newPassword) {
 
-<span class="nc" id="L52">		boolean change_success = UserService.getInstance().changePassword(dni, oldPassword, newPassword);</span>
+<span class="nc" id="L49">		boolean change_success = UserService.getInstance().changePassword(dni, oldPassword, newPassword);</span>
 
-<span class="nc bnc" id="L54" title="All 2 branches missed.">		if (change_success) {</span>
-<span class="nc" id="L55">			return Response.ok().build();</span>
+<span class="nc bnc" id="L51" title="All 2 branches missed.">		if (change_success) {</span>
+<span class="nc" id="L52">			return Response.ok().build();</span>
 		} else {
-<span class="nc" id="L57">			return Response.status(Response.Status.UNAUTHORIZED).entity(&quot;Failed to change password&quot;).build();</span>
+<span class="nc" id="L54">			return Response.status(Response.Status.UNAUTHORIZED).entity(&quot;Failed to change password&quot;).build();</span>
 		}
 	}
 
@@ -67,12 +64,12 @@ import jakarta.ws.rs.core.Response;
 	@POST
 	@Path(&quot;/user/register&quot;)
 	public Response registerUser(UserData userData) {
-<span class="nc" id="L70">		boolean register_success = UserService.getInstance().registerUser(userData);</span>
+<span class="nc" id="L67">		boolean register_success = UserService.getInstance().registerUser(userData);</span>
 
-<span class="nc bnc" id="L72" title="All 2 branches missed.">		if (register_success) {</span>
-<span class="nc" id="L73">			return Response.ok().build();</span>
+<span class="nc bnc" id="L69" title="All 2 branches missed.">		if (register_success) {</span>
+<span class="nc" id="L70">			return Response.ok().build();</span>
 		} else {
-<span class="nc" id="L75">			return Response.status(Response.Status.UNAUTHORIZED).entity(&quot;User is already registered&quot;).build();</span>
+<span class="nc" id="L72">			return Response.status(Response.Status.UNAUTHORIZED).entity(&quot;User is already registered&quot;).build();</span>
 		}
 
 	}
@@ -86,13 +83,13 @@ import jakarta.ws.rs.core.Response;
 	@POST
 	@Path(&quot;/user/login&quot;)
 	public Response loginUser(UserData userData) {
-<span class="nc" id="L89">		long token = UserService.getInstance().loginUser(userData.getDni(), userData.getPassword());</span>
+<span class="nc" id="L86">		long token = UserService.getInstance().loginUser(userData.getDni(), userData.getPassword());</span>
 
-<span class="nc bnc" id="L91" title="All 2 branches missed.">		if (token != -1) {</span>
-<span class="nc" id="L92">			return Response.ok(token).build();</span>
+<span class="nc bnc" id="L88" title="All 2 branches missed.">		if (token != -1) {</span>
+<span class="nc" id="L89">			return Response.ok(token).build();</span>
 		} else {
-<span class="nc" id="L94">			return Response.status(Response.Status.UNAUTHORIZED)</span>
-<span class="nc" id="L95">					.entity(&quot;Invalid credentials or user is already logged in&quot;).build();</span>
+<span class="nc" id="L91">			return Response.status(Response.Status.UNAUTHORIZED)</span>
+<span class="nc" id="L92">					.entity(&quot;Invalid credentials or user is already logged in&quot;).build();</span>
 		}
 
 	}
@@ -106,11 +103,11 @@ import jakarta.ws.rs.core.Response;
 	@POST
 	@Path(&quot;/user/logout&quot;)
 	public Response logoutUser(@QueryParam(&quot;token&quot;) long token) {
-<span class="nc" id="L109">		boolean logout_success = UserService.getInstance().logoutUser(token);</span>
-<span class="nc bnc" id="L110" title="All 2 branches missed.">		if (logout_success) {</span>
-<span class="nc" id="L111">			return Response.ok().entity(&quot;User logged out successfully&quot;).build();</span>
+<span class="nc" id="L106">		boolean logout_success = UserService.getInstance().logoutUser(token);</span>
+<span class="nc bnc" id="L107" title="All 2 branches missed.">		if (logout_success) {</span>
+<span class="nc" id="L108">			return Response.ok().entity(&quot;User logged out successfully&quot;).build();</span>
 		} else {
-<span class="nc" id="L113">			return Response.status(Response.Status.UNAUTHORIZED).entity(&quot;Invalid token or user not logged in&quot;).build();</span>
+<span class="nc" id="L110">			return Response.status(Response.Status.UNAUTHORIZED).entity(&quot;Invalid token or user not logged in&quot;).build();</span>
 		}
 	}
 	
@@ -123,15 +120,15 @@ import jakarta.ws.rs.core.Response;
 	@GET
 	@Path(&quot;/user/getuser&quot;)
 	public Response getUser(@QueryParam(&quot;token&quot;) long token) {
-<span class="nc bnc" id="L126" title="All 2 branches missed.">		if (UserService.getInstance().isLoggedIn(token)) {</span>
-<span class="nc" id="L127">			UserData userData=UserAssembler.getInstance().userToPOJO(UserService.getInstance().getUser(token));</span>
-<span class="nc bnc" id="L128" title="All 2 branches missed.">			if (userData!=null) {</span>
-<span class="nc" id="L129">				return Response.ok(userData).build();</span>
+<span class="nc bnc" id="L123" title="All 2 branches missed.">		if (UserService.getInstance().isLoggedIn(token)) {</span>
+<span class="nc" id="L124">			UserData userData=UserAssembler.getInstance().userToPOJO(UserService.getInstance().getUser(token));</span>
+<span class="nc bnc" id="L125" title="All 2 branches missed.">			if (userData!=null) {</span>
+<span class="nc" id="L126">				return Response.ok(userData).build();</span>
 			} else {
-<span class="nc" id="L131">				return Response.serverError().entity(&quot;Error sending the user&quot;).build();</span>
+<span class="nc" id="L128">				return Response.serverError().entity(&quot;Error sending the user&quot;).build();</span>
 			}
 		} else {
-<span class="nc" id="L134">			return Response.status(Response.Status.UNAUTHORIZED).entity(&quot;Invalid token or user not logged in&quot;).build();</span>
+<span class="nc" id="L131">			return Response.status(Response.Status.UNAUTHORIZED).entity(&quot;Invalid token or user not logged in&quot;).build();</span>
 		}
 	}
 
@@ -144,7 +141,7 @@ import jakarta.ws.rs.core.Response;
 	@Path(&quot;/user/hello&quot;)
 	@Produces(MediaType.TEXT_PLAIN)
 	public Response sayHello() {
-<span class="nc" id="L147">		return Response.ok(&quot;Hello world!&quot;).build();</span>
+<span class="nc" id="L144">		return Response.ok(&quot;Hello world!&quot;).build();</span>
 	}
 
 	/*
@@ -173,15 +170,15 @@ import jakarta.ws.rs.core.Response;
 	@GET
 	@Path(&quot;/bike/stations&quot;)
 	public Response displayStations(@QueryParam(&quot;token&quot;) long token) {
-<span class="nc bnc" id="L176" title="All 2 branches missed.">		if (UserService.getInstance().isLoggedIn(token)) {</span>
-<span class="nc" id="L177">			List&lt;StationData&gt; stations = BikeService.getInstance().displayStations();</span>
-<span class="nc bnc" id="L178" title="All 2 branches missed.">			if (stations != null) {</span>
-<span class="nc" id="L179">				return Response.ok(stations).build();</span>
+<span class="nc bnc" id="L173" title="All 2 branches missed.">		if (UserService.getInstance().isLoggedIn(token)) {</span>
+<span class="nc" id="L174">			List&lt;StationData&gt; stations = BikeService.getInstance().displayStations();</span>
+<span class="nc bnc" id="L175" title="All 2 branches missed.">			if (stations != null) {</span>
+<span class="nc" id="L176">				return Response.ok(stations).build();</span>
 			} else {
-<span class="nc" id="L181">				return Response.serverError().entity(&quot;Error displaying stations&quot;).build();</span>
+<span class="nc" id="L178">				return Response.serverError().entity(&quot;Error displaying stations&quot;).build();</span>
 			}
 		} else {
-<span class="nc" id="L184">			return Response.status(Response.Status.UNAUTHORIZED).entity(&quot;User is not logged in&quot;).build();</span>
+<span class="nc" id="L181">			return Response.status(Response.Status.UNAUTHORIZED).entity(&quot;User is not logged in&quot;).build();</span>
 		}
 	}
 
@@ -211,15 +208,15 @@ import jakarta.ws.rs.core.Response;
 	@Path(&quot;/bike/available&quot;)
 	public Response getAvailableBikesInStation(@QueryParam(&quot;stationId&quot;) int stationId,
 			@QueryParam(&quot;token&quot;) long token) {
-<span class="nc bnc" id="L214" title="All 2 branches missed.">		if (UserService.getInstance().isLoggedIn(token)) {</span>
-<span class="nc" id="L215">			List&lt;BicycleData&gt; availableBikes = BikeService.getInstance().getAvailableBikesInStation(stationId);</span>
-<span class="nc bnc" id="L216" title="All 2 branches missed.">			if (availableBikes != null) {</span>
-<span class="nc" id="L217">				return Response.ok(availableBikes).build();</span>
+<span class="nc bnc" id="L211" title="All 2 branches missed.">		if (UserService.getInstance().isLoggedIn(token)) {</span>
+<span class="nc" id="L212">			List&lt;BicycleData&gt; availableBikes = BikeService.getInstance().getAvailableBikesInStation(stationId);</span>
+<span class="nc bnc" id="L213" title="All 2 branches missed.">			if (availableBikes != null) {</span>
+<span class="nc" id="L214">				return Response.ok(availableBikes).build();</span>
 			} else {
-<span class="nc" id="L219">				return Response.serverError().entity(&quot;Error getting available bikes&quot;).build();</span>
+<span class="nc" id="L216">				return Response.serverError().entity(&quot;Error getting available bikes&quot;).build();</span>
 			}
 		} else {
-<span class="nc" id="L222">			return Response.status(Response.Status.UNAUTHORIZED).entity(&quot;User is not logged in&quot;).build();</span>
+<span class="nc" id="L219">			return Response.status(Response.Status.UNAUTHORIZED).entity(&quot;User is not logged in&quot;).build();</span>
 		}
 	}
 	
@@ -233,15 +230,15 @@ import jakarta.ws.rs.core.Response;
 	@GET
 	@Path(&quot;/bike/na&quot;)
 	public Response displayNoAvailableBikes(@QueryParam(&quot;token&quot;) long token) {
-<span class="nc bnc" id="L236" title="All 2 branches missed.">		if (UserService.getInstance().isLoggedIn(token)) {</span>
-<span class="nc" id="L237">			List&lt;BicycleData&gt; noAvailableBikes = BikeService.getInstance().displayNoAvailableBikes();</span>
-<span class="nc bnc" id="L238" title="All 2 branches missed.">			if (noAvailableBikes != null) {</span>
-<span class="nc" id="L239">				return Response.ok(noAvailableBikes).build();</span>
+<span class="nc bnc" id="L233" title="All 2 branches missed.">		if (UserService.getInstance().isLoggedIn(token)) {</span>
+<span class="nc" id="L234">			List&lt;BicycleData&gt; noAvailableBikes = BikeService.getInstance().displayNoAvailableBikes();</span>
+<span class="nc bnc" id="L235" title="All 2 branches missed.">			if (noAvailableBikes != null) {</span>
+<span class="nc" id="L236">				return Response.ok(noAvailableBikes).build();</span>
 			} else {
-<span class="nc" id="L241">				return Response.serverError().entity(&quot;Error getting no available bikes&quot;).build();</span>
+<span class="nc" id="L238">				return Response.serverError().entity(&quot;Error getting no available bikes&quot;).build();</span>
 			}
 		} else {
-<span class="nc" id="L244">			return Response.status(Response.Status.UNAUTHORIZED).entity(&quot;User is not logged in&quot;).build();</span>
+<span class="nc" id="L241">			return Response.status(Response.Status.UNAUTHORIZED).entity(&quot;User is not logged in&quot;).build();</span>
 		}
 	}
 
@@ -255,15 +252,15 @@ import jakarta.ws.rs.core.Response;
 	@GET
 	@Path(&quot;/bike/{bikeId}&quot;)
 	public Response getBikeDetails(@PathParam(&quot;bikeId&quot;) int bikeId, @QueryParam(&quot;token&quot;) long token) {
-<span class="nc bnc" id="L258" title="All 2 branches missed.">		if (UserService.getInstance().isLoggedIn(token)) {</span>
-<span class="nc" id="L259">			BicycleData bike = BikeService.getInstance().getBikeById(bikeId);</span>
-<span class="nc bnc" id="L260" title="All 2 branches missed.">			if (bike != null) {</span>
-<span class="nc" id="L261">				return Response.ok(bike).build();</span>
+<span class="nc bnc" id="L255" title="All 2 branches missed.">		if (UserService.getInstance().isLoggedIn(token)) {</span>
+<span class="nc" id="L256">			BicycleData bike = BikeService.getInstance().getBikeById(bikeId);</span>
+<span class="nc bnc" id="L257" title="All 2 branches missed.">			if (bike != null) {</span>
+<span class="nc" id="L258">				return Response.ok(bike).build();</span>
 			} else {
-<span class="nc" id="L263">				return Response.status(Response.Status.NOT_FOUND).entity(&quot;Bike not found&quot;).build();</span>
+<span class="nc" id="L260">				return Response.status(Response.Status.NOT_FOUND).entity(&quot;Bike not found&quot;).build();</span>
 			}
 		} else {
-<span class="nc" id="L266">			return Response.status(Response.Status.UNAUTHORIZED).entity(&quot;User is not logged in&quot;).build();</span>
+<span class="nc" id="L263">			return Response.status(Response.Status.UNAUTHORIZED).entity(&quot;User is not logged in&quot;).build();</span>
 		}
 	}
 	
@@ -278,21 +275,21 @@ import jakarta.ws.rs.core.Response;
 	@POST
 	@Path(&quot;/admin/add&quot;)
 	public Response addBike(BicycleData bikeData, @QueryParam(&quot;token&quot;) long token) {
-<span class="nc bnc" id="L281" title="All 2 branches missed.">		if(UserService.getInstance().isLoggedIn(token)) {</span>
-<span class="nc bnc" id="L282" title="All 2 branches missed.">			if(UserService.getInstance().isAdmin(token)) {</span>
-<span class="nc" id="L283">				boolean addition_success= AdminService.getInstance().addBike(bikeData);</span>
+<span class="nc bnc" id="L278" title="All 2 branches missed.">		if(UserService.getInstance().isLoggedIn(token)) {</span>
+<span class="nc bnc" id="L279" title="All 2 branches missed.">			if(UserService.getInstance().isAdmin(token)) {</span>
+<span class="nc" id="L280">				boolean addition_success= AdminService.getInstance().addBike(bikeData);</span>
 				
-<span class="nc bnc" id="L285" title="All 2 branches missed.">				if(addition_success) {</span>
-<span class="nc" id="L286">					return Response.ok().build();</span>
+<span class="nc bnc" id="L282" title="All 2 branches missed.">				if(addition_success) {</span>
+<span class="nc" id="L283">					return Response.ok().build();</span>
 				} else {
-<span class="nc" id="L288">					return Response.status(Response.Status.UNAUTHORIZED).entity(&quot;Bike is already added&quot;).build();</span>
+<span class="nc" id="L285">					return Response.status(Response.Status.UNAUTHORIZED).entity(&quot;Bike is already added&quot;).build();</span>
 				}
 			} else {
-<span class="nc" id="L291">				return Response.status(Response.Status.UNAUTHORIZED).entity(&quot;You are not authorized!&quot;).build();</span>
+<span class="nc" id="L288">				return Response.status(Response.Status.UNAUTHORIZED).entity(&quot;You are not authorized!&quot;).build();</span>
 			}
 			
 		} else {
-<span class="nc" id="L295">			return Response.status(Response.Status.UNAUTHORIZED).entity(&quot;User is not logged in&quot;).build();</span>
+<span class="nc" id="L292">			return Response.status(Response.Status.UNAUTHORIZED).entity(&quot;User is not logged in&quot;).build();</span>
 		}
 
 	}
@@ -301,16 +298,16 @@ import jakarta.ws.rs.core.Response;
 	@Path(&quot;/admin/disable&quot;)
 	public Response disableBike(@QueryParam(&quot;bikeId&quot;) int bikeId, @QueryParam(&quot;token&quot;) long token) {
 		
-<span class="nc bnc" id="L304" title="All 2 branches missed.">		if(UserService.getInstance().isLoggedIn(token)) {</span>
-<span class="nc" id="L305">			boolean disable_success= AdminService.getInstance().disableBike(bikeId);</span>
-<span class="nc bnc" id="L306" title="All 2 branches missed.">			if(disable_success) {</span>
-<span class="nc" id="L307">				return Response.ok().build();</span>
+<span class="nc bnc" id="L301" title="All 2 branches missed.">		if(UserService.getInstance().isLoggedIn(token)) {</span>
+<span class="nc" id="L302">			boolean disable_success= AdminService.getInstance().disableBike(bikeId);</span>
+<span class="nc bnc" id="L303" title="All 2 branches missed.">			if(disable_success) {</span>
+<span class="nc" id="L304">				return Response.ok().build();</span>
 			} else {
-<span class="nc" id="L309">				return Response.status(Response.Status.UNAUTHORIZED).entity(&quot;Bike could not be disabled&quot;).build();</span>
+<span class="nc" id="L306">				return Response.status(Response.Status.UNAUTHORIZED).entity(&quot;Bike could not be disabled&quot;).build();</span>
 			}
 			
 		} else {
-<span class="nc" id="L313">			return Response.status(Response.Status.UNAUTHORIZED).entity(&quot;User is not logged in&quot;).build();</span>
+<span class="nc" id="L310">			return Response.status(Response.Status.UNAUTHORIZED).entity(&quot;User is not logged in&quot;).build();</span>
 		}
 	}
 	
@@ -318,16 +315,16 @@ import jakarta.ws.rs.core.Response;
 	@Path(&quot;/admin/able&quot;)
 	public Response ableBike(@QueryParam(&quot;bikeId&quot;) int bikeId, @QueryParam(&quot;token&quot;) long token) {
 		
-<span class="nc bnc" id="L321" title="All 2 branches missed.">		if(UserService.getInstance().isLoggedIn(token)) {</span>
-<span class="nc" id="L322">			boolean able_success= AdminService.getInstance().ableBike(bikeId);</span>
-<span class="nc bnc" id="L323" title="All 2 branches missed.">			if(able_success) {</span>
-<span class="nc" id="L324">				return Response.ok().build();</span>
+<span class="nc bnc" id="L318" title="All 2 branches missed.">		if(UserService.getInstance().isLoggedIn(token)) {</span>
+<span class="nc" id="L319">			boolean able_success= AdminService.getInstance().ableBike(bikeId);</span>
+<span class="nc bnc" id="L320" title="All 2 branches missed.">			if(able_success) {</span>
+<span class="nc" id="L321">				return Response.ok().build();</span>
 			} else {
-<span class="nc" id="L326">				return Response.status(Response.Status.UNAUTHORIZED).entity(&quot;Bike could not be able&quot;).build();</span>
+<span class="nc" id="L323">				return Response.status(Response.Status.UNAUTHORIZED).entity(&quot;Bike could not be able&quot;).build();</span>
 			}
 			
 		} else {
-<span class="nc" id="L330">			return Response.status(Response.Status.UNAUTHORIZED).entity(&quot;User is not logged in&quot;).build();</span>
+<span class="nc" id="L327">			return Response.status(Response.Status.UNAUTHORIZED).entity(&quot;User is not logged in&quot;).build();</span>
 		}
 	}
 	
@@ -341,13 +338,13 @@ import jakarta.ws.rs.core.Response;
 	@GET
 	@Path(&quot;/admin/isAdmin&quot;)
 	public Response isAdmin(@QueryParam(&quot;token&quot;) long token) {
-<span class="nc bnc" id="L344" title="All 2 branches missed.">		if(UserService.getInstance().isLoggedIn(token)) {</span>
-<span class="nc" id="L345">			boolean admin= UserService.getInstance().isAdmin(token);</span>
-<span class="nc" id="L346">				return Response.ok(admin).build();</span>
+<span class="nc bnc" id="L341" title="All 2 branches missed.">		if(UserService.getInstance().isLoggedIn(token)) {</span>
+<span class="nc" id="L342">			boolean admin= UserService.getInstance().isAdmin(token);</span>
+<span class="nc" id="L343">				return Response.ok(admin).build();</span>
 			
 			
 		} else {
-<span class="nc" id="L350">			return Response.status(Response.Status.UNAUTHORIZED).entity(&quot;User is not logged in&quot;).build();</span>
+<span class="nc" id="L347">			return Response.status(Response.Status.UNAUTHORIZED).entity(&quot;User is not logged in&quot;).build();</span>
 		}
 	}
 	
@@ -361,11 +358,11 @@ import jakarta.ws.rs.core.Response;
 	@GET
 	@Path(&quot;/loan/all&quot;)
 	public Response getAllLoans(@QueryParam(&quot;token&quot;) long token) {
-<span class="nc bnc" id="L364" title="All 2 branches missed.">	    if (UserService.getInstance().isLoggedIn(token)) {</span>
-<span class="nc" id="L365">	        List&lt;LoanData&gt; loans = LoanService.getInstance().getAllLoans();</span>
-<span class="nc" id="L366">	        return Response.ok(loans).build();</span>
+<span class="nc bnc" id="L361" title="All 2 branches missed.">	    if (UserService.getInstance().isLoggedIn(token)) {</span>
+<span class="nc" id="L362">	        List&lt;LoanData&gt; loans = LoanService.getInstance().getAllLoans();</span>
+<span class="nc" id="L363">	        return Response.ok(loans).build();</span>
 	    } else {
-<span class="nc" id="L368">	        return Response.status(Response.Status.UNAUTHORIZED).entity(&quot;User is not logged in&quot;).build();</span>
+<span class="nc" id="L365">	        return Response.status(Response.Status.UNAUTHORIZED).entity(&quot;User is not logged in&quot;).build();</span>
 	    }
 	}
 	
@@ -378,11 +375,11 @@ import jakarta.ws.rs.core.Response;
 	@GET
 	@Path(&quot;/loan/active&quot;)
 	public Response isLoanActive(@QueryParam(&quot;token&quot;) long token) {
-<span class="nc bnc" id="L381" title="All 2 branches missed.">	    if (UserService.getInstance().isLoggedIn(token)) {</span>
-<span class="nc" id="L382">	        LoanData loan = LoanService.getInstance().isLoanActive(token);</span>
-<span class="nc" id="L383">	        return Response.ok(loan).build();</span>
+<span class="nc bnc" id="L378" title="All 2 branches missed.">	    if (UserService.getInstance().isLoggedIn(token)) {</span>
+<span class="nc" id="L379">	        LoanData loan = LoanService.getInstance().isLoanActive(token);</span>
+<span class="nc" id="L380">	        return Response.ok(loan).build();</span>
 	    } else {
-<span class="nc" id="L385">	        return Response.status(Response.Status.UNAUTHORIZED).entity(&quot;User is not logged in&quot;).build();</span>
+<span class="nc" id="L382">	        return Response.status(Response.Status.UNAUTHORIZED).entity(&quot;User is not logged in&quot;).build();</span>
 	    }
 	}
 	
@@ -396,15 +393,15 @@ import jakarta.ws.rs.core.Response;
 	@POST
 	@Path(&quot;/loan/create&quot;)
 	public Response createLoan(LoanData loanData, @QueryParam(&quot;token&quot;) long token) {
-<span class="nc bnc" id="L399" title="All 2 branches missed.">	    if (UserService.getInstance().isLoggedIn(token)) {</span>
-<span class="nc" id="L400">	        boolean create_success = LoanService.getInstance().createLoan(loanData);</span>
-<span class="nc bnc" id="L401" title="All 2 branches missed.">	        if (create_success) {</span>
-<span class="nc" id="L402">	            return Response.ok().build();</span>
+<span class="nc bnc" id="L396" title="All 2 branches missed.">	    if (UserService.getInstance().isLoggedIn(token)) {</span>
+<span class="nc" id="L397">	        boolean create_success = LoanService.getInstance().createLoan(loanData);</span>
+<span class="nc bnc" id="L398" title="All 2 branches missed.">	        if (create_success) {</span>
+<span class="nc" id="L399">	            return Response.ok().build();</span>
 	        } else {
-<span class="nc" id="L404">	            return Response.status(Response.Status.BAD_REQUEST).entity(&quot;Failed to create loan&quot;).build();</span>
+<span class="nc" id="L401">	            return Response.status(Response.Status.BAD_REQUEST).entity(&quot;Failed to create loan&quot;).build();</span>
 	        }
 	    } else {
-<span class="nc" id="L407">	        return Response.status(Response.Status.UNAUTHORIZED).entity(&quot;User is not logged in&quot;).build();</span>
+<span class="nc" id="L404">	        return Response.status(Response.Status.UNAUTHORIZED).entity(&quot;User is not logged in&quot;).build();</span>
 	    }
 	}
 	
@@ -418,15 +415,15 @@ import jakarta.ws.rs.core.Response;
 	@DELETE
 	@Path(&quot;/loan/delete/{loanId}&quot;)
 	public Response deleteLoan(@PathParam(&quot;loanId&quot;) int loanId, @QueryParam(&quot;token&quot;) long token) {
-<span class="nc bnc" id="L421" title="All 2 branches missed.">	    if (UserService.getInstance().isLoggedIn(token)) {</span>
-<span class="nc" id="L422">	        boolean delete_success = LoanService.getInstance().deleteLoan(loanId);</span>
-<span class="nc bnc" id="L423" title="All 2 branches missed.">	        if (delete_success) {</span>
-<span class="nc" id="L424">	            return Response.ok().build();</span>
+<span class="nc bnc" id="L418" title="All 2 branches missed.">	    if (UserService.getInstance().isLoggedIn(token)) {</span>
+<span class="nc" id="L419">	        boolean delete_success = LoanService.getInstance().deleteLoan(loanId);</span>
+<span class="nc bnc" id="L420" title="All 2 branches missed.">	        if (delete_success) {</span>
+<span class="nc" id="L421">	            return Response.ok().build();</span>
 	        } else {
-<span class="nc" id="L426">	            return Response.status(Response.Status.NOT_FOUND).entity(&quot;Loan not found&quot;).build();</span>
+<span class="nc" id="L423">	            return Response.status(Response.Status.NOT_FOUND).entity(&quot;Loan not found&quot;).build();</span>
 	        }
 	    } else {
-<span class="nc" id="L429">	        return Response.status(Response.Status.UNAUTHORIZED).entity(&quot;User is not logged in&quot;).build();</span>
+<span class="nc" id="L426">	        return Response.status(Response.Status.UNAUTHORIZED).entity(&quot;User is not logged in&quot;).build();</span>
 	    }
 	}
 
