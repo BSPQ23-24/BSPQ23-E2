@@ -1,5 +1,11 @@
 var NAVTREEINDEX0 =
 {
+"":[0,0,0],
+"":[0,0,0,0],
+"":[0,0,0,0,0],
+"":[0,0,0,0,0,1],
+"":[0,0,0,0,0,1,0],
+"":[0,0,0,0,0,0],
 "_admin_controller_8java.html":[2,0,0,0,0,0,0,0,0,0,0],
 "_admin_controller_8java_source.html":[2,0,0,0,0,0,0,0,0,0,0],
 "_admin_service_8java.html":[2,0,0,0,0,0,0,0,1,3,0],
@@ -243,11 +249,5 @@ var NAVTREEINDEX0 =
 "classcom_1_1deusto_1_1app_1_1server_1_1remote_1_1_resource_facade.html#a96ffe331ee5c29f55ded003482c24a6f":[1,0,0,0,0,1,2,0,17],
 "classcom_1_1deusto_1_1app_1_1server_1_1remote_1_1_resource_facade.html#ac469eb7043c7d33cb94298456589b3fe":[1,0,0,0,0,1,2,0,0],
 "classcom_1_1deusto_1_1app_1_1server_1_1remote_1_1_resource_facade.html#ac6ea163da26b882c67d9656f831fe0a6":[1,0,0,0,0,1,2,0,1],
-"classcom_1_1deusto_1_1app_1_1server_1_1remote_1_1_resource_facade.html#accbbcee69210c89105800bda94145f04":[1,0,0,0,0,1,2,0,6],
-"classcom_1_1deusto_1_1app_1_1server_1_1remote_1_1_resource_facade.html#adfd34fe8ae74c59c1c637de931861400":[1,0,0,0,0,1,2,0,9],
-"classcom_1_1deusto_1_1app_1_1server_1_1remote_1_1_resource_facade.html#af7bbb58b383944fe3e6f36474c2b7272":[1,0,0,0,0,1,2,0,8],
-"classcom_1_1deusto_1_1app_1_1server_1_1remote_1_1_resource_facade.html#af92eb6b2e13b05a3230eb55047112729":[1,0,0,0,0,1,2,0,13],
-"classcom_1_1deusto_1_1app_1_1server_1_1services_1_1_admin_service.html":[1,0,0,0,0,1,3,0],
-"classcom_1_1deusto_1_1app_1_1server_1_1services_1_1_admin_service.html#a131d342d8824173cfe7e8f2eef978cc8":[1,0,0,0,0,1,3,0,0],
-"classcom_1_1deusto_1_1app_1_1server_1_1services_1_1_admin_service.html#a1d92e38c01c58f4b6a43bbd43aac5e59":[1,0,0,0,0,1,3,0,2]
+"classcom_1_1deusto_1_1app_1_1server_1_1remote_1_1_resource_facade.html#accbbcee69210c89105800bda94145f04":[1,0,0,0,0,1,2,0,6]
 };
