@@ -2,28 +2,44 @@ version: '3.8'
 
 services:
   mysql:
+    container_name: mysql
     image: mysql:8.0
     environment:
       MYSQL_ROOT_PASSWORD: root
+      MYSQL_USER: spq
+      MYSQL_PASSWORD: spq
       MYSQL_DATABASE: bikesdb
     ports:
       - "3307:3306"
     volumes:
       - mysql-data:/var/lib/mysql
-      - ./sql:/docker-entrypoint-initdb.d  # Mount the sql directory to the initialization directory
+      - ./sql:/docker-entrypoint-initdb.d
+    networks:
+      - bike-lending-network
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
 
   server:
     build:
       context: .
       dockerfile: Dockerfile.server
     ports:
-      - "8080:8080"  # Map TCP port 8080 in the container to 8080 on the host
+      - "8080:8080"
     depends_on:
       - mysql
     environment:
-      #DATABASE_URL: jdbc:mysql://mysql:3306/bikesdb
-      DATABASE_USER: root
-      DATABASE_PASSWORD: root
+      DATANUCLEUS_CONNECTION_URL: jdbc:mysql://mysql:3306/bikesdb
+      DATANUCLEUS_CONNECTION_USER_NAME: spq
+      DATANUCLEUS_CONNECTION_PASSWORD: spq
+      DATANUCLEUS_SCHEMA_AUTO_CREATE_ALL: "true"
+    networks:
+      - bike-lending-network
 
 volumes:
   mysql-data:
+
+networks:
+  bike-lending-network:

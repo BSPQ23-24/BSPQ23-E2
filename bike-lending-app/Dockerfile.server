@@ -9,14 +9,20 @@ WORKDIR /bike-lending-app
 # Copy the source code to the image
 COPY . .
 
-# Execute the maven build and enhance the classes
-RUN mvn clean compile datanucleus:enhance
+# Copy the wait-for-it script
+COPY wait-for-it.sh /usr/local/bin/
 
-# Command to initialize the schema
-# RUN mvn datanucleus:schema-create
+# Make the script executable
+RUN chmod +x /usr/local/bin/wait-for-it.sh
+
+# Install MySQL client
+RUN apt-get update && apt-get install -y mysql-client
+
+# Execute the maven build and enhance the classes
+RUN mvn clean compile
 
 # Expose the port that Jetty will run on (default is 8080)
 EXPOSE 8080
 
-# Specify which command will be launched when starting the container
-CMD ["mvn", "jetty:run"]
+# Command to initialize the schema and start Jetty
+CMD ["sh", "-c", "/usr/local/bin/wait-for-it.sh mysql:3306 -- mvn datanucleus:schema-create && mvn jetty:run"]

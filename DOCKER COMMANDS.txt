@@ -4,3 +4,4 @@ docker network create bike-lending-network
 docker-compose up --build
 
 
+curl “http://127.0.0.1:8080"
