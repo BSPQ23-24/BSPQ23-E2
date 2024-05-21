@@ -9,6 +9,8 @@ import com.deusto.app.server.pojo.UserData;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 
@@ -23,11 +25,13 @@ public class LoginUI extends JFrame {
     private JButton loginButton;
     private JButton registerButton;
     private JButton forgotPasswordButton;
+    private JLabel dniLabel,passwordLabel, titleLabel;
 
     private ResourceBundle translation;
     
     public LoginUI() {
         this.translation = ResourceBundle.getBundle("translation", Locale.getDefault());
+        
 
         setTitle(translation.getString("title_Login"));
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -46,13 +50,24 @@ public class LoginUI extends JFrame {
         JPanel mainPanel = new JPanel(new BorderLayout());
         mainPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
         mainPanel.setBackground(new Color(0, 150, 136)); // Background color
+        
+        JPanel topPanel = new JPanel(new BorderLayout());
+        topPanel.setOpaque(false);
 
         // Title label at the top
-        JLabel titleLabel = new JLabel(translation.getString("welcome_title"), SwingConstants.CENTER);
+        titleLabel = new JLabel(translation.getString("welcome_title"), SwingConstants.CENTER);
         titleLabel.setFont(new Font("Arial", Font.BOLD, 48)); // Set the font size and style
         titleLabel.setForeground(Color.WHITE);
-        mainPanel.add(titleLabel, BorderLayout.NORTH);
 
+        // Add flags
+        JPanel flagPanel = addFlags(); // Extract flag addition to a separate method
+        topPanel.add(titleLabel, BorderLayout.CENTER);
+        topPanel.add(flagPanel, BorderLayout.WEST);
+
+        mainPanel.add(topPanel, BorderLayout.NORTH);
+
+        // Title label at the top
+        
         // Center Panel for logo, text fields, and buttons
         JPanel centerPanel = new JPanel();
         centerPanel.setLayout(new BoxLayout(centerPanel, BoxLayout.Y_AXIS));
@@ -73,7 +88,7 @@ public class LoginUI extends JFrame {
      // Panel for DNI and its label
         JPanel dniPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 5, 5));
         dniPanel.setOpaque(false);
-        JLabel dniLabel = new JLabel(translation.getString("Username") + ":");
+        dniLabel = new JLabel(translation.getString("Username") + ":");
         dniLabel.setForeground(Color.WHITE);
         dniPanel.add(dniLabel);
 
@@ -85,7 +100,7 @@ public class LoginUI extends JFrame {
         // Panel for Password and its label
         JPanel passwordPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 5, 0));
         passwordPanel.setOpaque(false);
-        JLabel passwordLabel = new JLabel(translation.getString("Password") + ":");
+        passwordLabel = new JLabel(translation.getString("Password") + ":");
         passwordLabel.setForeground(Color.WHITE);
         passwordPanel.add(passwordLabel);
 
@@ -115,6 +130,7 @@ public class LoginUI extends JFrame {
         centerPanel.add(forgotPasswordButton);
 
         mainPanel.add(centerPanel, BorderLayout.CENTER);
+        
 
         // Add the main panel to the window
         add(mainPanel);
@@ -187,6 +203,60 @@ public class LoginUI extends JFrame {
                 dispose();
             }
         });
+    }
+    
+
+    private JPanel addFlags() {
+        JPanel flagPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        JLabel spanishLabel=new JLabel();
+        ImageIcon spanishFlag = new ImageIcon("C:/Users/Usuario/Documents/BSPQ23-E2/bike-lending-app/src/main/resources/spanish.png");
+        Image scaledSpanish = spanishFlag.getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH); // Increased size
+        ImageIcon scaledIcon = new ImageIcon(scaledSpanish);
+        spanishLabel.setIcon(scaledIcon);
+        
+        JLabel polishLabel = new JLabel();
+        ImageIcon polishFlag=new ImageIcon("C:/Users/Usuario/Documents/BSPQ23-E2/bike-lending-app/src/main/resources/polish.png");
+        Image scaledPolish = polishFlag.getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH); // Increased size
+        ImageIcon scaledIcon2 = new ImageIcon(scaledPolish);
+        polishLabel.setIcon(scaledIcon2);
+        
+        
+        spanishLabel.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        polishLabel.setCursor(new Cursor(Cursor.HAND_CURSOR));
+
+        spanishLabel.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent e) {
+            	changeLocale(new Locale("es","ES"));
+            }
+        });
+
+        polishLabel.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent e) {
+            	changeLocale(new Locale("pl","PL"));
+            }
+        });
+
+        flagPanel.add(spanishLabel);
+        flagPanel.add(polishLabel);
+        flagPanel.setBackground(new Color(0, 150, 136));
+        return flagPanel;
+    }
+
+    private void changeLocale(Locale locale) {
+        Locale.setDefault(locale);
+        this.translation = ResourceBundle.getBundle("translation", locale);
+        updateTexts();
+    }
+
+    private void updateTexts() {
+        registerButton.setText(translation.getString("Register"));
+        loginButton.setText(translation.getString("Login"));
+        forgotPasswordButton.setText(translation.getString("forgot_password"));
+        passwordLabel.setText(translation.getString("Password") + ":"); 
+        dniLabel.setText(translation.getString("Username") + ":");
+        titleLabel.setText(translation.getString("welcome_title"));
+        
+        
     }
 
     public void showLogin() {
