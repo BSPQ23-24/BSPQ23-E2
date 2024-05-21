@@ -40,10 +40,7 @@ public class CreateBikeUI extends JFrame {
     private JComboBox<String> type, station;
     private JDatePickerImpl acquisitionDate;
     
-	/**
-	 * Constructor for the CreateBikeUI class.
-	 * Sets up the UI components for creating a new bike.
-	 */
+
     public CreateBikeUI() {
        
         setTitle("Crear Bicicleta");
@@ -136,14 +133,7 @@ public class CreateBikeUI extends JFrame {
 
 
 
-    	    /**
-			 * Adds a label and its corresponding input field to the provided panel.
-			 *
-			 * @param panel The panel to which the label and field will be added.
-			 * @param label The text for the label.
-			 * @param field The input field component to be added.
-			 * @param gbc The GridBagConstraints object to manage the layout constraints.
-			 */
+    	    
     	    private void addField(JPanel panel, String label, Component field, GridBagConstraints gbc) {
     	        gbc.gridwidth = GridBagConstraints.RELATIVE; // Label
     	        JLabel jLabel= new JLabel(label);
@@ -153,21 +143,11 @@ public class CreateBikeUI extends JFrame {
     	        panel.add(field, gbc);
     	    }
     	    
-			/**
-			 * Validates that all required fields are filled.
-			 *
-			 * @return true if all fields (station, type, acquisition date) are not null; false otherwise.
-			 */
     	    private boolean validateFields() {
     	        return station.getSelectedItem() != null && type.getSelectedItem() != null 
     	        		&&  acquisitionDate.getModel().getValue() != null;
     	    }
-			
-			/**
-			 * Adds a new bike based on user input if all fields are validated.
-			 *
-			 * @param stations The list of available stations.
-			 */
+
     	    private void addBike(List<StationData> stations) {
     	    	if(validateFields()) {
         	        // Assume the UserData class and UserController handle registration
