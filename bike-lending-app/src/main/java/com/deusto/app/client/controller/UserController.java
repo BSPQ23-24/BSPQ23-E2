@@ -137,12 +137,6 @@ public class UserController {
 		}
 	}
 	
-	/**
-	 * Retrieves the user data of the user with the given token.
-	 *
-	 * @param token the user's session token
-	 * @return the user data of the user with the given token
-	 */
 	public UserData getUser(@QueryParam("token") long token) {
 		LogManager.getLogger(UserController.class).info("Get User Start " );
 		WebTarget getUserWebTarget = ServiceLocator.getInstance().getWebTarget().path("bikeapp/user/getuser")
