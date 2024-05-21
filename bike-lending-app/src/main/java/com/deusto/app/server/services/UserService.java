@@ -40,6 +40,13 @@ public class UserService {
 		serverState = new HashMap<>();
 		initializeData();
 	}
+	
+	// Constructor for testing purposes
+	public UserService(PersistenceManagerFactory pmf) {
+	    this.pmf = pmf;
+	    serverState = new HashMap<>();
+	}
+
 
 	/**
      * Returns the singleton instance of UserService.
@@ -81,7 +88,7 @@ public class UserService {
 			} catch (javax.jdo.JDOObjectNotFoundException jonfe) {
 				// User not found, proceed to registration
 				user = new User(userData.getDni(), userData.getPassword(), userData.getName(), userData.getSurname(),
-						userData.getDateOfBirth(), userData.getPhone(), userData.getMail(), true);
+						userData.getDateOfBirth(), userData.getPhone(), userData.getMail(), false);
 
 				pm.makePersistent(user);
 				LogManager.getLogger(UserService.class).info("Registration Success | User: '{}'", userData.getDni());
@@ -223,6 +230,10 @@ public class UserService {
 			pm.close();
 		}
 	}
+	
+	public User getUser(long token) {
+		return serverState.get(token);
+	}
 
 	/**
      * Initializes example data for the application.
@@ -304,7 +315,7 @@ public class UserService {
 
 				// Create and persist example Loans
 				Loan loan1 = new Loan();
-				loan1.setLoanDate("15-04-2023");
+				loan1.setLoanDate("2023-04-15");
 				loan1.setStartHour("10:00");
 				loan1.setEndHour("12:00");
 				loan1.setUser(user1);
@@ -312,10 +323,10 @@ public class UserService {
 				pm.makePersistent(loan1);
 
 				Loan loan2 = new Loan();
-				loan2.setLoanDate("16-04-2023");
-				loan2.setStartHour("13:00");
-				loan2.setEndHour("15:00");
-				loan2.setUser(user2);
+				loan2.setLoanDate("2024-05-20");
+				loan2.setStartHour("20:00");
+				loan2.setEndHour("23:59");
+				loan2.setUser(user1);
 				loan2.setBicycle(bike3);
 				pm.makePersistent(loan2);
 

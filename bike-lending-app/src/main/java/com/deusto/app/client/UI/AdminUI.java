@@ -4,14 +4,10 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
-import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.List;
-import java.util.Locale;
-import java.util.ResourceBundle;
+
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -20,15 +16,13 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JSeparator;
+
 import javax.swing.JSplitPane;
 import javax.swing.JTable;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableCellRenderer;
-import javax.swing.table.TableCellRenderer;
+
 
 import com.deusto.app.client.controller.AdminController;
 import com.deusto.app.client.controller.BikeController;
@@ -37,10 +31,12 @@ import com.deusto.app.client.controller.UserController;
 import com.deusto.app.server.pojo.BicycleData;
 import com.deusto.app.server.pojo.LoanData;
 import com.deusto.app.server.pojo.StationData;
-import com.deusto.app.server.pojo.UserData;
+
 
 public class AdminUI extends JFrame {
-    private JTable loansTable, nonAvailableBikesTable;
+    
+	private static final long serialVersionUID = 1L;
+	private JTable loansTable, nonAvailableBikesTable;
 
     public AdminUI() {
         setTitle("Bike Administration");
@@ -142,8 +138,8 @@ public class AdminUI extends JFrame {
         nonAvailableBikesPanel.add(header, BorderLayout.NORTH);
         
      // Fetch station data
-        List<BicycleData> bikes = BikeController.getInstance().displayNoAvailableBikes(UserController.getInstance().getToken());
-        List<StationData> stations = BikeController.getInstance().displayStations(UserController.getInstance().getToken());
+        List<BicycleData> bikes = BikeController.getInstance().displayNoAvailableBikes(UserController.getToken());
+        List<StationData> stations = BikeController.getInstance().displayStations(UserController.getToken());
 
         // Create a table to display station data
         String[] columnNames = {"ID","Type","Station"};
@@ -185,7 +181,9 @@ public class AdminUI extends JFrame {
 
     private void setupTable(JTable table) {
         table.setDefaultRenderer(Object.class, new DefaultTableCellRenderer(){
-            @Override
+			private static final long serialVersionUID = 1L;
+
+			@Override
             public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
                 super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
                 if (isSelected) {
@@ -203,7 +201,7 @@ public class AdminUI extends JFrame {
         public void mousePressed(MouseEvent e) {
             JTable source = (JTable) e.getSource();
             int row = source.rowAtPoint(e.getPoint());
-            int column = source.columnAtPoint(e.getPoint());
+            
 
             // Clear selection when clicking outside of valid rows
             if (!source.isRowSelected(row)) {
@@ -214,11 +212,17 @@ public class AdminUI extends JFrame {
 }
 
     private void logout() {
-    	JOptionPane.showMessageDialog(this, "See YOU!");
-    	new LoginUI();
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setVisible(false);
-        dispose();
+    	boolean logout = UserController.getInstance().logoutUser(UserController.getToken());
+    	
+    	if (logout) {
+            JOptionPane.showMessageDialog(AdminUI.this, "Logged out successfully.");
+            new LoginUI();
+            setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            setVisible(false);
+            dispose();
+    	} else {
+            JOptionPane.showMessageDialog(AdminUI.this, "Log out failed.");
+    	}
         
     }
     

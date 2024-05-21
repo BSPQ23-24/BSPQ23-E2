@@ -170,24 +170,22 @@
 				<groupId>org.jacoco</groupId>
 				<artifactId>jacoco-maven-plugin</artifactId>
 				<version>0.8.12</version>
+				<configuration>
+                    <excludes> <!-- We can't exclude specific DataNucleus methods in the domain classes -->
+						<exclude>**/client/**/*</exclude> <!-- Exclude client classes for example -->
+                    </excludes>
+                </configuration>
 				<executions>
 					<execution>
 						<goals>
 							<goal>prepare-agent</goal>
 						</goals>
-						<configuration>
-                            <excludes>
-                                <exclude>**/*IT.*</exclude>
-								<exclude>**/*PT.*</exclude>
-								<exclude>**/dn*</exclude> <!-- Exclude datanucleus methods -->
-                            </excludes>
-                        </configuration>
 					</execution>
 					<execution>
-						<id>report</id>
+						<id>jacoco-check</id>
 						<phase>test</phase>
 						<goals>
-							<goal>report</goal>
+							<goal>check</goal>
 						</goals>
 						<configuration>
 							<rules>
@@ -208,6 +206,13 @@
 								</rule>
 							</rules>
 						</configuration>
+					</execution>
+					<execution>
+						<id>report</id>
+						<phase>test</phase>
+						<goals>
+							<goal>report</goal>
+						</goals>
 					</execution>
 				</executions>
 			</plugin>

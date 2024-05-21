@@ -2,11 +2,16 @@ package com.deusto.app.client.controller;
 
 import com.deusto.app.client.remote.ServiceLocator;
 import com.deusto.app.server.pojo.UserData;
+
+import jakarta.ws.rs.QueryParam;
 import jakarta.ws.rs.client.Entity;
 import jakarta.ws.rs.client.Invocation;
 import jakarta.ws.rs.client.WebTarget;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
+
+
+
 import org.apache.logging.log4j.LogManager;
 
 /**
@@ -129,6 +134,25 @@ public class UserController {
 			LogManager.getLogger(UserController.class).error("Logout failed. Code: {}, Reason: {}",
 					response.getStatus(), response.readEntity(String.class));
 			return false;
+		}
+	}
+	
+	public UserData getUser(@QueryParam("token") long token) {
+		LogManager.getLogger(UserController.class).info("Get User Start " );
+		WebTarget getUserWebTarget = ServiceLocator.getInstance().getWebTarget().path("bikeapp/user/getuser")
+																				 .queryParam("token", token);
+		Invocation.Builder invocationBuilder = getUserWebTarget.request(MediaType.APPLICATION_JSON);
+
+		Response response = invocationBuilder.get();
+		if (response.getStatus() == Response.Status.OK.getStatusCode()) {
+			UserData userData = response.readEntity(UserData.class);
+			LogManager.getLogger(UserController.class).info("Get User Success");
+			return userData;
+
+		} else {
+			LogManager.getLogger(UserController.class).error("Get User Failed | Code: {} | Reason: {}",
+					response.getStatus(), response.readEntity(String.class));
+			return null;
 		}
 	}
 

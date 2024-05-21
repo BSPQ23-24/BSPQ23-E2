@@ -1,10 +1,9 @@
 package com.deusto.app.server.remote;
 
 import java.util.List;
-import com.deusto.app.server.data.domain.Bicycle;
-import com.deusto.app.server.data.domain.User;
 import com.deusto.app.server.pojo.BicycleData;
 import com.deusto.app.server.pojo.StationData;
+import com.deusto.app.server.pojo.UserAssembler;
 import com.deusto.app.server.pojo.UserData;
 import com.deusto.app.server.services.AdminService;
 import com.deusto.app.server.services.BikeService;
@@ -13,7 +12,6 @@ import com.deusto.app.server.pojo.LoanData;
 import com.deusto.app.server.services.LoanService;
 
 import jakarta.ws.rs.DELETE;
-import jakarta.ws.rs.FormParam;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
@@ -108,6 +106,27 @@ public class ResourceFacade {
 		boolean logout_success = UserService.getInstance().logoutUser(token);
 		if (logout_success) {
 			return Response.ok().entity("User logged out successfully").build();
+		} else {
+			return Response.status(Response.Status.UNAUTHORIZED).entity("Invalid token or user not logged in").build();
+		}
+	}
+	
+	/**
+     * Return´s a user from a token
+     *
+     * @param token the user's authentication token
+     * @return Response returning the user´s data
+     */
+	@GET
+	@Path("/user/getuser")
+	public Response getUser(@QueryParam("token") long token) {
+		if (UserService.getInstance().isLoggedIn(token)) {
+			UserData userData=UserAssembler.getInstance().userToPOJO(UserService.getInstance().getUser(token));
+			if (userData!=null) {
+				return Response.ok(userData).build();
+			} else {
+				return Response.serverError().entity("Error sending the user").build();
+			}
 		} else {
 			return Response.status(Response.Status.UNAUTHORIZED).entity("Invalid token or user not logged in").build();
 		}
@@ -342,6 +361,23 @@ public class ResourceFacade {
 	    if (UserService.getInstance().isLoggedIn(token)) {
 	        List<LoanData> loans = LoanService.getInstance().getAllLoans();
 	        return Response.ok(loans).build();
+	    } else {
+	        return Response.status(Response.Status.UNAUTHORIZED).entity("User is not logged in").build();
+	    }
+	}
+	
+	/**
+	 * Check if the user has an active loan.
+	 *
+	 * @param token the user's authentication token
+	 * @return Response containing a boolean if the user has an active loan
+	 */
+	@GET
+	@Path("/loan/active")
+	public Response isLoanActive(@QueryParam("token") long token) {
+	    if (UserService.getInstance().isLoggedIn(token)) {
+	        LoanData loan = LoanService.getInstance().isLoanActive(token);
+	        return Response.ok(loan).build();
 	    } else {
 	        return Response.status(Response.Status.UNAUTHORIZED).entity("User is not logged in").build();
 	    }

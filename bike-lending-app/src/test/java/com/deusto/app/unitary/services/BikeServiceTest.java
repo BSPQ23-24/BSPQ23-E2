@@ -3,6 +3,7 @@ package com.deusto.app.unitary.services;
 import static org.mockito.Mockito.*;
 import static org.junit.jupiter.api.Assertions.*;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -11,11 +12,14 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.deusto.app.server.data.domain.Bicycle;
 import com.deusto.app.server.data.domain.Station;
-import com.deusto.app.server.pojo.BicycleAssembler;
 import com.deusto.app.server.pojo.BicycleData;
-import com.deusto.app.server.pojo.StationAssembler;
 import com.deusto.app.server.pojo.StationData;
 import com.deusto.app.server.services.BikeService;
+
+import javax.jdo.PersistenceManager;
+import javax.jdo.PersistenceManagerFactory;
+import javax.jdo.Query;
+import javax.jdo.Transaction;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -24,10 +28,23 @@ import java.util.List;
 @ExtendWith(MockitoExtension.class)
 public class BikeServiceTest {
 
-
     @InjectMocks
     private BikeService bikeService;
 
+    @Mock
+    private PersistenceManagerFactory pmf;
+
+    @Mock
+    private PersistenceManager pm;
+
+    @Mock
+    private Transaction tx;
+
+    @BeforeEach
+    public void setUp() {
+        when(pmf.getPersistenceManager()).thenReturn(pm);
+        when(pm.currentTransaction()).thenReturn(tx);
+    }
 
     @Test
     public void testGetAvailableBikesInStation() {
@@ -35,7 +52,7 @@ public class BikeServiceTest {
         Station station = new Station();
         station.setId(1);
         station.setLocation("Location");
-        
+
         // Create bicycles and associate them with the station
         Bicycle bicycle1 = new Bicycle();
         bicycle1.setId(1);
@@ -43,7 +60,7 @@ public class BikeServiceTest {
         bicycle1.setType("Type 1");
         bicycle1.setAvailable(true);
         bicycle1.setStation(station);
-        
+
         Bicycle bicycle2 = new Bicycle();
         bicycle2.setId(2);
         bicycle2.setAcquisitionDate("2024-05-18");
@@ -56,16 +73,12 @@ public class BikeServiceTest {
         bikes.add(bicycle2);
         station.setBikes(bikes);
 
-        // Mocking behavior
-        BikeService mockedBikeService = mock(BikeService.class);
-        when(mockedBikeService.getAvailableBikesInStation(1))
-                .thenReturn(BicycleAssembler.getInstance().bikesToPOJO(bikes));
+        when(pm.getObjectById(Station.class, 1)).thenReturn(station);
 
         // Testing
-        List<BicycleData> bicycleDataList = mockedBikeService.getAvailableBikesInStation(1);
-        assertEquals(2, bicycleDataList.size());
+        List<BicycleData> bicycleDataList = bikeService.getAvailableBikesInStation(1);
+        assertEquals(1, bicycleDataList.size());
         assertEquals("Type 1", bicycleDataList.get(0).getType());
-        assertEquals("Type 2", bicycleDataList.get(1).getType());
     }
 
     @Test
@@ -87,13 +100,13 @@ public class BikeServiceTest {
         bikesStation1.add(bicycle1Station1);
         station1.setBikes(bikesStation1);
 
-        // Mocking behavior
-        BikeService mockedBikeService = mock(BikeService.class);
         List<Station> stations = Arrays.asList(station1);
-        when(mockedBikeService.displayStations()).thenReturn(StationAssembler.getInstance().stationsToPOJO(stations));
+        Query<Station> stationQuery = mock(Query.class);
+        when(pm.newQuery(Station.class)).thenReturn(stationQuery);
+        when(stationQuery.execute()).thenReturn(stations);
 
         // Testing
-        List<StationData> stationDataList = mockedBikeService.displayStations();
+        List<StationData> stationDataList = bikeService.displayStations();
         assertEquals(1, stationDataList.size());
         assertEquals("Location 1", stationDataList.get(0).getLocation());
         assertNotNull(stationDataList.get(0).getBikeIds()); // Ensure bikeIds list is not null
@@ -109,13 +122,10 @@ public class BikeServiceTest {
         bicycle.setType("Type");
         bicycle.setStation(new Station()); // Set a dummy station
 
-        // Mocking behavior
-        BikeService mockedBikeService = mock(BikeService.class);
-        when(mockedBikeService.getBikeById(1))
-                .thenReturn(BicycleAssembler.getInstance().bikeToPOJO(bicycle));
+        when(pm.getObjectById(Bicycle.class, 1)).thenReturn(bicycle);
 
         // Testing
-        BicycleData bicycleData = mockedBikeService.getBikeById(1);
+        BicycleData bicycleData = bikeService.getBikeById(1);
         assertEquals(1, bicycleData.getId());
         assertEquals("Type", bicycleData.getType());
     }

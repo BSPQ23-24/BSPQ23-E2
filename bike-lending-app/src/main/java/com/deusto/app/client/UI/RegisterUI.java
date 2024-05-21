@@ -11,16 +11,13 @@ import com.deusto.app.client.controller.UserController;
 import com.deusto.app.server.pojo.UserData;
 
 import java.awt.*;
-import java.awt.event.*;
+
 
 
 import java.util.Locale;
 import java.util.ResourceBundle;
 
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+
 import java.text.SimpleDateFormat;
 import java.util.Properties;
 
@@ -62,7 +59,7 @@ public class RegisterUI extends JFrame {
     	        Image scaledImage = icon.getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH); // Increased size
     	        ImageIcon scaledIcon = new ImageIcon(scaledImage);
     	        titlePanel.add(new JLabel(scaledIcon));
-    	        JLabel titleLabel=new JLabel("Nuevo Miembro!", SwingConstants.CENTER);
+    	        JLabel titleLabel=new JLabel(translation.getString("title_register"), SwingConstants.CENTER);
     	        titleLabel.setFont(new Font("Arial", Font.BOLD, 30)); // Bigger font size
     	        titleLabel.setForeground(Color.WHITE); // Set text color to white
     	        titlePanel.add(titleLabel);
@@ -71,18 +68,18 @@ public class RegisterUI extends JFrame {
 		       
     	        // Adding fields
     	        addField(panel, translation.getString("Username") + ":", dniField = new JTextField(20), gbc);
-    	        addField(panel, "Name:", nameField = new JTextField(20), gbc);
-    	        addField(panel, "Surname:", surnameField = new JTextField(20), gbc);
-    	        addField(panel, "Date of Birth:", dateOfBirthPicker, gbc);
-    	        addField(panel, "Phone:", phoneField = new JTextField(20), gbc);
-    	        addField(panel, "Mail:", mailField = new JTextField(20), gbc);
+    	        addField(panel, translation.getString("Name") + ":", nameField = new JTextField(20), gbc);
+    	        addField(panel, translation.getString("Surname") + ":", surnameField = new JTextField(20), gbc);
+    	        addField(panel, translation.getString("Nacimiento") + ":", dateOfBirthPicker, gbc);
+    	        addField(panel, translation.getString("Phone") + ":", phoneField = new JTextField(20), gbc);
+    	        addField(panel, translation.getString("Mail") + ":", mailField = new JTextField(20), gbc);
     	        addField(panel, translation.getString("Password") + ":", passwordField = new JPasswordField(20), gbc);
-    	        addField(panel, "Repeat Password:", repeatPassword = new JPasswordField(20), gbc);
+    	        addField(panel, translation.getString("repeat_password") + ":", repeatPassword = new JPasswordField(20), gbc);
 
 
     	        // Buttons
     	        JButton registerButton = new JButton(translation.getString("register_act"));
-    	        JButton backButton = new JButton("Volver");
+    	        JButton backButton = new JButton(translation.getString("Volver") + ":");
     	        registerButton.setBackground(new Color(255, 114, 118));
 
        
@@ -90,7 +87,7 @@ public class RegisterUI extends JFrame {
     	            if (validateFields()) {
     	                registerUser();
     	            } else {
-    	                JOptionPane.showMessageDialog(this, "Please fill in all fields.", "Error", JOptionPane.ERROR_MESSAGE);
+    	                JOptionPane.showMessageDialog(this, translation.getString("msg_fill_fields"), "Error", JOptionPane.ERROR_MESSAGE);
     	            }
     	        });
     	        
@@ -132,9 +129,9 @@ public class RegisterUI extends JFrame {
     	    }
 
     	    private void registerUser() {
-    	    	if(validateFields()) {
+    	    	
     	    		if (!passwordField.getText().equals(repeatPassword.getText())) {
-        	            JOptionPane.showMessageDialog(this, "Las contraseñas no son iguales!");
+        	            JOptionPane.showMessageDialog(this, translation.getString("msg_pass_equal"), "Error", JOptionPane.ERROR_MESSAGE);
         	            return;
         	        }
         	        // Assume the UserData class and UserController handle registration
@@ -162,9 +159,7 @@ public class RegisterUI extends JFrame {
     	            } else {
     	            	JOptionPane.showMessageDialog(RegisterUI.this, translation.getString("msg_register_error"));
     	            }
-    	    	} else {
-    	    		JOptionPane.showMessageDialog(this, "Rellena todo los campos!");
-    	    	}
+    	    	
     	        
     	    }
 

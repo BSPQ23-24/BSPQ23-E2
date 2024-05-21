@@ -10,6 +10,7 @@ import javax.jdo.Transaction;
 import org.apache.logging.log4j.LogManager;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import com.deusto.app.server.data.domain.Bicycle;
 import com.deusto.app.server.data.domain.Station;
@@ -32,6 +33,11 @@ public class BikeService {
 	 */
 	private BikeService() {
 		pmf = JDOHelper.getPersistenceManagerFactory("datanucleus.properties");
+	}
+	
+	// Constructor for testing purposes
+	public BikeService(PersistenceManagerFactory pmf) {
+	    this.pmf = pmf;
 	}
 
 	/**
@@ -67,7 +73,7 @@ public class BikeService {
 			tx.commit();
 
 			LogManager.getLogger(BikeService.class).info("Display Stations Success");
-			System.out.println(StationAssembler.getInstance().stationsToPOJO(stations));
+			
 
 			return StationAssembler.getInstance().stationsToPOJO(stations);
 
@@ -139,8 +145,11 @@ public class BikeService {
 			tx.begin();
 
 			Station station = pm.getObjectById(Station.class, stationId);
-			List<Bicycle> availableBikes = station.getBikes();
-			System.out.println(availableBikes);
+			List<Bicycle> bikes = station.getBikes();
+			List<Bicycle> availableBikes=new ArrayList<Bicycle>();
+			for (Bicycle bike : bikes) {
+				if(bike.isAvailable()) availableBikes.add(bike);
+			}
 
 			tx.commit();
 

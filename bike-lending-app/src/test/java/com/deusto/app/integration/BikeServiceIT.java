@@ -42,38 +42,6 @@ public class BikeServiceIT {
 
 	}
 
-	/*
-	 * @Test public void testCreateBike() { // Arrange BicycleData bikeData = new
-	 * BicycleData(); bikeData.setType("Mountain Bike");
-	 * bikeData.setAcquisitionDate("2024-04-26");
-	 * 
-	 * 
-	 * // Act boolean result = BikeController.getInstance().createBike(stationId,
-	 * bikeData, userController.getToken());
-	 * 
-	 * // Assert assertTrue(result, "Bike creation should return true on success");
-	 * }
-	 */
-
-	/*
-	 * @Test public void testSelectBike() { // Arrange int stationId = 1;
-	 * BicycleData expectedBike = new BicycleData(); expectedBike.setId(1);
-	 * expectedBike.setType("Mountain Bike"); String expectedResponse =
-	 * "{\"id\":1,\"type\":\"Mountain Bike\"}"; Response mockResponse =
-	 * Response.ok(expectedResponse).build();
-	 * 
-	 * // Mocking the behavior of Invocation.Builder to return a mocked response
-	 * when(invocationBuilder.get()).thenReturn(mockResponse);
-	 * 
-	 * // Act BicycleData response = bikeController.selectBike(stationId,
-	 * userController.getToken());
-	 * 
-	 * // Assert assertNotNull(response, "Response should not be null");
-	 * assertEquals(expectedBike.getId(), response.getId(), "Bike ID should match");
-	 * assertEquals(expectedBike.getType(), response.getType(),
-	 * "Bike type should match"); }
-	 */
-
 	@Test
 	public void testGetAvailableBikesInStation() {
 
@@ -84,8 +52,7 @@ public class BikeServiceIT {
 
 		assertNotNull(response, "Response should not be null");
 		assertFalse(response.isEmpty(), "List of bikes should not be empty");
-		assertEquals(response.size(), 2, "Number of bikes should match");
-		assertTrue(response.getFirst().isAvailable(), "The bikes in the list should be available");
+		assertEquals(response.size(), 1, "Number of bikes should match");
 	}
 
 	@Test

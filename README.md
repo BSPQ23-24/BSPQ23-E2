@@ -7,7 +7,6 @@ The Bike Lending App is a Maven-based Java project designed to facilitate bike r
 ## Documentation
 
 - [Doxygen Documentation](https://bspq23-24.github.io/BSPQ23-E2/doxygen)
-- [JaCoCo Report](https://bspq23-24.github.io/BSPQ23-E2/jacoco/)
 
 ## Getting Started
 
@@ -65,7 +64,10 @@ To get started with the Bike Lending App, ensure you have Maven and MySQL instal
    mvn test
    ```
 
-7. **Running Integration Tests**  
+   Here you can check the JaCoCo coverage report resulting from the last push/pull request into the main branch:
+   - [JaCoCo Report](https://bspq23-24.github.io/BSPQ23-E2/jacoco/)
+
+8. **Running Integration Tests**  
    To continue with this verification, you can execute the integrations tests following the next commands. Ensure that the server is running, as the tests may interact with it to validate the end-to-end functionalities.
 
    Note: The tests are designed to run independently of the client application. They directly test the server's REST API endpoints, simulating the actions a client would perform.

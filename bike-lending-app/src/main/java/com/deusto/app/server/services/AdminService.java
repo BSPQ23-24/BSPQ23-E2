@@ -27,6 +27,11 @@ public class AdminService {
 		pmf = JDOHelper.getPersistenceManagerFactory("datanucleus.properties");
 	}
 
+	// Constructor for testing purposes
+    public AdminService(PersistenceManagerFactory pmf) {
+        this.pmf = pmf;
+    }
+	
 	/**
 	 * Returns the singleton instance of AdminService.
 	 *

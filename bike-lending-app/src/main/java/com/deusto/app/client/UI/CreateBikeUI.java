@@ -9,9 +9,9 @@ import java.awt.Image;
 import java.awt.Insets;
 import java.text.SimpleDateFormat;
 import java.util.List;
-import java.util.Locale;
+
 import java.util.Properties;
-import java.util.ResourceBundle;
+
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -39,11 +39,11 @@ public class CreateBikeUI extends JFrame {
     private static final long serialVersionUID = 1L;
     private JComboBox<String> type, station;
     private JDatePickerImpl acquisitionDate;
-    private ResourceBundle translation;
+    
 
     public CreateBikeUI() {
-        this.translation = ResourceBundle.getBundle("translation", Locale.getDefault());
-        setTitle(translation.getString("title_Register"));
+       
+        setTitle("Crear Bicicleta");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setExtendedState(JFrame.MAXIMIZED_BOTH);  // Make the window fullscreen
         setLocationRelativeTo(null);
@@ -99,7 +99,7 @@ public class CreateBikeUI extends JFrame {
 
 
     	        // Buttons
-    	        JButton addButton = new JButton(translation.getString("register_act"));
+    	        JButton addButton = new JButton("Crear Bici");
     	        JButton backButton = new JButton("Volver");
     	        addButton.setBackground(new Color(255, 114, 118));
 
