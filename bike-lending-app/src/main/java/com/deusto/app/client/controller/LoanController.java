@@ -27,6 +27,11 @@ public class LoanController {
         return instance;
     }
 
+    /**
+     * Retrieves all loans from the system.
+     *
+     * @return a list of LoanData representing all loans, or null if retrieval fails
+     */
     public List<LoanData> getAllLoans() {
         LogManager.getLogger(LoanController.class).info("Get All Loans Start");
         WebTarget getAllLoansWebTarget = ServiceLocator.getInstance().getWebTarget().path("bikeapp/loan/all")
@@ -44,6 +49,12 @@ public class LoanController {
         }
     }
 
+    /**
+     * Creates a new loan in the system.
+     *
+     * @param loanData the loan data to be created
+     * @return true if the loan creation is successful, false otherwise
+     */
     public boolean createLoan(LoanData loanData) {
         LogManager.getLogger(LoanController.class).info("Create Loan Start");
         WebTarget createLoanWebTarget = ServiceLocator.getInstance().getWebTarget().path("bikeapp/loan/create")
@@ -61,6 +72,12 @@ public class LoanController {
         }
     }
 
+    /**
+     * Deletes a loan from the system.
+     *
+     * @param loanId the ID of the loan to be deleted
+     * @return true if the loan is successfully deleted, false otherwise
+     */
     public boolean deleteLoan(int loanId) {
         LogManager.getLogger(LoanController.class).info("Delete Loan Start");
         WebTarget deleteLoanWebTarget = ServiceLocator.getInstance().getWebTarget().path("bikeapp/loan/delete/" + loanId)

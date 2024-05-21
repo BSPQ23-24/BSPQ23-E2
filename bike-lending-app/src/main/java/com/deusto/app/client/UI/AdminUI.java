@@ -45,6 +45,10 @@ public class AdminUI extends JFrame {
         initComponents();
     }
 
+    /**
+     * Initializes the components of the main user interface.
+     * Sets up the main panel, logout button, split pane, and buttons for loan and bike management.
+     */
     private void initComponents() {
         JPanel mainPanel = new JPanel(new BorderLayout(10, 10));
         mainPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
@@ -79,6 +83,12 @@ public class AdminUI extends JFrame {
         setVisible(true);
     }
 
+    /**
+     * Sets up the loans panel within the split pane.
+     * Configures the layout, header label, and table for displaying loan data.
+     *
+     * @param splitPane the split pane to which the loans panel will be added
+     */
     private void setupLoansPanel(JSplitPane splitPane) {
         JPanel loansPanel = new JPanel(new BorderLayout());
         
@@ -128,6 +138,13 @@ public class AdminUI extends JFrame {
         loansTable.getTableHeader().setBackground(new Color(255, 114, 118));
     }
 
+        /**
+     * Sets up the panel for displaying non-available bikes within the split pane.
+     * Configures the layout, header label, and table for displaying bike data.
+     * Adds a button to reactivate bikes and handles the necessary background setup.
+     *
+     * @param splitPane the split pane to which the non-available bikes panel will be added
+     */
     private void setupNonAvailableBikesPanel(JSplitPane splitPane) {
         JPanel nonAvailableBikesPanel = new JPanel(new BorderLayout());
         JLabel header = new JLabel("NO AVAILABLE BIKES", SwingConstants.CENTER);
@@ -179,6 +196,13 @@ public class AdminUI extends JFrame {
      
     }
 
+    /**
+     * Configures the table for displaying data.
+     * Sets up custom rendering for table cells to change background color when selected.
+     * Adds a mouse listener to clear selection when clicking outside of valid rows.
+     *
+     * @param table the JTable to be configured
+     */
     private void setupTable(JTable table) {
         table.setDefaultRenderer(Object.class, new DefaultTableCellRenderer(){
 			private static final long serialVersionUID = 1L;
@@ -211,6 +235,12 @@ public class AdminUI extends JFrame {
     });
 }
 
+    /**
+     * Logs out the current user.
+     * Calls the UserController to perform the logout operation.
+     * Displays a success message and redirects to the login screen if logout is successful.
+     * Displays an error message if logout fails.
+     */
     private void logout() {
     	boolean logout = UserController.getInstance().logoutUser(UserController.getToken());
     	
@@ -225,7 +255,13 @@ public class AdminUI extends JFrame {
     	}
         
     }
-    
+    /**
+     * Deletes the selected loan.
+     * Retrieves the selected row from the loans table.
+     * Deletes the loan using LoanController based on the selected loan's ID.
+     * Displays a success message if the deletion is successful and redirects to the admin UI.
+     * Displays an error message if deletion fails.
+     */
     private void deleteLoan() {
     	int selectedRow = loansTable.getSelectedRow();
         if (selectedRow >= 0) {
@@ -246,7 +282,13 @@ public class AdminUI extends JFrame {
         }
         
     }
-
+    /**
+     * Reactivates the selected bike.
+     * Retrieves the selected row from the non-available bikes table.
+     * Reactivates the bike using AdminController based on the selected bike's ID.
+     * Displays a success message if reactivation is successful and redirects to the admin UI.
+     * Displays an error message if reactivation fails.
+     */
     private void reactivateBike() {
     	int selectedRow = nonAvailableBikesTable.getSelectedRow();
         if (selectedRow >= 0) {
@@ -267,7 +309,10 @@ public class AdminUI extends JFrame {
             JOptionPane.showMessageDialog(this, "No loan selected.");
         }
     }
-
+    /**
+     * Opens a new UI for creating a new bike.
+     * Closes the current UI.
+     */
     private void createNewBike() {
         new CreateBikeUI();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

@@ -27,7 +27,13 @@ public class DisplayStationsUI extends JFrame {
     private JButton reportButton;
 
     
-
+    /**
+     * Constructor for the DisplayStationsUI class.
+     * Sets the title of the window, the default close operation, 
+     * and makes the window fullscreen and centered.
+     * Calls the initComponents() method to initialize the UI components.
+     * Finally, sets the window to be visible.
+     */
     public DisplayStationsUI() {
         
         setTitle("Display Stations");
@@ -36,6 +42,16 @@ public class DisplayStationsUI extends JFrame {
 
         initComponents();
     }
+
+    /**
+     * Initializes the components of the UI for displaying station data.
+     * Sets up the main panel with a title label and a table to display station data fetched from the server.
+     * Configures the table appearance, such as font, row height, and selection color.
+     * Adds a listener to the table selection to open a new window displaying bike details for the selected station.
+     * Sets up a status panel at the bottom with a report button and a status label.
+     * Configures the report button to trigger a report action.
+     * Also includes setup for a logout button at the top of the window.
+     */
 
     private void initComponents() {
         // Main panel setup
@@ -157,6 +173,12 @@ public class DisplayStationsUI extends JFrame {
         setVisible(true);
     }
     
+    /**
+     * Reports the active loan, if any, associated with the current user's token.
+     * If a loan is active, it displays a message indicating that the bike has been reported and the rental is canceled.
+     * Deletes the loan from the server and refreshes the display of stations.
+     * If no loan is active, it displays a message indicating that the user has not rented any bike.
+     */
     private void report() {
     	long token = UserController.getToken();
     	LoanData loan= LoanController.getInstance().isLoanActive(token);
@@ -173,6 +195,12 @@ public class DisplayStationsUI extends JFrame {
     		JOptionPane.showMessageDialog(DisplayStationsUI.this, "No tienes alquilada ninguna bicicleta!");
     	}
     }
+
+    /**
+     * Updates the status panel based on the active loan associated with the current user's token.
+     * If a loan is active, it sets the background color of the status panel to orange and displays a message indicating that the user has an active bike rental.
+     * If no loan is active, it sets the background color of the status panel to blue, sets the report button's background color to blue, and displays a message indicating that the user is waiting to rent a bike.
+     */
     private void updateStatusPanel() {
     	LoanData loan= LoanController.getInstance().isLoanActive(UserController.getToken());
         if (loan!=null) {
