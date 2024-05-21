@@ -28,6 +28,10 @@ public class RegisterUI extends JFrame {
     private JDatePickerImpl dateOfBirthPicker;
     private ResourceBundle translation;
 
+	/**
+	 * Constructor for the RegisterUI class.
+	 * Sets up the UI components for user registration.
+	 */
     public RegisterUI() {
         this.translation = ResourceBundle.getBundle("translation", Locale.getDefault());
         setTitle(translation.getString("title_Register"));
@@ -112,7 +116,14 @@ public class RegisterUI extends JFrame {
 
 
 
-    	    
+    	    /**
+			 * Adds a labeled field to the specified panel with the given constraints.
+			 * 
+			 * @param panel The panel to which the field will be added.
+			 * @param label The label for the field.
+			 * @param field The component representing the field.
+			 * @param gbc   The GridBagConstraints specifying the layout constraints.
+			 */
     	    private void addField(JPanel panel, String label, Component field, GridBagConstraints gbc) {
     	        gbc.gridwidth = GridBagConstraints.RELATIVE; // Label
     	        JLabel jLabel= new JLabel(label);
@@ -122,12 +133,21 @@ public class RegisterUI extends JFrame {
     	        panel.add(field, gbc);
     	    }
     	    
+			/**
+			 * Validates the input fields for registration.
+			 * 
+			 * @return true if all fields are filled, false otherwise.
+			 */
     	    private boolean validateFields() {
     	        return !dniField.getText().isEmpty() && !nameField.getText().isEmpty() && !passwordField.getText().isEmpty() &&
     	                !surnameField.getText().isEmpty() && dateOfBirthPicker.getModel().getValue() != null && !phoneField.getText().isEmpty() &&
     	                !mailField.getText().isEmpty() && !repeatPassword.getText().isEmpty();
     	    }
 
+			/**
+			 * Registers a new user with the provided information.
+			 * Validates the password and registers the user if all fields are filled correctly.
+			 */
     	    private void registerUser() {
     	    	
     	    		if (!passwordField.getText().equals(repeatPassword.getText())) {

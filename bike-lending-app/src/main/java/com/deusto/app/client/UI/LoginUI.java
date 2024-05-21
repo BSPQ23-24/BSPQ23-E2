@@ -28,6 +28,10 @@ public class LoginUI extends JFrame {
 
     private ResourceBundle translation;
     
+    /**
+     * Constructor for the LoginUI class.
+     * Initializes the login user interface.
+     */
     public LoginUI() {
         this.translation = ResourceBundle.getBundle("translation", Locale.getDefault());
         
@@ -41,6 +45,10 @@ public class LoginUI extends JFrame {
         setupListeners();
     }
 
+    /**
+     * Initializes the components for the login user interface.
+     * Sets up the main panel, title, logo, input fields, and buttons.
+     */
     private void initComponents() {
         // Make the window fullscreen
         setExtendedState(JFrame.MAXIMIZED_BOTH);

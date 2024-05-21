@@ -34,6 +34,14 @@ public class AdminController {
 		return instance;
 	}
 	
+	/**
+	 * Adds a new bike to the system.
+	 *
+	 * @param bikeData the bike data to be added
+	 * @param token    the user's authentication token
+	 * @return true if the bike addition is successful, false otherwise
+	 */
+
 	public boolean addBike(BicycleData bikeData, @QueryParam("token") long token) {
 		
 		LogManager.getLogger(AdminController.class).info("Register Start");
@@ -53,6 +61,13 @@ public class AdminController {
 		}
 	}
 	
+	/**
+	 * Disables a bike.
+	 *
+	 * @param bikeId the ID of the bike to be disabled
+	 * @param token  the user's authentication token
+	 * @return true if the bike is successfully disabled, false otherwise
+	 */
 	public boolean disableBike(@QueryParam("bikeId") int bikeId, @QueryParam("token") long token) {
 			
 			LogManager.getLogger(AdminController.class).info("Register Start");
@@ -73,6 +88,13 @@ public class AdminController {
 			}
 	}
 	
+	/**
+	 * Re-enables a previously disabled bike.
+	 *
+	 * @param bikeId the ID of the bike to be re-enabled
+	 * @param token  the user's authentication token
+	 * @return true if the bike is successfully re-enabled, false otherwise
+	 */
 	public boolean ableBike(@QueryParam("bikeId") int bikeId, @QueryParam("token") long token) {
 		
 		LogManager.getLogger(AdminController.class).info("Register Start");
