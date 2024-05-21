@@ -97,9 +97,9 @@ $(document).ready(function(){initNavTree('_create_bike_u_i_8java_source.html',''
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">import</span> java.awt.Insets;</div>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">import</span> java.text.SimpleDateFormat;</div>
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">import</span> java.util.List;</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keyword">import</span> java.util.Locale;</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160; </div>
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="keyword">import</span> java.util.Properties;</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="keyword">import</span> java.util.ResourceBundle;</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160; </div>
 <div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160; </div>
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="keyword">import</span> javax.swing.ImageIcon;</div>
 <div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="keyword">import</span> javax.swing.JButton;</div>
@@ -127,11 +127,11 @@ $(document).ready(function(){initNavTree('_create_bike_u_i_8java_source.html',''
 <div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keywordtype">long</span> serialVersionUID = 1L;</div>
 <div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <span class="keyword">private</span> JComboBox&lt;String&gt; type, station;</div>
 <div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    <span class="keyword">private</span> JDatePickerImpl acquisitionDate;</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    <span class="keyword">private</span> ResourceBundle translation;</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    </div>
 <div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160; </div>
 <div class="line"><a name="l00044"></a><span class="lineno"><a class="line" href="classcom_1_1deusto_1_1app_1_1client_1_1_u_i_1_1_create_bike_u_i.html#a6611ba28a91cda8dd8c5134a46c54e8c">   44</a></span>&#160;    <span class="keyword">public</span> <a class="code" href="classcom_1_1deusto_1_1app_1_1client_1_1_u_i_1_1_create_bike_u_i.html#a6611ba28a91cda8dd8c5134a46c54e8c">CreateBikeUI</a>() {</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;        this.translation = ResourceBundle.getBundle(<span class="stringliteral">&quot;translation&quot;</span>, Locale.getDefault());</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;        setTitle(translation.getString(<span class="stringliteral">&quot;title_Register&quot;</span>));</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;       </div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;        setTitle(<span class="stringliteral">&quot;Crear Bicicleta&quot;</span>);</div>
 <div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);</div>
 <div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;        setExtendedState(JFrame.MAXIMIZED_BOTH);  <span class="comment">// Make the window fullscreen</span></div>
 <div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;        setLocationRelativeTo(<span class="keyword">null</span>);</div>
@@ -187,7 +187,7 @@ $(document).ready(function(){initNavTree('_create_bike_u_i_8java_source.html',''
 <div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160; </div>
 <div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160; </div>
 <div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;                <span class="comment">// Buttons</span></div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;                JButton addButton = <span class="keyword">new</span> JButton(translation.getString(<span class="stringliteral">&quot;register_act&quot;</span>));</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;                JButton addButton = <span class="keyword">new</span> JButton(<span class="stringliteral">&quot;Crear Bici&quot;</span>);</div>
 <div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;                JButton backButton = <span class="keyword">new</span> JButton(<span class="stringliteral">&quot;Volver&quot;</span>);</div>
 <div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;                addButton.setBackground(<span class="keyword">new</span> Color(255, 114, 118));</div>
 <div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160; </div>
@@ -282,8 +282,8 @@ $(document).ready(function(){initNavTree('_create_bike_u_i_8java_source.html',''
 <div class="ttc" id="aclasscom_1_1deusto_1_1app_1_1client_1_1controller_1_1_bike_controller_html"><div class="ttname"><a href="classcom_1_1deusto_1_1app_1_1client_1_1controller_1_1_bike_controller.html">com.deusto.app.client.controller.BikeController</a></div><div class="ttdef"><b>Definition:</b> <a href="_bike_controller_8java_source.html#l00024">BikeController.java:24</a></div></div>
 <div class="ttc" id="aclasscom_1_1deusto_1_1app_1_1client_1_1controller_1_1_bike_controller_html_a1646d903064ad4655b3455b1c674d6bc"><div class="ttname"><a href="classcom_1_1deusto_1_1app_1_1client_1_1controller_1_1_bike_controller.html#a1646d903064ad4655b3455b1c674d6bc">com.deusto.app.client.controller.BikeController.displayStations</a></div><div class="ttdeci">List&lt; StationData &gt; displayStations(@QueryParam(&quot;token&quot;) long token)</div><div class="ttdef"><b>Definition:</b> <a href="_bike_controller_8java_source.html#l00077">BikeController.java:77</a></div></div>
 <div class="ttc" id="aclasscom_1_1deusto_1_1app_1_1client_1_1controller_1_1_bike_controller_html_a7a137c4396c2d3964ad5c2de127d0559"><div class="ttname"><a href="classcom_1_1deusto_1_1app_1_1client_1_1controller_1_1_bike_controller.html#a7a137c4396c2d3964ad5c2de127d0559">com.deusto.app.client.controller.BikeController.getInstance</a></div><div class="ttdeci">static synchronized BikeController getInstance()</div><div class="ttdef"><b>Definition:</b> <a href="_bike_controller_8java_source.html#l00038">BikeController.java:38</a></div></div>
-<div class="ttc" id="aclasscom_1_1deusto_1_1app_1_1client_1_1controller_1_1_user_controller_html"><div class="ttname"><a href="classcom_1_1deusto_1_1app_1_1client_1_1controller_1_1_user_controller.html">com.deusto.app.client.controller.UserController</a></div><div class="ttdef"><b>Definition:</b> <a href="_user_controller_8java_source.html#l00024">UserController.java:24</a></div></div>
-<div class="ttc" id="aclasscom_1_1deusto_1_1app_1_1client_1_1controller_1_1_user_controller_html_a91e3c45d5c3c3e76dc6443b2ae9ca138"><div class="ttname"><a href="classcom_1_1deusto_1_1app_1_1client_1_1controller_1_1_user_controller.html#a91e3c45d5c3c3e76dc6443b2ae9ca138">com.deusto.app.client.controller.UserController.getToken</a></div><div class="ttdeci">static long getToken()</div><div class="ttdef"><b>Definition:</b> <a href="_user_controller_8java_source.html#l00166">UserController.java:166</a></div></div>
+<div class="ttc" id="aclasscom_1_1deusto_1_1app_1_1client_1_1controller_1_1_user_controller_html"><div class="ttname"><a href="classcom_1_1deusto_1_1app_1_1client_1_1controller_1_1_user_controller.html">com.deusto.app.client.controller.UserController</a></div><div class="ttdef"><b>Definition:</b> <a href="_user_controller_8java_source.html#l00022">UserController.java:22</a></div></div>
+<div class="ttc" id="aclasscom_1_1deusto_1_1app_1_1client_1_1controller_1_1_user_controller_html_a91e3c45d5c3c3e76dc6443b2ae9ca138"><div class="ttname"><a href="classcom_1_1deusto_1_1app_1_1client_1_1controller_1_1_user_controller.html#a91e3c45d5c3c3e76dc6443b2ae9ca138">com.deusto.app.client.controller.UserController.getToken</a></div><div class="ttdeci">static long getToken()</div><div class="ttdef"><b>Definition:</b> <a href="_user_controller_8java_source.html#l00164">UserController.java:164</a></div></div>
 <div class="ttc" id="aclasscom_1_1deusto_1_1app_1_1server_1_1pojo_1_1_station_data_html"><div class="ttname"><a href="classcom_1_1deusto_1_1app_1_1server_1_1pojo_1_1_station_data.html">com.deusto.app.server.pojo.StationData</a></div><div class="ttdef"><b>Definition:</b> <a href="_station_data_8java_source.html#l00005">StationData.java:5</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->

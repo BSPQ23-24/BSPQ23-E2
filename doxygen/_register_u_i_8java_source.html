@@ -147,7 +147,7 @@ $(document).ready(function(){initNavTree('_register_u_i_8java_source.html',''); 
 <div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;                Image scaledImage = icon.getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH); <span class="comment">// Increased size</span></div>
 <div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;                ImageIcon scaledIcon = <span class="keyword">new</span> ImageIcon(scaledImage);</div>
 <div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;                titlePanel.add(<span class="keyword">new</span> JLabel(scaledIcon));</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;                JLabel titleLabel=<span class="keyword">new</span> JLabel(<span class="stringliteral">&quot;Nuevo Miembro!&quot;</span>, SwingConstants.CENTER);</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;                JLabel titleLabel=<span class="keyword">new</span> JLabel(translation.getString(<span class="stringliteral">&quot;title_register&quot;</span>), SwingConstants.CENTER);</div>
 <div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;                titleLabel.setFont(<span class="keyword">new</span> Font(<span class="stringliteral">&quot;Arial&quot;</span>, Font.BOLD, 30)); <span class="comment">// Bigger font size</span></div>
 <div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;                titleLabel.setForeground(Color.WHITE); <span class="comment">// Set text color to white</span></div>
 <div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;                titlePanel.add(titleLabel);</div>
@@ -156,18 +156,18 @@ $(document).ready(function(){initNavTree('_register_u_i_8java_source.html',''); 
 <div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;               </div>
 <div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;                <span class="comment">// Adding fields</span></div>
 <div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;                addField(panel, translation.getString(<span class="stringliteral">&quot;Username&quot;</span>) + <span class="stringliteral">&quot;:&quot;</span>, dniField = <span class="keyword">new</span> JTextField(20), gbc);</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;                addField(panel, <span class="stringliteral">&quot;Name:&quot;</span>, nameField = <span class="keyword">new</span> JTextField(20), gbc);</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;                addField(panel, <span class="stringliteral">&quot;Surname:&quot;</span>, surnameField = <span class="keyword">new</span> JTextField(20), gbc);</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;                addField(panel, <span class="stringliteral">&quot;Date of Birth:&quot;</span>, dateOfBirthPicker, gbc);</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;                addField(panel, <span class="stringliteral">&quot;Phone:&quot;</span>, phoneField = <span class="keyword">new</span> JTextField(20), gbc);</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;                addField(panel, <span class="stringliteral">&quot;Mail:&quot;</span>, mailField = <span class="keyword">new</span> JTextField(20), gbc);</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;                addField(panel, translation.getString(<span class="stringliteral">&quot;Name&quot;</span>) + <span class="stringliteral">&quot;:&quot;</span>, nameField = <span class="keyword">new</span> JTextField(20), gbc);</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;                addField(panel, translation.getString(<span class="stringliteral">&quot;Surname&quot;</span>) + <span class="stringliteral">&quot;:&quot;</span>, surnameField = <span class="keyword">new</span> JTextField(20), gbc);</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;                addField(panel, translation.getString(<span class="stringliteral">&quot;Nacimiento&quot;</span>) + <span class="stringliteral">&quot;:&quot;</span>, dateOfBirthPicker, gbc);</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;                addField(panel, translation.getString(<span class="stringliteral">&quot;Phone&quot;</span>) + <span class="stringliteral">&quot;:&quot;</span>, phoneField = <span class="keyword">new</span> JTextField(20), gbc);</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;                addField(panel, translation.getString(<span class="stringliteral">&quot;Mail&quot;</span>) + <span class="stringliteral">&quot;:&quot;</span>, mailField = <span class="keyword">new</span> JTextField(20), gbc);</div>
 <div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;                addField(panel, translation.getString(<span class="stringliteral">&quot;Password&quot;</span>) + <span class="stringliteral">&quot;:&quot;</span>, passwordField = <span class="keyword">new</span> JPasswordField(20), gbc);</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;                addField(panel, <span class="stringliteral">&quot;Repeat Password:&quot;</span>, repeatPassword = <span class="keyword">new</span> JPasswordField(20), gbc);</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;                addField(panel, translation.getString(<span class="stringliteral">&quot;repeat_password&quot;</span>) + <span class="stringliteral">&quot;:&quot;</span>, repeatPassword = <span class="keyword">new</span> JPasswordField(20), gbc);</div>
 <div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160; </div>
 <div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160; </div>
 <div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;                <span class="comment">// Buttons</span></div>
 <div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;                JButton registerButton = <span class="keyword">new</span> JButton(translation.getString(<span class="stringliteral">&quot;register_act&quot;</span>));</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;                JButton backButton = <span class="keyword">new</span> JButton(<span class="stringliteral">&quot;Volver&quot;</span>);</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;                JButton backButton = <span class="keyword">new</span> JButton(translation.getString(<span class="stringliteral">&quot;Volver&quot;</span>) + <span class="stringliteral">&quot;:&quot;</span>);</div>
 <div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;                registerButton.setBackground(<span class="keyword">new</span> Color(255, 114, 118));</div>
 <div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160; </div>
 <div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;       </div>
@@ -175,7 +175,7 @@ $(document).ready(function(){initNavTree('_register_u_i_8java_source.html',''); 
 <div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;                    <span class="keywordflow">if</span> (validateFields()) {</div>
 <div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;                        registerUser();</div>
 <div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;                    } <span class="keywordflow">else</span> {</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;                        JOptionPane.showMessageDialog(<span class="keyword">this</span>, <span class="stringliteral">&quot;Please fill in all fields.&quot;</span>, <span class="stringliteral">&quot;Error&quot;</span>, JOptionPane.ERROR_MESSAGE);</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;                        JOptionPane.showMessageDialog(<span class="keyword">this</span>, translation.getString(<span class="stringliteral">&quot;msg_fill_fields&quot;</span>), <span class="stringliteral">&quot;Error&quot;</span>, JOptionPane.ERROR_MESSAGE);</div>
 <div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;                    }</div>
 <div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;                });</div>
 <div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;                </div>
@@ -217,9 +217,9 @@ $(document).ready(function(){initNavTree('_register_u_i_8java_source.html',''); 
 <div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;            }</div>
 <div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160; </div>
 <div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;            <span class="keyword">private</span> <span class="keywordtype">void</span> registerUser() {</div>
-<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;                <span class="keywordflow">if</span>(validateFields()) {</div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;                </div>
 <div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;                    <span class="keywordflow">if</span> (!passwordField.getText().equals(repeatPassword.getText())) {</div>
-<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;                        JOptionPane.showMessageDialog(<span class="keyword">this</span>, <span class="stringliteral">&quot;Las contraseñas no son iguales!&quot;</span>);</div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;                        JOptionPane.showMessageDialog(<span class="keyword">this</span>, translation.getString(<span class="stringliteral">&quot;msg_pass_equal&quot;</span>), <span class="stringliteral">&quot;Error&quot;</span>, JOptionPane.ERROR_MESSAGE);</div>
 <div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;                        <span class="keywordflow">return</span>;</div>
 <div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;                    }</div>
 <div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;                    <span class="comment">// Assume the UserData class and UserController handle registration</span></div>
@@ -247,20 +247,18 @@ $(document).ready(function(){initNavTree('_register_u_i_8java_source.html',''); 
 <div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;                    } <span class="keywordflow">else</span> {</div>
 <div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;                        JOptionPane.showMessageDialog(<a class="code" href="classcom_1_1deusto_1_1app_1_1client_1_1_u_i_1_1_register_u_i.html#a00687cd56383ba63b4f42c5ecbf70fb0">RegisterUI</a>.this, translation.getString(<span class="stringliteral">&quot;msg_register_error&quot;</span>));</div>
 <div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;                    }</div>
-<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;                } <span class="keywordflow">else</span> {</div>
-<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;                    JOptionPane.showMessageDialog(<span class="keyword">this</span>, <span class="stringliteral">&quot;Rellena todo los campos!&quot;</span>);</div>
-<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;                }</div>
-<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;                </div>
-<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;            }</div>
-<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160; </div>
-<div class="line"><a name="l00168"></a><span class="lineno"><a class="line" href="classcom_1_1deusto_1_1app_1_1client_1_1_u_i_1_1_register_u_i.html#a0d8c75c381d8a5e2bd1a03626e81c244">  168</a></span>&#160;            <span class="keyword">public</span> <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="classcom_1_1deusto_1_1app_1_1client_1_1_u_i_1_1_register_u_i.html#a0d8c75c381d8a5e2bd1a03626e81c244">main</a>(String[] args) {</div>
-<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;                SwingUtilities.invokeLater(RegisterUI::new);</div>
-<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;            }</div>
-<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;        }</div>
-<div class="ttc" id="aclasscom_1_1deusto_1_1app_1_1client_1_1_u_i_1_1_login_u_i_html"><div class="ttname"><a href="classcom_1_1deusto_1_1app_1_1client_1_1_u_i_1_1_login_u_i.html">com.deusto.app.client.UI.LoginUI</a></div><div class="ttdef"><b>Definition:</b> <a href="_login_u_i_8java_source.html#l00021">LoginUI.java:21</a></div></div>
+<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;                </div>
+<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;                </div>
+<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;            }</div>
+<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160; </div>
+<div class="line"><a name="l00166"></a><span class="lineno"><a class="line" href="classcom_1_1deusto_1_1app_1_1client_1_1_u_i_1_1_register_u_i.html#a0d8c75c381d8a5e2bd1a03626e81c244">  166</a></span>&#160;            <span class="keyword">public</span> <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="classcom_1_1deusto_1_1app_1_1client_1_1_u_i_1_1_register_u_i.html#a0d8c75c381d8a5e2bd1a03626e81c244">main</a>(String[] args) {</div>
+<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;                SwingUtilities.invokeLater(RegisterUI::new);</div>
+<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;            }</div>
+<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;        }</div>
+<div class="ttc" id="aclasscom_1_1deusto_1_1app_1_1client_1_1_u_i_1_1_login_u_i_html"><div class="ttname"><a href="classcom_1_1deusto_1_1app_1_1client_1_1_u_i_1_1_login_u_i.html">com.deusto.app.client.UI.LoginUI</a></div><div class="ttdef"><b>Definition:</b> <a href="_login_u_i_8java_source.html#l00020">LoginUI.java:20</a></div></div>
 <div class="ttc" id="aclasscom_1_1deusto_1_1app_1_1client_1_1_u_i_1_1_register_u_i_html"><div class="ttname"><a href="classcom_1_1deusto_1_1app_1_1client_1_1_u_i_1_1_register_u_i.html">com.deusto.app.client.UI.RegisterUI</a></div><div class="ttdef"><b>Definition:</b> <a href="_register_u_i_8java_source.html#l00025">RegisterUI.java:25</a></div></div>
 <div class="ttc" id="aclasscom_1_1deusto_1_1app_1_1client_1_1_u_i_1_1_register_u_i_html_a00687cd56383ba63b4f42c5ecbf70fb0"><div class="ttname"><a href="classcom_1_1deusto_1_1app_1_1client_1_1_u_i_1_1_register_u_i.html#a00687cd56383ba63b4f42c5ecbf70fb0">com.deusto.app.client.UI.RegisterUI.RegisterUI</a></div><div class="ttdeci">RegisterUI()</div><div class="ttdef"><b>Definition:</b> <a href="_register_u_i_8java_source.html#l00031">RegisterUI.java:31</a></div></div>
-<div class="ttc" id="aclasscom_1_1deusto_1_1app_1_1client_1_1_u_i_1_1_register_u_i_html_a0d8c75c381d8a5e2bd1a03626e81c244"><div class="ttname"><a href="classcom_1_1deusto_1_1app_1_1client_1_1_u_i_1_1_register_u_i.html#a0d8c75c381d8a5e2bd1a03626e81c244">com.deusto.app.client.UI.RegisterUI.main</a></div><div class="ttdeci">static void main(String[] args)</div><div class="ttdef"><b>Definition:</b> <a href="_register_u_i_8java_source.html#l00168">RegisterUI.java:168</a></div></div>
+<div class="ttc" id="aclasscom_1_1deusto_1_1app_1_1client_1_1_u_i_1_1_register_u_i_html_a0d8c75c381d8a5e2bd1a03626e81c244"><div class="ttname"><a href="classcom_1_1deusto_1_1app_1_1client_1_1_u_i_1_1_register_u_i.html#a0d8c75c381d8a5e2bd1a03626e81c244">com.deusto.app.client.UI.RegisterUI.main</a></div><div class="ttdeci">static void main(String[] args)</div><div class="ttdef"><b>Definition:</b> <a href="_register_u_i_8java_source.html#l00166">RegisterUI.java:166</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
