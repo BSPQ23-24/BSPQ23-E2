@@ -74,7 +74,7 @@ public class LoginUI extends JFrame {
 
         // Adding logo
         JLabel logoLabel = new JLabel();
-        ImageIcon originalIcon = new ImageIcon("C:/Users/Usuario/Documents/BSPQ23-E2/bike-lending-app/src/main/resources/logo.png");
+        ImageIcon originalIcon = new ImageIcon("src\\main\\resources\\logo.png");
         Image scaledImage = originalIcon.getImage().getScaledInstance(400, 400, Image.SCALE_SMOOTH); // Increased size
         ImageIcon scaledIcon = new ImageIcon(scaledImage);
         logoLabel.setIcon(scaledIcon);
@@ -209,13 +209,13 @@ public class LoginUI extends JFrame {
     private JPanel addFlags() {
         JPanel flagPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         JLabel spanishLabel=new JLabel();
-        ImageIcon spanishFlag = new ImageIcon("C:/Users/Usuario/Documents/BSPQ23-E2/bike-lending-app/src/main/resources/spanish.png");
+        ImageIcon spanishFlag = new ImageIcon("src\\main\\resources\\spanish.png");
         Image scaledSpanish = spanishFlag.getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH); // Increased size
         ImageIcon scaledIcon = new ImageIcon(scaledSpanish);
         spanishLabel.setIcon(scaledIcon);
         
         JLabel polishLabel = new JLabel();
-        ImageIcon polishFlag=new ImageIcon("C:/Users/Usuario/Documents/BSPQ23-E2/bike-lending-app/src/main/resources/polish.png");
+        ImageIcon polishFlag=new ImageIcon("src\\main\\resources\\polish.png");
         Image scaledPolish = polishFlag.getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH); // Increased size
         ImageIcon scaledIcon2 = new ImageIcon(scaledPolish);
         polishLabel.setIcon(scaledIcon2);
