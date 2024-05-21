@@ -1,8 +1,6 @@
 package com.deusto.app.server.remote;
 
 import java.util.List;
-import com.deusto.app.server.data.domain.Bicycle;
-import com.deusto.app.server.data.domain.User;
 import com.deusto.app.server.pojo.BicycleData;
 import com.deusto.app.server.pojo.StationData;
 import com.deusto.app.server.pojo.UserAssembler;
@@ -14,7 +12,6 @@ import com.deusto.app.server.pojo.LoanData;
 import com.deusto.app.server.services.LoanService;
 
 import jakarta.ws.rs.DELETE;
-import jakarta.ws.rs.FormParam;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;

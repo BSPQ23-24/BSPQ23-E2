@@ -16,24 +16,21 @@ import com.deusto.app.server.pojo.LoanData;
 import com.deusto.app.server.pojo.StationData;
 
 import java.awt.*;
-import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
-import java.util.Locale;
 import java.util.Properties;
-import java.util.ResourceBundle;
+
 
 public class BicycleDetailUI extends JFrame {
     private static final long serialVersionUID = 1L;
     private JComboBox<BicycleData> bikes;
     private JComboBox<String> startHour, endHour;
     private JDatePickerImpl loanDate;
-    private ResourceBundle translation;
 
     public BicycleDetailUI(int stationID) {
-        this.translation = ResourceBundle.getBundle("translation", Locale.getDefault());
-        setTitle(translation.getString("title_Register"));
+        
+        setTitle("Alquilar Bicicleta");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setExtendedState(JFrame.MAXIMIZED_BOTH);  // Make the window fullscreen
         setLocationRelativeTo(null);
@@ -56,7 +53,8 @@ public class BicycleDetailUI extends JFrame {
     	        ImageIcon scaledIcon = new ImageIcon(scaledImage);
     	        titlePanel.add(new JLabel(scaledIcon));
     	        List<StationData> stations = BikeController.getInstance().displayStations(UserController.getToken());
-    	        StationData sta=null;
+    	        
+				StationData sta=new StationData();
     	        for (StationData station : stations) {
 					if(station.getId()==stationID)sta=station;
 				}

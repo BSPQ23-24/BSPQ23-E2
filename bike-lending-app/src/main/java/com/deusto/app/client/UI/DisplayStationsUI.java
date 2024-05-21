@@ -4,23 +4,20 @@ import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableCellRenderer;
-import javax.swing.table.TableCellRenderer;
 
-import com.deusto.app.client.controller.AdminController;
+
+
 import com.deusto.app.client.controller.BikeController;
 import com.deusto.app.client.controller.LoanController;
 import com.deusto.app.client.controller.UserController;
-import com.deusto.app.server.pojo.BicycleData;
 import com.deusto.app.server.pojo.LoanData;
 import com.deusto.app.server.pojo.StationData;
 
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+
 import java.util.List;
 
-import java.util.Locale;
-import java.util.ResourceBundle;
+
 
 public class DisplayStationsUI extends JFrame {
     private static final long serialVersionUID = 1L;
@@ -29,11 +26,11 @@ public class DisplayStationsUI extends JFrame {
     private JLabel statusLabel;
     private JButton reportButton;
 
-    private ResourceBundle translation;
+    
 
     public DisplayStationsUI() {
-        this.translation = ResourceBundle.getBundle("translation", Locale.getDefault());
-        setTitle(translation.getString("title_Stations"));
+        
+        setTitle("Display Stations");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setExtendedState(JFrame.MAXIMIZED_BOTH);
 
@@ -53,10 +50,10 @@ public class DisplayStationsUI extends JFrame {
         mainPanel.add(titleLabel, BorderLayout.NORTH);
 
         // Fetch station data
-        List<StationData> stations = BikeController.getInstance().displayStations(UserController.getInstance().getToken());
+        List<StationData> stations = BikeController.getInstance().displayStations(UserController.getToken());
 
         // Create a table to display station data
-        String[] columnNames = {translation.getString("column_ID"), translation.getString("column_Location"), translation.getString("column_Bike_IDs")};
+        String[] columnNames = {"ID Estación", "Localización", "Bicicletas"};
         Object[][] data = new Object[stations.size()][3];
         for (int i = 0; i < stations.size(); i++) {
             StationData station = stations.get(i);

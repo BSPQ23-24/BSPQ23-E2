@@ -1,18 +1,16 @@
 package com.deusto.app.client.controller;
 
 import com.deusto.app.client.remote.ServiceLocator;
-import com.deusto.app.server.pojo.BicycleData;
 import com.deusto.app.server.pojo.UserData;
 
 import jakarta.ws.rs.QueryParam;
 import jakarta.ws.rs.client.Entity;
 import jakarta.ws.rs.client.Invocation;
 import jakarta.ws.rs.client.WebTarget;
-import jakarta.ws.rs.core.GenericType;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
-import java.util.List;
+
 
 import org.apache.logging.log4j.LogManager;
 

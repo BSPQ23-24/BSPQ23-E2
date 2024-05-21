@@ -34,7 +34,9 @@ import com.deusto.app.server.pojo.StationData;
 
 
 public class AdminUI extends JFrame {
-    private JTable loansTable, nonAvailableBikesTable;
+    
+	private static final long serialVersionUID = 1L;
+	private JTable loansTable, nonAvailableBikesTable;
 
     public AdminUI() {
         setTitle("Bike Administration");
@@ -136,8 +138,8 @@ public class AdminUI extends JFrame {
         nonAvailableBikesPanel.add(header, BorderLayout.NORTH);
         
      // Fetch station data
-        List<BicycleData> bikes = BikeController.getInstance().displayNoAvailableBikes(UserController.getInstance().getToken());
-        List<StationData> stations = BikeController.getInstance().displayStations(UserController.getInstance().getToken());
+        List<BicycleData> bikes = BikeController.getInstance().displayNoAvailableBikes(UserController.getToken());
+        List<StationData> stations = BikeController.getInstance().displayStations(UserController.getToken());
 
         // Create a table to display station data
         String[] columnNames = {"ID","Type","Station"};
@@ -179,7 +181,9 @@ public class AdminUI extends JFrame {
 
     private void setupTable(JTable table) {
         table.setDefaultRenderer(Object.class, new DefaultTableCellRenderer(){
-            @Override
+			private static final long serialVersionUID = 1L;
+
+			@Override
             public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
                 super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
                 if (isSelected) {
@@ -197,7 +201,7 @@ public class AdminUI extends JFrame {
         public void mousePressed(MouseEvent e) {
             JTable source = (JTable) e.getSource();
             int row = source.rowAtPoint(e.getPoint());
-            int column = source.columnAtPoint(e.getPoint());
+            
 
             // Clear selection when clicking outside of valid rows
             if (!source.isRowSelected(row)) {

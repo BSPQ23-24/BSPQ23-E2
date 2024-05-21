@@ -1,9 +1,8 @@
 package com.deusto.app.client.main;
 
 import com.deusto.app.client.UI.LoginUI;
-import com.deusto.app.client.controller.UserController;
 import com.deusto.app.client.remote.ServiceLocator;
-import com.deusto.app.server.pojo.UserData;
+
 
 public class BikeClient {
 
