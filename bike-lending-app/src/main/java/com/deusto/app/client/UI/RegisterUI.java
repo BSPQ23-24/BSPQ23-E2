@@ -55,7 +55,7 @@ public class RegisterUI extends JFrame {
     	        // Title with icons
     	        JPanel titlePanel = new JPanel();
     	        titlePanel.setBackground(new Color(0, 150, 136));
-    	        ImageIcon icon = new ImageIcon("C:/Users/Usuario/Documents/BSPQ23-E2/bike-lending-app/src/main/resources/logo.png");
+    	        ImageIcon icon = new ImageIcon("src\\\\main\\\\resources\\\\logo.png");
     	        Image scaledImage = icon.getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH); // Increased size
     	        ImageIcon scaledIcon = new ImageIcon(scaledImage);
     	        titlePanel.add(new JLabel(scaledIcon));
