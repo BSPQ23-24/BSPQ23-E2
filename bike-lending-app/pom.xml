@@ -20,7 +20,7 @@
 		<maven.compiler.source>21</maven.compiler.source>
 		<maven.compiler.target>21</maven.compiler.target>
 		<jersey.version>3.1.5</jersey.version>
-		<server.hostname>127.0.0.1</server.hostname>
+		<server.hostname>0.0.0.0</server.hostname>
 		<server.port>8080</server.port>
 		<config.files.dir>${basedir}/src/main/resources</config.files.dir>
 	</properties>

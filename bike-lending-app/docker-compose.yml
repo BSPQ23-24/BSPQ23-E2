@@ -23,6 +23,7 @@ services:
       retries: 3
 
   server:
+    container_name: server
     build:
       context: .
       dockerfile: Dockerfile.server
