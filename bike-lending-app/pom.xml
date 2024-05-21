@@ -182,10 +182,10 @@
 						</goals>
 					</execution>
 					<execution>
-						<id>report</id>
+						<id>jacoco-check</id>
 						<phase>test</phase>
 						<goals>
-							<goal>report</goal>
+							<goal>check</goal>
 						</goals>
 						<configuration>
 							<rules>
@@ -206,6 +206,13 @@
 								</rule>
 							</rules>
 						</configuration>
+					</execution>
+					<execution>
+						<id>report</id>
+						<phase>test</phase>
+						<goals>
+							<goal>report</goal>
+						</goals>
 					</execution>
 				</executions>
 			</plugin>

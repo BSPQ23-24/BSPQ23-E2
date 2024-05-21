@@ -176,7 +176,7 @@ public class DisplayStationsUI extends JFrame {
     private void updateStatusPanel() {
     	LoanData loan= LoanController.getInstance().isLoanActive(UserController.getToken());
         if (loan!=null) {
-        	System.out.println(loan);	
+        	// System.out.println(loan);	
             statusPanel.setBackground(Color.ORANGE);
             statusLabel.setText("Tienes una bici activada");
         } else {
